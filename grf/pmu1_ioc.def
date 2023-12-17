@@ -1,0 +1,388 @@
+[IOC_PMU1, GRF]
+@ = 0x0FD5F0000, 0x00004000
+
+GPIO0A_IOMUX_SEL_L = 0x0000 ; GPIO0A IOMUX Select Low bits
+> 12, 4, GPIO0A3_SEL
+= 0, GPIO
+= 1, PMIC_SLEEP2
+
+> 8, 4, GPIO0A2_SEL
+= 0, GPIO
+= 1, PMIC_SLEEP1
+= 2, TSADC_SHUT_M1
+
+> 4, 4, GPIO0A1_SEL
+= 0, GPIO
+= 1, TSADC_SHUT_ORG
+= 2, TSADC_SHUT
+
+> 0, 4, GPIO0A0_SEL
+= 0, GPIO
+= 1, REFCLK_OUT
+
+GPIO0A_IOMUX_SEL_H = 0x0004 ; GPIO0A IOMUX Select High bits
+> 12, 4, GPIO0A7_SEL
+= 0, GPIO
+= 1, PMIC_INT_L
+
+> 8, 4, GPIO0A6_SEL
+= 0, GPIO
+= 1, SPI2_MOSI_M2
+= 2, I2C0_SDA_M0
+
+> 4, 4, GPIO0A5_SEL
+= 0, GPIO
+= 1, SPI2_CLK_M2
+= 2, SDMMC_PWREN
+= 3, PMU_DEBUG
+
+> 0, 4, GPIO0A4_SEL
+= 0, GPIO
+= 1, SDMMC_DET
+
+GPIO0B_IOMUX_SEL_L = 0x0008 ; GPIO0B IOMUX Select Low bits
+> 12, 4, GPIO0B3_SEL
+= 0, GPIO
+= 1, SPI2_MISO_M2
+= 2, I2C0_SCL_M0
+
+> 8, 4, GPIO0B2_SEL
+= 0, GPIO
+= 1, CLK32K_IN
+= 2, CLK32K_OUT0
+
+> 4, 4, GPIO0B1_SEL
+= 0, GPIO
+= 1, SPI2_CS0_M2
+= 2, I2C1_SDA_M1
+= 3, PWM5_M0
+= 4, UART0_TX_M1
+
+> 0, 4, GPIO0B0_SEL
+= 0, GPIO
+= 1, SPI2_CS1_M2
+= 2, I2C1_SCL_M1
+= 4, UART0_RX_M1
+
+GPIO0A_DS_L = 0x0010 ; GPIO0A Driver Strength Control Low bits
+> 12, 2, GPIO0A3_DS ; GPIO0A3 DS control Driver Strength Selection
+= 0, 2_5MA_100OHM
+= 2, 5MA_50OHM
+= 1, 7_5MA_33OHM
+= 3, 10MA_25OHM
+
+> 8, 2, GPIO0A2_DS ; GPIO0A2 DS control Driver Strength Selection
+= 0, 2_5MA_100OHM
+= 2, 5MA_50OHM
+= 1, 7_5MA_33OHM
+= 3, 10MA_25OHM
+
+> 4, 2, GPIO0A1_DS ; GPIO0A1 DS control Driver Strength Selection
+= 0, 2_5MA_100OHM
+= 2, 5MA_50OHM
+= 1, 7_5MA_33OHM
+= 3, 10MA_25OHM
+
+> 0, 2, GPIO0A0_DS ; GPIO0A0 DS control Driver Strength Selection
+= 0, 2_5MA_100OHM
+= 2, 5MA_50OHM
+= 1, 7_5MA_33OHM
+= 3, 10MA_25OHM
+
+GPIO0A_DS_H = 0x0014 ; GPIO0A Driver Strength Control High bits
+> 12, 2, GPIO0A7_DS ; GPIO0A7 DS control Driver Strength Selection
+= 0, 2_5MA_100OHM
+= 2, 5MA_50OHM
+= 1, 7_5MA_33OHM
+= 3, 10MA_25OHM
+
+> 8, 2, GPIO0A6_DS ; GPIO0A6 DS control Driver Strength Selection
+= 0, 2_5MA_100OHM
+= 2, 5MA_50OHM
+= 1, 7_5MA_33OHM
+= 3, 10MA_25OHM
+
+> 4, 2, GPIO0A5_DS ; GPIO0A5 DS control Driver Strength Selection
+= 0, 2_5MA_100OHM
+= 2, 5MA_50OHM
+= 1, 7_5MA_33OHM
+= 3, 10MA_25OHM
+
+> 0, 2, GPIO0A4_DS ; GPIO0A4 DS control Driver Strength Selection
+= 0, 2_5MA_100OHM
+= 2, 5MA_50OHM
+= 1, 7_5MA_33OHM
+= 3, 10MA_25OHM
+
+GPIO0B_DS_L = 0x0018 ; GPIO0B Driver Strength Control Low bits
+> 12, 2, GPIO0B3_DS ; GPIO0B3 DS control Driver Strength Selection
+= 0, 2_5MA_100OHM
+= 2, 5MA_50OHM
+= 1, 7_5MA_33OHM
+= 3, 10MA_25OHM
+
+> 8, 2, GPIO0B2_DS ; GPIO0B2 DS control Driver Strength Selection
+= 0, 2_5MA_100OHM
+= 2, 5MA_50OHM
+= 1, 7_5MA_33OHM
+= 3, 10MA_25OHM
+
+> 4, 2, GPIO0B1_DS ; GPIO0B1 DS control Driver Strength Selection
+= 0, 2_5MA_100OHM
+= 2, 5MA_50OHM
+= 1, 7_5MA_33OHM
+= 3, 10MA_25OHM
+
+> 0, 2, GPIO0B0_DS ; GPIO0B0 DS control Driver Strength Selection
+= 0, 2_5MA_100OHM
+= 2, 5MA_50OHM
+= 1, 7_5MA_33OHM
+= 3, 10MA_25OHM
+
+GPIO0A_P = 0x0020 ; GPIO0A Pull-up/down Control
+> 15, 1, GPIO0A7_PS ; GPIO0A7 PS control Weak PU/PD Resistor Selection
+= 0, PD_SELECTION
+= 1, PU_SELECTION
+
+> 14, 1, GPIO0A7_PE ; GPIO0A7 PE control Active High Weak PU/PD Resistor Enable
+= 0, PU_PD_DISABLE
+= 1, PU_PD_ENABLE
+
+> 13, 1, GPIO0A6_PS ; GPIO0A6 PS control Weak PU/PD Resistor Selection
+= 0, PD_SELECTION
+= 1, PU_SELECTION
+
+> 12, 1, GPIO0A6_PE ; GPIO0A6 PE control Active High Weak PU/PD Resistor Enable
+= 0, PU_PD_DISABLE
+= 1, PU_PD_ENABLE
+
+> 11, 1, GPIO0A5_PS ; GPIO0A5 PS control Weak PU/PD Resistor Selection
+= 0, PD_SELECTION
+= 1, PU_SELECTION
+
+> 10, 1, GPIO0A5_PE ; GPIO0A5 PE control Active High Weak PU/PD Resistor Enable
+= 0, PU_PD_DISABLE
+= 1, PU_PD_ENABLE
+
+> 9, 1, GPIO0A4_PS ; GPIO0A4 PS control Weak PU/PD Resistor Selection
+= 0, PD_SELECTION
+= 1, PU_SELECTION
+
+> 8, 1, GPIO0A4_PE ; GPIO0A4 PE control Active High Weak PU/PD Resistor Enable
+= 0, PU_PD_DISABLE
+= 1, PU_PD_ENABLE
+
+> 7, 1, GPIO0A3_PS ; GPIO0A3 PS control Weak PU/PD Resistor Selection
+= 0, PD_SELECTION
+= 1, PU_SELECTION
+
+> 6, 1, GPIO0A3_PE ; GPIO0A3 PE control Active High Weak PU/PD Resistor Enable
+= 0, PU_PD_DISABLE
+= 1, PU_PD_ENABLE
+
+> 5, 1, GPIO0A2_PS ; GPIO0A2 PS control Weak PU/PD Resistor Selection
+= 0, PD_SELECTION
+= 1, PU_SELECTION
+
+> 4, 1, GPIO0A2_PE ; GPIO0A2 PE control Active High Weak PU/PD Resistor Enable
+= 0, PU_PD_DISABLE
+= 1, PU_PD_ENABLE
+
+> 3, 1, GPIO0A1_PS ; GPIO0A1 PS control Weak PU/PD Resistor Selection
+= 0, PD_SELECTION
+= 1, PU_SELECTION
+
+> 2, 1, GPIO0A1_PE ; GPIO0A1 PE control Active High Weak PU/PD Resistor Enable
+= 0, PU_PD_DISABLE
+= 1, PU_PD_ENABLE
+
+> 1, 1, GPIO0A0_PS ; GPIO0A0 PS control Weak PU/PD Resistor Selection
+= 0, PD_SELECTION
+= 1, PU_SELECTION
+
+> 0, 1, GPIO0A0_PE ; GPIO0A0 PE control Active High Weak PU/PD Resistor Enable
+= 0, PU_PD_DISABLE
+= 1, PU_PD_ENABLE
+
+GPIO0B_P = 0x0024 ; GPIO0B Pull-up/down Control
+> 7, 1, GPIO0B3_PS ; GPIO0B3 PS control Weak PU/PD Resistor Selection
+= 0, PD_SELECTION
+= 1, PU_SELECTION
+
+> 6, 1, GPIO0B3_PE ; GPIO0B3 PE control Active High Weak PU/PD Resistor Enable
+= 0, PU_PD_DISABLE
+= 1, PU_PD_ENABLE
+
+> 5, 1, GPIO0B2_PS ; GPIO0B2 PS control Weak PU/PD Resistor Selection
+= 0, PD_SELECTION
+= 1, PU_SELECTION
+
+> 4, 1, GPIO0B2_PE ; GPIO0B2 PE control Active High Weak PU/PD Resistor Enable
+= 0, PU_PD_DISABLE
+= 1, PU_PD_ENABLE
+
+> 3, 1, GPIO0B1_PS ; GPIO0B1 PS control Weak PU/PD Resistor Selection
+= 0, PD_SELECTION
+= 1, PU_SELECTION
+
+> 2, 1, GPIO0B1_PE ; GPIO0B1 PE control Active High Weak PU/PD Resistor Enable
+= 0, PU_PD_DISABLE
+= 1, PU_PD_ENABLE
+
+> 1, 1, GPIO0B0_PS ; GPIO0B0 PS control Weak PU/PD Resistor Selection
+= 0, PD_SELECTION
+= 1, PU_SELECTION
+
+> 0, 1, GPIO0B0_PE ; GPIO0B0 PE control Active High Weak PU/PD Resistor Enable
+= 0, PU_PD_DISABLE
+= 1, PU_PD_ENABLE
+
+GPIO0A_IE = 0x0028 ; GPIO0A Input Enable Control
+> 7, 1, GPIO0A7_IE ; GPIO0A7 IE control Active High input buffer enable
+= 1, ENABLE
+= 0, DISABLE
+
+> 6, 1, GPIO0A6_IE ; GPIO0A6 IE control Active High input buffer enable
+= 1, ENABLE
+= 0, DISABLE
+
+> 5, 1, GPIO0A5_IE ; GPIO0A5 IE control Active High input buffer enable
+= 1, ENABLE
+= 0, DISABLE
+
+> 4, 1, GPIO0A4_IE ; GPIO0A4 IE control Active High input buffer enable
+= 1, ENABLE
+= 0, DISABLE
+
+> 3, 1, GPIO0A3_IE ; GPIO0A3 IE control Active High input buffer enable
+= 1, ENABLE
+= 0, DISABLE
+
+> 2, 1, GPIO0A2_IE ; GPIO0A2 IE control Active High input buffer enable
+= 1, ENABLE
+= 0, DISABLE
+
+> 1, 1, GPIO0A1_IE ; GPIO0A1 IE control Active High input buffer enable
+= 1, ENABLE
+= 0, DISABLE
+
+> 0, 1, GPIO0A0_IE ; GPIO0A0 IE control Active High input buffer enable
+= 1, ENABLE
+= 0, DISABLE
+
+GPIO0B_IE = 0x002C ; GPIO0B Input Enable Control
+> 3, 1, GPIO0B3_IE ; GPIO0B3 IE control Active High input buffer enable
+= 1, ENABLE
+= 0, DISABLE
+
+> 2, 1, GPIO0B2_IE ; GPIO0B2 IE control Active High input buffer enable
+= 1, ENABLE
+= 0, DISABLE
+
+> 1, 1, GPIO0B1_IE ; GPIO0B1 IE control Active High input buffer enable
+= 1, ENABLE
+= 0, DISABLE
+
+> 0, 1, GPIO0B0_IE ; GPIO0B0 IE control Active High input buffer enable
+= 1, ENABLE
+= 0, DISABLE
+
+GPIO0A_SMT = 0x0030 ; GPIO0A Schmitt Trigger Control
+> 7, 1, GPIO0A7_SMT ; GPIO0A7 SMT control CMOS/Schmitt Trigger Selection
+= 0, CMOS
+= 1, SCHMITT_TRIGGER
+
+> 6, 1, GPIO0A6_SMT ; GPIO0A6 SMT control CMOS/Schmitt Trigger Selection
+= 0, CMOS
+= 1, SCHMITT_TRIGGER
+
+> 5, 1, GPIO0A5_SMT ; GPIO0A5 SMT control CMOS/Schmitt Trigger Selection
+= 0, CMOS
+= 1, SCHMITT_TRIGGER
+
+> 4, 1, GPIO0A4_SMT ; GPIO0A4 SMT control CMOS/Schmitt Trigger Selection
+= 0, CMOS
+= 1, SCHMITT_TRIGGER
+
+> 3, 1, GPIO0A3_SMT ; GPIO0A3 SMT control CMOS/Schmitt Trigger Selection
+= 0, CMOS
+= 1, SCHMITT_TRIGGER
+
+> 2, 1, GPIO0A2_SMT ; GPIO0A2 SMT control CMOS/Schmitt Trigger Selection
+= 0, CMOS
+= 1, SCHMITT_TRIGGER
+
+> 1, 1, GPIO0A1_SMT ; GPIO0A1 SMT control CMOS/Schmitt Trigger Selection
+= 0, CMOS
+= 1, SCHMITT_TRIGGER
+
+> 0, 1, GPIO0A0_SMT ; GPIO0A0 SMT control CMOS/Schmitt Trigger Selection
+= 0, CMOS
+= 1, SCHMITT_TRIGGER
+
+GPIO0B_SMT = 0x0034 ; GPIO0B Schmitt Trigger Control
+> 3, 1, GPIO0B3_SMT ; GPIO0B3 SMT control CMOS/Schmitt Trigger Selection
+= 0, CMOS
+= 1, SCHMITT_TRIGGER
+
+> 2, 1, GPIO0B2_SMT ; GPIO0B2 SMT control CMOS/Schmitt Trigger Selection
+= 0, CMOS
+= 1, SCHMITT_TRIGGER
+
+> 1, 1, GPIO0B1_SMT ; GPIO0B1 SMT control CMOS/Schmitt Trigger Selection
+= 0, CMOS
+= 1, SCHMITT_TRIGGER
+
+> 0, 1, GPIO0B0_SMT ; GPIO0B0 SMT control CMOS/Schmitt Trigger Selection
+= 0, CMOS
+= 1, SCHMITT_TRIGGER
+
+GPIO0A_PDIS = 0x0038 ; GPIO0A Auto Pull-up/down disable Control
+> 7, 1, GPIO0A7_PULL_DIS
+= 1, DISABLE ; disable GPIO0A7 pull up/down when output enable
+
+> 6, 1, GPIO0A6_PULL_DIS
+= 1, DISABLE ; disable GPIO0A6 pull up/down when output enable
+
+> 5, 1, GPIO0A5_PULL_DIS
+= 1, DISABLE ; disable GPIO0A5 pull up/down when output enable
+
+> 4, 1, GPIO0A4_PULL_DIS
+= 1, DISABLE ; disable GPIO0A4 pull up/down when output enable
+
+> 3, 1, GPIO0A3_PULL_DIS
+= 1, DISABLE ; disable GPIO0A3 pull up/down when output enable
+
+> 2, 1, GPIO0A2_PULL_DIS
+= 1, DISABLE ; disable GPIO0A2 pull up/down when output enable
+
+> 1, 1, GPIO0A1_PULL_DIS
+= 1, DISABLE ; disable GPIO0A1 pull up/down when output enable
+
+> 0, 1, GPIO0A0_PULL_DIS
+= 1, DISABLE ; disable GPIO0A0 pull up/down when output enable
+
+GPIO0B_PDIS = 0x003C ; GPIO0B Auto Pull-up/down disable Control
+> 3, 1, GPIO0B3_PULL_DIS
+= 1, DISABLE ; disable GPIO0B3 pull up/down when output enable
+
+> 2, 1, GPIO0B2_PULL_DIS
+= 1, DISABLE ; disable GPIO0B2 pull up/down when output enable
+
+> 1, 1, GPIO0B1_PULL_DIS
+= 1, DISABLE ; disable GPIO0B1 pull up/down when output enable
+
+> 0, 1, GPIO0B0_PULL_DIS
+= 1, DISABLE ; disable GPIO0B0 pull up/down when output enable
+
+XIN_CON = 0x0040 ; OSC control Register
+> 2, 2, XIN_OSC_SF ; XIN OSC frequency pin selection
+= 0, 1MHz_12MHz
+= 1, 26_1MHz_36MHz
+= 2, 12_1MHz_26MHz
+= 3, 36_1MHz_52MHz
+
+> 0, 1, XIN_OSC_EN ; XIN OSC enable
+= 1, ENABLE
+= 0, DISABLE
+

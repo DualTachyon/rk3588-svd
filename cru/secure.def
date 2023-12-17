@@ -1,0 +1,498 @@
+[CRU_SECURE, CRU]
+@ = 0x0FD7D0000, 0x00008000
+
+CLKSEL_CON00 = 0x0300 ; Internal clock select and division register 0
+> 12, 3, CLK_MATRIX_SEC_350M_SRC_DIV ; Divide clk_matrix_sec_350m_src by (div_con + 1).
+> 9, 3, CLK_MATRIX_SEC_233M_SRC_DIV ; Divide clk_matrix_sec_233m_src by (div_con + 1).
+> 6, 3, CLK_MATRIX_SEC_175M_SRC_DIV ; Divide clk_matrix_sec_175m_src by (div_con + 1).
+> 3, 3, CLK_MATRIX_SEC_116M_SRC_DIV ; Divide clk_matrix_sec_116m_src by (div_con + 1).
+> 0, 3, CLK_MATRIX_SEC_58M_SRC_DIV ; Divide clk_matrix_sec_58m_src by (div_con + 1).
+
+CLKSEL_CON01 = 0x0304 ; Internal clock select and division register 1
+> 14, 2, CLK_CRYPTO_RNG_SEL ; clk_crypto_rng clock mux.
+= 0, CLK_MATRIX_SEC_175M_SRC
+= 1, CLK_MATRIX_SEC_116M_SRC
+= 2, CLK_MATRIX_SEC_58M_SRC
+= 3, XIN_OSC0_FUNC
+
+> 12, 2, CLK_CRYPTO_PKA_SEL ; clk_crypto_pka clock mux.
+= 0, CLK_MATRIX_SEC_350M_SRC
+= 1, CLK_MATRIX_SEC_233M_SRC
+= 2, CLK_MATRIX_SEC_116M_SRC
+= 3, XIN_OSC0_FUNC
+
+> 10, 2, CLK_CRYPTO_CORE_SEL ; clk_crypto_core clock mux.
+= 0, CLK_MATRIX_SEC_350M_SRC
+= 1, CLK_MATRIX_SEC_233M_SRC
+= 2, CLK_MATRIX_SEC_116M_SRC
+= 3, XIN_OSC0_FUNC
+
+> 8, 2, PCLK_SECURE_S_ROOT_SEL ; pclk_secure_s_root clock mux.
+= 0, CLK_MATRIX_SEC_116M_SRC
+= 1, CLK_MATRIX_SEC_58M_SRC
+= 2, XIN_OSC0_FUNC
+
+> 6, 2, HCLK_SECURE_S_ROOT_SEL ; hclk_secure_s_root clock mux.
+= 0, CLK_MATRIX_SEC_175M_SRC
+= 1, CLK_MATRIX_SEC_116M_SRC
+= 2, CLK_MATRIX_SEC_58M_SRC
+= 3, XIN_OSC0_FUNC
+
+> 4, 2, ACLK_SECURE_S_ROOT_SEL ; aclk_secure_s_root clock mux.
+= 0, CLK_MATRIX_SEC_350M_SRC
+= 1, CLK_MATRIX_SEC_233M_SRC
+= 2, CLK_MATRIX_SEC_116M_SRC
+= 3, XIN_OSC0_FUNC
+
+> 2, 2, HCLK_SECURE_NS_ROOT_SEL ; hclk_secure_ns_root clock mux.
+= 0, CLK_MATRIX_150M_SRC
+= 1, CLK_MATRIX_100M_SRC
+= 2, CLK_MATRIX_50M_SRC
+= 3, XIN_OSC0_FUNC
+
+> 0, 2, ACLK_SECURE_NS_ROOT_SEL ; aclk_secure_ns_root clock mux.
+= 0, CLK_MATRIX_350M_SRC
+= 1, CLK_MATRIX_200M_SRC
+= 2, CLK_MATRIX_100M_SRC
+= 3, XIN_OSC0_FUNC
+
+CLKSEL_CON02 = 0x0308 ; Internal clock select and division register 2
+> 10, 1, CLK_STIMER_ROOT_SEL ; clk_stimer_root clock mux.
+= 0, XIN_OSC0_FUNC
+= 1, CLK_MATRIX_SEC_116M_SRC
+
+> 8, 2, CLK_KEYLADDER_RNG_SEL ; clk_keyladder_rng clock mux.
+= 0, CLK_MATRIX_SEC_175M_SRC
+= 1, CLK_MATRIX_SEC_116M_SRC
+= 2, CLK_MATRIX_SEC_58M_SRC
+= 3, XIN_OSC0_FUNC
+
+> 6, 2, CLK_KEYLADDER_CORE_SEL ; clk_keyladder_core clock mux.
+= 0, CLK_MATRIX_SEC_350M_SRC
+= 1, CLK_MATRIX_SEC_233M_SRC
+= 2, CLK_MATRIX_SEC_116M_SRC
+= 3, XIN_OSC0_FUNC
+
+> 4, 2, CLK_SCRYPTO_RNG_SEL ; clk_scrypto_rng clock mux.
+= 0, CLK_MATRIX_SEC_175M_SRC
+= 1, CLK_MATRIX_SEC_116M_SRC
+= 2, CLK_MATRIX_SEC_58M_SRC
+= 3, XIN_OSC0_FUNC
+
+> 2, 2, CLK_SCRYPTO_PKA_SEL ; clk_scrypto_pka clock mux.
+= 0, CLK_MATRIX_SEC_350M_SRC
+= 1, CLK_MATRIX_SEC_233M_SRC
+= 2, CLK_MATRIX_SEC_116M_SRC
+= 3, XIN_OSC0_FUNC
+
+> 0, 2, CLK_SCRYPTO_CORE_SEL ; clk_scrypto_core clock mux.
+= 0, CLK_MATRIX_SEC_350M_SRC
+= 1, CLK_MATRIX_SEC_233M_SRC
+= 2, CLK_MATRIX_SEC_116M_SRC
+= 3, XIN_OSC0_FUNC
+
+CLKSEL_CON03 = 0x030C ; Internal clock select and division register 3
+> 12, 2, CCLK_SRC_SDMMC_SEL ; cclk_src_sdmmc clock mux.
+= 0, CLK_GPLL_MUX
+= 1, CLK_SPLL_MUX
+= 2, XIN_OSC0_FUNC
+
+> 6, 6, CCLK_SRC_SDMMC_DIV ; DT50 division register. Divide cclk_src_sdmmc by (div_con + 1).
+
+> 5, 1, DCLK_SDMMC_BUFFER_SEL ; dclk_sdmmc_buffer clock mux.
+= 0, CLK_GPLL_MUX
+= 1, CLK_SPLL_MUX
+
+> 0, 5, DCLK_SDMMC_BUFFER_DIV ; Divide dclk_sdmmc_buffer by (div_con + 1).
+
+GATE_CON00 = 0x0800 ; Internal clock gate and division register 0
+> 15, 1, CLK_CRYPTO_CORE_EN ; clk_crypto_core clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 14, 1, PCLK_SECURE_S_BIU_EN ; pclk_secure_s_biu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 13, 1, HCLK_SECURE_S_BIU_EN ; hclk_secure_s_biu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 12, 1, ACLK_SECURE_S_BIU_EN ; aclk_secure_s_biu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 11, 1, HCLK_SECURE_NS_BIU_EN ; hclk_secure_ns_biu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 10, 1, ACLK_SECURE_NS_BIU_EN ; aclk_secure_ns_biu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 9, 1, PCLK_SECURE_S_ROOT_EN ; pclk_secure_s_root clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 8, 1, HCLK_SECURE_S_ROOT_EN ; hclk_secure_s_root clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 7, 1, ACLK_SECURE_S_ROOT_EN ; aclk_secure_s_root clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 6, 1, HCLK_SECURE_NS_ROOT_EN ; hclk_secure_ns_root clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 5, 1, ACLK_SECURE_NS_ROOT_EN ; aclk_secure_ns_root clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 4, 1, CLK_MATRIX_SEC_333M_SRC_EN ; clk_matrix_sec_350m_src clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 3, 1, CLK_MATRIX_SEC_200M_SRC_EN ; clk_matrix_sec_233m_src clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 2, 1, CLK_MATRIX_SEC_175M_SRC_EN ; clk_matrix_sec_175m_src clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 1, 1, CLK_MATRIX_SEC_100M_SRC_EN ; clk_matrix_sec_116m_src clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 0, 1, CLK_MATRIX_SEC_50M_SRC_EN ; clk_matrix_sec_58m_src clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+GATE_CON01 = 0x0804 ; Internal clock gate and division register 1
+> 15, 1, PCLK_WDT_S_EN ; pclk_wdt_s clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 14, 1, CLK_OTPC_S_EN ; clk_otpc_s clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 13, 1, PCLK_OTPC_S_EN ; pclk_otpc_s clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 12, 1, HCLK_KEYLADDER_EN ; hclk_keyladder clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 11, 1, ACLK_KEYLADDER_EN ; aclk_keyladder clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 10, 1, CLK_KEYLADDER_RNG_EN ; clk_keyladder_rng clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 9, 1, CLK_KEYLADDER_CORE_EN ; clk_keyladder_core clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 8, 1, HCLK_SCRYPTO_EN ; hclk_scrypto clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 7, 1, ACLK_SCRYPTO_EN ; aclk_scrypto clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 6, 1, CLK_SCRYPTO_RNG_EN ; clk_scrypto_rng clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 5, 1, CLK_SCRYPTO_PKA_EN ; clk_scrypto_pka clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 4, 1, CLK_SCRYPTO_CORE_EN ; clk_scrypto_core clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 3, 1, HCLK_CRYPTO_EN ; hclk_crypto clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 2, 1, ACLK_CRYPTO_EN ; aclk_crypto clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 1, 1, CLK_CRYPTO_RNG_EN ; clk_crypto_rng clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 0, 1, CLK_CRYPTO_PKA_EN ; clk_crypto_pka clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+GATE_CON02 = 0x0808 ; Internal clock gate and division register 2
+> 15, 1, HCLK_TRNG_S_EN ; hclk_trng_s clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 14, 1, PCLK_KEYLAD_EN ; pclk_keylad clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 13, 1, PCLK_SCRYPTO_EN ; pclk_scrypto clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 12, 1, CLK_STIMER5_EN ; clk_stimer5 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 11, 1, CLK_STIMER4_EN ; clk_stimer4 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 10, 1, CLK_STIMER3_EN ; clk_stimer3 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 9, 1, CLK_STIMER2_EN ; clk_stimer2 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 8, 1, CLK_STIMER1_EN ; clk_stimer1 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 7, 1, CLK_STIMER0_EN ; clk_stimer0 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 6, 1, CLK_STIMER_ROOT_EN ; clk_stimer_root clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 5, 1, HCLK_BOOTROM_NS_EN ; hclk_bootrom_ns clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 4, 1, PCLK_STIMER0_EN ; pclk_stimer0 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 3, 1, PCLK_DCF_EN ; pclk_dcf clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 2, 1, ACLK_DCF_EN ; aclk_dcf clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 1, 1, HCLK_BOOTROM_EN ; hclk_bootrom clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 0, 1, TCLK_WDT_S_EN ; tclk_wdt_s clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+GATE_CON03 = 0x080C ; Internal clock gate and division register 3
+> 7, 1, PCLK_SECURE_CRU_EN ; pclk_secure_cru clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 6, 1, CLK_TRNG_S_EN ; clk_trng_s clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 5, 1, PCLK_TRNG_CHK_EN ; pclk_trng_chk clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 4, 1, CCLK_SRC_SDMMC_EN ; cclk_src_sdmmc clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 3, 1, HCLK_SDMMC_BUFFER_EN ; hclk_sdmmc_buffer clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 2, 1, HCLK_SDMMC_EN ; hclk_sdmmc clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 1, 1, DCLK_SDMMC_BUFFER_EN ; dclk_sdmmc_buffer clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 0, 1, HCLK_TRNG_NS_EN ; hclk_trng_ns clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+SOFTRST_CON00 = 0x0A00 ; Internal clock reset register 0
+> 15, 1, RESETN_CRYPTO_CORE ; When high, reset relative logic
+> 14, 1, PRESETN_SECURE_S_BIU ; When high, reset relative logic
+> 13, 1, HRESETN_SECURE_S_BIU ; When high, reset relative logic
+> 12, 1, ARESETN_SECURE_S_BIU ; When high, reset relative logic
+> 11, 1, HRESETN_SECURE_NS_BIU ; When high, reset relative logic
+> 10, 1, ARESETN_SECURE_NS_BIU ; When high, reset relative logic
+
+SOFTRST_CON01 = 0x0A04 ; Internal clock reset register 1
+> 15, 1, PRESETN_WDT_S ; When high, reset relative logic
+> 14, 1, RESETN_OTPC_S ; When high, reset relative logic
+> 13, 1, PRESETN_OTPC_S ; When high, reset relative logic
+> 12, 1, HRESETN_KEYLADDER ; When high, reset relative logic
+> 11, 1, ARESETN_KEYLADDER ; When high, reset relative logic
+> 10, 1, RESETN_KEYLADDER_RNG ; When high, reset relative logic
+> 9, 1, RESETN_KEYLADDER_CORE ; When high, reset relative logic
+> 8, 1, HRESETN_SCRYPTO ; When high, reset relative logic
+> 7, 1, ARESETN_SCRYPTO ; When high, reset relative logic
+> 6, 1, RESETN_SCRYPTO_RNG ; When high, reset relative logic
+> 5, 1, RESETN_SCRYPTO_PKA ; When high, reset relative logic
+> 4, 1, RESETN_SCRYPTO_CORE ; When high, reset relative logic
+> 3, 1, HRESETN_CRYPTO ; When high, reset relative logic
+> 2, 1, ARESETN_CRYPTO ; When high, reset relative logic
+> 1, 1, RESETN_CRYPTO_RNG ; When high, reset relative logic
+> 0, 1, RESETN_CRYPTO_PKA ; When high, reset relative logic
+
+SOFTRST_CON02 = 0x0A08 ; Internal clock reset register 2
+> 15, 1, HRESETN_TRNG_S ; When high, reset relative logic
+> 14, 1, PRESETN_KEYLAD ; When high, reset relative logic
+> 13, 1, PRESETN_SCRYPTO ; When high, reset relative logic
+> 12, 1, RESETN_STIMER5 ; When high, reset relative logic
+> 11, 1, RESETN_STIMER4 ; When high, reset relative logic
+> 10, 1, RESETN_STIMER3 ; When high, reset relative logic
+> 9, 1, RESETN_STIMER2 ; When high, reset relative logic
+> 8, 1, RESETN_STIMER1 ; When high, reset relative logic
+> 7, 1, RESETN_STIMER0 ; When high, reset relative logic
+> 5, 1, HRESETN_BOOTROM_NS ; When high, reset relative logic
+> 4, 1, PRESETN_STIMER0 ; When high, reset relative logic
+> 3, 1, PRESETN_DCF ; When high, reset relative logic
+> 2, 1, ARESETN_DCF ; When high, reset relative logic
+> 1, 1, HRESETN_BOOTROM ; When high, reset relative logic
+> 0, 1, TRESETN_WDT_S ; When high, reset relative logic
+
+SOFTRST_CON03 = 0x0A0C ; Internal clock reset register 3
+> 7, 1, PRESETN_SECURE_CRU ; When high, reset relative logic
+> 6, 1, RESETN_TRNG_S ; When high, reset relative logic
+> 5, 1, PRESETN_TRNG_CHK ; When high, reset relative logic
+> 4, 1, RESETN_SDMMC ; When high, reset relative logic
+> 3, 1, HRESETN_SDMMC_BUFFER ; When high, reset relative logic
+> 2, 1, HRESETN_SDMMC ; When high, reset relative logic
+> 1, 1, DRESETN_SDMMC_BUFFER ; When high, reset relative logic
+> 0, 1, HRESETN_TRNG_NS ; When high, reset relative logic
+
+AUTOCS_ACLK_SECURE_NS_ROOT_CON0 = 0x0D00 ; Auto clock switch control register 0
+> 16, 16, ACLK_SECURE_NS_ROOT_WAIT_TH ; wait_th. Wait time threshold, measured by original clk.
+> 0, 16, ACLK_SECURE_NS_ROOT_IDLE_TH ; idle_th. Idle time threshold, measured by original clk.
+
+AUTOCS_ACLK_SECURE_NS_ROOT_CON1 = 0x0D04 ; Auto clock switch control register 1
+> 14, 2, ACLK_SECURE_NS_ROOT_CLKSEL_CFG ; clksel_cfg. Auto switch clock selection.
+= 0, ORIGINAL_CLK
+= 1, XIN_OSC0_FUNC_DIV
+= 2, CLK_RTC_32K
+
+> 13, 1, ACLK_SECURE_NS_ROOT_SWITCH_EN ; switch_en.
+= 1, ENABLE ; Enable aclk_secure_ns_root switched to lower frequency when module is inactive.
+= 0, DISABLE ; Disable auto switch function.
+
+> 12, 1, ACLK_SECURE_NS_ROOT_AUTOCS_EN ; autocs_en
+= 1, ENABLE ; Enable aclk_secure_ns_root switch to lower frequency.
+= 0, DISABLE
+
+> 0, 12, ACLK_SECURE_NS_ROOT_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+= 0xFFF, ENABLE ; Enable aclk_secure_ns_root switch to lower frequency.
+= 0x000, DISABLE
+
+AUTOCS_HCLK_SECURE_NS_ROOT_CON0 = 0x0D08 ; Auto clock switch control register 0
+> 16, 16, HCLK_SECURE_NS_ROOT_WAIT_TH ; wait_th. Wait time threshold, measured by original clk.
+> 0, 16, HCLK_SECURE_NS_ROOT_IDLE_TH ; idle_th. Idle time threshold, measured by original clk.
+
+AUTOCS_HCLK_SECURE_NS_ROOT_CON1 = 0x0D0C ; Auto clock switch control register 1
+> 14, 2, HCLK_SECURE_NS_ROOT_CLKSEL_CFG ; clksel_cfg. Auto switch clock selection.
+= 0, ORIGINAL_CLK
+= 1, XIN_OSC0_FUNC_DIV
+= 2, CLK_RTC_32K
+
+> 13, 1, HCLK_SECURE_NS_ROOT_SWITCH_EN ; switch_en.
+= 1, ENABLE ; Enable hclk_secure_ns_root switched to lower frequency when module is inactive.
+= 0, DISABLE ; Disable auto switch function.
+
+> 12, 1, HCLK_SECURE_NS_ROOT_AUTOCS_EN ; autocs_en
+= 1, ENABLE ; Enable hclk_secure_ns_root switch to lower frequency.
+= 0, DISABLE
+
+> 0, 12, HCLK_SECURE_NS_ROOT_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+= 0xFFF, ENABLE ; Enable hclk_secure_ns_root switch to lower frequency.
+= 0x000, DISABLE
+
+AUTOCS_ACLK_SECURE_S_ROOT_CON0 = 0x0D10 ; Auto clock switch control register 0
+> 16, 16, ACLK_SECURE_S_ROOT_WAIT_TH ; wait_th. Wait time threshold, measured by original clk.
+> 0, 16, ACLK_SECURE_S_ROOT_IDLE_TH ; idle_th. Idle time threshold, measured by original clk.
+
+AUTOCS_ACLK_SECURE_S_ROOT_CON1 = 0x0D14 ; Auto clock switch control register 1
+> 14, 2, ACLK_SECURE_S_ROOT_CLKSEL_CFG ; clksel_cfg. Auto switch clock selection.
+= 0, ORIGINAL_CLK
+= 1, XIN_OSC0_FUNC_DIV
+= 2, CLK_RTC_32K
+
+> 13, 1, ACLK_SECURE_S_ROOT_SWITCH_EN ; switch_en
+= 1, ENABLE ; Enable aclk_secure_s_root switched to lower frequency when module is inactive.
+= 0, DISABLE ; Disable auto switch function.
+
+> 12, 1, ACLK_SECURE_S_ROOT_AUTOCS_EN ; autocs_en
+= 1, ENABLE ; Enable aclk_secure_s_root switch to lower frequency.
+= 0, DISABLE
+
+> 0, 12, ACLK_SECURE_S_ROOT_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+= 0xFFF, ENABLE ; Enable aclk_secure_s_root switch to lower frequency.
+= 0x000, DISABLE
+
+AUTOCS_HCLK_SECURE_S_ROOT_CON0 = 0x0D18 ; Auto clock switch control register 0
+> 16, 16, HCLK_SECURE_S_ROOT_WAIT_TH ; wait_th. Wait time threshold, measured by original clk.
+> 0, 16, HCLK_SECURE_S_ROOT_IDLE_TH ; idle_th. Idle time threshold, measured by original clk.
+
+AUTOCS_HCLK_SECURE_S_ROOT_CON1 = 0x0D1C ; Auto clock switch control register 1
+> 14, 2, HCLK_SECURE_S_ROOT_CLKSEL_CFG ; clksel_cfg. Auto switch clock selection.
+= 0, ORIGINAL_CLK
+= 1, XIN_OSC0_FUNC_DIV
+= 2, CLK_RTC_32K
+
+> 13, 1, HCLK_SECURE_S_ROOT_SWITCH_EN ; switch_en
+= 1, ENABLE ; Enable hclk_secure_s_root switched to lower frequency when module is inactive.
+= 0, DISABLE ; Disable auto switch function.
+
+> 12, 1, HCLK_SECURE_S_ROOT_AUTOCS_EN ; autocs_en
+= 1, ENABLE ; Enable hclk_secure_s_root switch to lower frequency.
+= 0, DISABLE
+
+> 0, 12, HCLK_SECURE_S_ROOT_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+= 0xFFF, ENABLE ; Enable hclk_secure_s_root switch to lower frequency.
+= 0x000, DISABLE
+
+AUTOCS_PCLK_SECURE_S_ROOT_CON0 = 0x0D20 ; Auto clock switch control register 0
+> 16, 16, PCLK_SECURE_S_ROOT_WAIT_TH ; wait_th. Wait time threshold, measured by original clk.
+> 0, 16, PCLK_SECURE_S_ROOT_IDLE_TH ; idle_th. Idle time threshold, measured by original clk.
+
+AUTOCS_PCLK_SECURE_S_ROOT_CON1 = 0x0D24 ; Auto clock switch control register 1
+> 14, 2, PCLK_SECURE_S_ROOT_CLKSEL_CFG ; clksel_cfg. Auto switch clock selection.
+= 0, ORIGINAL_CLK
+= 1, XIN_OSC0_FUNC_DIV
+= 2, CLK_RTC_32K
+
+> 13, 1, PCLK_SECURE_S_ROOT_SWITCH_EN ; switch_en
+= 1, ENABLE ; Enable pclk_secure_s_root switched to lower frequency when module is inactive.
+= 0, DISABLE ; Disable auto switch function.
+
+> 12, 1, PCLK_SECURE_S_ROOT_AUTOCS_EN ; autocs_en
+= 1, ENABLE ; Enable pclk_secure_s_root switch to lower frequency.
+= 0, DISABLE
+
+> 0, 12, PCLK_SECURE_S_ROOT_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+= 0xFFF, ENABLE ; Enable pclk_secure_s_root switch to lower frequency.
+= 0x000, DISABLE
+

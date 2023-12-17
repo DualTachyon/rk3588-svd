@@ -1,0 +1,180 @@
+[GRF_DSU, GRF]
+@ = 0x0FD598000, 0x00004000
+
+CON0 = 0x0000 ; DSU Control Register 0
+> 8, 8, DSU_GRF_CON_NIRQ ; GRF generate a nirq for each core, for debug usage only
+> 0, 8, DSU_GRF_CON_NFIQ ; GRF generate a nifq for each core, for debug usage only
+
+CON1 = 0x0004 ; DSU Control Register 1
+> 8, 8, DSU_GRF_CON_NVIRQ ; GRF generate a nvirq for each core, for debug usage only
+> 0, 8, DSU_GRF_CON_NVFIQ ; GRF generate a nvifq for each core, for debug usage only
+
+CON2 = 0x0008 ; DSU Control Register 2
+> 9, 1, DSU_GRF_MEM_CTRL_FROM_PMU
+= 1, PMU ; Dsu mem cfg driven by pmu
+= 0, GRF ; Dsu mem cfg driven by grf
+
+> 8, 1, DSU_GRF_CON_AWAKEUPS
+= 1, WAKE ; Wake acp slave interface
+= 0, DONT_WAKE ; Not wake acp
+
+> 7, 1, CORE7_DSU_GRF_CON_MPMMEN
+= 1, ENABLE ; Enable max power control for A76
+= 0, DISABLE ; Disable
+
+> 6, 1, CORE6_DSU_GRF_CON_MPMMEN
+= 1, ENABLE ; Enable max power control for A76
+= 0, DISABLE ; Disable
+
+> 5, 1, CORE5_DSU_GRF_CON_MPMMEN
+= 1, ENABLE ; Enable max power control for A76
+= 0, DISABLE ; Disable
+
+> 4, 1, CORE4_DSU_GRF_CON_MPMMEN
+= 1, ENABLE ; Enable max power control for A76
+= 0, DISABLE ; Disable
+
+> 3, 1, DSU_GRF_CON_PWRQ_PERMIT_DENY_SAR_I
+= 1, DENY ; Stream adb400 will deny a power request
+= 0, ACCEPT ; Stream adb400 will accept a power request
+
+> 2, 1, DSU_GRF_CON_PMUSNAPSHOTREQ
+= 1, SEND ; Send a pmu snapshot request to DSU
+= 0, DONT_SEND ; Not send
+
+> 1, 1, DSU_GRF_CON_EVENTOACK
+= 1, SEND ; Send evento acknowledge to DSU
+= 0, DONT_SEND ; Not send
+
+> 0, 1, DSU_GRF_CON_EVENTIREQ
+= 1, SEND ; Send eventi request to DSU
+= 0, DONT_SEND ; Not send
+
+CON3 = 0x000C ; DSU Control Register 3
+> 12, 4, GRF_CON_ACP_AWCACHE ; Awcache control bit for acp
+> 8, 4, GRF_CON_ACP_ARCACHE ; Arcache ctrl bit for acp
+
+> 5, 1, GRF_CON_INTERCONNECT_CGEN
+= 1, ENABLE ; Interconnect clock gate enable
+= 0, DISABLE
+
+CON4 = 0x0010 ; DSU Control Register 4
+> 0, 16, SYS_GRF_CON_ASTARTMP ; Start address of MP master
+
+CON5 = 0x0014 ; DSU Control Register 5
+> 0, 16, SYS_GRF_CON_AENDMP ; End address for MP master
+
+CON6 = 0x0018 ; DSU Control Register 6
+> 14, 1, GRF_CON_DSU_MEM_CFG_IDLE_TRIG ; A 0 to 1 trigger of grf_con_dsu_mem_cfg_idle_trig will cause a mem_cfg change when grf_con_dsu_mem_cfg_idle_en equals to 1.
+
+> 13, 1, GRF_CON_DSU_MEM_CFG_IDLE_EN
+= 0, SW_IMMEDIATELY ; Mem_cfg is changed by software immediately
+= 1, ALL_WFI ; Mem_cfg is changed when all cpu in wfi
+
+> 11, 2, GRF_CON_ARDOMAINS ; Ardomain control for ACP
+> 9, 2, GRF_CON_AWDOMAINS ; Awdomain control for ACP
+> 5, 4, GRF_CON_AWSNOOPS ; Awsnoop ctrl for ACP
+> 4, 1, GRF_CON_AWSTASHLPIDENS ; AW stashlpiden for ACP
+> 0, 4, GRF_CON_AWSTASHLPIDS ; AW stashlpid for ACP
+
+MEM_CFG_HSSPRF_L = 0x0020 ; Memory Configuration Register For HSSPRF
+> 0, 16, GRF_DSU_MEM_CFG_HSSPRF_L ; bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMD bit 7: LS bit 13~12: RA
+
+MEM_CFG_HSDPRF_L = 0x0028 ; Memory Configuration Register For HSDPRF Low
+> 0, 16, GRF_DSU_MEM_CFG_HSSPRF_L ; bit 0: TEST1A bit 1: TEST_RNMA bit 5~2: RMA bit 6: WMDA bit 8: LS bit 14~13: RA
+
+MEM_CFG_HSDPRF_H = 0x002C ; Memory Configuration Register For HSDPRF High
+> 0, 16, GRF_DSU_MEM_CFG_HSSPRF_H ; bit 1:TEST1B bit 5~2: RMB
+
+MEM_CFG_HDSPRA_L = 0x0030 ; Memory Configuration Register For HDSPRA
+> 0, 16, GRF_DSU_MEM_CFG_HDSPRA_L ; bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMD bit 7: LS bit 11~10: WPULSE bit 13~12: RA
+
+MEM_CFG_UHDDPRF_L = 0x0038 ; Memory Configuration Register For UHDDPRF
+> 0, 16, GRF_DSU_MEM_CFG_UHDDPRF_L ; bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMDA bit 7: LS
+
+STATUS0 = 0x0040 ; DSU Status Register 0
+> 23, 1, DSU_GRF_ST_JTAGACTIVE, RO ; JTAG active status.
+= 1, ACTIVE
+
+> 22, 1, DSU_GRF_ST_SWACTIVE, RO ; JTAG sw active status.
+= 1, ACTIVE
+
+> 18, 1, DSU_GRF_ST_PMUSNAPSHOTACK, RO ; PMU snapshot acknowledge
+> 17, 1, DSU_GRF_ST_EVENTOREQ, RO ; EVENTO request.
+> 16, 1, DSU_GRF_ST_EVENTIACK, RO ; EVENTI acknowledge status
+
+> 15, 1, DSU_GRF_ST_CORE7INSTRRET, RO ; Cpu 7 in retention status
+> 14, 1, DSU_GRF_ST_CORE6INSTRRET, RO ; Cpu 6 in retention status
+> 13, 1, DSU_GRF_ST_CORE5INSTRRET, RO ; Cpu 5 in retention status
+> 12, 1, DSU_GRF_ST_CORE4INSTRRET, RO ; Cpu 4 in retention status
+> 11, 1, DSU_GRF_ST_CORE3INSTRRET, RO ; Cpu 3 in retention status
+> 10, 1, DSU_GRF_ST_CORE2INSTRRET, RO ; Cpu 2 in retention status
+> 9, 1, DSU_GRF_ST_CORE1INSTRRET, RO ; Cpu 1 in retention status
+> 8, 1, DSU_GRF_ST_CORE0INSTRRET, RO ; Cpu 0 in retention status
+
+> 7, 1, DSU_GRF_ST_CORE7INSTRRUN, RO ; Core 7 running status
+= 1, RUNNING
+
+> 6, 1, DSU_GRF_ST_CORE6INSTRRUN, RO ; Core 6 running status
+= 1, RUNNING
+
+> 5, 1, DSU_GRF_ST_CORE5INSTRRUN, RO ; Core 5 running status
+= 1, RUNNING
+
+> 4, 1, DSU_GRF_ST_CORE4INSTRRUN, RO ; Core 4 running status
+= 1, RUNNING
+
+> 3, 1, DSU_GRF_ST_CORE3INSTRRUN, RO ; Core 3 running status
+= 1, RUNNING
+
+> 2, 1, DSU_GRF_ST_CORE2INSTRRUN, RO ; Core 2 running status
+= 1, RUNNING
+
+> 1, 1, DSU_GRF_ST_CORE1INSTRRUN, RO ; Core 1 running status
+= 1, RUNNING
+
+> 0, 1, DSU_GRF_ST_CORE0INSTRRUN, RO ; Core 0 running status
+= 1, RUNNING
+
+
+STATUS1 = 0x0044 ; DSU Status Register 1
+> 7, 1, DSU_PROBE3_MAINSTATALARM ; Interconnect probe3 alarm
+> 6, 1, DSU_PROBE2_MAINSTATALARM ; Interconnect probe2 alarm
+> 5, 1, DSU_PROBE1_MAINSTATALARM ; Interconnect probe1 alarm
+> 4, 1, DSU_PROBE0_MAINSTATALARM ; Interconnect probe0 alarm
+> 3, 1, SYS_GRF_ST_DEBUG_M_I_MAINNOPENDINGTRANS, RO ; Interconnect debug_m no pending translation
+> 2, 1, SYS_GRF_ST_NSP_DSU2MAIN_T_MAINNOPENDINGTRANS, RO ; Interconnect dsu2main no pending translation
+
+PVTPLL_CON0_L = 0x0060 ; PVTPLL Control Register 0 Low
+> 15, 1, BYPASS
+= 0, SUPPORT ; Support glitch-free frequency conversion.
+= 1, NOT_SUPPORT ; Not support.
+
+> 13, 2, CLK_DIV_OSC ; Frequency division factor for osc_clk.
+> 11, 2, CLK_DIV_REF ; Frequency division factor for ref_clk.
+
+> 8, 3, OSC_RING_SEL ; Oscillator ring channel select.
+> 2, 1, OUT_POLAR
+= 0, OUT_1 ; Out=1 when need to increase volt.
+= 1, OUT_0 ; Out=0 when need to increase volt.
+
+> 1, 1, OSC_EN ; Oscillator ring enable.
+= 1, ENABLE
+= 0, DISABLE
+
+> 0, 1, START
+= 1, START ; PVTPLL monitor start.
+
+PVTPLL_CON0_H = 0x0064 ; PVTPLL Control Register 0 High
+> 0, 6, RING_LENGTH_SEL ; Oscillator ring inverter length select.
+
+PVTPLL_CON1 = 0x0070 ; PVTPLL Control Register 1
+> 0, 32, CAL_CNT ; Target frequency value.
+
+PVTPLL_CON2 = 0x0074 ; PVTPLL Control Register 2
+> 16, 16, CKG_VAL ; Clock gating interval control count value.
+> 0, 16, THRESHOLD ; Count difference threshold value.
+
+PVTPLL_CON3 = 0x0078 ; PVTPLL Control Register 3
+> 0, 32, REF_CNT ; Frequency measurement period setting value.
+

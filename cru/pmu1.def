@@ -1,0 +1,466 @@
+[CRU_PMU1, CRU]
+@ = 0x0FD7F0000, 0x00010000
+
+CLKSEL_CON00 = 0x0300 ; Internal clock select and division register 0
+> 15, 1, CLK_MATRIX_PMU1_300M_SRC_SEL ; clk_matrix_pmu1_300m_src clock mux.
+= 0, CLK_MATRIX_300M_SRC
+= 1, XIN_OSC0_FUNC
+
+> 10, 5, CLK_MATRIX_PMU1_300M_SRC_DIV ; Divide clk_matrix_pmu1_300m_src by (div_con + 1).
+> 7, 3, CLK_MATRIX_PMU1_200M_SRC_DIV ; Divide clk_matrix_pmu1_200m_src by (div_con + 1).
+> 4, 3, CLK_MATRIX_PMU1_100M_SRC_DIV ; Divide clk_matrix_pmu1_100m_src by (div_con + 1).
+> 0, 4, CLK_MATRIX_PMU1_50M_SRC_DIV ; Divide clk_matrix_pmu1_50m_src by (div_con + 1).
+
+CLKSEL_CON01 = 0x0304 ; Internal clock select and division register 1
+> 10, 2, HCLK_PMU_CM0_ROOT_I_SEL ; hclk_pmu_cm0_root_i clock mux.
+= 0, CLK_MATRIX_PMU1_400M_SRC
+= 1, CLK_MATRIX_PMU1_200M_SRC
+= 2, CLK_MATRIX_PMU1_100M_SRC
+= 3, XIN_OSC0_FUNC
+
+> 8, 2, PCLK_PMU1_ROOT_I_SEL ; pclk_pmu1_root_i clock mux.
+= 0, CLK_MATRIX_PMU1_100M_SRC
+= 1, CLK_MATRIX_PMU1_50M_SRC
+= 2, XIN_OSC0_FUNC
+
+> 6, 2, HCLK_PMU1_ROOT_I_SEL ; hclk_pmu1_root_i clock mux.
+= 0, CLK_MATRIX_PMU1_200M_SRC
+= 1, CLK_MATRIX_PMU1_100M_SRC
+= 2, CLK_MATRIX_PMU1_50M_SRC
+= 3, XIN_OSC0_FUNC
+
+> 5, 1, CLK_MATRIX_PMU1_400M_SRC_SEL ; clk_matrix_pmu1_400m_src clock mux.
+= 0, CLK_MATRIX_400M_SRC
+= 1, XIN_OSC0_FUNC
+
+> 0, 5, CLK_MATRIX_PMU1_400M_SRC_DIV ; Divide clk_matrix_pmu1_400m_src by (div_con + 1).
+
+CLKSEL_CON02 = 0x0308 ; Internal clock select and division register 2
+> 9, 2, CLK_PMU1PWM_SEL ; clk_pmu1pwm clock mux.
+= 0, CLK_MATRIX_PMU1_100M_SRC
+= 1, CLK_MATRIX_PMU1_50M_SRC
+= 2, XIN_OSC0_FUNC
+
+> 7, 2, CLK_PMU1TIMER_ROOT_SEL ; clk_pmu1timer_root clock mux.
+= 0, XIN_OSC0_FUNC
+= 1, CLK_DEEPSLOW
+= 2, CLK_MATRIX_PMU1_100M_SRC
+
+> 6, 1, TCLK_PMU1WDT_SEL ; tclk_pmu1wdt clock mux.
+= 0, XIN_OSC0_FUNC
+= 1, CLK_DEEPSLOW
+
+> 5, 1, CLK_PMU_CM0_RTC_SEL ; clk_pmu_cm0_rtc clock mux.
+= 0, XIN_OSC0_FUNC
+= 1, CLK_DEEPSLOW
+
+> 0, 5, CLK_PMU_CM0_RTC_DIV ; Divide clk_pmu_cm0_rtc by (div_con + 1).
+
+CLKSEL_CON03 = 0x030C ; Internal clock select and division register 3
+> 7, 5, CLK_UART0_SRC_DIV ; Divide clk_uart0_src by (div_con + 1).
+
+> 6, 1, CLK_I2C0_SEL ; clk_i2c0 clock mux.
+= 0, CLK_MATRIX_PMU1_200M_SRC
+= 1, CLK_MATRIX_PMU1_100M_SRC
+
+CLKSEL_CON04 = 0x0310 ; Internal clock select and division register 4
+> 16, 16, CLK_UART0_FRAC_NUM ; clk_uart0_frac fraction division register. High 16-bit for numerator.
+> 0, 16, CLK_UART0_FRAC_DENOM ; clk_uart0_frac fraction division register. Low 16-bit for denominator.
+
+CLKSEL_CON05 = 0x0314 ; Internal clock select and division register 5
+> 2, 6, CLK_I2S1_8CH_TX_SRC_DIV ; Divide clk_i2s1_8ch_tx_src by (div_con + 1).
+
+> 0, 2, SCLK_UART0_SEL ; sclk_uart0 clock mux.
+= 0, CLK_UART0_SRC
+= 1, CLK_UART0_FRAC
+= 2, XIN_OSC0_FUNC
+
+CLKSEL_CON06 = 0x0318 ; Internal clock select and division register 6
+> 16, 16, CLK_I2S1_8CH_TX_FRAC_NUM ; clk_i2s1_8ch_tx_frac fraction division register. High 16-bit for numerator.
+> 0, 16, CLK_I2S1_8CH_TX_FRAC_DENOM ; clk_i2s1_8ch_tx_frac fraction division register. Low 16-bit for denominator.
+
+CLKSEL_CON07 = 0x031C ; Internal clock select and division register 7
+> 2, 5, CLK_I2S1_8CH_RX_SRC_DIV ; Divide clk_i2s1_8ch_rx_src by (div_con + 1).
+
+> 0, 2, MCLK_I2S1_8CH_TX_SEL ; mclk_i2s1_8ch_tx clock mux.
+= 0, CLK_I2S1_8CH_TX_SRC
+= 1, CLK_I2S1_8CH_TX_FRAC
+= 2, I2S1_MCLKIN
+= 3, XIN_OSC0_HALF
+
+CLKSEL_CON08 = 0x0320 ; Internal clock select and division register 8
+> 16, 16, CLK_I2S1_8CH_RX_FRAC_NUM ; clk_i2s1_8ch_rx_frac fraction division register. High 16-bit for numerator.
+> 0, 16, CLK_I2S1_8CH_RX_FRAC_DENOM ; clk_i2s1_8ch_rx_frac fraction division register. Low 16-bit for denominator.
+
+CLKSEL_CON09 = 0x0324 ; Internal clock select and division register 9
+> 10, 1, CLK_USBDP_COMBO_PHY0_REF_XTAL_SEL ; clk_usbdp_combo_phy0_ref_xtal clock mux.
+= 0, XIN_OSC0_FUNC
+= 1, CLK_PPLL
+
+> 5, 5, CLK_USBDP_COMBO_PHY0_REF_XTAL_DIV ; Divide clk_usbdp_combo_phy0_ref_xtal by (div_con + 1).
+
+> 4, 1, MCLK_PDM0_SEL ; mclk_pdm0 clock mux.
+= 0, CLK_MATRIX_PMU1_300M_SRC
+= 1, CLK_MATRIX_PMU1_200M_SRC
+
+> 2, 2, I2S1_8CH_MCLKOUT_SEL ; i2s1_8ch_mclkout clock mux.
+= 0, MCLK_I2S1_8CH_TX
+= 1, MCLK_I2S1_8CH_RX
+= 2, XIN_OSC0_HALF
+
+> 0, 2, MCLK_I2S1_8CH_RX_SEL ; mclk_i2s1_8ch_rx clock mux.
+= 0, CLK_I2S1_8CH_RX_SRC
+= 1, CLK_I2S1_8CH_RX_FRAC
+= 2, I2S1_MCLKIN
+= 3, XIN_OSC0_HALF
+
+CLKSEL_CON12 = 0x0330 ; Internal clock select and division register 12
+> 11, 1, CLK_HDPTX0_REF_XTAL_SEL ; clk_hdptx0_ref_xtal clock mux.
+= 0, XIN_OSC0_FUNC
+= 1, CLK_PPLL
+
+> 6, 5, CLK_HDPTX0_REF_XTAL_DIV ; Divide clk_hdptx0_ref_xtal by (div_con + 1).
+
+CLKSEL_CON14 = 0x0338 ; Internal clock select and division register 14
+> 14, 1, CLK_OTGPHY_U3_0_SEL ; clk_otgphy_u3_0 clock mux.
+= 0, XIN_OSC0_FUNC
+= 1, CLK_PPLL
+
+> 9, 5, CLK_OTGPHY_U3_0_DIV ; Divide clk_otgphy_u3_0 by (div_con + 1).
+
+> 7, 2, CLK_REF_MIPI_DCPHY0_SEL ; clk_ref_mipi_dcphy0 clock mux.
+= 0, XIN_OSC0_FUNC
+= 1, CLK_PPLL
+= 2, CLK_SPLL_MUX
+
+> 0, 7, CLK_REF_MIPI_DCPHY0_DIV ; Divide clk_ref_mipi_dcphy0 by (div_con + 1).
+
+CLKSEL_CON15 = 0x033C ; Internal clock select and division register 15
+> 5, 2, CLK_CR_PARA_SEL ; clk_cr_para clock mux.
+= 0, XIN_OSC0_FUNC
+= 1, CLK_PPLL
+= 2, CLK_SPLL_MUX
+
+> 0, 5, CLK_CR_PARA_DIV ; Divide clk_cr_para by (div_con + 1).
+
+CLKSEL_CON17 = 0x0344 ; Internal clock select and division register 17
+> 0, 1, DBCLK_GPIO0_SEL ; dbclk_gpio0 clock mux.
+= 0, XIN_OSC0_FUNC
+= 1, CLK_DEEPSLOW
+
+GATE_CON00 = 0x0800 ; Internal clock gate and division register 0
+> 15, 1, CLK_PMU_CM0_RTC_EN ; clk_pmu_cm0_rtc clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 13, 1, FCLK_PMU_CM0_CORE_EN ; fclk_pmu_cm0_core clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 12, 1, HCLK_PMU_CM0_BIU_EN ; hclk_pmu_cm0_biu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 11, 1, PCLK_PMU1_BIU_EN ; pclk_pmu1_biu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 10, 1, HCLK_PMU1_BIU_EN ; hclk_pmu1_biu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 9, 1, HCLK_PMU_CM0_ROOT_EN ; hclk_pmu_cm0_root clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 8, 1, HCLK_PMU_CM0_ROOT_I_EN ; hclk_pmu_cm0_root_i clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 7, 1, PCLK_PMU1_ROOT_I_EN ; pclk_pmu1_root_i clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 6, 1, HCLK_PMU1_ROOT_EN ; hclk_pmu1_root clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 5, 1, HCLK_PMU1_ROOT_I_EN ; hclk_pmu1_root_i clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 4, 1, CLK_MATRIX_PMU1_400M_SRC_EN ; clk_matrix_pmu1_400m_src clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 3, 1, CLK_MATRIX_PMU1_300M_SRC_EN ; clk_matrix_pmu1_300m_src clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 2, 1, CLK_MATRIX_PMU1_200M_SRC_EN ; clk_matrix_pmu1_200m_src clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 1, 1, CLK_MATRIX_PMU1_100M_SRC_EN ; clk_matrix_pmu1_100m_src clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 0, 1, CLK_MATRIX_PMU1_50M_SRC_EN ; clk_matrix_pmu1_50m_src clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+GATE_CON01 = 0x0804 ; Internal clock gate and division register 1
+> 14, 1, CLK_PMU1PWM_CAPTURE_EN ; clk_pmu1pwm_capture clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 13, 1, CLK_PMU1PWM_EN ; clk_pmu1pwm clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 12, 1, PCLK_PMU1PWM_EN ; pclk_pmu1pwm clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 11, 1, CLK_PMU1TIMER1_EN ; clk_pmu1timer1 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 10, 1, CLK_PMU1TIMER0_EN ; clk_pmu1timer0 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 9, 1, CLK_PMU1TIMER_ROOT_EN ; clk_pmu1timer_root clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 8, 1, PCLK_PMU1TIMER_EN ; pclk_pmu1timer clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 7, 1, TCLK_PMU1WDT_EN ; tclk_pmu1wdt clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 6, 1, PCLK_PMU1WDT_EN ; pclk_pmu1wdt clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 5, 1, PCLK_PMU1_IOC_EN ; pclk_pmu1_ioc clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 4, 1, PCLK_PMU1_GRF_EN ; pclk_pmu1_grf clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 3, 1, CLK_PMU1_EN ; clk_pmu1 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 2, 1, PCLK_PMU1_CRU_EN ; pclk_pmu1_cru clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 1, 1, CLK_DDR_FAIL_SAFE_EN ; clk_ddr_fail_safe clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 0, 1, PCLK_PMU1_EN ; pclk_pmu1 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+GATE_CON02 = 0x0808 ; Internal clock gate and division register 2
+> 15, 1, MCLK_PDM0_EN ; mclk_pdm0 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 14, 1, HCLK_PDM0_EN ; hclk_pdm0 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 13, 1, MCLK_I2S1_8CH_RX_EN ; mclk_i2s1_8ch_rx clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 12, 1, CLK_I2S1_8CH_FRAC_RX_EN ; clk_i2s1_8ch_rx_frac clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 11, 1, CLK_I2S1_8CH_RX_EN ; clk_i2s1_8ch_rx_src clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 10, 1, MCLK_I2S1_8CH_TX_EN ; mclk_i2s1_8ch_tx clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 9, 1, CLK_I2S1_8CH_FRAC_TX_EN ; clk_i2s1_8ch_tx_frac clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 8, 1, CLK_I2S1_8CH_TX_EN ; clk_i2s1_8ch_tx_src clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 7, 1, HCLK_I2S1_8CH_EN ; hclk_i2s1_8ch clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 6, 1, PCLK_UART0_EN ; pclk_uart0 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 5, 1, SCLK_UART0_EN ; sclk_uart0 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 4, 1, CLK_UART0_FRAC_EN ; clk_uart0_frac clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 3, 1, CLK_UART0_EN ; clk_uart0_src clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 2, 1, CLK_I2C0_EN ; clk_i2c0 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 1, 1, PCLK_I2C0_EN ; pclk_i2c0 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+GATE_CON03 = 0x080C ; Internal clock gate and division register 3
+> 11, 1, CLK_HDPTX0_REF_XTAL_EN ; clk_hdptx0_ref_xtal clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 5, 1, CLK_USBDP_COMBO_PHY0_REF_XTAL_EN ; clk_usbdp_combo_phy0_ref_xtal clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 0, 1, HCLK_VAD_EN ; hclk_vad clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+GATE_CON04 = 0x0810 ; Internal clock gate and division register 4
+> 11, 1, CLK_CR_PARA_EN ; clk_cr_para clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 7, 1, CLK_OTGPHY_U3_0_EN ; clk_otgphy_u3_0 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 3, 1, CLK_REF_MIPI_DCPHY0_EN ; clk_ref_mipi_dcphy0 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+GATE_CON05 = 0x0814 ; Internal clock gate and division register 5
+> 6, 1, DBCLK_GPIO0_EN ; dbclk_gpio0 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 5, 1, PCLK_GPIO0_EN ; pclk_gpio0 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 4, 1, PCLK_PMU0IOC_EN ; pclk_pmu0ioc clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 3, 1, PCLK_PMU0GRF_EN ; pclk_pmu0grf clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 2, 1, PCLK_PMU0_EN ; pclk_pmu0 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 1, 1, CLK_PMU0_EN ; clk_pmu0 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 0, 1, PCLK_PMU0_ROOT_EN ; pclk_pmu0_root clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+SOFTRST_CON00 = 0x0A00 ; Internal clock reset register 0
+> 14, 1, TRESETN_PMU1_CM0_JTAG ; When high, reset relative logic
+> 13, 1, FRESETN_PMU_CM0_CORE ; When high, reset relative logic
+> 12, 1, HRESETN_PMU_CM0_BIU ; When high, reset relative logic
+> 11, 1, PRESETN_PMU1_BIU ; When high, reset relative logic
+> 10, 1, HRESETN_PMU1_BIU ; When high, reset relative logic
+
+SOFTRST_CON01 = 0x0A04 ; Internal clock reset register 1
+> 13, 1, RESETN_PMU1PWM ; When high, reset relative logic
+> 12, 1, PRESETN_PMU1PWM ; When high, reset relative logic
+> 11, 1, RESETN_PMU1TIMER1 ; When high, reset relative logic
+> 10, 1, RESETN_PMU1TIMER0 ; When high, reset relative logic
+> 8, 1, PRESETN_PMU1TIMER ; When high, reset relative logic
+> 7, 1, TRESETN_PMU1WDT ; When high, reset relative logic
+> 6, 1, PRESETN_PMU1WDT ; When high, reset relative logic
+> 5, 1, PRESETN_PMU1_IOC ; When high, reset relative logic
+> 4, 1, PRESETN_PMU1_GRF ; When high, reset relative logic
+> 2, 1, PRESETN_CRU_PMU1 ; When high, reset relative logic
+> 1, 1, RESETN_DDR_FAIL_SAFE ; When high, reset relative logic
+
+SOFTRST_CON02 = 0x0A08 ; Internal clock reset register 2
+> 15, 1, RESETN_PDM0 ; When high, reset relative logic
+> 14, 1, HRESETN_PDM0 ; When high, reset relative logic
+> 13, 1, MRESETN_I2S1_8CH_RX ; When high, reset relative logic
+> 10, 1, MRESETN_I2S1_8CH_TX ; When high, reset relative logic
+> 7, 1, HRESETN_I2S1_8CH ; When high, reset relative logic
+> 6, 1, PRESETN_UART0 ; When high, reset relative logic
+> 5, 1, SRESETN_UART0 ; When high, reset relative logic
+> 2, 1, RESETN_I2C0 ; When high, reset relative logic
+> 1, 1, PRESETN_I2C0 ; When high, reset relative logic
+
+SOFTRST_CON03 = 0x0A0C ; Internal clock reset register 3
+> 15, 1, RESETN_HDPTX1_INIT ; When high, reset relative logic
+> 13, 1, RESETN_HDPTX0_LANE ; When high, reset relative logic
+> 12, 1, RESETN_HDPTX0_CMN ; When high, reset relative logic
+> 11, 1, RESETN_HDPTX0_INIT ; When high, reset relative logic
+> 0, 1, HRESETN_VAD ; When high, reset relative logic
+
+SOFTRST_CON04 = 0x0A10 ; Internal clock reset register 4
+> 10, 1, RESETN_OTGPHY_U2_1 ; When high, reset relative logic
+> 9, 1, RESETN_OTGPHY_U2_0 ; When high, reset relative logic
+> 8, 1, RESETN_OTGPHY_U3_1 ; When high, reset relative logic
+> 7, 1, RESETN_OTGPHY_U3_0 ; When high, reset relative logic
+> 6, 1, SRESETN_MIPI_DCPHY1 ; When high, reset relative logic
+> 5, 1, MRESETN_MIPI_DCPHY1 ; When high, reset relative logic
+> 4, 1, SRESETN_MIPI_DCPHY0 ; When high, reset relative logic
+> 3, 1, MRESETN_MIPI_DCPHY0 ; When high, reset relative logic
+> 1, 1, RESETN_HDPTX1_LANE ; When high, reset relative logic
+> 0, 1, RESETN_HDPTX1_CMN ; When high, reset relative logic
+
+SOFTRST_CON05 = 0x0A14 ; Internal clock reset register 5
+> 6, 1, DBRESETN_GPIO0 ; When high, reset relative logic
+> 5, 1, PRESETN_GPIO0 ; When high, reset relative logic
+> 4, 1, PRESETN_PMU0IOC ; When high, reset relative logic
+> 3, 1, PRESETN_PMU0GRF ; When high, reset relative logic
+
+AUTOCS_HCLK_PMU_CM0_ROOT_I_CON0 = 0x0D00 ; Auto clock switch control register 0
+> 16, 16, HCLK_PMU_CM0_ROOT_I_WAIT_TH ; wait_th. Wait time threshold, measured by original clk.
+> 0, 16, HCLK_PMU_CM0_ROOT_I_IDLE_TH ; idle_th. Idle time threshold, measured by original clk.
+
+AUTOCS_HCLK_PMU_CM0_ROOT_I_CON1 = 0x0D04 ; Auto clock switch control register 1
+> 14, 2, HCLK_PMU_CM0_ROOT_I_CLKSEL_CFG ; clksel_cfg Auto switch clock selection.
+= 0, ORIGINAL_CLK
+= 1, XIN_OSC0_FUNC_DI1
+= 2, CLK_RTC_32K
+
+> 13, 1, HCLK_PMU_CM0_ROOT_I_SWITCH_EN ; switch_en
+= 1, ENABLE ; Enable hclk_pmu_cm0_root_i switched to lower frequency when module is inactive.
+= 0, DISABLE ; Disable auto switch function.
+
+> 12, 1, HCLK_PMU_CM0_ROOT_I_AUTOCS_EN ; autocs_en
+= 1, ENABLE ; Enable hclk_pmu_cm0_root_i switch to lower frequency.
+= 0, DISABLE
+
+> 0, 12, HCLK_PMU_CM0_ROOT_I_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+= 0xFFF, ENABLE ; Enable hclk_pmu_cm0_root_i switch to lower frequency.
+= 0x000, DISABLE
+

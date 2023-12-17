@@ -1,0 +1,141 @@
+[CRU_DDRPHY3, CRU]
+@ = 0x0FD80C000, 0x00004000
+
+D3APLL_CON0 = 0x0000 ; D3APLL configuration register 0
+> 15, 1, D3APLL_BP ; BYPASS: Bypass mode control signal.
+= 1, BYPASS ; bypass mode is enabled. (FOUT = FIN).
+= 0, NORMAL ; PLL operates normally.
+
+> 0, 10, D3APLL_M ; M: Division value of the 10-bit programmable main-divider. PLL has to be reset if M value is changed. 64 <= pll_m <= 1023
+
+D3APLL_CON1 = 0x0004 ; D3APLL configuration register 1
+> 13, 1, D3APLL_RESETB ; RESETB: Power down control signal.
+= 0, NORMAL ; RESETB=0 from 1, PLL starts its normal operation after lock time.
+= 1, POWER_DOWN ; RESETB=1, power down mode is enabled and all digital blocks are reset.
+
+> 6, 3, D3APLL_S ; Division value of the 3-bit programmable scaler. 0 <= pll_s <= 6
+> 0, 6, D3APLL_P ; P: Division value of the 6-bit programmable pre-divider. PLL has to be reset if P value is changed. 1 <= pll_p <= 63
+
+D3APLL_CON2 = 0x0008 ; D3APLL configuration register 2
+> 0, 16, D3APLL_K ; K: Value of 16-bit DSM. pll_k[15:0] is a two's complement integer.
+
+D3APLL_CON3 = 0x000C ; D3APLL configuration register 3
+> 14, 2, D3APLL_SEL_PF ; SEL_PF: Value of 2-bit modulation method control.
+= 0, DOWN_SPREAD
+= 1, UP_SPREAD
+= 2, CENTER_SPREAD2 ; PLL has to be reset if pll_sel_pf is changed.
+= 3, CENTER_SPREAD3 ; PLL has to be reset if pll_sel_pf is changed.
+
+> 8, 6, D3APLL_MRR ; MRR: Value of 6-bit modulation rate control. PLL has to be reset if pll_mrr is changed.
+> 0, 8, D3APLL_MFR ; MFR: Value of 8-bit modulation frequency control. PLL has to be reset if pll_mfr is changed.
+
+D3APLL_CON4 = 0x0010 ; D3APLL configuration register 4
+> 15, 1, D3APLL_FSEL ; FSEL: Monitoring pin.
+= 0, FREF ; FEED_OUT = FREF.
+= 1, FEED ; FEED_OUT = FEED.
+
+> 14, 1, D3APLL_FEED_EN ; FEED_EN: Monitoring pin.
+= 0, DISABLED ; FEED_OUT is disabled.
+= 1, ENABLED ; FEED_OUT is enabled.
+
+> 4, 5, D3APLL_EXTAFC ; EXTAFC: Monitoring pin. If pll_afc_enb=1, AFC is disabled and VCO is calibrated manually by pll_extafc[4:0] for the test of VCO range.
+> 3, 1, D3APLL_AFC_ENB ; AFC_ENB: Monitoring pin.
+= 0, ENABLED ; AFC is enabled and VCO is calibrated automatically.
+= 1, DISABLED ; AFC is disabled and VCO is calibrated manually by pll_extafc[4:0] for the test of VCO range.
+
+> 0, 1, D3APLL_SSCG_EN ; SSCG_EN: Enable pin for dithered mode.
+= 0, DISABLE ; disable dithered mode.
+= 1, ENABLE ; enable dithered mode.
+
+D3APLL_CON5 = 0x0014 ; D3APLL configuration register 5
+> 0, 1, D3APLL_FOUT_MASK ; FOUT_MASK: Scaler's re-initialization time control pin.
+
+D3APLL_CON6 = 0x0018 ; D3APLL configuration register 6
+> 15, 1, D3APLL_LOCK ; LOCK: PLL lock flag.
+= 0, UNLOCKED ; PLL is unlocked.
+= 1, LOCKED ; PLL is locked.
+
+> 10, 5, D3APLL_AFC_CODE ; AFC_CODE: Monitoring pin. Output code of AFC(5 bits).
+
+D3BPLL_CON0 = 0x0020 ; D3BPLL configuration register 0
+> 15, 1, D3BPLL_BP ; BYPASS: Bypass mode control signal.
+= 1, BYPASS ; bypass mode is enabled. (FOUT = FIN).
+= 0, NORMAL ; PLL operates normally.
+
+> 0, 10, D3BPLL_M ; M: Division value of the 10-bit programmable main-divider. PLL has to be reset if M value is changed. 64 <= pll_m <= 1023
+
+D3BPLL_CON1 = 0x0024 ; D3BPLL configuration register 1
+> 13, 1, D3BPLL_RESETB ; RESETB: Power down control signal.
+= 0, NORMAL ; RESETB=0 from 1, PLL starts its normal operation after lock time.
+= 1, POWER_DOWN ; RESETB=1, power down mode is enabled and all digital blocks are reset.
+
+> 6, 3, D3BPLL_S ; Division value of the 3-bit programmable scaler. 0 <= pll_s <= 6
+> 0, 6, D3BPLL_P ; P: Division value of the 6-bit programmable pre-divider. PLL has to be reset if P value is changed. 1 <= pll_p <= 63
+
+D3BPLL_CON2 = 0x0028 ; D3BPLL configuration register 2
+> 0, 16, D3BPLL_K ; K: Value of 16-bit DSM. pll_k[15:0] is a two's complement integer.
+
+D3BPLL_CON3 = 0x002C ; D3BPLL configuration register 3
+> 14, 2, D3BPLL_SEL_PF ; SEL_PF: Value of 2-bit modulation method control.
+= 0, DOWN_SPREAD
+= 1, UP_SPREAD
+= 2, CENTER_SPREAD2 ; PLL has to be reset if pll_sel_pf is changed.
+= 3, CENTER_SPREAD3 ; PLL has to be reset if pll_sel_pf is changed.
+
+> 8, 6, D3BPLL_MRR ; MRR: Value of 6-bit modulation rate control. PLL has to be reset if pll_mrr is changed.
+> 0, 8, D3BPLL_MFR ; MFR: Value of 8-bit modulation frequency control. PLL has to be reset if pll_mfr is changed.
+
+D3BPLL_CON4 = 0x0030 ; D3BPLL configuration register 4
+> 15, 1, D3BPLL_FSEL ; FSEL: Monitoring pin.
+= 0, FREF ; FEED_OUT = FREF.
+= 1, FEED ; FEED_OUT = FEED.
+
+> 14, 1, D3BPLL_FEED_EN ; FEED_EN: Monitoring pin.
+= 0, DISABLED ; FEED_OUT is disabled.
+= 1, ENABLED ; FEED_OUT is enabled.
+
+> 4, 5, D3BPLL_EXTAFC ; EXTAFC: Monitoring pin. If pll_afc_enb=1, AFC is disabled and VCO is calibrated manually by pll_extafc[4:0] for the test of VCO range.
+
+> 3, 1, D3BPLL_AFC_ENB ; AFC_ENB: Monitoring pin.
+= 0, ENABLED ; AFC is enabled and VCO is calibrated automatically.
+= 1, DISABLED ; AFC is disabled and VCO is calibrated manually by pll_extafc[4:0] for the test of VCO range.
+
+> 0, 1, D3BPLL_SSCG_EN ; SSCG_EN: Enable pin for dithered mode.
+= 0, DISABLE ; disable dithered mode.
+= 1, ENABLE ; enable dithered mode.
+
+D3BPLL_CON5 = 0x0034 ; D3BPLL configuration register 5
+> 0, 1, D3BPLL_FOUT_MASK ; FOUT_MASK: Scaler's re-initialization time control pin.
+
+D3BPLL_CON6 = 0x0038 ; D3BPLL configuration register 6
+> 15, 1, D3BPLL_LOCK ; LOCK: PLL lock flag.
+= 0, UNLOCKED ; PLL is unlocked.
+= 1, LOCKED ; PLL is locked.
+
+> 10, 5, D3BPLL_AFC_CODE ; AFC_CODE: Monitoring pin. Output code of AFC(5 bits).
+
+CLKSEL_CON0 = 0x0300 ; Internal clock select and division register 0
+> 0, 1, CLK_DDRPHY2X_CH3_SEL ; clk_ddrphy2x_ch3 clock mux.
+= 0, CLK_D3APLL_T
+= 1, CLK_D3BPLL
+
+GATE_CON00 = 0x0800 ; Internal clock gate and division register 0
+> 5, 1, CLK_OSC_DDRPHY_CH3_EN ; clk_osc_ddrphy_ch3 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 4, 1, PCLK_DDRPHY_CH3_EN ; pclk_ddrphy_ch3 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 3, 1, PCLK_DDR_CRU_CH3_EN ; pclk_ddr_cru_ch3 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+SOFTRST_CON00 = 0x0A00 ; Internal clock reset register 0
+> 4, 1, PRESETN_DDRPHY_CH3 ; When high, reset relative logic
+> 3, 1, PRESETN_DDR_CRU_CH3 ; When high, reset relative logic
+> 2, 1, RESETN_DDRPHY2X_CH3 ; When high, reset relative logic
+> 1, 1, RESETN_DDRPHY2XDIV_CH3 ; div_rst_n at ddr ch3 When high, reset relative logic
+
+

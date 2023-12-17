@@ -1,0 +1,37 @@
+[GRF_PMU1, GRF]
+@ = 0x0FD58A000, 0x00002000
+
+SOC_CON0 = 0x0000 ; System control register 0
+SOC_CON1 = 0x0004 ; System control register 1
+SOC_CON2 = 0x0008 ; System control register 2
+SOC_CON3 = 0x000C ; System control register 3
+SOC_CON4 = 0x0010 ; System control register 4
+SOC_CON5 = 0x0014 ; System control register 5
+SOC_CON6 = 0x0018 ; System control register 6
+SOC_CON7 = 0x001C ; System control register 7
+SOC_CON8 = 0x0020 ; System control register 8
+SOC_CON9 = 0x0024 ; System control register 9
+SOC_CON10 = 0x0028 ; System control register 10
+SOC_CON11 = 0x002C ; System control register 11
+BIU_CON = 0x0050 ; BIU interface control register
+BIU_STS = 0x0054 ; BIU interface status register
+SOC_STS = 0x0060 ; System status register
+MEM_CON0 = 0x0080 ; Memory interface control register 0
+MEM_CON1 = 0x0084 ; Memory interface control register 1
+MEM_CON2 = 0x0088 ; Memory interface control register 2
+MEM_CON3 = 0x008C ; Memory interface control register 3
+OS_REG0 = 0x0200 ; Operation system register 0
+OS_REG1 = 0x0204 ; Operation system register 1
+OS_REG2 = 0x0208 ; Operation system register 2
+OS_REG3 = 0x020C ; Operation system register 3
+OS_REG4 = 0x0210 ; Operation system register 4
+OS_REG5 = 0x0214 ; Operation system register 5
+OS_REG6 = 0x0218 ; Operation system register 6
+OS_REG7 = 0x021C ; Operation system register 7
+RST_STS = 0x0230 ; System reset status register
+RST_CLR = 0x0234 ; System reset status clear register
+SD_DETECT_CON = 0x0380 ; SDMMC detect control register
+SD_DETECT_STS = 0x0390 ; SDMMC detect status register
+SD_DETECT_CLR = 0x03A0 ; SDMMC detect clear register
+SD_DETECT_CNT = 0x03B0 ; SDMMC detect count register
+

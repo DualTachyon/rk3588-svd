@@ -1,0 +1,522 @@
+[GRF_SYS, GRF]
+@ = 0x0FD58C000, 0x00004000
+
+WDT_CON0 = 0x0000 ; WDT Control Register
+> 0, 1, WDTNS_PAUSE_EN ; wdt pause enable. Used to freeze the watchdog counter during pause mode.
+= 1, ENABLE
+= 0, DISABLE
+
+UART_CON0 = 0x0010 ; UART Control Register 0
+> 8, 1, UART9_CTS_INV ; Polarity selection for uart9_cts.
+= 0, ACTIVE_LOW
+= 1, ACTIVE_HIGH
+
+> 7, 1, UART8_CTS_INV ; Polarity selection for uart8_cts.
+= 0, ACTIVE_LOW
+= 1, ACTIVE_HIGH
+
+> 6, 1, UART7_CTS_INV ; Polarity selection for uart7_cts.
+= 0, ACTIVE_LOW
+= 1, ACTIVE_HIGH
+
+> 5, 1, UART6_CTS_INV ; Polarity selection for uart6_cts.
+= 0, ACTIVE_LOW
+= 1, ACTIVE_HIGH
+
+> 4, 1, UART5_CTS_INV ; Polarity selection for uart5_cts.
+= 0, ACTIVE_LOW
+= 1, ACTIVE_HIGH
+
+> 3, 1, UART4_CTS_INV ; Polarity selection for uart4_cts.
+= 0, ACTIVE_LOW
+= 1, ACTIVE_HIGH
+
+> 2, 1, UART3_CTS_INV ; Polarity selection for uart3_cts.
+= 0, ACTIVE_LOW
+= 1, ACTIVE_HIGH
+
+> 1, 1, UART2_CTS_INV ; Polarity selection for uart2_cts.
+= 0, ACTIVE_LOW
+= 1, ACTIVE_HIGH
+
+> 0, 1, UART1_CTS_INV ; Polarity selection for uart1_cts.
+= 0, ACTIVE_LOW
+= 1, ACTIVE_HIGH
+
+UART_CON1 = 0x0014 ; UART Control Register 1
+> 8, 1, UART9_RTS_INV ; Polarity selection for uart9_rts.
+= 0, ACTIVE_LOW
+= 1, ACTIVE_HIGH
+
+> 7, 1, UART8_RTS_INV ; Polarity selection for uart8_rts.
+= 0, ACTIVE_LOW
+= 1, ACTIVE_HIGH
+
+> 6, 1, UART7_RTS_INV ; Polarity selection for uart7_rts.
+= 0, ACTIVE_LOW
+= 1, ACTIVE_HIGH
+
+> 5, 1, UART6_RTS_INV ; Polarity selection for uart6_rts.
+= 0, ACTIVE_LOW
+= 1, ACTIVE_HIGH
+
+> 4, 1, UART5_RTS_INV ; Polarity selection for uart5_rts.
+= 0, ACTIVE_LOW
+= 1, ACTIVE_HIGH
+
+> 3, 1, UART4_RTS_INV ; Polarity selection for uart4_rts.
+= 0, ACTIVE_LOW
+= 1, ACTIVE_HIGH
+
+> 2, 1, UART3_RTS_INV ; Polarity selection for uart3_rts.
+= 0, ACTIVE_LOW
+= 1, ACTIVE_HIGH
+
+> 1, 1, UART2_RTS_INV ; Polarity selection for uart2_rts.
+= 0, ACTIVE_LOW
+= 1, ACTIVE_HIGH
+
+> 0, 1, UART1_RTS_INV ; Polarity selection for uart1_rts.
+= 0, ACTIVE_LOW
+= 1, ACTIVE_HIGH
+
+GIC_CON0 = 0x00C0 ; GIC Control Register
+> 8, 8, CPU_ACTIVE ; CPU active status Indicates if the core is active and not in a low-power state such as retention. The GIC can decide to target only active cores for 1 of N SPIs.
+> 1, 1, GIC_SAMPLE_REQ ; GIC sample request This 4-phase handshake provides a hardware mechanism to snapshot the PMU counters and has the same effect as writing to the GICP_CAPR register.
+
+MEMCFG_CON0 = 0x0200 ; Memory Configuration Register 0
+> 0, 16, RKVDEC_MEM_CFG_HDPSPRF ; RKVDEC HDSPRF memory configuration bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMD bit 7: LS bit 11~10: WPULSE bit 13~12: RA
+
+MEMCFG_CON1 = 0x0204 ; Memory Configuration Register 1
+> 0, 16, RKVDEC_MEM_CFG_UHDPDPRF ; RKVDEC UHDPDPRF memory configuration low bits bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMDA bit 7: LS
+
+MEMCFG_CON2 = 0x0208 ; Memory Configuration Register 2
+> 0, 3, RKVDEC_MEM_CFG_UHDPDPRF ; RKVDEC UHDPDPRF memory configuration high bits bit 0: TESTRWM
+
+MEMCFG_CON3 = 0x020C ; Memory Configuration Register 3
+> 0, 16, RKVDEC_MEM_CFG_HSDPRF ; RKVDEC HSDPRF memory configuration low bits bit 0: TEST1A bit 1: TEST_RNMA bit 5~2: RMA bit 6: WMDA bit 8: LS
+
+MEMCFG_CON4 = 0x0210 ; Memory Configuration Register 4
+> 0, 8, RKVDEC_MEM_CFG_HSDPRF ; RKVDEC HSDPRF memory configuration high bits bit 1: TEST1B bit 5~2: RMB
+
+MEMCFG_CON5 = 0x0214 ; Memory Configuration Register 5
+> 0, 16, RKVENC_MEM_CFG_HDSPRF ; RKVENC HDSPRF memory configuration bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMD bit 7: LS bit 11~10: WPULSE bit 13~12: RA
+
+MEMCFG_CON6 = 0x0218 ; Memory Configuration Register 6
+> 0, 16, RKVENC_MEM_CFG_UHDPDPRF ; RKVENC UHDPDPRF memory configuration low bits bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMDA bit 7: LS
+
+MEMCFG_CON7 = 0x021C ; Memory Configuration Register 7
+> 0, 3, RKVENC_MEM_CFG_UHDPDPRF ; RKVENC UHDPDPRF memory configuration high bits bit 0: TESTRWM
+
+MEMCFG_CON8 = 0x0220 ; Memory Configuration Register 8
+> 0, 16, RKVENC_MEM_CFG_HSDPRF ; RKVENC HSDPRF memory configuration low bits bit 0: TEST1A bit 1: TEST_RNMA bit 5~2: RMA bit 6: WMDA bit 8: LS
+
+MEMCFG_CON9 = 0x0224 ; Memory Configuration Register 9
+> 0, 8, RKVENC_MEM_CFG_HSDPRF ; RKVENC HSDPRF memory configuration high bits bit 1: TEST1B bit 5~2: RMB
+
+MEMCFG_CON10 = 0x0228 ; Memory Configuration Register 10
+> 0, 16, VDPU_MEM_CFG_HDSPRF ; VDPU HDSPRF memory configuration bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMD bit 7: LS bit 11~10: WPULSE bit 13~12: RA
+
+MEMCFG_CON11 = 0x022C ; Memory Configuration Register 11
+> 0, 16, VDPU_MEM_CFG_UHDPDPRF ; VDPU UHDPDPRF memory configuration low bits bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMDA bit 7: LS
+
+MEMCFG_CON12 = 0x0230 ; Memory Configuration Register 12
+> 0, 3, VDPU_MEM_CFG_UHDPDPRF ; VDPU UHDPDPRF memory configuration high bits bit 0: TESTRWM
+
+MEMCFG_CON13 = 0x0234 ; Memory Configuration Register 13
+> 0, 16, VDPU_MEM_CFG_HSDPRF ; VDPU HSDPRF memory configuration low bits bit 0: TEST1A bit 1: TEST_RNMA bit 5~2: RMA bit 6: WMDA bit 8: LS
+
+MEMCFG_CON14 = 0x0238 ; Memory Configuration Register 14
+> 0, 8, VDPU_MEM_CFG_HSDPRF ; VDPU HSDPRF memory configuration high bits bit 1: TEST1B bit 5~2: RMB
+
+MEMCFG_CON15 = 0x023C ; Memory Configuration Register 15
+> 0, 8, VDPU_MEM_CFG_ROM ; VDPU ROM memory configuration bit 0: TEST1 bit 4~1: RM bit 5: LS
+
+MEMCFG_CON16 = 0x0240 ; Memory Configuration Register 16
+> 0, 16, AV1_MEM_CFG_HSDPRF ; AV1 HSDPRF memory configuration low bits bit 0: TEST1A bit 1: TEST_RNMA bit 5~2: RMA bit 6: WMDA bit 8: LS
+
+MEMCFG_CON17 = 0x0244 ; Memory Configuration Register 17
+> 8, 3, AV1_MEM_CFG_UHDPDPRF ; AV1 UHDPDPRF memory configuration high bits bit 8: TESTRWM
+> 0, 8, AV1_MEM_CFG_HSDPRF ; AV1 HSDPRF memory configuration high bits bit 1: TEST1B bit 5~2: RMB
+
+MEMCFG_CON18 = 0x0248 ; Memory Configuration Register 18
+> 0, 16, AV1_MEM_CFG_UHDPDPRF ; AV1 UHDPDPRF memory configuration low bits bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMDA bit 7: LS
+
+MEMCFG_CON19 = 0x024C ; Memory Configuration Register 19
+> 0, 16, AV1_MEM_CFG_HDSPRF ; AV1 HDSPRF memory configuration bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMD bit 7: LS bit 11~10: WPULSE bit 13~12: RA
+
+MEMCFG_CON20 = 0x0250 ; Memory Configuration Register 20
+> 0, 8, SYS_MEM_CFG_ROM ; ROM memory configuration bit 0: TEST1 bit 4~1: RM bit 5: LS
+
+MEMCFG_CON21 = 0x0254 ; Memory Configuration Register 21
+> 0, 16, SYS_MEM_CFG_HDSPRF ; system HDSPRF memory configuration bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMD bit 7: LS bit 11~10: WPULSE bit 13~12: RA
+
+MEMCFG_CON22 = 0x0258 ; Memory Configuration Register 22
+> 0, 16, SYS_MEM_CFG_HSDPRF ; system HSDPRF memory configuration low bits bit 0: TEST1A bit 1: TEST_RNMA bit 5~2: RMA bit 6: WMDA bit 8: LS
+
+MEMCFG_CON23 = 0x025C ; Memory Configuration Register 23
+> 0, 8, SYS_MEM_CFG_HSDPRF ; system HSDPRF memory configuration high bits bit 1: TEST1B bit 5~2: RMB
+
+MEMCFG_CON24 = 0x0260 ; Memory Configuration Register 24
+> 0, 16, SYS_MEM_CFG_HSSPRA ; system HSSPRA memory configuration bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMD bit 7: LS
+
+MEMCFG_CON26 = 0x0268 ; Memory Configuration Register 26
+> 0, 16, SYS_MEM_CFG_HSDPRA ; system HSDPRA memory configuration low bits bit 0: TEST1A bit 1: TEST_RNMA bit 4~2: RMA bit 5: WMDA bit 7: LS bit 11~10: WPULSE bit 13~12: RA bit 15~14: WA
+
+MEMCFG_CON27 = 0x026C ; Memory Configuration Register 27
+> 0, 9, SYS_MEM_CFG_HSDPRA ; system HSDPRA memory configuration high bits bit 0: TEST1B bit 1: TEST_RNMB bit 4~2: RMB bit 5: WMDB
+
+MEMCFG_CON28 = 0x0270 ; Memory Configuration Register 28
+> 0, 16, VI_MEM_CFG_HDSPRF ; VI subsystem HDSPRF memory configuration bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMD bit 7: LS bit 11~10: WPULSE bit 13~12: RA
+
+MEMCFG_CON29 = 0x0274 ; Memory Configuration Register 29
+> 0, 16, VI_MEM_CFG_HSDPRF ; VI subsystem HSDPRF memory configuration low bits bit 0: TEST1A bit 1: TEST_RNMA bit 5~2: RMA bit 6: WMDA bit 8: LS
+
+MEMCFG_CON30 = 0x0278 ; Memory Configuration Register 30
+> 0, 8, VI_MEM_CFG_HSDPRF ; VI subsystem HSDPRF memory configuration high bits bit 1: TEST1B bit 5~2: RMB
+
+MEMCFG_CON31 = 0x027C ; Memory Configuration Register 31
+> 0, 16, VI_MEM_CFG_HSSPRA ; VI subsystem HSSPRA memory configuration bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMD bit 7: LS
+
+SOC_CON1 = 0x0304 ; System Control Register 1
+> 15, 1, SPDIF0_TXM1_INV_SEL ; Select SPDIF0_TXM1 to IO invert or not
+= 0, NORMAL
+= 1, INVERT
+
+> 14, 1, VOP_DCLK_INV_SEL
+= 0, NORMAL
+= 1, INVERT
+
+> 13, 1, ISP1_SHUTTER_TRIG ; ISP1 shutter trigger. High valid.
+> 12, 1, ISP1_DISABLE_ISP ; disable ISP1 function. High valid.
+> 11, 1, ISP0_SHUTTER_TRIG ; ISP0 shutter trigger. High valid.
+> 10, 1, ISP0_DISABLE_ISP ; disable ISP0 function. High valid.
+> 1, 1, HDMIRXPHY_SRAM_EXT_LD_DONE ; HDMIRX PHY SRAM external load done This signal asserted by user after any updates to the SRAM have been loaded.
+> 0, 1, HDMIRXPHY_SRAM_BYPASS ; HDMI RXPHY SRAM bypass control when sram bypass control signal asserted, bypasses the SRAM interface. In this case, the adaptation and calibration algorithms are executed from the hard wired values within the Raw PCS. If SRAM is not bypassed, the internal algorithms are first loaded by Raw PCS into the SRAM at which point user can change the contents of the SRAM. The updated SRAM contents are used for the adaptation and calibration routines. This signal is meant to be used only for debugging purposes and must not change after phy_reset is negated.
+
+SOC_CON2 = 0x0308 ; System Control Register 2
+> 15, 1, HDMITX1_HPD_INT_MSK ; HDMI TX1 HPD interrupt mask
+= 0, ENABLE ; Interrupt enable
+= 1, DISABLE ; Interrupt disable
+
+> 14, 1, HDMITX1_HPD_INT_CLR ; A posedge of hdmitx1_hpd_int_clr will clear the HDMI TX1 HPD interrupt.
+
+> 13, 1, HDMITX0_HPD_INT_MSK ; HDMI TX0 HPD interrupt mask
+= 0, ENABLE ; Interrupt enable
+= 1, DISABLE ; Interrupt disable
+
+> 12, 1, HDMITX0_HPD_INT_CLR ; A posedge of hdmitx0_hpd_int_clr will clear the HDMI TX0 HPD interrupt.
+
+> 11, 1, CSIHOST5_SEL ; CSIHOST5 mode select. This bit is valid only in D-PHY split mode.
+= 0, D_PHY_LANE_01 ; Connect to D-PHY lane 0/1
+= 1, D_PHY_LANE_23 ; Connect to D-PHY lane 2/3
+
+> 10, 1, CSIHOST4_SEL ; CSIHOST4 mode select. This bit is valid only in D-PHY split mode.
+= 0, D_PHY_LANE_01 ; Connect to D-PHY lane 0/1
+= 1, D_PHY_LANE_23 ; Connect to D-PHY lane 2/3
+
+> 9, 1, CSIHOST3_SEL ; CSIHOST3 mode select. This bit is valid only in D-PHY split mode.
+= 0, D_PHY_LANE_01 ; Connect to D-PHY lane 0/1
+= 1, D_PHY_LANE_23 ; Connect to D-PHY lane 2/3
+
+> 8, 1, CSIHOST2_SEL ; CSIHOST2 mode select. This bit is valid only in D-PHY split mode.
+= 0, D_PHY_LANE_01 ; Connect to D-PHY lane 0/1
+= 1, D_PHY_LANE_23 ; Connect to D-PHY lane 2/3
+
+> 7, 1, CSIDPHY1_LANE_SEL ; CSIDPHY 1 pipe clock select. If CSIDPHY works as full mode, set this bit to 0. If CSIDPHY works as split mode, set this bit to 1.
+= 0, CLOCK_LANE_0 ; Select clock lane 0 to pipe CSIDPHY data[31:16]
+= 1, CLOCK_LANE_1 ; Select clock lane 1 to pipe CSIDPHY data[31:16]
+
+> 6, 1, CSIDPHY0_LANE_SEL ; CSIDPHY 0 pipe clock select. If CSIDPHY works as full mode, set this bit to 0, If CSIDPHY works as split mode, set this bit to 1.
+= 0, CLOCK_LANE_0 ; Select clock lane 0 to pipe CSIDPHY data[31:16]
+= 1, CLOCK_LANE_1 ; Select clock lane 1 to pipe CSIDPHY data[31:16]
+
+> 5, 1, VICAP_DATAPATH
+= 0, SINGLE_EDGE_MODE ; Select single edge mode
+= 1, DUAL_EDGE_MODE ; Select dual edge mode
+
+> 4, 1, VICAP_CLK_INV_SEL ; VICAP clock invert select
+= 0, NORMAL ; Do not invert VICAP clock in
+= 1, INVERT ; Invert VICAP clock in
+
+SOC_CON3 = 0x030C ; System Control Register 3
+> 8, 8, VOP_CLK_DELAY_NUM ; VOP clock delayline length control
+> 0, 8, VICAP_CLK_DELAY_NUM ; VIP clock delayline length control
+
+SOC_CON6 = 0x0318 ; System Control Register 6
+> 15, 1, PCIEPHY_DTB_SEL ; PCIEPHY DTB select
+= 0, PCIE0 ; Select PCIE0 PHY DTB output to IO
+= 1, PCIE1 ; Select PCIE1 PHY DTB output to IO
+
+> 14, 1, FORCE_JTAG ; Force SDMMC IO to JTAG function enable When force_jtag is high , gpio4_d2_sel is 0x1 , gpio4_d3_sel is 0x1, and SDMMC_DETECTN is inactive, switch the SDMMC IO to CPU JTAG function.
+
+> 12, 2, HDCP_UART2_EN ; HDCP uart enable
+= 1, HDCP0 ; UART2 IO is used for HDCP 0
+= 2, HDCP1 ; UART2 IO is used for HDCP 1
+
+> 11, 1, ACDCDIG_SEL ; ACDC path select
+= 0, IO ; I2S3 connect to IO
+= 1, DSM_PWM ; I2S3 connect to DSM_PWM
+
+> 10, 1, HDMIRX_PHY_GATING_EN ; HDMI RXPHY memory clock gating enable
+= 0, DISABLE ; HDMIRX PHY memory clock auto gating disable
+= 1, ENABLE ; HDMIRX PHY memory clock auto gating enable
+
+> 9, 1, I2S3_TXRXLRCK_SEL ; I2S3 lrck select
+= 0, RX ; Select i2s3_rx_lrck as lrck
+= 1, TX ; Select i2s3_tx_lrck as lrck
+
+> 8, 1, I2S3_SCLK_SEL ; I2S3 sclk select
+= 0, RX ; Select i2s3_sclk_in_rx as sclk
+= 1, TX ; Select i2s3_sclk_in_tx as sclk
+
+> 7, 1, I2S3_MCLK_IOE ; I2S3_MCLK output enable
+= 0, ENABLE ; Output enable
+= 1, DISABLE ; Output disable
+
+> 6, 1, I2S2_SCLK_SEL ; I2S2 sclk select
+= 0, RX ; Select i2s2_sclk_in_rx as sclk
+= 1, TX ; Select i2s2_sclk_in_tx as sclk
+
+> 2, 1, I2S2_MCLK_IOE ; I2S2_MCLK output enable
+= 0, ENABLE ; Output enable
+= 1, DISABLE ; Output disable
+
+> 1, 1, I2S1_MCLK_IOE ; I2S1_MCLK output enable
+= 0, ENABLE ; Output enable
+= 1, DISABLE ; Output disable
+
+> 0, 1, I2S0_MCLK_IOE ; I2S0_MCLK output enable
+= 0, ENABLE ; Output enable
+= 1, DISABLE ; Output disable
+
+SOC_CON7 = 0x031C ; System Control Register 7
+> 15, 1, EDP1_HPD_SEL
+= 0, TIE_1 ; Tie EDP1 hpd to 1
+= 1, TIE_IO ; Connect EDP1 hpd to IO
+
+> 14, 1, EDP0_HPD_SEL
+= 0, TIE_1 ; Tie EDP0 hpd to 1
+= 1, TIE_IO ; Connect EDP0 hpd to IO
+
+> 13, 1, HDMITX1HPD_IO_SEL
+= 0, TIE_0 ; Tie HDMITX1 hpd to 0
+= 1, TIE_IO ; Connect HDMITX1 hpd to IO
+
+> 12, 1, HDMITX0HPD_IO_SEL
+= 0, TIE_0 ; Tie HDMITX0 hpd to 0
+= 1, TIE_IO ; Connect HDMITX0 hpd to IO
+
+> 11, 1, EMMC_RAM_CLKGAT_DISABLE
+= 0, GATE ; Gate EMMC memory clock when idle
+= 1, ALWAYS_ON ; EMMC memory clock is always on
+
+> 10, 1, SDIO_RAM_CLKGAT_DISABLE
+= 0, GATE ; Gate SDIO memory clock when idle
+= 1, ALWAYS_ON ; SDIO memory clock is always on
+
+> 9, 1, SDMMC_RAM_CLKGAT_DISABLE
+= 0, GATE ; Gate SDMMC memory clock when idle
+= 1, ALWAYS_ON ; SDMMC memory clock is always on
+
+> 8, 1, TRNG_NS_I_RST_SYNC_BYPASS ; when high, bypass the reset synchronization logic.
+
+> 7, 1, TRNG_NS_I_CTRL_RESEED ; control the non-secure TRNG to regenerate the random seed.
+
+> 6, 1, TRNG_NS_I_CTRL_ZEROIZE ; used to clear the state and seed of non-secure TRNG.
+
+> 5, 1, GMAC1_RXCLK_DLY_ENA ; RGMII RX clock delayline enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 1, GMAC1_TXCLK_DLY_ENA ; RGMII TX clock delayline enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 3, 1, GMAC0_RXCLK_DLY_ENA ; RGMII RX clock delayline enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, GMAC0_TXCLK_DLY_ENA ; RGMII TX clock delayline enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 2, SATA_IO_SEL ; SATA IO select
+= 0, SATA0 ; Select SATA0 cp_det / mp_switch / cp_pod to IO
+= 1, SATA1 ; Select SATA1 cp_det / mp_switch / cp_pod to IO
+= 2, SATA2 ; Select SATA2 cp_det / mp_switch / cp_pod to IO
+
+SOC_CON8 = 0x0320 ; System Control Register 8
+> 8, 8, GMAC0_CLK_RX_DL_CFG ; GMAC0 RX clock delayline configuration MAC recept clock delay length configuration
+> 0, 8, GMAC0_CLK_TX_DL_CFG ; GMAC0 TX clock delayline configuration MAC transmit clock delay length configuration
+
+SOC_CON9 = 0x0324 ; System Control Register 9
+> 8, 8, GMAC1_CLK_RX_DL_CFG ; GMAC1 RX clock delayline configuration MAC recept clock delay length configuration
+> 0, 8, GMAC1_CLK_TX_DL_CFG ; GMAC1 TX clock delayline configuration MAC transmit clock delay length configuration
+
+SOC_CON10 = 0x0328 ; System Control Register 10
+> 12, 3, HDMI_DEBUG_SEL ; HDMI DEBUG IO select select different debug signals to IO.
+
+> 10, 2, MCUJTAG_SEL
+= 0, PMU_MCU ; JTAG IO select PMU MCU
+= 1, DDR_MCU ; JTAG IO select DDR MCU
+= 2, GPU_MCU ; JTAG IO select GPU MCU
+= 3, NPU_MCU ; JTAG IO select NPU MCU
+
+> 9, 1, CLKBYPASS_EMMC ; clock gate bypass
+= 0, ENABLE ; Enable clock gate of EMMC
+= 1, DISABLE ; Disable clock gate of EMMC
+
+> 8, 1, CLKSTABLE_EMMC ; card clock stable When asserted it indicates that the card clock is stable. Active State: High
+= 1, STABLE
+
+> 3, 5, SDMMC_FIFO_WR_THRESH ; SDMMC BUFFER FIFO threshold control When the space of SDMMC BUFFER FIFO is more than the threshold, SDMMC BUFFER module will send the dma request signal.
+
+> 2, 1, SDMMC_BUF_CLK_INV_SEL ; SDMMC BUFFER clock invert select
+= 0, NORMAL ; Do not invert SDMMC BUFFER clock output
+= 1, INVERT ; Invert SDMMC BUFFER clock output
+
+> 1, 1, SDMMC_BUFFER_EN ; SDMMC BUFFER enable
+= 0, DISABLE ; SDMMC BUFFER module disable
+= 1, ENABLE ; SDMMC BUFFER module enable
+
+> 0, 1, SDMMC_BUFFER_IO_EN ; SDMMC BUFFER IO select
+= 0, SDMMC ; Select SDMMC to SDMMC IO
+= 1, SDMMC_BUFFER ; Select SDMMC BUFFER to SDMMC IO
+
+SOC_CON11 = 0x032C ; System Control Register 11
+> 0, 32, SDCARD_DECTN_DLY ; Delay counter setting after sdcard plug out. Counted by 24M clock
+
+SOC_CON12 = 0x0330 ; System Control Register 12
+> 15, 1, HDMITX0_HPD_PORT_FROM_FF
+= 1, ACTIVE ; Active the register as the input hpd port
+= 0, INACTIVE ; Inactive the register as the input hpd port
+
+> 14, 1, HDMITX0_HPD_PORT_FROM_TOP
+= 1, ACTIVE ; Active the top level's hpd port as the input hpd port
+= 0, INACTIVE ; Inactive the top level's hpd port as the input hpd port
+
+> 8, 6, HDMITX0_SETDLY_EN
+= 0, Inactive ; Inactive SET_LNUM_MS value
+
+> 0, 8, HDMITX0_SET_LNUM_MS ; The low level count threshold value. For example: 20 means low level stable 20ms.
+
+SOC_CON13 = 0x0334 ; System Control Register 13
+> 15, 1, HDMITX1_HPD_PORT_FROM_FF
+= 1, ACTIVE ; Active the register as the input hpd port
+= 0, INACTIVE ; Inactive the register as the input hpd port
+
+> 14, 1, HDMITX1_HPD_PORT_FROM_TOP
+= 1, ACTIVE ; Active the top level's hpd port as the input hpd port
+= 0, INACTIVE ; Inactive the top level's hpd port as the input hpd port
+
+> 8, 6, HDMITX1_SETDLY_EN
+= 0, INACTIVE ; Inactive SET_LNUM_MS value Others not
+
+> 0, 8, HDMITX1_SET_LNUM_MS ; The low level count threshold value. For example: 20 means low level stable 20ms.
+
+SOC_STATUS0 = 0x0380 ; System Status Register 0
+> 12, 1, GIC_SAMPLE_ACK, RO ; Used with gic_sample_req. This 4-phase handshake provides a mechanism to snapshot the PMU counters and has the same effects as writting to the GICP_CAPR register.
+
+> 0, 12, TIMER_NS_EN_STATUS, RO ; TIMER_NS enable status
+
+SOC_STATUS1 = 0x0384 ; System Status Register 1
+> 28, 1, HDMITX1_LOW_MORETHAN100MS, RO
+= 0, LOW_LEVEL ; Low more than 100 ms (Internal signal of the HPD module) signal is low level
+= 1, HIGH_LEVEL ; Low more than 100 ms (Internal signal of the HPD module) signal is high level
+
+> 27, 1, HDMITX1_PORT_LEVEL, RO
+= 0, LOW_LEVEL ; HPD_PORT_LEVEL (Internal signal of the HPD module) signal is low level
+= 1, HIGH_LEVEL ; HPD_PORT_LEVEL (Internal signal of the HPD module) signal is high level
+
+> 26, 1, HDMITX1_IHPD_PORT, RO
+= 0, LOW_LEVEL ; IHPD_PORT (Input signal of the HPD module) signal is low level
+= 1, HIGH_LEVEL ; IHPD_PORT (Input signal of the HPD module) signal is high level
+
+> 25, 1, HDMITX1_OHPD_INT, RO
+= 0, LOW_LEVEL ; Ohpd_int (Output signal of the HPD module) signal is low level
+= 1, HIGH_LEVEL ; Ohpd_int (Output signal of the HPD module) signal is high level
+
+> 24, 1, HDMITX1_LEVEL_INT, RO
+= 0, LOW_LEVEL ; Level Interrupt signal is low level
+= 1, HIGH_LEVEL ; Level Interrupt signal is high level
+
+> 21, 3, HDMITX1_INT_CHANGE_CNT, RO ; Store the interrupt change times.
+
+> 20, 1, HDMITX0_LOW_MORETHAN100MS, RO
+= 0, LOW_LEVEL ; Low more than 100 ms (Internal signal of the HPD module) signal is low level
+= 1, HIGH_LEVEL ; Low more than 100 ms (Internal signal of the HPD module) signal is high level
+
+> 19, 1, HDMITX0_PORT_LEVEL, RO
+= 0, LOW_LEVEL ; HPD_PORT_LEVEL (Internal signal of the HPD module) signal is low level
+= 1, HIGH_LEVEL ; HPD_PORT_LEVEL (Internal signal of the HPD module) signal is high level
+
+> 18, 1, HDMITX0_IHPD_PORT, RO
+= 0, LOW_LEVEL ; IHPD_PORT (Input signal of the HPD module) signal is low level
+= 1, HIGH_LEVEL ; IHPD_PORT (Input signal of the HPD module) signal is high level
+
+> 17, 1, HDMITX0_OHPD_INT, RO
+= 0, LOW_LEVEL ; Ohpd_int (Output signal of the HPD module) signal is low level
+= 1, HIGH_LEVEL ; Ohpd_int (Output signal of the HPD module) signal is high level
+
+> 16, 1, HDMITX0_LEVEL_INT, RO
+= 0, LOW_LEVEL ; Level Interrupt signal is low level
+= 1, HIGH_LEVEL ; Level Interrupt signal is high level
+
+> 13, 3, HDMITX0_INT_CHANGE_CNT, RO ; Store the interrupt change times.
+
+> 12, 1, ISP1_SHUTTER_OPEN, RO ; ISP1 shutter open High valid.
+= 1, VALID
+
+> 11, 1, ISP0_SHUTTER_OPEN, RO ; ISP0 shutter open High valid
+= 1, VALID
+
+> 10, 1, HDMIRXPHY_SRAM_INIT_DONE, RO ; HDMIRX PHY SRAM initialization done status The bit indicates that the SRAM has been initialized by the boot loader in the Raw PCS.
+
+> 9, 1, TRNG_NS_O_CTRL_SECURE, RO ; Non-Secure TRNG status Secure mode output, high valid.
+= 1, VALID
+
+> 8, 1, TRNG_NS_O_CTRL_REMINDER, RO ; Non-Secure TRNG status Reseed reminder output, high pulse valid.
+= 1, VALID
+
+> 7, 1, TRNG_NS_O_CTRL_RESEEDING, RO ; Non-Secure TRNG status Reseeding activity output, high valid.
+= 1, VALID
+
+> 6, 1, TRNG_NS_O_CTRL_SEEDED, RO ; Non-Secure TRNG status (Re)Seeding completion output, high valid.
+= 1, VALID
+
+> 5, 1, TRNG_NS_O_CTRL_RAND_BIT, RO ; Non-Secure TRNG status Serial random bit output.
+
+> 4, 1, TRNG_NS_O_CTRL_RAND_VLD, RO ; Non-Secure TRNG status Serial random bit valid output, high valid.
+= 1, VALID
+
+> 0, 4, DFI_SCRAMBLE_READY, RO ; DFI scramble key is ready, high valid.
+= 1, VALID
+
+SOC_STATUS2 = 0x0388 ; System Status Register 2
+> 5, 1, RKVENC1_IDLE_ENC_CORE, RO ; RKVENC1 idle status
+> 4, 1, RKVENC1_IDLE_ENC_AXI, RO ; RKVENC1 idle status
+> 3, 1, RKVENC1_IDLE_ENC_AHB, RO ; RKVENC1 idle status
+> 2, 1, RKVENC0_IDLE_ENC_CORE, RO ; RKVENC0 idle status
+> 1, 1, RKVENC0_IDLE_ENC_AXI, RO ; RKVENC0 idle status
+> 0, 1, RKVENC0_IDLE_ENC_AHB, RO ; RKVENC0 idle status
+
+SOC_STATUS3 = 0x038C ; System Status Register 3
+> 19, 1, OSC_CHK_RST_REQ, RO ; OSC frequency check error
+> 18, 1, CRC_CHK_RST_REQ_SGRF, RO ; SGRF in pd_bus crc check error
+> 17, 1, CRC_CHK_RST_REQ_DSUSGRF, RO ; SGRF in pd_core crc check error
+> 16, 1, CRC_CHK_RST_REQ_PMUSGRF, RO ; SGRF in pd_pmu crc check error
+> 8, 8, CPU_WFI, RO ; CPU WFI status
+> 0, 8, CPU_WFE, RO ; CPU WFE status
+
+OTP_KEY08 = 0x0500 ; OTP Status Register 8
+> 0, 1, KEY08 ; The value of OTP address 0x8
+
+OTP_KEY0D = 0x0504 ; OTP Status Register 13
+> 0, 1, KEY0D ; The value of OTP address 0xd
+
+OTP_KEY0E = 0x0508 ; OTP Status Register 14
+> 0, 1, KEY0E ; The value of OTP address 0xe
+
+CHIP_ID = 0x0600 ; Chip ID Register
+

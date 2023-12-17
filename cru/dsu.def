@@ -1,0 +1,649 @@
+[CRU_DSU, CRU]
+@ = 0x0FD818000, 0x00004000
+
+LPLL_CON0 = 0x0040 ; LPLL configuration register 0
+> 15, 1, LPLL_BP ; BYPASS: Bypass mode control signal.
+= 1, BYPASS ; bypass mode is enabled. (FOUT = FIN).
+= 0, NORMAL ; PLL operates normally.
+
+> 0, 10, LPLL_M ; M: Division value of the 10-bit programmable main-divider. PLL has to be reset if M value is changed. 64 <= pll_m <= 1023
+
+LPLL_CON1 = 0x0044 ; LPLL configuration register 1
+> 13, 1, LPLL_RESETB ; RESETB: Power down control signal.
+= 0, NORMAL ; RESETB=0 from 1, PLL starts its normal operation after lock time.
+= 1, POWER_DOWN ; RESETB=1, power down mode is enabled and all digital blocks are reset.
+
+> 6, 3, LPLL_S ; Division value of the 3-bit programmable scaler. 0 <= pll_s <= 6
+> 0, 6, LPLL_P ; P: Division value of the 6-bit programmable pre-divider. PLL has to be reset if P value is changed. 1 <= pll_p <= 63
+
+LPLL_CON4 = 0x0050 ; LPLL configuration register 4
+> 15, 1, LPLL_FSEL ; FSEL: Monitoring pin.
+= 0, FREF ; FEED_OUT = FREF.
+= 1, FEED ; FEED_OUT = FEED.
+
+> 14, 1, LPLL_FEED_EN ; FEED_EN: Monitoring pin.
+= 0, DISABLED ; FEED_OUT is disabled.
+= 1, ENABLED ; FEED_OUT is enabled.
+
+> 4, 5, LPLL_EXTAFC ; EXTAFC: Monitoring pin. If pll_afc_enb=1, AFC is disabled and VCO is calibrated manually by pll_extafc[4:0] for the test of VCO range.
+
+> 3, 1, LPLL_AFC_ENB ; AFC_ENB: Monitoring pin.
+= 0, ENABLED ; AFC is enabled and VCO is calibrated automatically.
+= 1, DISABLED ; AFC is disabled and VCO is calibrated manually by pll_extafc[4:0] for the test of VCO range.
+
+> 1, 2, LPLL_ICP ; Charge-pump current control signal.
+
+LPLL_CON5 = 0x0054 ; LPLL configuration register 5
+> 9, 2, LPLL_LOCK_CON_DLY ; LOCK_CON_DLY: Lock detector setting of the detection resolution.
+> 7, 2, LPLL_LOCK_CON_OUT ; LOCK_CON_OUT: Lock detector setting of the output margin.
+> 5, 2, LPLL_LOCK_CON_IN ; LOCK_CON_IN: Lock detector setting of the input margin.
+> 0, 1, LPLL_FOUT_MASK ; FOUT_MASK: Scaler's re-initialization time control pin.
+
+LPLL_CON6 = 0x0058 ; LPLL configuration register 6
+> 15, 1, LPLL_LOCK ; LOCK: PLL lock flag.
+= 0, UNLOCKED ; PLL is unlocked.
+= 1, LOCKED ; PLL is locked.
+
+> 10, 5, LPLL_AFC_CODE ; AFC_CODE: Monitoring pin. Output code of AFC(5 bits).
+
+MODE_CON00 = 0x0280 ; Internal PLL mode select register 0
+> 0, 2, CLK_LPLL_MODE ; clk_lpll_mux clock mux.
+= 0, XIN_OSC0_FUNC
+= 1, CLK_LPLL
+= 2, CLK_DEEPSLOW
+
+CLKSEL_CON00 = 0x0300 ; Internal clock select and division register 0
+> 12, 2, SCLK_DSU_DF_SRC_SEL ; sclk_dsu_df_src clock mux.
+= 0, CLK_B0PLL_MUX
+= 1, CLK_B1PLL_MUX
+= 2, CLK_LPLL_MUX
+= 3, CLK_GPLL_MUX
+
+> 7, 5, SCLK_DSU_DF_SRC_DIV ; Divide sclk_dsu_df_src by (div_con + 1).
+
+CLKSEL_CON01 = 0x0304 ; Internal clock select and division register 1
+> 11, 5, ACLK_MP_DSU_DIV ; Divide aclk_mp_dsu by (div_con + 1).
+> 6, 5, ACLKS_DSU_DIV ; Divide aclks_dsu by (div_con + 1).
+> 1, 5, ACLKM_DSU_DIV ; Divide aclkm_dsu by (div_con + 1).
+
+> 0, 1, SCLK_DSU_SRC_T_SEL ; sclk_dsu_src_t clock mux.
+= 0, SCLK_DSU_SRC
+= 1, CLK_DSU_PVTPLL_T
+
+CLKSEL_CON02 = 0x0308 ; Internal clock select and division register 2
+> 10, 5, TSCLK_DSU_DIV ; Divide tsclk_dsu by (div_con + 1).
+> 5, 5, CNTCLK_DSU_DIV ; Divide cntclk_dsu by (div_con + 1).
+> 0, 5, PERIPHCLK_DSU_DIV ; Divide periphclk_dsu by (div_con + 1).
+
+CLKSEL_CON03 = 0x030C ; Internal clock select and division register 3
+> 5, 5, GICCLK_DSU_T_DIV ; Divide gicclk_dsu_t by (div_con + 1).
+> 0, 5, ATCLK_DSU_DIV ; Divide atclk_dsu by (div_con + 1).
+
+CLKSEL_CON04 = 0x0310 ; Internal clock select and division register 4
+> 11, 2, PCLK_DSU_S_ROOT_SEL ; pclk_dsu_s_root clock mux.
+= 0, CLK_MATRIX_100M_SRC
+= 1, CLK_MATRIX_50M_SRC
+= 2, XIN_OSC0_FUNC
+
+> 10, 1, REFCLK_DSU_PVTPLL_SEL ; refclk_dsu_pvtpll clock mux.
+= 0, SCLK_DSU_SRC
+= 1, XIN_OSC0_FUNC
+
+> 9, 1, REFCLK_LITCORE_PVTPLL_SEL ; refclk_litcore_pvtpll clock mux.
+= 0, CLK_CORE_L
+= 1, XIN_OSC0_FUNC
+
+> 7, 2, PCLK_DSU_NS_ROOT_SEL ; pclk_dsu_ns_root clock mux.
+= 0, CLK_MATRIX_100M_SRC
+= 1, CLK_MATRIX_50M_SRC
+= 2, XIN_OSC0_FUNC
+
+> 5, 2, PCLK_DSU_ROOT_SEL ; pclk_dsu_root clock mux.
+= 0, CLK_B0PLL_MUX
+= 1, CLK_B1PLL_MUX
+= 2, CLK_LPLL_MUX
+= 3, CLK_GPLL_MUX
+
+> 0, 5, PCLK_DSU_ROOT_DIV ; Divide pclk_dsu_root by (div_con + 1).
+
+CLKSEL_CON05 = 0x0314 ; Internal clock select and division register 5
+> 14, 2, CLK_CORE_L_SRC_SEL ; clk_core_l_src clock mux.
+= 0, CLK_CORE_L_SLOW_SRC
+= 1, CLK_CORE_L_GPLL_SRC
+= 2, CLK_LPLL
+
+> 9, 5, CLK_CORE_L_GPLL_SRC_DIV ; Divide clk_core_l_gpll_src by (div_con + 1).
+
+> 8, 1, CLK_CORE_L_SLOW_SRC_SEL ; clk_core_l_slow_src clock mux.
+= 0, XIN_OSC0_FUNC
+= 1, CLK_DEEPSLOW
+
+> 6, 2, CLK_TESTOUT_L_SEL ; clk_testout_l clock mux.
+= 0, CLK_LPLL
+= 1, CLK_CORE_L_PVTPLL
+= 2, SCLK_DSU_SRC
+= 3, CLK_DSU_PVTPLL
+
+> 0, 6, CLK_TESTOUT_L_DIV ; Divide clk_testout_l by (div_con + 1).
+
+CLKSEL_CON06 = 0x0318 ; Internal clock select and division register 6
+> 12, 2, CLK_CORE_L1_SEL ; clk_core_l1 clock mux.
+= 0, CLK_CORE_L1_UC
+= 1, CLK_CORE_L1_CLEAN
+= 2, CLK_CORE_L_PVTPLL_T
+
+> 7, 5, CLK_CORE_L1_UC_DIV ; Divide clk_core_l1_uc by (div_con + 1).
+
+> 5, 2, CLK_CORE_L0_SEL ; clk_core_l0 clock mux.
+= 0, CLK_CORE_L0_UC
+= 1, CLK_CORE_L0_CLEAN
+= 2, CLK_CORE_L_PVTPLL_T
+
+> 0, 5, CLK_CORE_L0_UC_DIV ; Divide clk_core_l0_uc by (div_con + 1).
+
+CLKSEL_CON07 = 0x031C ; Internal clock select and division register 7
+> 15, 1, CLK_DSU_PVTPLL_T_SEL ; clk_dsu_pvtpll_t clock mux.
+= 0, CLK_DEEPSLOW
+= 1, CLK_DSU_PVTPLL
+
+> 14, 1, CLK_CORE_L_PVTPLL_T_SEL ; clk_core_l_pvtpll_t clock mux.
+= 0, CLK_DEEPSLOW
+= 1, CLK_CORE_L_PVTPLL
+
+> 12, 2, CLK_CORE_L3_SEL ; clk_core_l3 clock mux.
+= 0, CLK_CORE_L3_UC
+= 1, CLK_CORE_L3_CLEAN
+= 2, CLK_CORE_L_PVTPLL_T
+
+> 7, 5, CLK_CORE_L3_UC_DIV ; Divide clk_core_l3_uc by (div_con + 1).
+
+> 5, 2, CLK_CORE_L2_SEL ; clk_core_l2 clock mux.
+= 0, CLK_CORE_L2_UC
+= 1, CLK_CORE_L2_CLEAN
+= 2, CLK_CORE_L_PVTPLL_T
+
+> 0, 5, CLK_CORE_L2_UC_DIV ; Divide clk_core_l2_uc by (div_con + 1).
+
+GATE_CON00 = 0x0800 ; Internal clock gate and division register 0
+> 15, 1, TSCLK_DSU_EN ; tsclk_dsu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 14, 1, CNTCLK_DSU_EN ; cntclk_dsu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 13, 1, PERIPHCLK_DSU_EN ; periphclk_dsu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 12, 1, ACLK_MP_DSU_EN ; aclk_mp_dsu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 11, 1, ACLK_S_DSU_BIU_EN ; aclk_s_dsu_biu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 10, 1, ACLK_M_DSU_BIU_EN ; aclk_m_dsu_biu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 9, 1, ACLKS_DSU_EN ; aclks_dsu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 8, 1, ACLKM_DSU_EN ; aclkm_dsu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 6, 1, SCLK_DSU_EN ; sclk_dsu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 5, 1, SCLK_DSU_SRC_T_EN ; sclk_dsu_src_t clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 4, 1, SCLK_DSU_SRC_EN ; sclk_dsu_src clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 3, 1, SCLK_DSU_NP5_DIV2_SRC_EN ; sclk_dsu_np5_div2_src clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 2, 1, SCLK_DSU_NP5_SRC_EN ; sclk_dsu_np5_src clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 1, 1, SCLK_DSU_DF_DIV2_SRC_EN ; sclk_dsu_df_div2_src clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 0, 1, SCLK_DSU_DF_SRC_EN ; sclk_dsu_df_src clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+GATE_CON01 = 0x0804 ; Internal clock gate and division register 1
+> 15, 1, REFCLK_DSU_PVTPLL_EN ; refclk_dsu_pvtpll clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 14, 1, REFCLK_LITCORE_PVTPLL_EN ; refclk_litcore_pvtpll clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 11, 1, PCLK_DSU_GRF_EN ; pclk_dsu_grf clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 10, 1, PCLK_M_DAPLITE_BIU_EN ; pclk_m_daplite_biu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 9, 1, PCLK_M_DAPLITE_EN ; pclk_m_daplite clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 8, 1, PCLK_S_DAPLITE_EN ; pclk_s_daplite clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 7, 1, PCLK_DBG_EN ; pclk_dbg clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 6, 1, PCLK_DSU_EN ; pclk_dsu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 5, 1, PCLK_DSU_BIU_EN ; pclk_dsu_biu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 4, 1, PCLK_DSU_NS_ROOT_EN ; pclk_dsu_ns_root clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 3, 1, PCLK_DSU_ROOT_EN ; pclk_dsu_root clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 2, 1, ACLK_ADB_DSU_EN ; aclk_adb_dsu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 1, 1, GICCLK_DSU_T_EN ; gicclk_dsu_t clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 0, 1, ATCLK_DSU_EN ; atclk_dsu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+GATE_CON02 = 0x0808 ; Internal clock gate and division register 2
+> 15, 1, CLK_CORE_L_DIV2_SRC_EN ; clk_core_l_div2_src clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 14, 1, CLK_CORE_L3_CLEAN_EN ; clk_core_l3_clean clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 13, 1, CLK_CORE_L2_CLEAN_EN ; clk_core_l2_clean clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 12, 1, CLK_CORE_L1_CLEAN_EN ; clk_core_l1_clean clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 11, 1, CLK_CORE_L0_CLEAN_EN ; clk_core_l0_clean clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 10, 1, CLK_24M_LITCORE_CPUBOOST_EN ; clk_24m_litcore_cpuboost clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 9, 1, PCLK_LITCORE_CPUBOOST_EN ; pclk_litcore_cpuboost clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 8, 1, PCLK_DSU_CRU_EN ; pclk_dsu_cru clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 7, 1, PCLK_LITCORE_GRF_EN ; pclk_litcore_grf clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 6, 1, PCLK_LITCORE_PVTM_EN ; pclk_litcore_pvtm clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 5, 1, CLK_TESTOUT_L_EN ; clk_testout_l clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 4, 1, PCLK_DSU_SGRF_EN ; pclk_dsu_sgrf clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 3, 1, PCLK_DSU_S_BIU_EN ; pclk_dsu_s_biu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 2, 1, PCLK_DSU_S_ROOT_EN ; pclk_dsu_s_root clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 1, 1, CLK_CORE_LITCORE_PVTM_EN ; clk_core_litcore_pvtm clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 0, 1, CLK_LITCORE_PVTM_EN ; clk_litcore_pvtm clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+GATE_CON03 = 0x080C ; Internal clock gate and division register 3
+> 14, 1, GICCLK_DSU_EN ; gicclk_dsu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 13, 1, ACLK_MP_DSU_BIU_EN ; aclk_mp_dsu_biu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 10, 1, CLK_CORE_L3_UC_EN ; clk_core_l3_uc clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 7, 1, CLK_CORE_L2_UC_EN ; clk_core_l2_uc clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 4, 1, CLK_CORE_L1_UC_EN ; clk_core_l1_uc clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 1, 1, CLK_CORE_L0_UC_EN ; clk_core_l0_uc clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 0, 1, CLK_CORE_L_EN ; clk_core_l clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+SOFTRST_CON00 = 0x0A00 ; Internal clock reset register 0
+> 13, 1, NPERIPHRESET_DSU ; When high, reset relative logic
+> 11, 1, ARESETN_S_DSU_BIU ; When high, reset relative logic
+> 10, 1, ARESETN_M_DSU_BIU ; When high, reset relative logic
+> 7, 1, NSRESET_DSU ; When high, reset relative logic
+> 6, 1, NSPORESET_DSU ; When high, reset relative logic
+
+SOFTRST_CON01 = 0x0A04 ; Internal clock reset register 1
+> 15, 1, RESETN_DSU_PVTPLL ; When high, reset relative logic
+> 14, 1, RESETN_LITCORE_PVTPLL ; When high, reset relative logic
+> 13, 1, NTRESET_JTAG ; When high, reset relative logic
+> 12, 1, PORESETN_JTAG ; When high, reset relative logic
+> 11, 1, PRESETN_DSU_GRF ; When high, reset relative logic
+> 10, 1, PRESETN_M_DAPLITE_BIU ; When high, reset relative logic
+> 9, 1, PRESETN_M_DAPLITE ; When high, reset relative logic
+> 8, 1, PRESETN_S_DAPLITE ; When high, reset relative logic
+> 7, 1, PRESETN_DBG ; When high, reset relative logic
+> 6, 1, NPRESET_DSU ; When high, reset relative logic
+> 5, 1, PRESETN_DSU_BIU ; When high, reset relative logic
+> 2, 1, ARESETN_ADB_DSU ; When high, reset relative logic
+> 0, 1, NATRESET_DSU ; When high, reset relative logic
+
+SOFTRST_CON02 = 0x0A08 ; Internal clock reset register 2
+> 10, 1, RESETN_24M_LITCORE_CPUBOOST ; When high, reset relative logic
+> 9, 1, PRESETN_LITCORE_CPUBOOST ; When high, reset relative logic
+> 8, 1, PRESETN_DSU_CRU ; When high, reset relative logic
+> 7, 1, PRESETN_LITCORE_GRF ; When high, reset relative logic
+> 6, 1, PRESETN_LITCORE_PVTM ; When high, reset relative logic
+> 4, 1, PRESETN_DSU_SGRF ; When high, reset relative logic
+> 3, 1, PRESETN_DSU_S_BIU ; When high, reset relative logic
+> 0, 1, RESETN_LITCORE_PVTM ; When high, reset relative logic
+
+SOFTRST_CON03 = 0x0A0C ; Internal clock reset register 3
+> 14, 1, NGICRESET_DSU ; When high, reset relative logic
+> 13, 1, ARESETN_MP_DSU_BIU ; When high, reset relative logic
+> 12, 1, NCORERESET_L3 ; When high, reset relative logic
+> 11, 1, NCPUPORESET_L3 ; When high, reset relative logic
+> 9, 1, NCORERESET_L2 ; When high, reset relative logic
+> 8, 1, NCPUPORESET_L2 ; When high, reset relative logic
+> 6, 1, NCORERESET_L1 ; When high, reset relative logic
+> 5, 1, NCPUPORESET_L1 ; When high, reset relative logic
+> 3, 1, NCORERESET_L0 ; When high, reset relative logic
+> 2, 1, NCPUPORESET_L0 ; When high, reset relative logic
+
+AUTOCS_ACLK_M_DSU_BIU_CON0 = 0x0D00 ; Auto clock switch control register 0
+> 16, 16, ACLK_M_DSU_BIU_WAIT_TH ; wait_th. Wait time threshold, measured by original clk.
+> 0, 16, ACLK_M_DSU_BIU_IDLE_TH ; idle_th. Idle time threshold, measured by original clk.
+
+AUTOCS_ACLK_M_DSU_BIU_CON1 = 0x0D04 ; Auto clock switch control register 1
+> 14, 2, ACLK_M_DSU_BIU_CLKSEL_CFG ; clksel_cfg Auto switch clock selection.
+= 0, ORIGINAL_CLK
+= 1, XIN_OSC0_FUNC_DIV
+= 2, CLK_RTC_32K
+
+> 13, 1, ACLK_M_DSU_BIU_SWITCH_EN ; switch_en
+= 1, ENABLE ; Enable aclk_m_dsu_biu switched to lower frequency when module is inactive.
+= 0, DISABLE ; Disable auto switch function.
+
+> 12, 1, ACLK_M_DSU_BIU_AUTOCS_EN ; autocs_en
+= 1, ENABLE ; Enable aclk_m_dsu_biu switch to lower frequency.
+= 0, DISABLE
+
+> 0, 12, ACLK_M_DSU_BIU_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+= 0xFFF, ENABLE ; Enable aclk_m_dsu_biu switch to lower frequency.
+= 0x000, DISABLE
+
+AUTOCS_ACLK_S_DSU_BIU_CON0 = 0x0D08 ; Auto clock switch control register 0
+> 16, 16, ACLK_S_DSU_BIU_WAIT_TH ; wait_th. Wait time threshold, measured by original clk.
+> 0, 16, ACLK_S_DSU_BIU_IDLE_TH ; idle_th. Idle time threshold, measured by original clk.
+
+AUTOCS_ACLK_S_DSU_BIU_CON1 = 0x0D0C ; Auto clock switch control register 1
+> 14, 2, ACLK_S_DSU_BIU_CLKSEL_CFG ; clksel_cfg Auto switch clock selection.
+= 0, ORIGINAL_CLK
+= 1, XIN_OSC0_FUNC_DIV
+= 2, CLK_RTC_32K
+
+> 13, 1, ACLK_S_DSU_BIU_SWITCH_EN ; switch_en
+= 1, ENABLE ; Enable aclk_s_dsu_biu switched to lower frequency when module is inactive.
+= 0, DISABLE ; Disable auto switch function.
+
+> 12, 1, ACLK_S_DSU_BIU_AUTOCS_EN ; autocs_en
+= 1, ENABLE ; Enable aclk_s_dsu_biu switch to lower frequency.
+= 0, DISABLE
+
+> 0, 12, ACLK_S_DSU_BIU_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+= 0xFFF, ENABLE ; Enable aclk_s_dsu_biu switch to lower frequency.
+= 0x000, DISABLE
+
+AUTOCS_ACLK_MP_DSU_BIU_CON0 = 0x0D10 ; Auto clock switch control register 0
+> 16, 16, ACLK_MP_DSU_BIU_WAIT_TH ; wait_th. Wait time threshold, measured by original clk.
+> 0, 16, ACLK_MP_DSU_BIU_IDLE_TH ; idle_th. Idle time threshold, measured by original clk.
+
+AUTOCS_ACLK_MP_DSU_BIU_CON1 = 0x0D14 ; Auto clock switch control register 1
+> 14, 2, ACLK_MP_DSU_BIU_CLKSEL_CFG ; clksel_cfg Auto switch clock selection.
+= 0, ORIGINAL_CLK
+= 1, XIN_OSC0_FUNC_DIV
+= 2, CLK_RTC_32K
+
+> 13, 1, ACLK_MP_DSU_BIU_SWITCH_EN ; switch_en
+= 1, ENABLE ; Enable aclk_mp_dsu_biu switched to lower frequency when module is inactive.
+= 0, DISABLE ; Disable auto switch function.
+
+> 12, 1, ACLK_MP_DSU_BIU_AUTOCS_EN ; autocs_en
+= 1, ENABLE ; Enable aclk_mp_dsu_biu switch to lower frequency.
+= 0, DISABLE
+
+> 0, 12, ACLK_MP_DSU_BIU_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+= 0xFFF, ENABLE ; Enable aclk_mp_dsu_biu switch to lower frequency.
+= 0x000, DISABLE
+
+AUTOCS_SCLK_DSU_SRC_CON0 = 0x0D18 ; Auto clock switch control register 0
+> 16, 16, SCLK_DSU_SRC_WAIT_TH ; wait_th. Wait time threshold, measured by original clk.
+> 0, 16, SCLK_DSU_SRC_IDLE_TH ; idle_th. Idle time threshold, measured by original clk.
+
+AUTOCS_SCLK_DSU_SRC_CON1 = 0x0D1C ; Auto clock switch control register 1
+> 14, 2, SCLK_DSU_SRC_CLKSEL_CFG ; clksel_cfg Auto switch clock selection.
+= 0, ORIGINAL_CLK
+= 1, XIN_OSC0_FUNC_DIV
+= 2, CLK_RTC_32K
+
+> 13, 1, SCLK_DSU_SRC_SWITCH_EN ; switch_en
+= 1, ENABLE ; Enable sclk_dsu_src switched to lower frequency when module is inactive.
+= 0, DISABLE ; Disable auto switch function.
+
+> 12, 1, SCLK_DSU_SRC_AUTOCS_EN ; autocs_en
+= 1, ENABLE ; Enable sclk_dsu_src switch to lower frequency.
+= 0, DISABLE
+
+> 0, 12, SCLK_DSU_SRC_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+= 0xFFF, ENABLE ; Enable sclk_dsu_src switch to lower frequency.
+= 0x000, DISABLE
+
+AUTOCS_CLK_CORE_L_CON0 = 0x0D20 ; Auto clock switch control register 0
+> 16, 16, CLK_CORE_L_WAIT_TH ; wait_th. Wait time threshold, measured by original clk.
+> 0, 16, CLK_CORE_L_IDLE_TH ; idle_th. Idle time threshold, measured by original clk.
+
+AUTOCS_CLK_CORE_L_CON1 = 0x0D24 ; Auto clock switch control register 1
+> 14, 2, CLK_CORE_L_CLKSEL_CFG ; clksel_cfg Auto switch clock selection.
+= 0, ORIGINAL_CLK
+= 1, XIN_OSC0_FUNC_DIV
+= 2, CLK_RTC_32K
+
+> 13, 1, CLK_CORE_L_SWITCH_EN ; switch_en
+= 1, ENABLE ; Enable clk_core_l switched to lower frequency when module is inactive.
+= 0, DISABLE ; Disable auto switch function.
+
+> 12, 1, CLK_CORE_L_AUTOCS_EN ; autocs_en
+= 1, ENABLE ; Enable clk_core_l switch to lower frequency.
+= 0, DISABLE
+
+> 0, 12, CLK_CORE_L_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+= 0xFFF, ENABLE ; Enable clk_core_l switch to lower frequency.
+= 0x000, DISABLE
+
+QCHANNEL_CON00 = 0x0F00 ; Qchannel control register 1
+# DOC BUG: Official TRM lists both ENABLE and DISABLE as 1!
+> 11, 1, PCLK_DBG_QC_GATE_EN ; qc_gate_en
+= 1, DOC_BUG_ENABLE ; Enable pclk_dbg qchannel gate function.
+= 0, DOC_BUG_DISABLE ; Disable pclk_dbg qchannel gate function.
+
+> 10, 1, PCLK_DBG_QC_EN ; qc_en
+= 1, DOC_BUG_ENABLE ; Enable pclk_dbg qchannel.
+= 0, DOC_BUG_DISABLE ; Disable pclk_dbg qchannel.
+
+> 9, 1, PCLK_DSU_QC_GATE_EN ; qc_gate_en
+= 1, DOC_BUG_ENABLE ; Enable pclk_dsu qchannel gate function.
+= 0, DOC_BUG_DISABLE ; Disable pclk_dsu qchannel gate function.
+
+> 8, 1, PCLK_DSU_QC_EN ; qc_en
+= 1, DOC_BUG_ENABLE ; Enable pclk_dsu qchannel.
+= 0, DOC_BUG_DISABLE ; Disable pclk_dsu qchannel.
+
+> 7, 1, ACLK_ADB_DSU_QC_GATE_EN ; qc_gate_en
+= 1, DOC_BUG_ENABLE ; Enable aclk_adb_dsu qchannel gate function.
+= 0, DOC_BUG_DISABLE ; Disable aclk_adb_dsu qchannel gate function.
+
+> 6, 1, ACLK_ADB_DSU_QC_EN ; qc_en
+= 1, DOC_BUG_ENABLE ; Enable aclk_adb_dsu qchannel.
+= 0, DOC_BUG_DISABLE ; Disable aclk_adb_dsu qchannel.
+
+> 5, 1, GICCLK_DSU_QC_GATE_EN ; qc_gate_en
+= 1, DOC_BUG_ENABLE ; Enable gicclk_dsu qchannel gate function.
+= 0, DOC_BUG_DISABLE ; Disable gicclk_dsu qchannel gate function.
+
+> 4, 1, GICCLK_DSU_QC_EN ; qc_en
+= 1, DOC_BUG_ENABLE ; Enable gicclk_dsu qchannel.
+= 0, DOC_BUG_DISABLE ; Disable gicclk_dsu qchannel.
+
+> 3, 1, ATCLK_DSU_QC_GATE_EN ; qc_gate_en
+= 1, DOC_BUG_ENABLE ; Enable atclk_dsu qchannel gate function.
+= 0, DOC_BUG_DISABLE ; Disable atclk_dsu qchannel gate function.
+
+> 2, 1, ATCLK_DSU_QC_EN ; qc_en
+= 1, DOC_BUG_ENABLE ; Enable atclk_dsu qchannel.
+= 0, DOC_BUG_DISABLE ; Disable atclk_dsu qchannel.
+
+> 1, 1, SCLK_DSU_QC_GATE_EN ; qc_gate_en
+= 1, DOC_BUG_ENABLE ; Enable sclk_dsu qchannel gate function.
+= 0, DOC_BUG_DISABLE ; Disable sclk_dsu qchannel gate function.
+
+> 0, 1, SCLK_DSU_QC_EN ; qc_en
+= 1, DOC_BUG_ENABLE ; Enable sclk_dsu qchannel.
+= 0, DOC_BUG_DISABLE ; Disable sclk_dsu qchannel.
+
+SMOTH_DIVFREE_CON00 = 0x0F10 ; Smoothdiv control register
+> 16, 16, CLK_CORE_L0_UC_FREQ_KEEP ; freq_keep Cycles to keep every step.
+
+> 15, 1, CLK_CORE_L0_UC_BYPASS ; bypass Division signal bypass.
+= 1, BYPASS ; Bypass.
+= 0, USE ; Use Smoothdiv to control clock division.
+
+> 14, 1, CLK_CORE_L0_UC_GATE_SMTH_EN ; gate_smth_en If trigger smoothdiv function when clk been gated.
+= 1, ENABLE
+= 0, DISABLE
+
+> 13, 1, CLK_CORE_L0_UC_SMDIV_CLK_OFF ; smdiv_clk_off Turn off smoothdiv module clk.
+= 1, OFF
+= 0, ON
+
+> 0, 5, CLK_CORE_L0_UC_STEP ; step Step of div from 0x1f to setting configuration.
+
+SMOTH_DIVFREE_CON01 = 0x0F14 ; Smoothdiv control register
+> 16, 16, CLK_CORE_L1_UC_FREQ_KEEP ; freq_keep Cycles to keep every step.
+
+> 15, 1, CLK_CORE_L1_UC_BYPASS ; bypass Division signal bypass.
+= 1, BYPASS ; Bypass.
+= 0, USE ; Use Smoothdiv to control clock division.
+
+> 14, 1, CLK_CORE_L1_UC_GATE_SMTH_EN ; gate_smth_en If trigger smoothdiv function when clk been gated.
+= 1, ENABLE
+= 0, DISABLE
+
+> 13, 1, CLK_CORE_L1_UC_SMDIV_CLK_OFF ; smdiv_clk_off Turn off smoothdiv module clk.
+= 1, OFF
+= 0, ON
+
+> 0, 5, CLK_CORE_L1_UC_STEP ; step Step of div from 0x1f to setting configuration.
+
+SMOTH_DIVFREE_CON02 = 0x0F18 ; Smoothdiv control register
+> 16, 16, CLK_CORE_L2_UC_FREQ_KEEP ; freq_keep Cycles to keep every step.
+
+> 15, 1, CLK_CORE_L2_UC_BYPASS ; bypass Division signal bypass.
+= 1, BYPASS ; Bypass.
+= 0, USE ; Use Smoothdiv to control clock division.
+
+> 14, 1, CLK_CORE_L2_UC_GATE_SMTH_EN ; gate_smth_en If trigger smoothdiv function when clk been gated.
+= 1, ENABLE
+= 0, DISABLE
+
+> 13, 1, CLK_CORE_L2_UC_SMDIV_CLK_OFF ; smdiv_clk_off Turn off smoothdiv module clk.
+= 1, OFF
+= 0, ON
+
+> 0, 5, CLK_CORE_L2_UC_STEP ; step Step of div from 0x1f to setting configuration.
+
+SMOTH_DIVFREE_CON03 = 0x0F1C ; Smoothdiv control register
+> 16, 16, CLK_CORE_L3_UC_FREQ_KEEP ; freq_keep Cycles to keep every step.
+
+> 15, 1, CLK_CORE_L3_UC_BYPASS ; bypass Division signal bypass.
+= 1, BYPASS ; Bypass.
+= 0, USE ; Use Smoothdiv to control clock division.
+
+> 14, 1, CLK_CORE_L3_UC_GATE_SMTH_EN ; gate_smth_en If trigger smoothdiv function when clk been gated.
+= 1, ENABLE
+= 0, DISABLE
+
+> 13, 1, CLK_CORE_L3_UC_SMDIV_CLK_OFF ; smdiv_clk_off Turn off smoothdiv module clk.
+= 1, OFF
+= 0, ON
+> 0, 5, CLK_CORE_L3_UC_STEP ; step Step of div from 0x1f to setting configuration.
+

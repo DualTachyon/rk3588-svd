@@ -1,0 +1,68 @@
+[GRF_BIGCORE1, GRF]
+@ = 0x0FD592000, 0x00002000
+
+PVTPLL_CON0_L = 0x0000 ; PVTPLL Control Register 0 Low
+> 15, 1, BYPASS
+= 0, SUPPORT ; Support glitch-free frequency conversion.
+= 1, NOT_SUPPORT ; Not support.
+
+> 13, 2, CLK_DIV_OSC ; Frequency division factor for osc_clk.
+> 11, 2, CLK_DIV_REF ; Frequency division factor for ref_clk.
+> 8, 3, OSC_RING_SEL ; Oscillator ring channel select.
+
+> 2, 1, OUT_POLAR
+= 0, OUT_1 ; Out=1 when need to increase volt.
+= 1, OUT_0 ; Out=0 when need to increase volt.
+
+> 1, 1, OSC_EN ; Oscillator ring enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, START
+= 1, START ; PVTPLL monitor start.
+
+PVTPLL_CON0_H = 0x0004 ; PVTPLL Control Register 0 High
+> 0, 6, RING_LENGTH_SEL ; Oscillator ring inverter length select.
+
+PVTPLL_CON1 = 0x0008 ; PVTPLL Control Register 1
+> 0, 32, CAL_CNT ; Target frequency value.
+
+PVTPLL_CON2 = 0x000C ; PVTPLL Control Register 2
+> 16, 16, CKG_VAL ; Clock gating interval control count value.
+> 0, 16, THRESHOLD ; Count difference threshold value.
+
+PVTPLL_CON3 = 0x0010 ; PVTPLL Control Register 3
+> 0, 32, REF_CNT ; Frequency measurement period setting value.
+
+MEM_CFG_HSSPRF_L = 0x0020 ; Memory Configuration Register For HSSPRF Low
+> 0, 16, GRF_BIGCORE_MEM_CFG_HSSPRF_L ; bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMD bit 7: LS bit 13~12: RA
+
+MEM_CFG_HSDPRF_L = 0x0028 ; Memory Configuration Register For HSDPRF
+> 0, 16, GRF_BIGCORE_MEM_CFG_HSDPRF_L ; bit 0: TEST1A bit 1: TEST_RNMA bit 5~2: RMA bit 6: WMDA bit 8: LS bit 14~13: RA
+
+MEM_CFG_HSDPRF_H = 0x002C ; Memory Configuration Register For HSSPRF High
+> 0, 16, GRF_BIGCORE_MEM_CFG_HSDPRF_H ; bit 1: TEST1B bit 5~2: RMB
+
+CPU_CON0 = 0x0030 ; CPU Control Register 0
+> 5, 1, GRF_CON_BIGCORE_MEM_CFG_IDLE_TRIG ; A 0 to 1 trigger of grf_con_bigcore_mem_cfg_idle_trig will cause a mem_cfg change when grf_con_bigcore_mem_cfg_idle_en equals to 1.
+
+> 4, 1, GRF_CON_BIGCORE_MEM_CFG_IDLE_EN
+= 0, SW_IMMEDIATELY ; Mem_cfg is changed by software immediately
+= 1, ALL_WFI ; Mem_cfg is changed when all cpu in wfi
+
+> 3, 1, CORE3_CON_MEM_CTRL_FROM_PMU
+= 0, GRF ; Mem_cfg is driven by grf
+= 1, PMU ; Mem_cfg is driven by pmu
+
+> 2, 1, CORE2_CON_MEM_CTRL_FROM_PMU
+= 0, GRF ; Mem_cfg is driven by grf
+= 1, PMU ; Mem_cfg is driven by pmu
+
+> 1, 1, CORE1_CON_MEM_CTRL_FROM_PMU
+= 0, GRF ; Mem_cfg is driven by grf
+= 1, PMU ; Mem_cfg is driven by pmu
+
+> 0, 1, CORE0_CON_MEM_CTRL_FROM_PMU
+= 0, GRF ; Mem_cfg is driven by grf
+= 1, PMU ; Mem_cfg is driven by pmu
+

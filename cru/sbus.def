@@ -1,0 +1,141 @@
+[CRU_SBUS, CRU]
+@ = 0x0FD7D8000, 0x00008000
+
+SPLL_CON0 = 0x0220 ; SPLL configuration register 0
+> 15, 1, SPLL_BP ; BYPASS: Bypass mode control signal.
+= 1, BYPASS ; bypass mode is enabled. (FOUT = FIN).
+= 0, NORMAL ; PLL operates normally.
+
+> 0, 10, SPLL_M ; M: Division value of the 10-bit programmable main-divider. PLL has to be reset if M value is changed. 64 <= pll_m <= 1023
+
+SPLL_CON1 = 0x0224 ; SPLL configuration register 1
+> 13, 1, SPLL_RESETB ; RESETB: Power down control signal.
+= 0, NORMAL ; RESETB=0 from 1, PLL starts its normal operation after lock time.
+= 1, POWER_DOWN ; RESETB=1, power down mode is enabled and all digital blocks are reset.
+
+> 6, 3, SPLL_S ; Division value of the 3-bit programmable scaler. 0 <= pll_s <= 6
+> 0, 6, SPLL_P ; P: Division value of the 6-bit programmable pre-divider. PLL has to be reset if P value is changed. 1 <= pll_p <= 63
+
+SPLL_CON4 = 0x0230 ; SPLL configuration register 4
+> 15, 1, SPLL_FSEL ; FSEL: Monitoring pin.
+= 0, FREF ; FEED_OUT = FREF.
+= 1, FEED ; FEED_OUT = FEED.
+
+> 14, 1, SPLL_FEED_EN ; FEED_EN: Monitoring pin.
+= 0, DISABLED ; FEED_OUT is disabled.
+= 1, ENABLED ; FEED_OUT is enabled.
+
+> 4, 5, SPLL_EXTAFC ; EXTAFC: Monitoring pin. If pll_afc_enb=1, AFC is disabled and VCO is calibrated manually by pll_extafc[4:0] for the test of VCO range.
+
+> 3, 1, SPLL_AFC_ENB ; AFC_ENB: Monitoring pin.
+= 0, ENABLED ; AFC is enabled and VCO is calibrated automatically.
+= 1, DISABLED ; AFC is disabled and VCO is calibrated manually by pll_extafc[4:0] for the test of VCO range.
+
+> 1, 2, SPLL_ICP ; Charge-pump current control signal.
+
+SPLL_CON5 = 0x0234 ; SPLL configuration register 5
+> 9, 2, SPLL_LOCK_CON_DLY ; LOCK_CON_DLY: Lock detector setting of the detection resolution.
+> 7, 2, SPLL_LOCK_CON_OUT ; LOCK_CON_OUT: Lock detector setting of the output margin.
+> 5, 2, SPLL_LOCK_CON_IN ; LOCK_CON_IN: Lock detector setting of the input margin.
+> 0, 1, SPLL_FOUT_MASK ; FOUT_MASK: Scaler's re-initialization time control pin.
+
+SPLL_CON6 = 0x0238 ; SPLL configuration register 6
+> 15, 1, SPLL_LOCK ; LOCK: PLL lock flag.
+= 0, UNLOCKED ; PLL is unlocked.
+= 1, LOCKED ; PLL is locked.
+
+> 10, 5, SPLL_AFC_CODE ; AFC_CODE: Monitoring pin. Output code of AFC(5 bits).
+
+MODE_CON00 = 0x0280 ; Internal PLL mode select register 0
+> 0, 2, CLK_SPLL_MODE ; clk_spll_mux clock mux.
+= 0, XIN_OSC0_FUNC
+= 1, CLK_SPLL
+= 2, CLK_DEEPSLOW
+
+CLKSEL_CON00 = 0x0300 ; Internal clock select and division register 0
+> 11, 1, CLK_SBUS_TIMER_ROOT_SEL ; clk_sbus_timer_root clock mux.
+= 0, XIN_OSC0_FUNC
+= 1, CLK_MATRIX_SBUS_100M_SRC
+
+> 10, 1, CLK_MATRIX_SBUS_100M_SRC_SEL ; clk_matrix_sbus_100m_src clock mux.
+= 0, CLK_SPLL_MUX
+= 1, CLK_CPLL_MUX
+
+> 5, 5, CLK_MATRIX_SBUS_100M_SRC_DIV ; Divide clk_matrix_sbus_100m_src by (div_con + 1).
+> 0, 5, PCLK_SBUS_ROOT_DIV ; Divide pclk_sbus_root by (div_con + 1).
+
+GATE_CON00 = 0x0800 ; Internal clock gate and division register 0
+> 14, 1, CLK_STIMER11_EN ; clk_stimer11 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 13, 1, CLK_STIMER10_EN ; clk_stimer10 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 12, 1, CLK_STIMER9_EN ; clk_stimer9 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 11, 1, CLK_STIMER8_EN ; clk_stimer8 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 10, 1, CLK_STIMER7_EN ; clk_stimer7 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 9, 1, CLK_STIMER6_EN ; clk_stimer6 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 8, 1, CLK_SBUS_TIMER_EN ; clk_sbus_timer_root clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 7, 1, PCLK_STIMER1_EN ; pclk_stimer1 clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 6, 1, CLK_MATRIX_SBUS_100M_SRC_EN ; clk_matrix_sbus_100m_src clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 5, 1, CLK_JDBCK_DAP_EN ; clk_jdbck_dap clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 4, 1, PCLK_JDBCK_DAP_EN ; pclk_jdbck_dap clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 3, 1, PCLK_SBUS_SGRF_EN ; pclk_sbus_sgrf clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 2, 1, PCLK_SBUS_CRU_EN ; pclk_sbus_cru clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 1, 1, PCLK_SBUS_BIU_EN ; pclk_sbus_biu clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+> 0, 1, PCLK_SBUS_ROOT_EN ; pclk_sbus_root clock gating control.
+= 0, ENABLE
+= 1, DISABLE
+
+SOFTRST_CON00 = 0x0A00 ; Internal clock reset register 0
+> 14, 1, RESETN_STIMER11 ; When high, reset relative logic
+> 13, 1, RESETN_STIMER10 ; When high, reset relative logic
+> 12, 1, RESETN_STIMER9 ; When high, reset relative logic
+> 11, 1, RESETN_STIMER8 ; When high, reset relative logic
+> 10, 1, RESETN_STIMER7 ; When high, reset relative logic
+> 9, 1, RESETN_STIMER6 ; When high, reset relative logic
+> 7, 1, PRESETN_STIMER1 ; When high, reset relative logic
+> 5, 1, RESETN_JDBCK_DAP ; When high, reset relative logic
+> 4, 1, PRESETN_JDBCK_DAP ; When high, reset relative logic
+> 3, 1, PRESETN_SBUS_SGRF ; When high, reset relative logic
+> 2, 1, PRESETN_SBUS_CRU ; When high, reset relative logic
+> 1, 1, PRESETN_SBUS_BIU ; When high, reset relative logic
+

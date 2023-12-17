@@ -1,0 +1,47 @@
+[KEYLADDER_S]
+@ = 0x0FE380000, 0x00010000
+
+CLK_CTL = 0x0000 ; Clock Control Register
+RST_CTL = 0x0004 ; Reset Control Register
+DMA_INT_EN = 0x0008 ; DMA Interrupt Enable Register
+DMA_INT_ST = 0x000C ; DMA Interrupt Status Register
+DMA_CTL = 0x0010 ; DMA Control Register
+DMA_LLI_ADDR = 0x0014 ; DMA LIST Start Address Register
+DMA_ST = 0x0018 ; DMA Status Register
+DMA_STATE = 0x001C ; DMA State Register
+DMA_LLI_RADDR = 0x0020 ; DMA LLI Read Address Register
+DMA_SRC_RADDR = 0x0024 ; DMA Source Data Read Address Register
+DMA_DST_WADDR = 0x0028 ; DMA Destination Data Read Address Register
+DMA_ITEM_ID = 0x002C ; DMA Descriptor ID Register
+FIFO_CTL = 0x0040 ; FIFO Control Register
+BC_CTL = 0x0044 ; Block Cipher Control Register
+CIPHER_ST = 0x004C ; Cipher Status Register
+CIPHER_STATE = 0x0050 ; Cipher Current State Register
+CH0_IV_0 = 0x0100 ; iv 0
+CH0_IV_1 = 0x0104 ; iv 1
+CH0_IV_2 = 0x0108 ; iv 2
+CH0_IV_3 = 0x010C ; iv 3
+CH0_KEY_0 = 0x0180 ; key 0
+CH0_KEY_1 = 0x0184 ; key 1
+CH0_KEY_2 = 0x0188 ; key 2
+CH0_KEY_3 = 0x018C ; key 3
+APB_CMD = 0x0450 ; apb master command enable
+APB_PADDR = 0x0454 ; apb paddr
+APB_PWDATA = 0x0458 ; apb pwdata
+APB_PWRITE = 0x045C ; apb pwrite
+INTER_COPY = 0x0608 ; key table internal copy
+OTP_COPY = 0x060C ; OTP key COPY
+KEY_SEL = 0x0610 ; Operation key select
+LOCKSTEP_FLAG = 0x0618 ; Lockstep mistake flag
+LOCKSTEP_EN = 0x061C ; Lockstep check enable
+SRC_NUM_SEL = 0x0620 ; Source key select
+SRC_NUM_DONE = 0x0624 ; Source key cache flag
+AES_VERSION = 0x0680 ; AES version code is 0x0007_0033
+DES_VERSION = 0x0684 ; DES version code is 0x0003_0033
+SM4_VERSION = 0x0688 ; SM4 version code is 0x0000_0033
+HASH_VERSION = 0x068C ; HASH version code is 0x0000_0000
+HMAC_VERSION = 0x0690 ; HMAC version code is 0x0000_0000
+RNG_VERSION = 0x0694 ; RNG version code is 0x0200_0000
+PKA_VERSION = 0x0698 ; PKA version code is 0x0000_0000
+CRYPTO_VERSION = 0x06F0 ; KEYLAD version code is 0x0200_0003
+
