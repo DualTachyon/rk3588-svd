@@ -50877,6 +50877,4998 @@
 			</registers>
 		</peripheral>
 		<peripheral>
+			<name>GRF_DDR01</name>
+			<groupName>GRF</groupName>
+			<baseAddress>0x0FD59C000</baseAddress>
+			<addressBlock>
+				<offset>0x0</offset>
+				<size>0x1000</size>
+				<usage>registers</usage>
+			</addressBlock>
+			<registers>
+				<register>
+					<name>CHA_CON0</name>
+					<description>DDR CHA Control Register 0</description>
+					<addressOffset>0x0000</addressOffset>
+					<fields>
+						<field>
+							<name>AWPOISON_0</name>
+							<description>DDRCTL AXI write address poison</description>
+							<bitOffset>15</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable poison on write command</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ARPOISON_0</name>
+							<description>DDRCTL AXI read address poison</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable poison on read command</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>AWURGENT_0</name>
+							<description>DDRCTL AXI write address urgent</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>URGENT</name>
+									<description>Current aw command is urgent</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_URGENT</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ARURGENT_0</name>
+							<description>DDRCTL AXI read address urgent</description>
+							<bitOffset>12</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>URGENT</name>
+									<description>Current ar command is urgent</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_URGENT</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DIS_REGS_ECC_SYNDROME</name>
+							<description>Value of dis_regs_ecc_syndrome. Signal used to hide the value of ECCCSYN* and ECCUSYN* registers for security purposes. When this value is set to 1, reading registers ECCCSYN*/ECCUSYN* returns value 0 always, otherwise it returns appropriate value. If this feature is not used, this port can be tied to 0. The value of dis_regs_ecc_syndrome signal cannot change outside of reset(presetn=0 &amp;&amp; core_ddrc_core_rstn=0).</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>AXI_ORDER_EN</name>
+							<description>Enable preserve DDRCTL AXI cmd order counter. Please keep default 1'b1 all the time.</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_A_SYSREQ_SEL</name>
+							<description>DDRCTL AXI hardware low power request by PMU</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>PMU</name>
+									<description>DDRCTL AXI hardware low power request is driven by PMU.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_PMU</name>
+									<description>DDRCTL AXI hardware low power request is not driven by PMU.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_SLVERR_ENABLE</name>
+							<description>DDRCTL slave APB error response enable</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<description>Disable DDRCTL from responding error</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable DDRCTL from responding error</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_CON1</name>
+					<description>DDR CHA Control Register 1</description>
+					<addressOffset>0x0004</addressOffset>
+					<fields>
+						<field>
+							<name>DFI_PHYUPD_TYPE</name>
+							<description>This signal is the DFI PHY-initiated update. This signal indicates which one of the four types of PHY update times is being requested by the dfi_phyupd_req signal. The valid values are as follows:</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>2</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>TPHYUPD_TYPE0</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>TPHYUPD_TYPE1</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>TPHYUPD_TYPE2</name>
+									<value>2</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>TPHYUPD_TYPE3</name>
+									<value>3</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CG_EN_DDRPHY_MODE</name>
+							<description>DDRPHY ctrl_phy_cg_en gate control mode</description>
+							<bitOffset>7</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<description>Ctrl_phy_cg_en is set to 1'b1 to gate DDRPHY internal clock according to the status of DDRPHY dfi_phyupd_req or dfi_phymstr_active or when DDRCTL AXI aclk and core clk are both gated.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<description>Ctrl_phy_cg_en is set to 1'b1 to gate DDRPHY internal clock according to the status of DDRPHY dfi_phyupd_req or dfi_phymstr_active.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PMU_DDRPHY_GATE_EN</name>
+							<description>Enable PMU auto gate DDRPHY clock function If it is set 1'b1, ctrl_phy_cg_en of DDRPHY will be controlled by PMU.</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_SYSCREQ_CG_EN</name>
+							<description>DDRCTL core clk gate enable during SR-PD</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>SELFREF_TYPE2_EN</name>
+							<description>DDRCTL selfrefresh type for auto gate</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ONLY_SELF_REFRESH</name>
+									<description>SDRAM is in SR-Powerdown (LPDDR4/5), which was caused by automatic self refresh only. If retry is enabled, this guarantees SRE command is executed correctly without parity error.</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ANY</name>
+									<description>SDRAM is in SR-Powerdown (LPDDR4/5), which was not caused solely under automatic self refresh control. It could have been caused by hardware low power interface and/or software (PWRCTL.selfref_sw). If retry is enabled, this guarantees SRE command is executed correctly without parity error.</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_CORE_CG_EN</name>
+							<description>DDRCTL core clk gate enable</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable DDRCTL core clk auto gate</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_APB_CG_EN</name>
+							<description>DDRCTL APB pclk gate enable</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable DDRCTL pclk auto gate</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_AXI_CG_EN</name>
+							<description>DDRCTL AXI aclk gate enable</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable DDRCTL AXI auto gate</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_CON2</name>
+					<description>DDR CHA Control Register 2</description>
+					<addressOffset>0x0008</addressOffset>
+					<fields>
+						<field>
+							<name>CSYSREQ_DDRCTL_DDR_GATE</name>
+							<description>DDRCTL core hardware low power request by hardware gate control logic</description>
+							<bitOffset>15</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_HW</name>
+									<description>DDRCTL core hardware low power request is driven by hardware gate control logic.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_BY_HW</name>
+									<description>DDRCTL core hardware low power request is not driven by hardware gate control logic.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CSYSREQ_DDRCTL_PMU</name>
+							<description>DDRCTL core hardware low power request by PMU</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_PMU</name>
+									<description>DDRCTL core hardware low power request is driven by PMU.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_BY_PMU</name>
+									<description>DDRCTL core hardware low power request is not driven by PMU.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CSYSREQ_ACLK_DDR_GATE</name>
+							<description>DDRCTL AXI hardware low power request by hardware gate control logic</description>
+							<bitOffset>12</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_HW</name>
+									<description>DDRCTL AXI hardware low power request is driven by hardware gate control logic.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_BY_HW</name>
+									<description>DDRCTL AXI hardware low power request is not driven by hardware gate control logic.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CSYSREQ_ACLK</name>
+							<description>DDRCTL AXI hardware low power request by GRF</description>
+							<bitOffset>11</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_DDR_GRF</name>
+									<description>DDRCTL AXI hardware low power request is driven by DDR01_GRF or DDR23_GRF.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_BY_DDR_GRF</name>
+									<description>DDRCTL AXI hardware low power request is not driven by DDR01_GRF or DDR23_GRF.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CG_EN_DDRPHY</name>
+							<description>Enable DDRPHY ctrl_phy_cg_en auto gate function</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CG_EN_AXI</name>
+							<description>Enable DDRCTL hardware mode AXI aclk auto gate function</description>
+							<bitOffset>9</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CG_EN_CORE</name>
+							<description>Enable DDRCTL hardware mode core clk auto gate function</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PRE_DFI0_CS_COMBO_P3</name>
+							<description>These grf bits drive dfi_cs_P3</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>PRE_DFI0_CS_COMBO_P2</name>
+							<description>These grf bits drive dfi_cs_P2</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>PRE_DFI0_CS_COMBO_P1</name>
+							<description>These grf bits drive dfi_cs_P1</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>PRE_DFI0_CS_COMBO_P0</name>
+							<description>These grf bits drive dfi_cs_P0</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_CON3</name>
+					<description>DDR CHA Control Register 3</description>
+					<addressOffset>0x000C</addressOffset>
+					<fields>
+						<field>
+							<name>SILENT_THRESHOLD_AXI</name>
+							<description>Control after how many silent cycles, auto gate will gate DDRCTL aclk</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+						<field>
+							<name>SILENT_THRESHOLD_CORE</name>
+							<description>Control after how many silent cycles, auto gate will gate DDRCTL core clk.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_CON4</name>
+					<description>DDR CHA Control Register 4</description>
+					<addressOffset>0x0010</addressOffset>
+					<fields>
+						<field>
+							<name>EXIT_THRESHOLD_AXI</name>
+							<description>Exit time from gating DDRCTL aclk</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+						<field>
+							<name>SILENT_THRESHOLD_DDRPHY</name>
+							<description>Control after how many silent cycles, auto gate will enable ctrl_phy_cg_en to gate DDRPHY clock.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_CON5</name>
+					<description>DDR CHA Control Register 5</description>
+					<addressOffset>0x0014</addressOffset>
+					<fields>
+						<field>
+							<name>SILENT_THRESHOLD_RS</name>
+							<description>Control after how many silent cycles, auto gate will gate rs bridge clock Rs bridge is a module to add one pipeline for AXI bus.</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+						<field>
+							<name>EXIT_THRESHOLD_CORE</name>
+							<description>Exit time from gating DDRCTL core clk</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_CON6</name>
+					<description>DDR CHA Control Register 6</description>
+					<addressOffset>0x0018</addressOffset>
+					<fields>
+						<field>
+							<name>WR_LAT_DELAY</name>
+							<description>Control dfi_lp_data_req high level time during write</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+						<field>
+							<name>RD_LAT_DELAY</name>
+							<description>Control dfi_lp_data_req high level time during read</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_CON7</name>
+					<description>DDR CHA Control Register 7</description>
+					<addressOffset>0x001C</addressOffset>
+					<fields>
+						<field>
+							<name>MEM_CFG_UHDPDPRF_INTERCONNECT_I_16_18</name>
+							<description>Control the mem_cfg bit 16-18 for uhdpdprf for interconnect. bit 0: TESTRWM</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>3</bitWidth>
+						</field>
+						<field>
+							<name>DDR_AXI_ORDER_EN</name>
+							<description>Enable preserve DDR scheduler AXI cmd order counter. Please keep default 1'b1 all the time.</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDR_SCRAMBLE_GATE_EN</name>
+							<description>Enable auto gate ddr scramble clock between DDR scheduler and DDRCTL</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDR_FRS_SCRAMBLE_GATE_EN</name>
+							<description>Enable auto gate ddr scramble frs clock between DDR scheduler and DDRCTL</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDR_FRS_GATE_EN</name>
+							<description>Enable auto gate ddr frs clock between DDR scheduler and DDRCTL</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDR_RS_GATE_EN</name>
+							<description>Enable auto gate ddr rs clock between DDR scheduler and DDRCTL</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_CON8</name>
+					<description>DDR CHA Control Register 8</description>
+					<addressOffset>0x0020</addressOffset>
+					<fields>
+						<field>
+							<name>MEM_CFG_UHDPDPRF_INTERCONNECT_I_0_15</name>
+							<description>Control the mem_cfg bit 0-15 for uhdpdprf for interconnect. bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMDA bit 7: LS</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_CON9</name>
+					<description>DDR CHA Control Register 9</description>
+					<addressOffset>0x0024</addressOffset>
+					<fields>
+						<field>
+							<name>DDRCTL_A_AUTO_GATE_EN</name>
+							<description>Enable DDRCTL core hardware low power gate control logic</description>
+							<bitOffset>15</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_AUTO_GATE_EN</name>
+							<description>Enable DDRCTL AXI hardware low power gate control logic</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_BSM_CG_EN</name>
+							<description>Enable DDRCTL bsm clock gate function</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_CLK_GATE</name>
+							<description>Each bit will enable an internal auto gate function in DDRCTL</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>10</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_CON0</name>
+					<description>DDR CHB Control Register 0</description>
+					<addressOffset>0x0030</addressOffset>
+					<fields>
+						<field>
+							<name>AWPOISON_0</name>
+							<description>DDRCTL AXI write address poison</description>
+							<bitOffset>15</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable poison on write command</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ARPOISON_0</name>
+							<description>DDRCTL AXI read address poison</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable poison on read command</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>AWURGENT_0</name>
+							<description>DDRCTL AXI write address urgent</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>URGENT</name>
+									<description>Current aw command is urgent</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_URGENT</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ARURGENT_0</name>
+							<description>DDRCTL AXI read address urgent</description>
+							<bitOffset>12</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>Current ar command is urgent</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_URGENT</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DIS_REGS_ECC_SYNDROME</name>
+							<description>Value of dis_regs_ecc_syndrome. Signal used to hide the value of ECCCSYN* and ECCUSYN* registers for security purposes. When this value is set to 1, reading registers ECCCSYN*/ECCUSYN* returns value 0 always, otherwise it returns appropriate value. If this feature is not used, this port can be tied to 0. The value of dis_regs_ecc_syndrome signal cannot change outside of reset(presetn=0 &amp;&amp; core_ddrc_core_rstn=0).</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>AXI_ORDER_EN</name>
+							<description>Enable preserve DDRCTL AXI cmd order counter</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>Disable Please keep default 1 all the time.</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_A_SYSREQ_SEL</name>
+							<description>DDRCTL AXI hardware low power request by PMU</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_PMU</name>
+									<description>DDRCTL AXI hardware low power request is driven by PMU.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_BY_PMU</name>
+									<description>DDRCTL AXI hardware low power request is not driven by PMU.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_SLVERR_ENABLE</name>
+							<description>DDRCTL slave APB error response enable</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<description>Disable DDRCTL from responding error</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable DDRCTL from responding error</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_CON1</name>
+					<description>DDR CHB Control Register 1</description>
+					<addressOffset>0x0034</addressOffset>
+					<fields>
+						<field>
+							<name>DFI_PHYUPD_TYPE</name>
+							<description>This signal is the DFI PHY-initiated update. This signal indicates which one of the four types of PHY update times is being requested by the dfi_phyupd_req signal. The valid values are as follows:</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>2</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>TPHYUPD_TYPE0</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>TPHYUPD_TYPE1</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>TPHYUPD_TYPE2</name>
+									<value>2</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>TPHYUPD_TYPE3</name>
+									<value>3</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CG_EN_DDRPHY_MODE</name>
+							<description>DDRPHY ctrl_phy_cg_en gate control mode</description>
+							<bitOffset>7</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<description>Ctrl_phy_cg_en is set to 1'b1 to gate DDRPHY internal clock according to the status of DDRPHY dfi_phyupd_req or dfi_phymstr_active or when DDRCTL AXI aclk and core clk are both gated.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<description>Ctrl_phy_cg_en is set to 1'b1 to gate DDRPHY internal clock according to the status of DDRPHY dfi_phyupd_req or dfi_phymstr_active.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PMU_DDRPHY_GATE_EN</name>
+							<description>Enable PMU auto gate DDRPHY clock function If it is set 1'b1, ctrl_phy_cg_en of DDRPHY will be controlled by PMU.</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_SYSCREQ_CG_EN</name>
+							<description>DDRCTL core clk gate enable during SR-PD</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>SELFREF_TYPE2_EN</name>
+							<description>DDRCTL selfrefresh type for auto gate</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>SR_AUTO_ONLY</name>
+									<description>SDRAM is in SR-Powerdown (LPDDR4/5), which was caused by automatic self refresh only. If retry is enabled, this guarantees SRE command is executed correctly without parity error.</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>SR_BY_ANY</name>
+									<description>SDRAM is in SR-Powerdown (LPDDR4/5), which was not caused solely under automatic self refresh control. It could have been caused by hardware low power interface and/or software (PWRCTL.selfref_sw). If retry is enabled, this guarantees SRE command is executed correctly without parity error.</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_CORE_CG_EN</name>
+							<description>DDRCTL core clk gate enable</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable DDRCTL core clk auto gate</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_APB_CG_EN</name>
+							<description>DDRCTL APB pclk gate enable</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable DDRCTL pclk auto gate</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_AXI_CG_EN</name>
+							<description>DDRCTL AXI aclk gate enable</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable DDRCTL AXI auto gate</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_CON2</name>
+					<description>DDR CHB Control Register 2</description>
+					<addressOffset>0x0038</addressOffset>
+					<fields>
+						<field>
+							<name>CSYSREQ_UPCTL_DDR_GATE</name>
+							<description>DDRCTL core hardware low power request by hardware gate control logic</description>
+							<bitOffset>15</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_HW</name>
+									<description>DDRCTL core hardware low power request is driven by hardware gate control logic.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_BY_HW</name>
+									<description>DDRCTL core hardware low power request is not driven by hardware gate control logic.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CSYSREQ_UPCTL_PMU</name>
+							<description>DDRCTL core hardware low power request by PMU</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_PMU</name>
+									<description>DDRCTL core hardware low power request is driven by PMU.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_BY_PMU</name>
+									<description>DDRCTL core hardware low power request is not driven by PMU.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CSYSREQ_ACLK_DDR_GATE</name>
+							<description>DDRCTL AXI hardware low power request by hardware gate control logic</description>
+							<bitOffset>12</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_HW</name>
+									<description>DDRCTL AXI hardware low power request is driven by hardware gate control logic.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_BY_HW</name>
+									<description>DDRCTL AXI hardware low power request is not driven by hardware gate control logic.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CSYSREQ_ACLK</name>
+							<description>DDRCTL AXI hardware low power request by GRF</description>
+							<bitOffset>11</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_DDR_GRF</name>
+									<description>DDRCTL AXI hardware low power request is driven by DDR01_GRF or DDR23_GRF.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_BY_DDR_GRF</name>
+									<description>DDRCTL AXI hardware low power request is not driven by DDR01_GRF or DDR23_GRF.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CG_EN_DDRPHY</name>
+							<description>Enable DDRPHY ctrl_phy_cg_en auto gate function</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CG_EN_AXI</name>
+							<description>Enable DDRCTL hardware mode AXI aclk auto gate function</description>
+							<bitOffset>9</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CG_EN_CORE</name>
+							<description>Enable DDRCTL hardware mode core clk auto gate function</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PRE_DFI0_CS_COMBO_P3</name>
+							<description>These grf bits drive dfi_cs_P3</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>PRE_DFI0_CS_COMBO_P2</name>
+							<description>These grf bits drive dfi_cs_P2</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>PRE_DFI0_CS_COMBO_P1</name>
+							<description>These grf bits drive dfi_cs_P1</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>PRE_DFI0_CS_COMBO_P0</name>
+							<description>These grf bits drive dfi_cs_P0</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_CON3</name>
+					<description>DDR CHB Control Register 3</description>
+					<addressOffset>0x003C</addressOffset>
+					<fields>
+						<field>
+							<name>SILENT_THRESHOLD_AXI</name>
+							<description>Control after how many silent cycles, auto gate will gate DDRCTL aclk</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+						<field>
+							<name>SILENT_THRESHOLD_CORE</name>
+							<description>Control after how many silent cycles, auto gate will gate DDRCTL core clk.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_CON4</name>
+					<description>DDR CHB Control Register 4</description>
+					<addressOffset>0x0040</addressOffset>
+					<fields>
+						<field>
+							<name>EXIT_THRESHOLD_AXI</name>
+							<description>Exit time from gating DDRCTL aclk</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+						<field>
+							<name>SILENT_THRESHOLD_DDRPHY</name>
+							<description>Control after how many silent cycles, auto gate will enable ctrl_phy_cg_en to gate DDRPHY clock.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_CON5</name>
+					<description>DDR CHB Control Register 5</description>
+					<addressOffset>0x0044</addressOffset>
+					<fields>
+						<field>
+							<name>SILENT_THRESHOLD_RS</name>
+							<description>Control after how many silent cycles, auto gate will gate rs bridge clock Rs bridge is a module to add one pipeline for AXI bus.</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>EXIT_THRESHOLD_DDRC</name>
+							<description>Exit time from gating DDRCTL core clk</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_CON6</name>
+					<description>DDR CHB Control Register 6</description>
+					<addressOffset>0x0048</addressOffset>
+					<fields>
+						<field>
+							<name>WR_LAT_DELAY</name>
+							<description>Control dfi_lp_data_req high level time during write</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+						<field>
+							<name>RD_LAT_DELAY</name>
+							<description>Control dfi_lp_data_req high level time during read</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_CON7</name>
+					<description>DDR CHB Control Register 7</description>
+					<addressOffset>0x004C</addressOffset>
+					<fields>
+						<field>
+							<name>MEM_CFG_UHDPDPRF_INTERCONNECT_I_16_18</name>
+							<description>Control the mem_cfg bit 16-18 for uhdpdprf for interconnect. bit 0: TESTRWM</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>3</bitWidth>
+						</field>
+						<field>
+							<name>DDR_AXI_ORDER_EN</name>
+							<description>Enable preserve DDR scheduler AXI cmd order counter. Please keep default 1'b1 all the time.</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDR_SCRAMBLE_GATE_EN</name>
+							<description>Enable auto gate ddr scramble clock between DDR scheduler and DDRCTL</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDR_FRS_SCRAMBLE_GATE_EN</name>
+							<description>Enable auto gate ddr scramble frs clock between DDR scheduler and DDRCTL</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDR_FRS_GATE_EN</name>
+							<description>Enable auto gate ddr frs clock between DDR scheduler and DDRCTL</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDR_RS_GATE_EN</name>
+							<description>Enable auto gate ddr rs clock between DDR scheduler and DDRCTL</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_CON8</name>
+					<description>DDR CHB Control Register 8</description>
+					<addressOffset>0x0050</addressOffset>
+					<fields>
+						<field>
+							<name>MEM_CFG_UHDPDPRF_INTERCONNECT_I_0_15</name>
+							<description>Control the mem_cfg bit 0-15 for uhdpdprf for interconnect. bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMDA bit 7: LS</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_CON9</name>
+					<description>DDR CHB Control Register 9</description>
+					<addressOffset>0x0054</addressOffset>
+					<fields>
+						<field>
+							<name>UPCTL_A_AUTO_GATE_EN</name>
+							<description>Enable DDRCTL core hardware low power gate control logic</description>
+							<bitOffset>15</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>UPCTL_AUTO_GATE_EN</name>
+							<description>Enable DDRCTL AXI hardware low power gate control logic</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRC_BSM_CG_EN</name>
+							<description>Enable DDRCTL bsm clock gate function</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDR_CLK_GATE</name>
+							<description>Each bit will enable an internal auto gate function in DDRCTL</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>10</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_STATUS0</name>
+					<description>DDR CHA Status Register 0</description>
+					<addressOffset>0x0060</addressOffset>
+					<fields>
+						<field>
+							<name>ST_MRR_DATA0</name>
+							<description>MRR data from DDRCTL</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>32</bitWidth>
+							<access>read-only</access>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_STATUS16</name>
+					<description>DDR CHA Status Register 16</description>
+					<addressOffset>0x00A0</addressOffset>
+					<fields>
+						<field>
+							<name>ST_WRITE_OVERFLOW</name>
+							<description>DDR scramble write overflow status</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_OVERFLOW</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>OVERFLOW</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_READ_OVERFLOW</name>
+							<description>DDR scramble read overflow status</description>
+							<bitOffset>9</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_OVERFLOW</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>OVERFLOW</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>SCRAMBLE_SHIFT_READY</name>
+							<description>Scramble shift ready status</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_READY</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>READY</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_STAT_DDRC_REG_SELFREF_TYPE</name>
+							<description>DDRCTL selfrefresh type status Flags if SR-Powerdown is entered and if it was under automatic self refresh control only or not.</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_SR_PD</name>
+									<description>SDRAM is not in SR-Powerdown.</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>SR_BY_PHY</name>
+									<description>SDRAM is in self refresh, which was caused by PHY master request.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>SR_BY_ANY</name>
+									<description>SDRAM is in SR-Powerdown, which was not caused solely under automatic self refresh control.</description>
+									<value>2</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>SR_AUTO_ONLY</name>
+									<description>SDRAM is in SR-Powerdown, which was caused by automatic self refresh only.</description>
+									<value>3</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CACTIVE_ACLK</name>
+							<description>DDRCTL aclk cactive status</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_ACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CSYSACK_ACLK</name>
+							<description>DDRCTL aclk csysack status</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DOC_BUG_ACK</name>
+									<description>Low power request is acknowledged.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DOC_BUG_NAK</name>
+									<description>Low power request is not acknowledged.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CSYSREQ_ACLK</name>
+							<description>DDRCTL aclk csysreq status</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>LOW_POWER_REQUEST</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NO_LOW_POWER_REQUEST</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CACTIVE_DDRC</name>
+							<description>DDRCTL core cactive status</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_ACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CSYSACK_DDRC</name>
+							<description>DDRCTL core low power ack status</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DOC_BUG_ACK</name>
+									<description>Low power request is acknowledged.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DOC_BUG_NAK</name>
+									<description>Low power request is not acknowledged.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CSYSREQ_DDRC</name>
+							<description>DDRCTL core low power request status</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>LOW_POWER_REQUEST</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NO_LOW_POWER_REQUEST</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_STATUS17</name>
+					<description>DDR CHA Status Register 17</description>
+					<addressOffset>0x00A4</addressOffset>
+					<fields>
+						<field>
+							<name>ST_WRECC_CREDIT_CNT</name>
+							<description>DDRCTL wrecc credit count</description>
+							<bitOffset>24</bitOffset>
+							<bitWidth>7</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_WR_CREDIT_CNT</name>
+							<description>DDRCTL wr credit count</description>
+							<bitOffset>16</bitOffset>
+							<bitWidth>7</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_HPR_CREDIT_CNT</name>
+							<description>DDRCTL hpr credit count</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>7</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_LPR_CREDIT_CNT</name>
+							<description>DDRCTL lpr credit count</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>7</bitWidth>
+							<access>read-only</access>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_STATUS19</name>
+					<description>DDR CHA Status Register 19</description>
+					<addressOffset>0x00AC</addressOffset>
+					<fields>
+						<field>
+							<name>ST_DERATE_TEMP_LIMIT_INTR_FAULT</name>
+							<description>This signal is the derate temperature limit fault. This is a version of derate_temp_limit_intr, which can not be disabled or forced via a register. It is a 2-bit antivalent signal with encoding as follows:</description>
+							<bitOffset>18</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_RD_LINKECC_CORR_ERR_INTR_FAULT</name>
+							<description>This signal is the read Link-ECC corrected error fault. This is a version of rd_linkecc_corr_err_intr which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding of</description>
+							<bitOffset>16</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_RD_LINKECC_UNCORR_ERR_INTR_FAULT</name>
+							<description>This signal is the read Link-ECC uncorrected error fault. This is a version of rd_linkecc_uncorr_err_intr, which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding as follows:</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_ECC_AP_ERR_INTR_FAULT</name>
+							<description>This signal is the ECC address protection fault. This is a version of ecc_ap_err_intr which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding as follows:</description>
+							<bitOffset>12</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_ECC_UNCORRECTED_ERR_INTR_FAULT</name>
+							<description>This signal is the ECC uncorrected error fault. This is a version of ecc_uncorrected_err_intr which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding as follows:</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_ECC_CORRECTED_ERR_INTR_FAULT</name>
+							<description>This signal is the ECC corrected error fault. This is a version of ecc_corrected_err_intr which can not be disabled or forced through register. It is a 2-bit antivalent signal with encoding as follows:</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_HIF_REFRESH_REQ_BANK</name>
+							<description>This signal indicates the next bank that is refreshed (channel 1); for multi-rank configurations, the bank number is reported independently for each rank, and the information for all ranks is concatenated to form this signal.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>6</bitWidth>
+							<access>read-only</access>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_STATUS0</name>
+					<description>DDR CHB Status Register 0</description>
+					<addressOffset>0x00B0</addressOffset>
+					<fields>
+						<field>
+							<name>ST_MRR_DATA0</name>
+							<description>MRR data from DDRCTL</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>32</bitWidth>
+							<access>read-only</access>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_STATUS16</name>
+					<description>DDR CHB Status Register 16</description>
+					<addressOffset>0x00F0</addressOffset>
+					<fields>
+						<field>
+							<name>ST_WRITE_OVERFLOW</name>
+							<description>DDR scramble write overflow status</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_OVERFLOW</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>OVERFLOW</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_READ_OVERFLOW</name>
+							<description>DDR scramble read overflow status</description>
+							<bitOffset>9</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_OVERFLOW</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>OVERFLOW</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>SCRAMBLE_SHIFT_READY</name>
+							<description>Scramble shift ready status</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_READY</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>READY</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_DDRC_REG_SELFREF_TYPE</name>
+							<description>DDRCTL selfrefresh type status Flags if SR-Powerdown is entered and if it was under automatic self refresh control only or not.</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_SR_PD</name>
+									<description>SDRAM is not in SR-Powerdown.</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>SR_BY_PHY</name>
+									<description>SDRAM is in self refresh, which was caused by PHY master request.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>SR_BY_ANY</name>
+									<description>SDRAM is in SR-Powerdown, which was not caused solely under automatic self refresh control.</description>
+									<value>2</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>SR_AUTO_ONLY</name>
+									<description>SDRAM is in SR-Powerdown, which was caused by automatic self refresh only.</description>
+									<value>3</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CACTIVE_ACLK</name>
+							<description>DDRCTL aclk cactive status</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_ACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CSYSACK_ACLK</name>
+							<description>DDRCTL aclk csysack status</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DOC_BUG_ACK</name>
+									<description>Low power request is acknowledged.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DOC_BUG_NAK</name>
+									<description>Low power request is not acknowledged.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CSYSREQ_ACLK</name>
+							<description>DDRCTL aclk csysreq status</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>LOW_POWER_REQUEST</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NO_LOW_POWER_REQUEST</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CACTIVE_DDRC</name>
+							<description>DDRCTL core cactive status</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_ACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CSYSACK_DDRC</name>
+							<description>DDRCTL core low power ack status</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DOC_BUG_ACK</name>
+									<description>Low power request is acknowledged</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DOC_BUG_NAK</name>
+									<description>Low power request is not acknowledged</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CSYSREQ_DDRC</name>
+							<description>DDRCTL core low power request status</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>LOW_POWER_REQUEST</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NO_LOW_POWER_REQUEST</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_STATUS17</name>
+					<description>DDR CHB Status Register 17</description>
+					<addressOffset>0x00F4</addressOffset>
+					<fields>
+						<field>
+							<name>ST_WRECC_CREDIT_CNT</name>
+							<description>DDRCTL wrecc credit count</description>
+							<bitOffset>24</bitOffset>
+							<bitWidth>7</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_WR_CREDIT_CNT</name>
+							<description>DDRCTL wr credit count</description>
+							<bitOffset>16</bitOffset>
+							<bitWidth>7</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_HPR_CREDIT_CNT</name>
+							<description>DDRCTL hpr credit count</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>7</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_LPR_CREDIT_CNT</name>
+							<description>DDRCTL lpr credit count</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>7</bitWidth>
+							<access>read-only</access>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_STATUS19</name>
+					<description>DDR CHB Status Register 19</description>
+					<addressOffset>0x00FC</addressOffset>
+					<fields>
+						<field>
+							<name>ST_DERATE_TEMP_LIMIT_INTR_FAULT</name>
+							<description>This signal is the derate temperature limit fault. This is a version of derate_temp_limit_intr, which can not be disabled or forced via a register. It is a 2-bit antivalent signal with encoding as follows:</description>
+							<bitOffset>18</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_RD_LINKECC_CORR_ERR_INTR_FAULT</name>
+							<description>This signal is the read Link-ECC corrected error fault. This is a version of rd_linkecc_corr_err_intr which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding of</description>
+							<bitOffset>16</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_RD_LINKECC_UNCORR_ERR_INTR_FAULT</name>
+							<description>This signal is the read Link-ECC uncorrected error fault. This is a version of rd_linkecc_uncorr_err_intr, which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding as follows:</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_ECC_AP_ERR_INTR_FAULT</name>
+							<description>This signal is the ECC address protection fault. This is a version of ecc_ap_err_intr which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding as follows:</description>
+							<bitOffset>12</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_ECC_UNCORRECTED_ERR_INTR_FAULT</name>
+							<description>This signal is the ECC uncorrected error fault. This is a version of ecc_uncorrected_err_intr which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding as follows:</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_ECC_CORRECTED_ERR_INTR_FAULT</name>
+							<description>This signal is the ECC corrected error fault. This is a version of ecc_corrected_err_intr which can not be disabled or forced through register. It is a 2-bit antivalent signal with encoding as follows:</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_HIF_REFRESH_REQ_BANK</name>
+							<description>This signal indicates the next bank that is refreshed (channel 1); for multi-rank configurations, the bank number is reported independently for each rank, and the information for all ranks is concatenated to form this signal.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>6</bitWidth>
+							<access>read-only</access>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_PHY_CON0</name>
+					<description>DDRPHY CHA Control Register 0</description>
+					<addressOffset>0x0130</addressOffset>
+					<fields>
+						<field>
+							<name>DDRPHY_PCLK_CG_EN</name>
+							<description>DDRPHY APB pclk clock gate enable</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CTRL_CLKM_CG_EN</name>
+							<description>DDRPHY master DLL clock gating enable.</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLED</name>
+									<description>DDRPHY master DLL clock gating is disabled.</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLED</name>
+									<description>DDRPHY master DLL clock gating is enabled.</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DFI_PHYMSTR_TYPE</name>
+							<description>Value of dfi_phymstr_type</description>
+							<bitOffset>11</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>DFI_PHYMSTR_STATE_SEL</name>
+							<description>Value of dfi_phymastr_state_sel</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>DFI_PHYMSTR_CS_STATE</name>
+							<description>Value of dfi_phymstr_cs_state</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>DFI_INIT_START</name>
+							<description>Value of dfi_init_start</description>
+							<bitOffset>7</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>DFI_INIT_START_SEL</name>
+							<description>DDRPHY dfi_init_start select</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_DDRCTL</name>
+									<description>DDRPHY dfi_init_start is driven by DDRCTL</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>BY_DDR_GRF</name>
+									<description>DDRPHY dfi_init_start is driven by DDR01_GRF or DDR23_GRF</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DFI_INIT_COMPLETE</name>
+							<description>Value of dfi_init_complete</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>DFI_INIT_COMPLETE_SEL</name>
+							<description>DDRCTL dfi_init_complete select</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_DDRPHY</name>
+									<description>DDRCTL dfi_init_complete is driven by DDRPHY</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>BY_DDR_GRF</name>
+									<description>DDRCTL dfi_init_complete is driven by DDR01_GRF or DDR23_GRF</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRPHY2XCLKGATE_ENABLE</name>
+							<description>Root clock gating control of DDRPHY. It controls clock gating of clk_phy2x. Set this pin to low to enable clock gating for clk_phy2x. For normal operation and DDRPHY test mode, this pin should be high. Root clock gating should be enabled while dfi_dram_clk_disable=1'b1.</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>I_G_DRCG_EN</name>
+							<description>Dynamic regional clock gating control for DDRPHY. DRCG refers to clock gating controlled by pcl_pd field in LP_CON0 register.</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLED</name>
+									<description>DRCG is enabled regardless of pcl_pd field</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>BY_PCL_PD</name>
+									<description>DRCG will be controlled by pcl_pd field in LP_CON0</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DVFS_CLK_MODE</name>
+							<description>DVFS mode select for clock mode between DFI clock and DFI PHY clock. This signal controls which DVFS register sets will be used after frequency change.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>2</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NORMAL</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DVFS0</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DVFS1</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_PHY_CON0</name>
+					<description>DDRPHY CHB Control Register 0</description>
+					<addressOffset>0x0134</addressOffset>
+					<fields>
+						<field>
+							<name>DDRPHY_PCLK_CG_EN</name>
+							<description>DDRPHY APB pclk clock gate enable</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CTRL_CLKM_CG_EN</name>
+							<description>DDRPHY master DLL clock gating enable.</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLED</name>
+									<description>DDRPHY master DLL clock gating is disabled.</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLED</name>
+									<description>DDRPHY master DLL clock gating is enabled.</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DFI_PHYMSTR_TYPE</name>
+							<description>Value of dfi_phymstr_type</description>
+							<bitOffset>11</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>DFI_PHYMSTR_STATE_SEL</name>
+							<description>Value of dfi_phymastr_state_sel</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>DFI_PHYMSTR_CS_STATE</name>
+							<description>Value of dfi_phymstr_cs_state</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>DFI_INIT_START</name>
+							<description>Value of dfi_init_start</description>
+							<bitOffset>7</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>DFI_INIT_START_SEL</name>
+							<description>DDRPHY dfi_init_start select</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_DDRCTL</name>
+									<description>DDRPHY dfi_init_start is driven by DDRCTL</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>BY_DDR_GRF</name>
+									<description>DDRPHY dfi_init_start is driven by DDR01_GRF or DDR23_GRF</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DFI_INIT_COMPLETE</name>
+							<description>Value of dfi_init_complete</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>DFI_INIT_COMPLETE_SEL</name>
+							<description>DDRCTL dfi_init_complete select</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_DDRPHY</name>
+									<description>DDRCTL dfi_init_complete is driven by DDRPHY</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>BY_DDR_GRF</name>
+									<description>DDRCTL dfi_init_complete is driven by DDR01_GRF or DDR23_GRF</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRPHY2XCLKGATE_ENABLE</name>
+							<description>Root clock gating control of DDRPHY. It controls clock gating of clk_phy2x. Set this pin to low to enable clock gating for clk_phy2x. For normal operation and DDRPHY test mode, this pin should be high. Root clock gating should be enabled while dfi_dram_clk_disable=1'b1.</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>I_G_DRCG_EN</name>
+							<description>Dynamic regional clock gating control for DDRPHY. DRCG refers to clock gating controlled by pcl_pd field in LP_CON0 register.</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLED</name>
+									<description>DRCG is enabled regardless of pcl_pd field</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>BY_PCL_PD</name>
+									<description>DRCG will be controlled by pcl_pd field in LP_CON0</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DVFS_CLK_MODE</name>
+							<description>DVFS mode select for clock mode between DFI clock and DFI PHY clock. This signal controls which DVFS register sets will be used after frequency change.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>2</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NORMAL</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DVFS0</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DVFS1</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_PHY_STATUS0</name>
+					<description>DDRPHY CHA Status Register 0</description>
+					<addressOffset>0x0138</addressOffset>
+					<fields>
+						<field>
+							<name>ST_DFI_INIT_COMPLETE</name>
+							<description>Dfi_init_complete status</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_DFI_INIT_START</name>
+							<description>Dfi_init_start status</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_DDRPHY2XCLKGATE_ENOUT</name>
+							<description>Status of ddrphy2xclkgate_enout signal. This is a feed-through signal of ddrphy2xclkgate_enable. This signal can be monitored to get the status of ddrphy2xclkgate_enable signal.</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_DFI_PHYMSTR_ACTIVE</name>
+							<description>DDRPHY phymstr_active status</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_DFI_ERROR</name>
+							<description>DDRPHY dfi error status Indicates that the DDRPHY has detected an error condition such as read FIFO pointer error, conflict DLL update and wrdata and conflict DLL update and rddata.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_PHY_STATUS0</name>
+					<description>DDRPHY CHB Status Register 1</description>
+					<addressOffset>0x013C</addressOffset>
+					<fields>
+						<field>
+							<name>ST_DFI_INIT_COMPLETE</name>
+							<description>Dfi_init_complete status</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_DFI_INIT_START</name>
+							<description>Dfi_init_start status</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_DDRPHY2XCLKGATE_ENOUT</name>
+							<description>Status of ddrphy2xclkgate_enout signal. This is a feed-through signal of ddrphy2xclkgate_enable. This signal can be monitored to get the status of ddrphy2xclkgate_enable signal.</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_DFI_PHYMSTR_ACTIVE</name>
+							<description>DDRPHY phymstr_active status</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_DFI_ERROR</name>
+							<description>DDRPHY dfi error status Indicates that the DDRPHY has detected an error condition such as read FIFO pointer error, conflict DLL update and wrdata and conflict DLL update and rddata.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CON0</name>
+					<description>DDR Control Register 0</description>
+					<addressOffset>0x0140</addressOffset>
+					<fields>
+						<field>
+							<name>MEM_CFG_HSDPRF_DDRCTL</name>
+							<description>Control the mem_cfg bit 0-21 for hsdprf for DDRCTL. bit 0: TEST1A bit 1: TEST_RNMA bit 5~2: RMA bit 6: WMDA bit 8: LS bit 14~13: RA bit 17: TEST1B bit 21~18: RMB</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>24</bitWidth>
+						</field>
+					</fields>
+				</register>
+			</registers>
+		</peripheral>
+		<peripheral>
+			<name>GRF_DDR23</name>
+			<groupName>GRF</groupName>
+			<baseAddress>0x0FD59D000</baseAddress>
+			<addressBlock>
+				<offset>0x0</offset>
+				<size>0x1000</size>
+				<usage>registers</usage>
+			</addressBlock>
+			<registers>
+				<register>
+					<name>CHA_CON0</name>
+					<description>DDR CHA Control Register 0</description>
+					<addressOffset>0x0000</addressOffset>
+					<fields>
+						<field>
+							<name>AWPOISON_0</name>
+							<description>DDRCTL AXI write address poison</description>
+							<bitOffset>15</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable poison on write command</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ARPOISON_0</name>
+							<description>DDRCTL AXI read address poison</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable poison on read command</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>AWURGENT_0</name>
+							<description>DDRCTL AXI write address urgent</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>URGENT</name>
+									<description>Current aw command is urgent</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_URGENT</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ARURGENT_0</name>
+							<description>DDRCTL AXI read address urgent</description>
+							<bitOffset>12</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>URGENT</name>
+									<description>Current ar command is urgent</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_URGENT</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DIS_REGS_ECC_SYNDROME</name>
+							<description>Value of dis_regs_ecc_syndrome. Signal used to hide the value of ECCCSYN* and ECCUSYN* registers for security purposes. When this value is set to 1, reading registers ECCCSYN*/ECCUSYN* returns value 0 always, otherwise it returns appropriate value. If this feature is not used, this port can be tied to 0. The value of dis_regs_ecc_syndrome signal cannot change outside of reset(presetn=0 &amp;&amp; core_ddrc_core_rstn=0).</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>AXI_ORDER_EN</name>
+							<description>Enable preserve DDRCTL AXI cmd order counter. Please keep default 1'b1 all the time.</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_A_SYSREQ_SEL</name>
+							<description>DDRCTL AXI hardware low power request by PMU</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>PMU</name>
+									<description>DDRCTL AXI hardware low power request is driven by PMU.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_PMU</name>
+									<description>DDRCTL AXI hardware low power request is not driven by PMU.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_SLVERR_ENABLE</name>
+							<description>DDRCTL slave APB error response enable</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<description>Disable DDRCTL from responding error</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable DDRCTL from responding error</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_CON1</name>
+					<description>DDR CHA Control Register 1</description>
+					<addressOffset>0x0004</addressOffset>
+					<fields>
+						<field>
+							<name>DFI_PHYUPD_TYPE</name>
+							<description>This signal is the DFI PHY-initiated update. This signal indicates which one of the four types of PHY update times is being requested by the dfi_phyupd_req signal. The valid values are as follows:</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>2</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>TPHYUPD_TYPE0</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>TPHYUPD_TYPE1</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>TPHYUPD_TYPE2</name>
+									<value>2</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>TPHYUPD_TYPE3</name>
+									<value>3</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CG_EN_DDRPHY_MODE</name>
+							<description>DDRPHY ctrl_phy_cg_en gate control mode</description>
+							<bitOffset>7</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<description>Ctrl_phy_cg_en is set to 1'b1 to gate DDRPHY internal clock according to the status of DDRPHY dfi_phyupd_req or dfi_phymstr_active or when DDRCTL AXI aclk and core clk are both gated.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<description>Ctrl_phy_cg_en is set to 1'b1 to gate DDRPHY internal clock according to the status of DDRPHY dfi_phyupd_req or dfi_phymstr_active.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PMU_DDRPHY_GATE_EN</name>
+							<description>Enable PMU auto gate DDRPHY clock function If it is set 1'b1, ctrl_phy_cg_en of DDRPHY will be controlled by PMU.</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_SYSCREQ_CG_EN</name>
+							<description>DDRCTL core clk gate enable during SR-PD</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>SELFREF_TYPE2_EN</name>
+							<description>DDRCTL selfrefresh type for auto gate</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ONLY_SELF_REFRESH</name>
+									<description>SDRAM is in SR-Powerdown (LPDDR4/5), which was caused by automatic self refresh only. If retry is enabled, this guarantees SRE command is executed correctly without parity error.</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ANY</name>
+									<description>SDRAM is in SR-Powerdown (LPDDR4/5), which was not caused solely under automatic self refresh control. It could have been caused by hardware low power interface and/or software (PWRCTL.selfref_sw). If retry is enabled, this guarantees SRE command is executed correctly without parity error.</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_CORE_CG_EN</name>
+							<description>DDRCTL core clk gate enable</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable DDRCTL core clk auto gate</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_APB_CG_EN</name>
+							<description>DDRCTL APB pclk gate enable</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable DDRCTL pclk auto gate</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_AXI_CG_EN</name>
+							<description>DDRCTL AXI aclk gate enable</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable DDRCTL AXI auto gate</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_CON2</name>
+					<description>DDR CHA Control Register 2</description>
+					<addressOffset>0x0008</addressOffset>
+					<fields>
+						<field>
+							<name>CSYSREQ_DDRCTL_DDR_GATE</name>
+							<description>DDRCTL core hardware low power request by hardware gate control logic</description>
+							<bitOffset>15</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_HW</name>
+									<description>DDRCTL core hardware low power request is driven by hardware gate control logic.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_BY_HW</name>
+									<description>DDRCTL core hardware low power request is not driven by hardware gate control logic.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CSYSREQ_DDRCTL_PMU</name>
+							<description>DDRCTL core hardware low power request by PMU</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_PMU</name>
+									<description>DDRCTL core hardware low power request is driven by PMU.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_BY_PMU</name>
+									<description>DDRCTL core hardware low power request is not driven by PMU.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CSYSREQ_ACLK_DDR_GATE</name>
+							<description>DDRCTL AXI hardware low power request by hardware gate control logic</description>
+							<bitOffset>12</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_HW</name>
+									<description>DDRCTL AXI hardware low power request is driven by hardware gate control logic.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_BY_HW</name>
+									<description>DDRCTL AXI hardware low power request is not driven by hardware gate control logic.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CSYSREQ_ACLK</name>
+							<description>DDRCTL AXI hardware low power request by GRF</description>
+							<bitOffset>11</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_DDR_GRF</name>
+									<description>DDRCTL AXI hardware low power request is driven by DDR01_GRF or DDR23_GRF.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_BY_DDR_GRF</name>
+									<description>DDRCTL AXI hardware low power request is not driven by DDR01_GRF or DDR23_GRF.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CG_EN_DDRPHY</name>
+							<description>Enable DDRPHY ctrl_phy_cg_en auto gate function</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CG_EN_AXI</name>
+							<description>Enable DDRCTL hardware mode AXI aclk auto gate function</description>
+							<bitOffset>9</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CG_EN_CORE</name>
+							<description>Enable DDRCTL hardware mode core clk auto gate function</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PRE_DFI0_CS_COMBO_P3</name>
+							<description>These grf bits drive dfi_cs_P3</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>PRE_DFI0_CS_COMBO_P2</name>
+							<description>These grf bits drive dfi_cs_P2</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>PRE_DFI0_CS_COMBO_P1</name>
+							<description>These grf bits drive dfi_cs_P1</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>PRE_DFI0_CS_COMBO_P0</name>
+							<description>These grf bits drive dfi_cs_P0</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_CON3</name>
+					<description>DDR CHA Control Register 3</description>
+					<addressOffset>0x000C</addressOffset>
+					<fields>
+						<field>
+							<name>SILENT_THRESHOLD_AXI</name>
+							<description>Control after how many silent cycles, auto gate will gate DDRCTL aclk</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+						<field>
+							<name>SILENT_THRESHOLD_CORE</name>
+							<description>Control after how many silent cycles, auto gate will gate DDRCTL core clk.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_CON4</name>
+					<description>DDR CHA Control Register 4</description>
+					<addressOffset>0x0010</addressOffset>
+					<fields>
+						<field>
+							<name>EXIT_THRESHOLD_AXI</name>
+							<description>Exit time from gating DDRCTL aclk</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+						<field>
+							<name>SILENT_THRESHOLD_DDRPHY</name>
+							<description>Control after how many silent cycles, auto gate will enable ctrl_phy_cg_en to gate DDRPHY clock.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_CON5</name>
+					<description>DDR CHA Control Register 5</description>
+					<addressOffset>0x0014</addressOffset>
+					<fields>
+						<field>
+							<name>SILENT_THRESHOLD_RS</name>
+							<description>Control after how many silent cycles, auto gate will gate rs bridge clock Rs bridge is a module to add one pipeline for AXI bus.</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+						<field>
+							<name>EXIT_THRESHOLD_CORE</name>
+							<description>Exit time from gating DDRCTL core clk</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_CON6</name>
+					<description>DDR CHA Control Register 6</description>
+					<addressOffset>0x0018</addressOffset>
+					<fields>
+						<field>
+							<name>WR_LAT_DELAY</name>
+							<description>Control dfi_lp_data_req high level time during write</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+						<field>
+							<name>RD_LAT_DELAY</name>
+							<description>Control dfi_lp_data_req high level time during read</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_CON7</name>
+					<description>DDR CHA Control Register 7</description>
+					<addressOffset>0x001C</addressOffset>
+					<fields>
+						<field>
+							<name>MEM_CFG_UHDPDPRF_INTERCONNECT_I_16_18</name>
+							<description>Control the mem_cfg bit 16-18 for uhdpdprf for interconnect. bit 0: TESTRWM</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>3</bitWidth>
+						</field>
+						<field>
+							<name>DDR_AXI_ORDER_EN</name>
+							<description>Enable preserve DDR scheduler AXI cmd order counter. Please keep default 1'b1 all the time.</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDR_SCRAMBLE_GATE_EN</name>
+							<description>Enable auto gate ddr scramble clock between DDR scheduler and DDRCTL</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDR_FRS_SCRAMBLE_GATE_EN</name>
+							<description>Enable auto gate ddr scramble frs clock between DDR scheduler and DDRCTL</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDR_FRS_GATE_EN</name>
+							<description>Enable auto gate ddr frs clock between DDR scheduler and DDRCTL</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDR_RS_GATE_EN</name>
+							<description>Enable auto gate ddr rs clock between DDR scheduler and DDRCTL</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_CON8</name>
+					<description>DDR CHA Control Register 8</description>
+					<addressOffset>0x0020</addressOffset>
+					<fields>
+						<field>
+							<name>MEM_CFG_UHDPDPRF_INTERCONNECT_I_0_15</name>
+							<description>Control the mem_cfg bit 0-15 for uhdpdprf for interconnect. bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMDA bit 7: LS</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_CON9</name>
+					<description>DDR CHA Control Register 9</description>
+					<addressOffset>0x0024</addressOffset>
+					<fields>
+						<field>
+							<name>DDRCTL_A_AUTO_GATE_EN</name>
+							<description>Enable DDRCTL core hardware low power gate control logic</description>
+							<bitOffset>15</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_AUTO_GATE_EN</name>
+							<description>Enable DDRCTL AXI hardware low power gate control logic</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_BSM_CG_EN</name>
+							<description>Enable DDRCTL bsm clock gate function</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_CLK_GATE</name>
+							<description>Each bit will enable an internal auto gate function in DDRCTL</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>10</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_CON0</name>
+					<description>DDR CHB Control Register 0</description>
+					<addressOffset>0x0030</addressOffset>
+					<fields>
+						<field>
+							<name>AWPOISON_0</name>
+							<description>DDRCTL AXI write address poison</description>
+							<bitOffset>15</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable poison on write command</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ARPOISON_0</name>
+							<description>DDRCTL AXI read address poison</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable poison on read command</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>AWURGENT_0</name>
+							<description>DDRCTL AXI write address urgent</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>URGENT</name>
+									<description>Current aw command is urgent</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_URGENT</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ARURGENT_0</name>
+							<description>DDRCTL AXI read address urgent</description>
+							<bitOffset>12</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>Current ar command is urgent</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_URGENT</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DIS_REGS_ECC_SYNDROME</name>
+							<description>Value of dis_regs_ecc_syndrome. Signal used to hide the value of ECCCSYN* and ECCUSYN* registers for security purposes. When this value is set to 1, reading registers ECCCSYN*/ECCUSYN* returns value 0 always, otherwise it returns appropriate value. If this feature is not used, this port can be tied to 0. The value of dis_regs_ecc_syndrome signal cannot change outside of reset(presetn=0 &amp;&amp; core_ddrc_core_rstn=0).</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>AXI_ORDER_EN</name>
+							<description>Enable preserve DDRCTL AXI cmd order counter</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>Disable Please keep default 1 all the time.</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_A_SYSREQ_SEL</name>
+							<description>DDRCTL AXI hardware low power request by PMU</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_PMU</name>
+									<description>DDRCTL AXI hardware low power request is driven by PMU.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_BY_PMU</name>
+									<description>DDRCTL AXI hardware low power request is not driven by PMU.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_SLVERR_ENABLE</name>
+							<description>DDRCTL slave APB error response enable</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<description>Disable DDRCTL from responding error</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable DDRCTL from responding error</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_CON1</name>
+					<description>DDR CHB Control Register 1</description>
+					<addressOffset>0x0034</addressOffset>
+					<fields>
+						<field>
+							<name>DFI_PHYUPD_TYPE</name>
+							<description>This signal is the DFI PHY-initiated update. This signal indicates which one of the four types of PHY update times is being requested by the dfi_phyupd_req signal. The valid values are as follows:</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>2</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>TPHYUPD_TYPE0</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>TPHYUPD_TYPE1</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>TPHYUPD_TYPE2</name>
+									<value>2</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>TPHYUPD_TYPE3</name>
+									<value>3</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CG_EN_DDRPHY_MODE</name>
+							<description>DDRPHY ctrl_phy_cg_en gate control mode</description>
+							<bitOffset>7</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<description>Ctrl_phy_cg_en is set to 1'b1 to gate DDRPHY internal clock according to the status of DDRPHY dfi_phyupd_req or dfi_phymstr_active or when DDRCTL AXI aclk and core clk are both gated.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<description>Ctrl_phy_cg_en is set to 1'b1 to gate DDRPHY internal clock according to the status of DDRPHY dfi_phyupd_req or dfi_phymstr_active.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PMU_DDRPHY_GATE_EN</name>
+							<description>Enable PMU auto gate DDRPHY clock function If it is set 1'b1, ctrl_phy_cg_en of DDRPHY will be controlled by PMU.</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_SYSCREQ_CG_EN</name>
+							<description>DDRCTL core clk gate enable during SR-PD</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>SELFREF_TYPE2_EN</name>
+							<description>DDRCTL selfrefresh type for auto gate</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>SR_AUTO_ONLY</name>
+									<description>SDRAM is in SR-Powerdown (LPDDR4/5), which was caused by automatic self refresh only. If retry is enabled, this guarantees SRE command is executed correctly without parity error.</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>SR_BY_ANY</name>
+									<description>SDRAM is in SR-Powerdown (LPDDR4/5), which was not caused solely under automatic self refresh control. It could have been caused by hardware low power interface and/or software (PWRCTL.selfref_sw). If retry is enabled, this guarantees SRE command is executed correctly without parity error.</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_CORE_CG_EN</name>
+							<description>DDRCTL core clk gate enable</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable DDRCTL core clk auto gate</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_APB_CG_EN</name>
+							<description>DDRCTL APB pclk gate enable</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable DDRCTL pclk auto gate</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCTL_AXI_CG_EN</name>
+							<description>DDRCTL AXI aclk gate enable</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable DDRCTL AXI auto gate</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_CON2</name>
+					<description>DDR CHB Control Register 2</description>
+					<addressOffset>0x0038</addressOffset>
+					<fields>
+						<field>
+							<name>CSYSREQ_UPCTL_DDR_GATE</name>
+							<description>DDRCTL core hardware low power request by hardware gate control logic</description>
+							<bitOffset>15</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_HW</name>
+									<description>DDRCTL core hardware low power request is driven by hardware gate control logic.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_BY_HW</name>
+									<description>DDRCTL core hardware low power request is not driven by hardware gate control logic.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CSYSREQ_UPCTL_PMU</name>
+							<description>DDRCTL core hardware low power request by PMU</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_PMU</name>
+									<description>DDRCTL core hardware low power request is driven by PMU.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_BY_PMU</name>
+									<description>DDRCTL core hardware low power request is not driven by PMU.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CSYSREQ_ACLK_DDR_GATE</name>
+							<description>DDRCTL AXI hardware low power request by hardware gate control logic</description>
+							<bitOffset>12</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_HW</name>
+									<description>DDRCTL AXI hardware low power request is driven by hardware gate control logic.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_BY_HW</name>
+									<description>DDRCTL AXI hardware low power request is not driven by hardware gate control logic.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CSYSREQ_ACLK</name>
+							<description>DDRCTL AXI hardware low power request by GRF</description>
+							<bitOffset>11</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_DDR_GRF</name>
+									<description>DDRCTL AXI hardware low power request is driven by DDR01_GRF or DDR23_GRF.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_BY_DDR_GRF</name>
+									<description>DDRCTL AXI hardware low power request is not driven by DDR01_GRF or DDR23_GRF.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CG_EN_DDRPHY</name>
+							<description>Enable DDRPHY ctrl_phy_cg_en auto gate function</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CG_EN_AXI</name>
+							<description>Enable DDRCTL hardware mode AXI aclk auto gate function</description>
+							<bitOffset>9</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CG_EN_CORE</name>
+							<description>Enable DDRCTL hardware mode core clk auto gate function</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PRE_DFI0_CS_COMBO_P3</name>
+							<description>These grf bits drive dfi_cs_P3</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>PRE_DFI0_CS_COMBO_P2</name>
+							<description>These grf bits drive dfi_cs_P2</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>PRE_DFI0_CS_COMBO_P1</name>
+							<description>These grf bits drive dfi_cs_P1</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>PRE_DFI0_CS_COMBO_P0</name>
+							<description>These grf bits drive dfi_cs_P0</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_CON3</name>
+					<description>DDR CHB Control Register 3</description>
+					<addressOffset>0x003C</addressOffset>
+					<fields>
+						<field>
+							<name>SILENT_THRESHOLD_AXI</name>
+							<description>Control after how many silent cycles, auto gate will gate DDRCTL aclk</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+						<field>
+							<name>SILENT_THRESHOLD_CORE</name>
+							<description>Control after how many silent cycles, auto gate will gate DDRCTL core clk.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_CON4</name>
+					<description>DDR CHB Control Register 4</description>
+					<addressOffset>0x0040</addressOffset>
+					<fields>
+						<field>
+							<name>EXIT_THRESHOLD_AXI</name>
+							<description>Exit time from gating DDRCTL aclk</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+						<field>
+							<name>SILENT_THRESHOLD_DDRPHY</name>
+							<description>Control after how many silent cycles, auto gate will enable ctrl_phy_cg_en to gate DDRPHY clock.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_CON5</name>
+					<description>DDR CHB Control Register 5</description>
+					<addressOffset>0x0044</addressOffset>
+					<fields>
+						<field>
+							<name>SILENT_THRESHOLD_RS</name>
+							<description>Control after how many silent cycles, auto gate will gate rs bridge clock Rs bridge is a module to add one pipeline for AXI bus.</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>EXIT_THRESHOLD_DDRC</name>
+							<description>Exit time from gating DDRCTL core clk</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_CON6</name>
+					<description>DDR CHB Control Register 6</description>
+					<addressOffset>0x0048</addressOffset>
+					<fields>
+						<field>
+							<name>WR_LAT_DELAY</name>
+							<description>Control dfi_lp_data_req high level time during write</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+						<field>
+							<name>RD_LAT_DELAY</name>
+							<description>Control dfi_lp_data_req high level time during read</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_CON7</name>
+					<description>DDR CHB Control Register 7</description>
+					<addressOffset>0x004C</addressOffset>
+					<fields>
+						<field>
+							<name>MEM_CFG_UHDPDPRF_INTERCONNECT_I_16_18</name>
+							<description>Control the mem_cfg bit 16-18 for uhdpdprf for interconnect. bit 0: TESTRWM</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>3</bitWidth>
+						</field>
+						<field>
+							<name>DDR_AXI_ORDER_EN</name>
+							<description>Enable preserve DDR scheduler AXI cmd order counter. Please keep default 1'b1 all the time.</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDR_SCRAMBLE_GATE_EN</name>
+							<description>Enable auto gate ddr scramble clock between DDR scheduler and DDRCTL</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDR_FRS_SCRAMBLE_GATE_EN</name>
+							<description>Enable auto gate ddr scramble frs clock between DDR scheduler and DDRCTL</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDR_FRS_GATE_EN</name>
+							<description>Enable auto gate ddr frs clock between DDR scheduler and DDRCTL</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDR_RS_GATE_EN</name>
+							<description>Enable auto gate ddr rs clock between DDR scheduler and DDRCTL</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_CON8</name>
+					<description>DDR CHB Control Register 8</description>
+					<addressOffset>0x0050</addressOffset>
+					<fields>
+						<field>
+							<name>MEM_CFG_UHDPDPRF_INTERCONNECT_I_0_15</name>
+							<description>Control the mem_cfg bit 0-15 for uhdpdprf for interconnect. bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMDA bit 7: LS</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_CON9</name>
+					<description>DDR CHB Control Register 9</description>
+					<addressOffset>0x0054</addressOffset>
+					<fields>
+						<field>
+							<name>UPCTL_A_AUTO_GATE_EN</name>
+							<description>Enable DDRCTL core hardware low power gate control logic</description>
+							<bitOffset>15</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>UPCTL_AUTO_GATE_EN</name>
+							<description>Enable DDRCTL AXI hardware low power gate control logic</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRC_BSM_CG_EN</name>
+							<description>Enable DDRCTL bsm clock gate function</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDR_CLK_GATE</name>
+							<description>Each bit will enable an internal auto gate function in DDRCTL</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>10</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_STATUS0</name>
+					<description>DDR CHA Status Register 0</description>
+					<addressOffset>0x0060</addressOffset>
+					<fields>
+						<field>
+							<name>ST_MRR_DATA0</name>
+							<description>MRR data from DDRCTL</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>32</bitWidth>
+							<access>read-only</access>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_STATUS16</name>
+					<description>DDR CHA Status Register 16</description>
+					<addressOffset>0x00A0</addressOffset>
+					<fields>
+						<field>
+							<name>ST_WRITE_OVERFLOW</name>
+							<description>DDR scramble write overflow status</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_OVERFLOW</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>OVERFLOW</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_READ_OVERFLOW</name>
+							<description>DDR scramble read overflow status</description>
+							<bitOffset>9</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_OVERFLOW</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>OVERFLOW</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>SCRAMBLE_SHIFT_READY</name>
+							<description>Scramble shift ready status</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_READY</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>READY</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_STAT_DDRC_REG_SELFREF_TYPE</name>
+							<description>DDRCTL selfrefresh type status Flags if SR-Powerdown is entered and if it was under automatic self refresh control only or not.</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_SR_PD</name>
+									<description>SDRAM is not in SR-Powerdown.</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>SR_BY_PHY</name>
+									<description>SDRAM is in self refresh, which was caused by PHY master request.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>SR_BY_ANY</name>
+									<description>SDRAM is in SR-Powerdown, which was not caused solely under automatic self refresh control.</description>
+									<value>2</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>SR_AUTO_ONLY</name>
+									<description>SDRAM is in SR-Powerdown, which was caused by automatic self refresh only.</description>
+									<value>3</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CACTIVE_ACLK</name>
+							<description>DDRCTL aclk cactive status</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_ACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CSYSACK_ACLK</name>
+							<description>DDRCTL aclk csysack status</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DOC_BUG_ACK</name>
+									<description>Low power request is acknowledged.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DOC_BUG_NAK</name>
+									<description>Low power request is not acknowledged.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CSYSREQ_ACLK</name>
+							<description>DDRCTL aclk csysreq status</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>LOW_POWER_REQUEST</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NO_LOW_POWER_REQUEST</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CACTIVE_DDRC</name>
+							<description>DDRCTL core cactive status</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_ACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CSYSACK_DDRC</name>
+							<description>DDRCTL core low power ack status</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DOC_BUG_ACK</name>
+									<description>Low power request is acknowledged.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DOC_BUG_NAK</name>
+									<description>Low power request is not acknowledged.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CSYSREQ_DDRC</name>
+							<description>DDRCTL core low power request status</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>LOW_POWER_REQUEST</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NO_LOW_POWER_REQUEST</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_STATUS17</name>
+					<description>DDR CHA Status Register 17</description>
+					<addressOffset>0x00A4</addressOffset>
+					<fields>
+						<field>
+							<name>ST_WRECC_CREDIT_CNT</name>
+							<description>DDRCTL wrecc credit count</description>
+							<bitOffset>24</bitOffset>
+							<bitWidth>7</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_WR_CREDIT_CNT</name>
+							<description>DDRCTL wr credit count</description>
+							<bitOffset>16</bitOffset>
+							<bitWidth>7</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_HPR_CREDIT_CNT</name>
+							<description>DDRCTL hpr credit count</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>7</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_LPR_CREDIT_CNT</name>
+							<description>DDRCTL lpr credit count</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>7</bitWidth>
+							<access>read-only</access>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_STATUS19</name>
+					<description>DDR CHA Status Register 19</description>
+					<addressOffset>0x00AC</addressOffset>
+					<fields>
+						<field>
+							<name>ST_DERATE_TEMP_LIMIT_INTR_FAULT</name>
+							<description>This signal is the derate temperature limit fault. This is a version of derate_temp_limit_intr, which can not be disabled or forced via a register. It is a 2-bit antivalent signal with encoding as follows:</description>
+							<bitOffset>18</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_RD_LINKECC_CORR_ERR_INTR_FAULT</name>
+							<description>This signal is the read Link-ECC corrected error fault. This is a version of rd_linkecc_corr_err_intr which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding of</description>
+							<bitOffset>16</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_RD_LINKECC_UNCORR_ERR_INTR_FAULT</name>
+							<description>This signal is the read Link-ECC uncorrected error fault. This is a version of rd_linkecc_uncorr_err_intr, which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding as follows:</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_ECC_AP_ERR_INTR_FAULT</name>
+							<description>This signal is the ECC address protection fault. This is a version of ecc_ap_err_intr which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding as follows:</description>
+							<bitOffset>12</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_ECC_UNCORRECTED_ERR_INTR_FAULT</name>
+							<description>This signal is the ECC uncorrected error fault. This is a version of ecc_uncorrected_err_intr which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding as follows:</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_ECC_CORRECTED_ERR_INTR_FAULT</name>
+							<description>This signal is the ECC corrected error fault. This is a version of ecc_corrected_err_intr which can not be disabled or forced through register. It is a 2-bit antivalent signal with encoding as follows:</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_HIF_REFRESH_REQ_BANK</name>
+							<description>This signal indicates the next bank that is refreshed (channel 1); for multi-rank configurations, the bank number is reported independently for each rank, and the information for all ranks is concatenated to form this signal.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>6</bitWidth>
+							<access>read-only</access>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_STATUS0</name>
+					<description>DDR CHB Status Register 0</description>
+					<addressOffset>0x00B0</addressOffset>
+					<fields>
+						<field>
+							<name>ST_MRR_DATA0</name>
+							<description>MRR data from DDRCTL</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>32</bitWidth>
+							<access>read-only</access>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_STATUS16</name>
+					<description>DDR CHB Status Register 16</description>
+					<addressOffset>0x00F0</addressOffset>
+					<fields>
+						<field>
+							<name>ST_WRITE_OVERFLOW</name>
+							<description>DDR scramble write overflow status</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_OVERFLOW</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>OVERFLOW</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_READ_OVERFLOW</name>
+							<description>DDR scramble read overflow status</description>
+							<bitOffset>9</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_OVERFLOW</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>OVERFLOW</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>SCRAMBLE_SHIFT_READY</name>
+							<description>Scramble shift ready status</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_READY</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>READY</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_DDRC_REG_SELFREF_TYPE</name>
+							<description>DDRCTL selfrefresh type status Flags if SR-Powerdown is entered and if it was under automatic self refresh control only or not.</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_SR_PD</name>
+									<description>SDRAM is not in SR-Powerdown.</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>SR_BY_PHY</name>
+									<description>SDRAM is in self refresh, which was caused by PHY master request.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>SR_BY_ANY</name>
+									<description>SDRAM is in SR-Powerdown, which was not caused solely under automatic self refresh control.</description>
+									<value>2</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>SR_AUTO_ONLY</name>
+									<description>SDRAM is in SR-Powerdown, which was caused by automatic self refresh only.</description>
+									<value>3</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CACTIVE_ACLK</name>
+							<description>DDRCTL aclk cactive status</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_ACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CSYSACK_ACLK</name>
+							<description>DDRCTL aclk csysack status</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DOC_BUG_ACK</name>
+									<description>Low power request is acknowledged.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DOC_BUG_NAK</name>
+									<description>Low power request is not acknowledged.</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CSYSREQ_ACLK</name>
+							<description>DDRCTL aclk csysreq status</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>LOW_POWER_REQUEST</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NO_LOW_POWER_REQUEST</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CACTIVE_DDRC</name>
+							<description>DDRCTL core cactive status</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_ACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CSYSACK_DDRC</name>
+							<description>DDRCTL core low power ack status</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DOC_BUG_ACK</name>
+									<description>Low power request is acknowledged</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DOC_BUG_NAK</name>
+									<description>Low power request is not acknowledged</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_CSYSREQ_DDRC</name>
+							<description>DDRCTL core low power request status</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>LOW_POWER_REQUEST</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NO_LOW_POWER_REQUEST</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_STATUS17</name>
+					<description>DDR CHB Status Register 17</description>
+					<addressOffset>0x00F4</addressOffset>
+					<fields>
+						<field>
+							<name>ST_WRECC_CREDIT_CNT</name>
+							<description>DDRCTL wrecc credit count</description>
+							<bitOffset>24</bitOffset>
+							<bitWidth>7</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_WR_CREDIT_CNT</name>
+							<description>DDRCTL wr credit count</description>
+							<bitOffset>16</bitOffset>
+							<bitWidth>7</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_HPR_CREDIT_CNT</name>
+							<description>DDRCTL hpr credit count</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>7</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_LPR_CREDIT_CNT</name>
+							<description>DDRCTL lpr credit count</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>7</bitWidth>
+							<access>read-only</access>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_STATUS19</name>
+					<description>DDR CHB Status Register 19</description>
+					<addressOffset>0x00FC</addressOffset>
+					<fields>
+						<field>
+							<name>ST_DERATE_TEMP_LIMIT_INTR_FAULT</name>
+							<description>This signal is the derate temperature limit fault. This is a version of derate_temp_limit_intr, which can not be disabled or forced via a register. It is a 2-bit antivalent signal with encoding as follows:</description>
+							<bitOffset>18</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_RD_LINKECC_CORR_ERR_INTR_FAULT</name>
+							<description>This signal is the read Link-ECC corrected error fault. This is a version of rd_linkecc_corr_err_intr which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding of</description>
+							<bitOffset>16</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_RD_LINKECC_UNCORR_ERR_INTR_FAULT</name>
+							<description>This signal is the read Link-ECC uncorrected error fault. This is a version of rd_linkecc_uncorr_err_intr, which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding as follows:</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_ECC_AP_ERR_INTR_FAULT</name>
+							<description>This signal is the ECC address protection fault. This is a version of ecc_ap_err_intr which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding as follows:</description>
+							<bitOffset>12</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_ECC_UNCORRECTED_ERR_INTR_FAULT</name>
+							<description>This signal is the ECC uncorrected error fault. This is a version of ecc_uncorrected_err_intr which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding as follows:</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_ECC_CORRECTED_ERR_INTR_FAULT</name>
+							<description>This signal is the ECC corrected error fault. This is a version of ecc_corrected_err_intr which can not be disabled or forced through register. It is a 2-bit antivalent signal with encoding as follows:</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>2</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NO_FAULT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>FAULT_DETECTED</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_HIF_REFRESH_REQ_BANK</name>
+							<description>This signal indicates the next bank that is refreshed (channel 1); for multi-rank configurations, the bank number is reported independently for each rank, and the information for all ranks is concatenated to form this signal.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>6</bitWidth>
+							<access>read-only</access>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_PHY_CON0</name>
+					<description>DDRPHY CHA Control Register 0</description>
+					<addressOffset>0x0130</addressOffset>
+					<fields>
+						<field>
+							<name>DDRPHY_PCLK_CG_EN</name>
+							<description>DDRPHY APB pclk clock gate enable</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CTRL_CLKM_CG_EN</name>
+							<description>DDRPHY master DLL clock gating enable.</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLED</name>
+									<description>DDRPHY master DLL clock gating is disabled.</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLED</name>
+									<description>DDRPHY master DLL clock gating is enabled.</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DFI_PHYMSTR_TYPE</name>
+							<description>Value of dfi_phymstr_type</description>
+							<bitOffset>11</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>DFI_PHYMSTR_STATE_SEL</name>
+							<description>Value of dfi_phymastr_state_sel</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>DFI_PHYMSTR_CS_STATE</name>
+							<description>Value of dfi_phymstr_cs_state</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>DFI_INIT_START</name>
+							<description>Value of dfi_init_start</description>
+							<bitOffset>7</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>DFI_INIT_START_SEL</name>
+							<description>DDRPHY dfi_init_start select</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_DDRCTL</name>
+									<description>DDRPHY dfi_init_start is driven by DDRCTL</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>BY_DDR_GRF</name>
+									<description>DDRPHY dfi_init_start is driven by DDR01_GRF or DDR23_GRF</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DFI_INIT_COMPLETE</name>
+							<description>Value of dfi_init_complete</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>DFI_INIT_COMPLETE_SEL</name>
+							<description>DDRCTL dfi_init_complete select</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_DDRPHY</name>
+									<description>DDRCTL dfi_init_complete is driven by DDRPHY</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>BY_DDR_GRF</name>
+									<description>DDRCTL dfi_init_complete is driven by DDR01_GRF or DDR23_GRF</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRPHY2XCLKGATE_ENABLE</name>
+							<description>Root clock gating control of DDRPHY. It controls clock gating of clk_phy2x. Set this pin to low to enable clock gating for clk_phy2x. For normal operation and DDRPHY test mode, this pin should be high. Root clock gating should be enabled while dfi_dram_clk_disable=1'b1.</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>I_G_DRCG_EN</name>
+							<description>Dynamic regional clock gating control for DDRPHY. DRCG refers to clock gating controlled by pcl_pd field in LP_CON0 register.</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLED</name>
+									<description>DRCG is enabled regardless of pcl_pd field</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>BY_PCL_PD</name>
+									<description>DRCG will be controlled by pcl_pd field in LP_CON0</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DVFS_CLK_MODE</name>
+							<description>DVFS mode select for clock mode between DFI clock and DFI PHY clock. This signal controls which DVFS register sets will be used after frequency change.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>2</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NORMAL</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DVFS0</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DVFS1</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_PHY_CON0</name>
+					<description>DDRPHY CHB Control Register 0</description>
+					<addressOffset>0x0134</addressOffset>
+					<fields>
+						<field>
+							<name>DDRPHY_PCLK_CG_EN</name>
+							<description>DDRPHY APB pclk clock gate enable</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CTRL_CLKM_CG_EN</name>
+							<description>DDRPHY master DLL clock gating enable.</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLED</name>
+									<description>DDRPHY master DLL clock gating is disabled.</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLED</name>
+									<description>DDRPHY master DLL clock gating is enabled.</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DFI_PHYMSTR_TYPE</name>
+							<description>Value of dfi_phymstr_type</description>
+							<bitOffset>11</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>DFI_PHYMSTR_STATE_SEL</name>
+							<description>Value of dfi_phymastr_state_sel</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>DFI_PHYMSTR_CS_STATE</name>
+							<description>Value of dfi_phymstr_cs_state</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>DFI_INIT_START</name>
+							<description>Value of dfi_init_start</description>
+							<bitOffset>7</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>DFI_INIT_START_SEL</name>
+							<description>DDRPHY dfi_init_start select</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_DDRCTL</name>
+									<description>DDRPHY dfi_init_start is driven by DDRCTL</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>BY_DDR_GRF</name>
+									<description>DDRPHY dfi_init_start is driven by DDR01_GRF or DDR23_GRF</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DFI_INIT_COMPLETE</name>
+							<description>Value of dfi_init_complete</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>DFI_INIT_COMPLETE_SEL</name>
+							<description>DDRCTL dfi_init_complete select</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>BY_DDRPHY</name>
+									<description>DDRCTL dfi_init_complete is driven by DDRPHY</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>BY_DDR_GRF</name>
+									<description>DDRCTL dfi_init_complete is driven by DDR01_GRF or DDR23_GRF</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRPHY2XCLKGATE_ENABLE</name>
+							<description>Root clock gating control of DDRPHY. It controls clock gating of clk_phy2x. Set this pin to low to enable clock gating for clk_phy2x. For normal operation and DDRPHY test mode, this pin should be high. Root clock gating should be enabled while dfi_dram_clk_disable=1'b1.</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>I_G_DRCG_EN</name>
+							<description>Dynamic regional clock gating control for DDRPHY. DRCG refers to clock gating controlled by pcl_pd field in LP_CON0 register.</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLED</name>
+									<description>DRCG is enabled regardless of pcl_pd field</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>BY_PCL_PD</name>
+									<description>DRCG will be controlled by pcl_pd field in LP_CON0</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DVFS_CLK_MODE</name>
+							<description>DVFS mode select for clock mode between DFI clock and DFI PHY clock. This signal controls which DVFS register sets will be used after frequency change.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>2</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NORMAL</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DVFS0</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DVFS1</name>
+									<value>2</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHA_PHY_STATUS0</name>
+					<description>DDRPHY CHA Status Register 0</description>
+					<addressOffset>0x0138</addressOffset>
+					<fields>
+						<field>
+							<name>ST_DFI_INIT_COMPLETE</name>
+							<description>Dfi_init_complete status</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_DFI_INIT_START</name>
+							<description>Dfi_init_start status</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_DDRPHY2XCLKGATE_ENOUT</name>
+							<description>Status of ddrphy2xclkgate_enout signal. This is a feed-through signal of ddrphy2xclkgate_enable. This signal can be monitored to get the status of ddrphy2xclkgate_enable signal.</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_DFI_PHYMSTR_ACTIVE</name>
+							<description>DDRPHY phymstr_active status</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_DFI_ERROR</name>
+							<description>DDRPHY dfi error status Indicates that the DDRPHY has detected an error condition such as read FIFO pointer error, conflict DLL update and wrdata and conflict DLL update and rddata.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CHB_PHY_STATUS0</name>
+					<description>DDRPHY CHB Status Register 1</description>
+					<addressOffset>0x013C</addressOffset>
+					<fields>
+						<field>
+							<name>ST_DFI_INIT_COMPLETE</name>
+							<description>Dfi_init_complete status</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_DFI_INIT_START</name>
+							<description>Dfi_init_start status</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_DDRPHY2XCLKGATE_ENOUT</name>
+							<description>Status of ddrphy2xclkgate_enout signal. This is a feed-through signal of ddrphy2xclkgate_enable. This signal can be monitored to get the status of ddrphy2xclkgate_enable signal.</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_DFI_PHYMSTR_ACTIVE</name>
+							<description>DDRPHY phymstr_active status</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>ST_DFI_ERROR</name>
+							<description>DDRPHY dfi error status Indicates that the DDRPHY has detected an error condition such as read FIFO pointer error, conflict DLL update and wrdata and conflict DLL update and rddata.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CON0</name>
+					<description>DDR Control Register 0</description>
+					<addressOffset>0x0140</addressOffset>
+					<fields>
+						<field>
+							<name>MEM_CFG_HSDPRF_DDRCTL</name>
+							<description>Control the mem_cfg bit 0-21 for hsdprf for DDRCTL. bit 0: TEST1A bit 1: TEST_RNMA bit 5~2: RMA bit 6: WMDA bit 8: LS bit 14~13: RA bit 17: TEST1B bit 21~18: RMB</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>24</bitWidth>
+						</field>
+					</fields>
+				</register>
+			</registers>
+		</peripheral>
+		<peripheral>
 			<name>GRF_DSU</name>
 			<groupName>GRF</groupName>
 			<baseAddress>0x0FD598000</baseAddress>
