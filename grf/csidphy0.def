@@ -1,3 +1,31 @@
 [GRF_CSIDPHY0, GRF]
 @ = 0x0FD5B4000, 0x00001000
 
+CON0 = 0x0000 ; CSIDPHY Control Register
+> 11, 1, CSIDPHY_CLK_1_INV ; Invert CSIDPHY clock lane1 rxbyte clock
+= 1, INVERT ; Invert CSIDPHY clock lane 1 rxbyte_clk_hs
+= 0, NORMAL ; Do not invert CSIDPHY clock lane 1 rxbyte_clk_hs
+
+> 10, 1, CSIDPHY_ENABLE_CK_1 ; CSIDPHY Clock Lane 1 enable signal
+= 1, ACTIVE
+= 0, INACTIVE
+
+> 9, 1, CSIDPHY_CLK_0_INV ; Invert CSIDPHY rxbyte clock
+= 1, INVERT ; Invert CSIDPHY rxbyte_clk_hs
+= 0, NORMAL ; Do not invert CSIDPHY rxbyte_clk_hs
+
+> 8, 1, CSIDPHY_ENABLE_CK_0 ; CSIDPHY Clock Lane enable signal
+= 1, ACTIVE
+= 0, INACTIVE
+
+> 4, 4, CSIDPHY_ENABLE_DAT ; CSIDPHY enable lane module This active high signal forces the Lane Module out of "shutdown". All line drivers, receivers, terminators, and connection detectors are turned off when Enable is low. Enable is a level sensitive signal and does not depend on any clock.
+> 0, 4, CSIDPHY_FORCERXMODE ; CSIDPHY force receive mode Force Lane Module Into Receive mode / Wait for Stop state.This signal allows the protocol to initialize a Lane Module, or force a bi-directional Lane Module, into receive mode.
+
+STATUS0 = 0x0080, RO ; CSIDPHY Status Register
+> 18, 1, S_ULPSACTIVENOTCLK_1_RAW ; ULP State (not) Active 1 status This active low signal is asserted to indicate that the Lane is in ULP state.
+> 17, 1, S_ULPSACTIVENOTCLK_RAW ; ULP State (not) Active status This active low signal is asserted to indicate that the Lane is in ULP state.
+> 9, 8, ERRCONTENTIONLP ; LP Contention Error This active high signal is asserted when the Lane Module detects a contention situation on a line while trying to drive the line low.
+> 5, 4, RXSKEWCALHS ; High-Speed Receive Skew Calibration This optional active high signal indicates that the high speed deskew burst is being received. RxSkewCalHS is set to the active state when the all-ones sync pattern is received, and is cleared to the inactive state when Dp and Dn transition back to the LP-11 Stop State.
+> 4, 1, DIRECTION ; This signal is used to indicate the current direction of the Lane interconnects. When pin_direction =0, the Lane is in transmit mode. When pin_direction =1, the Lane is in receive mode.
+> 0, 4, ULPSACTIVENOT ; ULP State (not) Active. This active low signal is asserted to indicate that the Lane is in ULP state.
+

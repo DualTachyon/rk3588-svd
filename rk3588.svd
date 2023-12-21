@@ -50877,6 +50877,292 @@
 			</registers>
 		</peripheral>
 		<peripheral>
+			<name>GRF_CSIDPHY0</name>
+			<groupName>GRF</groupName>
+			<baseAddress>0x0FD5B4000</baseAddress>
+			<addressBlock>
+				<offset>0x0</offset>
+				<size>0x1000</size>
+				<usage>registers</usage>
+			</addressBlock>
+			<registers>
+				<register>
+					<name>CON0</name>
+					<description>CSIDPHY Control Register</description>
+					<addressOffset>0x0000</addressOffset>
+					<fields>
+						<field>
+							<name>CSIDPHY_CLK_1_INV</name>
+							<description>Invert CSIDPHY clock lane1 rxbyte clock</description>
+							<bitOffset>11</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INVERT</name>
+									<description>Invert CSIDPHY clock lane 1 rxbyte_clk_hs</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NORMAL</name>
+									<description>Do not invert CSIDPHY clock lane 1 rxbyte_clk_hs</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CSIDPHY_ENABLE_CK_1</name>
+							<description>CSIDPHY Clock Lane 1 enable signal</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CSIDPHY_CLK_0_INV</name>
+							<description>Invert CSIDPHY rxbyte clock</description>
+							<bitOffset>9</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INVERT</name>
+									<description>Invert CSIDPHY rxbyte_clk_hs</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NORMAL</name>
+									<description>Do not invert CSIDPHY rxbyte_clk_hs</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CSIDPHY_ENABLE_CK_0</name>
+							<description>CSIDPHY Clock Lane enable signal</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CSIDPHY_ENABLE_DAT</name>
+							<description>CSIDPHY enable lane module This active high signal forces the Lane Module out of "shutdown". All line drivers, receivers, terminators, and connection detectors are turned off when Enable is low. Enable is a level sensitive signal and does not depend on any clock.</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>4</bitWidth>
+						</field>
+						<field>
+							<name>CSIDPHY_FORCERXMODE</name>
+							<description>CSIDPHY force receive mode Force Lane Module Into Receive mode / Wait for Stop state.This signal allows the protocol to initialize a Lane Module, or force a bi-directional Lane Module, into receive mode.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>4</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>STATUS0</name>
+					<description>CSIDPHY Status Register</description>
+					<addressOffset>0x0080</addressOffset>
+					<access>read-only</access>
+					<fields>
+						<field>
+							<name>S_ULPSACTIVENOTCLK_1_RAW</name>
+							<description>ULP State (not) Active 1 status This active low signal is asserted to indicate that the Lane is in ULP state.</description>
+							<bitOffset>18</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>S_ULPSACTIVENOTCLK_RAW</name>
+							<description>ULP State (not) Active status This active low signal is asserted to indicate that the Lane is in ULP state.</description>
+							<bitOffset>17</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>ERRCONTENTIONLP</name>
+							<description>LP Contention Error This active high signal is asserted when the Lane Module detects a contention situation on a line while trying to drive the line low.</description>
+							<bitOffset>9</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+						<field>
+							<name>RXSKEWCALHS</name>
+							<description>High-Speed Receive Skew Calibration This optional active high signal indicates that the high speed deskew burst is being received. RxSkewCalHS is set to the active state when the all-ones sync pattern is received, and is cleared to the inactive state when Dp and Dn transition back to the LP-11 Stop State.</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>4</bitWidth>
+						</field>
+						<field>
+							<name>DIRECTION</name>
+							<description>This signal is used to indicate the current direction of the Lane interconnects. When pin_direction =0, the Lane is in transmit mode. When pin_direction =1, the Lane is in receive mode.</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>ULPSACTIVENOT</name>
+							<description>ULP State (not) Active. This active low signal is asserted to indicate that the Lane is in ULP state.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>4</bitWidth>
+						</field>
+					</fields>
+				</register>
+			</registers>
+		</peripheral>
+		<peripheral>
+			<name>GRF_CSIDPHY1</name>
+			<groupName>GRF</groupName>
+			<baseAddress>0x0FD5B5000</baseAddress>
+			<addressBlock>
+				<offset>0x0</offset>
+				<size>0x1000</size>
+				<usage>registers</usage>
+			</addressBlock>
+			<registers>
+				<register>
+					<name>CON0</name>
+					<description>CSIDPHY Control Register</description>
+					<addressOffset>0x0000</addressOffset>
+					<fields>
+						<field>
+							<name>CSIDPHY_CLK_1_INV</name>
+							<description>Invert CSIDPHY clock lane1 rxbyte clock</description>
+							<bitOffset>11</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INVERT</name>
+									<description>Invert CSIDPHY clock lane 1 rxbyte_clk_hs</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NORMAL</name>
+									<description>Do not invert CSIDPHY clock lane 1 rxbyte_clk_hs</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CSIDPHY_ENABLE_CK_1</name>
+							<description>CSIDPHY Clock Lane 1 enable signal</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CSIDPHY_CLK_0_INV</name>
+							<description>Invert CSIDPHY rxbyte clock</description>
+							<bitOffset>9</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INVERT</name>
+									<description>Invert CSIDPHY rxbyte_clk_hs</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NORMAL</name>
+									<description>Do not invert CSIDPHY rxbyte_clk_hs</description>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CSIDPHY_ENABLE_CK_0</name>
+							<description>CSIDPHY Clock Lane enable signal</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CSIDPHY_ENABLE_DAT</name>
+							<description>CSIDPHY enable lane module This active high signal forces the Lane Module out of "shutdown". All line drivers, receivers, terminators, and connection detectors are turned off when Enable is low. Enable is a level sensitive signal and does not depend on any clock.</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>4</bitWidth>
+						</field>
+						<field>
+							<name>CSIDPHY_FORCERXMODE</name>
+							<description>CSIDPHY force receive mode Force Lane Module Into Receive mode / Wait for Stop state.This signal allows the protocol to initialize a Lane Module, or force a bi-directional Lane Module, into receive mode.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>4</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>STATUS0</name>
+					<description>CSIDPHY Status Register</description>
+					<addressOffset>0x0080</addressOffset>
+					<access>read-only</access>
+					<fields>
+						<field>
+							<name>S_ULPSACTIVENOTCLK_1_RAW</name>
+							<description>ULP State (not) Active 1 status This active low signal is asserted to indicate that the Lane is in ULP state.</description>
+							<bitOffset>18</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>S_ULPSACTIVENOTCLK_RAW</name>
+							<description>ULP State (not) Active status This active low signal is asserted to indicate that the Lane is in ULP state.</description>
+							<bitOffset>17</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>ERRCONTENTIONLP</name>
+							<description>LP Contention Error This active high signal is asserted when the Lane Module detects a contention situation on a line while trying to drive the line low.</description>
+							<bitOffset>9</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+						<field>
+							<name>RXSKEWCALHS</name>
+							<description>High-Speed Receive Skew Calibration This optional active high signal indicates that the high speed deskew burst is being received. RxSkewCalHS is set to the active state when the all-ones sync pattern is received, and is cleared to the inactive state when Dp and Dn transition back to the LP-11 Stop State.</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>4</bitWidth>
+						</field>
+						<field>
+							<name>DIRECTION</name>
+							<description>This signal is used to indicate the current direction of the Lane interconnects. When pin_direction =0, the Lane is in transmit mode. When pin_direction =1, the Lane is in receive mode.</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>ULPSACTIVENOT</name>
+							<description>ULP State (not) Active. This active low signal is asserted to indicate that the Lane is in ULP state.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>4</bitWidth>
+						</field>
+					</fields>
+				</register>
+			</registers>
+		</peripheral>
+		<peripheral>
 			<name>GRF_DDR01</name>
 			<groupName>GRF</groupName>
 			<baseAddress>0x0FD59C000</baseAddress>
