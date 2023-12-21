@@ -43,6 +43,8 @@ register_name = offset, optionl_access
 = 1, enum_name2 ; Comment that goes into SVD as a description # Optional
 ```
 
+You can use a _ as an enum name if you don't have one for a specific value.
+
 Check existing .def files for examples.
 
 # Requirements
