@@ -50645,6 +50645,238 @@
 			</registers>
 		</peripheral>
 		<peripheral>
+			<name>GRF_CENTER</name>
+			<groupName>GRF</groupName>
+			<baseAddress>0x0FD59E000</baseAddress>
+			<addressBlock>
+				<offset>0x0</offset>
+				<size>0x2000</size>
+				<usage>registers</usage>
+			</addressBlock>
+			<registers>
+				<register>
+					<name>SOC_CON0</name>
+					<description>CENTER GRF Control Register 0</description>
+					<addressOffset>0x0000</addressOffset>
+					<fields>
+						<field>
+							<name>MEM_CFG_UHDPDPRF_DMA2DDR_I</name>
+							<description>bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMDA bit 7: LS</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>19</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>SOC_CON1</name>
+					<description>CENTER GRF Control Register 1</description>
+					<addressOffset>0x0004</addressOffset>
+					<fields>
+						<field>
+							<name>MEM_CFG_HDSPRA_SHRM_I</name>
+							<description>bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMD bit 7: LS bit 11~10: WPULSE bit 13~12: RA</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>SOC_CON2</name>
+					<description>CENTER GRF Control Register 2</description>
+					<addressOffset>0x0008</addressOffset>
+					<fields>
+						<field>
+							<name>MEM_CFG_UHDPDPRF_INTERCONNECT_I</name>
+							<description>bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMDA bit 7: LS</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>19</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>SOC_CON3</name>
+					<description>CENTER GRF Control Register 3</description>
+					<addressOffset>0x000C</addressOffset>
+					<fields>
+						<field>
+							<name>MEM_CFG_HDSPRF_DDRTCM_I</name>
+							<description>bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMDA bit 7: LS</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>SOC_CON4</name>
+					<description>CENTER GRF Control Register 4</description>
+					<addressOffset>0x0010</addressOffset>
+					<fields>
+						<field>
+							<name>GRF_CON_DDRCH23_ENA</name>
+							<bitOffset>15</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable simultaneously configure ddr ch2 and ddr ch3 function.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>GRF_CON_DDRCH01_ENA</name>
+							<bitOffset>14</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable simultaneously configure ddr ch0 and ddr ch1 function.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>GRF_MCU_DDRCFG_MODE_SEL</name>
+							<bitOffset>9</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<description>Enable mcu configure ddr mode.</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>SOC_CON7</name>
+					<description>CENTER GRF Control Register 7</description>
+					<addressOffset>0x001C</addressOffset>
+					<fields>
+						<field>
+							<name>GRF_CON_DDR_MCU_STCALIB</name>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>SOC_CON8</name>
+					<description>CENTER GRF Control Register 8</description>
+					<addressOffset>0x0020</addressOffset>
+					<fields>
+						<field>
+							<name>GRF_CON_WDT_PAUSE_EN</name>
+							<description>Center wdt pause enable. Used to freeze the watchdog counter during pause mode.</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>GRF_CON_DDR_MCU_IRQLATENCY</name>
+							<description>Irqlatency specifies the minimum number of cycles between an interrupt that becomes pended in the NVIC, and the vector fetch for that interrupt being issued on the AHB-Lite interface.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>SOC_STATUS1</name>
+					<description>CENTER GRF Status Register 1</description>
+					<addressOffset>0x0044</addressOffset>
+					<fields>
+						<field>
+							<name>ST_TIMER1_EN</name>
+							<description>System timer 1 enable status.</description>
+							<bitOffset>31</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLED</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLED</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>ST_TIMER0_EN</name>
+							<description>System timer 0 enable status.</description>
+							<bitOffset>30</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLED</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLED</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>GRF_ST_DDR_MCU_DEEPSLEEP</name>
+							<description>Active only when SLEEPING is HIGH. Indicates that the SLEEPDEEP bit in the NVIC is set to 1.</description>
+							<bitOffset>29</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>GRF_ST_DDR_MCU_SLEEPING</name>
+							<description>Indicates the processor is idle, waiting for an interrupt on either the IRQ, NMI, or internal SysTick, or HIGH level on RXEV.</description>
+							<bitOffset>28</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>GRF_ST_DDR_MCU_LOCKUP</name>
+							<description>Indicates that the processor is in the architected lock-up state, as the result of an unrecoverable exception.</description>
+							<bitOffset>26</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>GRF_ST_DDR_MCU_HALTED</name>
+							<description>Indicates that the processor is in debug state. HALTED remains asserted for as long as the processor remains in debug state.</description>
+							<bitOffset>25</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+						<field>
+							<name>GRF_ST_DDR_MCU_TXEV</name>
+							<description>A single SCLK cycle HIGH level is generated on this output every time an SEV instruction is executed.</description>
+							<bitOffset>24</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+						</field>
+					</fields>
+				</register>
+			</registers>
+		</peripheral>
+		<peripheral>
 			<name>GRF_DSU</name>
 			<groupName>GRF</groupName>
 			<baseAddress>0x0FD598000</baseAddress>

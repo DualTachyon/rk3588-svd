@@ -1,3 +1,52 @@
 [GRF_CENTER, GRF]
 @ = 0x0FD59E000, 0x00002000
 
+SOC_CON0 = 0x0000 ; CENTER GRF Control Register 0
+> 0, 19, MEM_CFG_UHDPDPRF_DMA2DDR_I ; bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMDA bit 7: LS
+
+SOC_CON1 = 0x0004 ; CENTER GRF Control Register 1
+> 0, 16, MEM_CFG_HDSPRA_SHRM_I ; bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMD bit 7: LS bit 11~10: WPULSE bit 13~12: RA
+
+SOC_CON2 = 0x0008 ; CENTER GRF Control Register 2
+> 0, 19, MEM_CFG_UHDPDPRF_INTERCONNECT_I ; bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMDA bit 7: LS
+
+SOC_CON3 = 0x000C ; CENTER GRF Control Register 3
+> 0, 16, MEM_CFG_HDSPRF_DDRTCM_I ; bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMDA bit 7: LS
+
+SOC_CON4 = 0x0010 ; CENTER GRF Control Register 4
+> 15, 1, GRF_CON_DDRCH23_ENA
+= 1, ENABLE ; Enable simultaneously configure ddr ch2 and ddr ch3 function.
+= 0, DISABLE
+
+> 14, 1, GRF_CON_DDRCH01_ENA
+= 1, ENABLE ; Enable simultaneously configure ddr ch0 and ddr ch1 function.
+= 0, DISABLE
+
+> 9, 1, GRF_MCU_DDRCFG_MODE_SEL
+= 1, ENABLE ; Enable mcu configure ddr mode.
+= 0, DISABLE
+
+SOC_CON7 = 0x001C ; CENTER GRF Control Register 7
+> 0, 1, GRF_CON_DDR_MCU_STCALIB # TODO: Need to reformat the cell in TRM
+
+SOC_CON8 = 0x0020 ; CENTER GRF Control Register 8
+> 8, 1, GRF_CON_WDT_PAUSE_EN ; Center wdt pause enable. Used to freeze the watchdog counter during pause mode.
+= 1, ACTIVE
+
+> 0, 8, GRF_CON_DDR_MCU_IRQLATENCY ; Irqlatency specifies the minimum number of cycles between an interrupt that becomes pended in the NVIC, and the vector fetch for that interrupt being issued on the AHB-Lite interface.
+
+SOC_STATUS1 = 0x0044 ; CENTER GRF Status Register 1
+> 31, 1, ST_TIMER1_EN, RO ; System timer 1 enable status.
+= 1, ENABLED
+= 0, DISABLED
+
+> 30, 1, ST_TIMER0_EN, RO ; System timer 0 enable status.
+= 1, ENABLED
+= 0, DISABLED
+
+> 29, 1, GRF_ST_DDR_MCU_DEEPSLEEP, RO ; Active only when SLEEPING is HIGH. Indicates that the SLEEPDEEP bit in the NVIC is set to 1.
+> 28, 1, GRF_ST_DDR_MCU_SLEEPING, RO ; Indicates the processor is idle, waiting for an interrupt on either the IRQ, NMI, or internal SysTick, or HIGH level on RXEV.
+> 26, 1, GRF_ST_DDR_MCU_LOCKUP, RO ; Indicates that the processor is in the architected lock-up state, as the result of an unrecoverable exception.
+> 25, 1, GRF_ST_DDR_MCU_HALTED, RO ; Indicates that the processor is in debug state. HALTED remains asserted for as long as the processor remains in debug state.
+> 24, 1, GRF_ST_DDR_MCU_TXEV, RO ; A single SCLK cycle HIGH level is generated on this output every time an SEV instruction is executed.
+
