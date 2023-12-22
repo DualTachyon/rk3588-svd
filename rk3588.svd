@@ -58238,96 +58238,2189 @@
 					<name>SOC_CON0</name>
 					<description>System control register 0</description>
 					<addressOffset>0x0000</addressOffset>
+					<fields>
+						<field>
+							<name>FORCE_JTAG_UART</name>
+							<description>Enable GPIO0b5 and GPIO0b6 switch to JTAG function if uart2_rx low last for a specified period of time.</description>
+							<bitOffset>11</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CLK_SPLL_LS_SEL</name>
+							<description>Path selection for SPLL clock output.</description>
+							<bitOffset>9</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NORMAL</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>THROUGH_LEVEL_SHIFT_CELL</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>SDMMC_DET_MASKED_PIN_SEL</name>
+							<description>Polarity selection for sdmmc_det_masked_pin.</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>LOW_ACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>HIGH_ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>I2S1_8CH_MCLKOUT_OE</name>
+							<description>Output enable for i2s1_8ch_mclkout.</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>WAKEUP_TIMER_SEL</name>
+							<description>Select PMU_TIMER interrupt as PMU wake up source.</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INT_0</name>
+									<description>PMU_TIMER interrupt 0 selected</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>INT_1</name>
+									<description>PMU_TIMER interrupt 1 selected</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CLK_CPLL_LS_SEL</name>
+							<description>Path selection for CPLL clock output.</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NORMAL</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>THROUGH_LEVEL_SHIFT_CELL</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PMU_PWR_IDLEREQ</name>
+							<description>Enable PD_PMU1 idle request by software.</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PMUWDT_PAUSE</name>
+							<description>PMU_WDT wdt pause enable. It is used to freeze the watchdog counter during pause mode</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>UART0_CTS_INV</name>
+							<description>Polarity selection for uart0_cts.</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>LOW_ACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>HIGH_ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>UART0_RTS_INV</name>
+							<description>Polarity selection for uart0_rts.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>LOW_ACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>HIGH_ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>SOC_CON1</name>
 					<description>System control register 1</description>
 					<addressOffset>0x0004</addressOffset>
+					<fields>
+						<field>
+							<name>RESET_WIDTH</name>
+							<description>The chip output reset width, equals to reset_width*256.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>SOC_CON2</name>
 					<description>System control register 2</description>
 					<addressOffset>0x0008</addressOffset>
+					<fields>
+						<field>
+							<name>PWR3_SLEEP_SFTENA</name>
+							<description>Enable pwr3_sleep by software.</description>
+							<bitOffset>15</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PWR3_SLEEP_IOUT_SEL</name>
+							<description>Source selection for pwr3_sleep. Default: Controlled by pwr3_sleep_sftena</description>
+							<bitOffset>12</bitOffset>
+							<bitWidth>3</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>VD_NPU</name>
+									<description>VD_NPU power off request</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_GPU</name>
+									<description>VD_GPU power off request</description>
+									<value>2</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_BIGCORE0</name>
+									<description>VD_BIGCORE0 power off request</description>
+									<value>3</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_BIGCORE1</name>
+									<description>VD_BIGCORE1 power off request</description>
+									<value>4</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_DSU</name>
+									<description>VD_DSU power off request</description>
+									<value>5</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_VCODEC</name>
+									<description>VD_VCODEC power off request</description>
+									<value>6</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_DDR</name>
+									<description>VD_DDR power off request</description>
+									<value>7</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PWR2_SLEEP_SFTENA</name>
+							<description>Enable pwr2_sleep by software.</description>
+							<bitOffset>11</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PWR2_SLEEP_IOUT_SEL</name>
+							<description>Source selection for pwr2_sleep. Default: Controlled by pwr2_sleep_sftena</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>3</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>VD_NPU</name>
+									<description>VD_NPU power off request</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_GPU</name>
+									<description>VD_GPU power off request</description>
+									<value>2</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_BIGCORE0</name>
+									<description>VD_BIGCORE0 power off request</description>
+									<value>3</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_BIGCORE1</name>
+									<description>VD_BIGCORE1 power off request</description>
+									<value>4</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_DSU</name>
+									<description>VD_DSU power off request</description>
+									<value>5</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_VCODEC</name>
+									<description>VD_VCODEC power off request</description>
+									<value>6</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_DDR</name>
+									<description>VD_DDR power off request</description>
+									<value>7</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PWR1_SLEEP_SFTENA</name>
+							<description>Enable pwr1_sleep by software.</description>
+							<bitOffset>7</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PWR1_SLEEP_IOUT_SEL</name>
+							<description>Source selection for pwr1_sleep. Default: Controlled by pwr1_sleep_sftena</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>3</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>VD_NPU</name>
+									<description>VD_NPU power off request</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_GPU</name>
+									<description>VD_GPU power off request</description>
+									<value>2</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_BIGCORE0</name>
+									<description>VD_BIGCORE0 power off request</description>
+									<value>3</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_BIGCORE1</name>
+									<description>VD_BIGCORE1 power off request</description>
+									<value>4</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_DSU</name>
+									<description>VD_DSU power off request</description>
+									<value>5</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_VCODEC</name>
+									<description>VD_VCODEC power off request</description>
+									<value>6</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_DDR</name>
+									<description>VD_DDR power off request</description>
+									<value>7</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PWR0_SLEEP_SFTENA</name>
+							<description>Enable pwr0_sleep by software.</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PWR0_SLEEP_IOUT_SEL</name>
+							<description>Source selection for pwr0_sleep. Default: Controlled by pwr0_sleep_sftena</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>3</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>VD_NPU</name>
+									<description>VD_NPU power off request</description>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_GPU</name>
+									<description>VD_GPU power off request</description>
+									<value>2</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_BIGCORE0</name>
+									<description>VD_BIGCORE0 power off request</description>
+									<value>3</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_BIGCORE1</name>
+									<description>VD_BIGCORE1 power off request</description>
+									<value>4</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_DSU</name>
+									<description>VD_DSU power off request</description>
+									<value>5</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_VCODEC</name>
+									<description>VD_VCODEC power off request</description>
+									<value>6</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>VD_DDR</name>
+									<description>VD_DDR power off request</description>
+									<value>7</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>SOC_CON3</name>
 					<description>System control register 3</description>
 					<addressOffset>0x000C</addressOffset>
+					<fields>
+						<field>
+							<name>WDT_RESET_TRIGGER_EN</name>
+							<description>Enable WDT reset trigger for DDR fail safe.</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>TSADC_SHUT_RESET_TRIGGER_EN</name>
+							<description>Enable TSADC shut reset trigger for DDR fail safe.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>SOC_CON4</name>
 					<description>System control register 4</description>
 					<addressOffset>0x0010</addressOffset>
+					<fields>
+						<field>
+							<name>DDRIO_CH3_RSTIOV_ENTER_ENA</name>
+							<description>Enable DDR IO enter retention mode through RSTIOV by hardware for DDR fail safe.</description>
+							<bitOffset>15</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH2_RSTIOV_ENTER_ENA</name>
+							<description>Enable DDR IO enter retention mode through RSTIOV by hardware for DDR fail safe.</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH1_RSTIOV_ENTER_ENA</name>
+							<description>Enable DDR IO enter retention mode through RSTIOV by hardware for DDR fail safe.</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH0_RSTIOV_ENTER_ENA</name>
+							<description>Enable DDR IO enter retention mode through RSTIOV by hardware for DDR fail safe.</description>
+							<bitOffset>12</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH3_RET_ENTER_ENA</name>
+							<description>Enable DDR IO enter retention mode through RETON/RETOFF or RSTIOV by hardware for DDR fail safe.</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH2_RET_ENTER_ENA</name>
+							<description>Enable DDR IO enter retention mode through RETON/RETOFF or RSTIOV by hardware for DDR fail safe.</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH1_RET_ENTER_ENA</name>
+							<description>Enable DDR IO enter retention mode through RETON/RETOFF or RSTIOV by hardware for DDR fail safe.</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH0_RET_ENTER_ENA</name>
+							<description>Enable DDR IO enter retention mode through RETON/RETOFF or RSTIOV by hardware for DDR fail safe.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>SOC_CON5</name>
 					<description>System control register 5</description>
 					<addressOffset>0x0014</addressOffset>
+					<fields>
+						<field>
+							<name>DDRIO_CH3_RSTIOV_ENTER_SFTENA</name>
+							<description>Enable DDR IO enter retention mode through RSTIOV by software for DDR fail safe.</description>
+							<bitOffset>15</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH2_RSTIOV_ENTER_SFTENA</name>
+							<description>Enable DDR IO enter retention mode through RSTIOV by software for DDR fail safe.</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH1_RSTIOV_ENTER_SFTENA</name>
+							<description>Enable DDR IO enter retention mode through RSTIOV by software for DDR fail safe.</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH0_RSTIOV_ENTER_SFTENA</name>
+							<description>Enable DDR IO enter retention mode through RSTIOV by software for DDR fail safe.</description>
+							<bitOffset>12</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH3_RETON_ENTER_SFTENA</name>
+							<description>Enable DDR IO enter retention mode through RETON/RETOFF by software for DDR fail safe.</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH2_RETON_ENTER_SFTENA</name>
+							<description>Enable DDR IO enter retention mode through RETON/RETOFF by software for DDR fail safe.</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH1_RETON_ENTER_SFTENA</name>
+							<description>Enable DDR IO enter retention mode through RETON/RETOFF by software for DDR fail safe.</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH0_RETON_ENTER_SFTENA</name>
+							<description>Enable DDR IO enter retention mode through RETON/RETOFF by software for DDR fail safe.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>SOC_CON6</name>
 					<description>System control register 6</description>
 					<addressOffset>0x0018</addressOffset>
+					<fields>
+						<field>
+							<name>DDRCH3_UPCTL_C_SYSREQ_SFTENA</name>
+							<description>Enable for DDRC hardware low-power clock request by software.</description>
+							<bitOffset>15</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCH2_UPCTL_C_SYSREQ_SFTENA</name>
+							<description>Enable for DDRC hardware low-power clock request by software.</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCH1_UPCTL_C_SYSREQ_SFTENA</name>
+							<description>Enable for DDRC hardware low-power clock request by software.</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCH0_UPCTL_C_SYSREQ_SFTENA</name>
+							<description>Enable for DDRC hardware low-power clock request by software.</description>
+							<bitOffset>12</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRC_CH3_C_GATING_EN</name>
+							<description>Enable DDRCTRL's core-clock auto clock gating for DDR fail safe.</description>
+							<bitOffset>11</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRC_CH2_C_GATING_EN</name>
+							<description>Enable DDRCTRL's core-clock auto clock gating for DDR fail safe.</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRC_CH1_C_GATING_EN</name>
+							<description>Enable DDRCTRL's core-clock auto clock gating for DDR fail safe.</description>
+							<bitOffset>9</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRC_CH0_C_GATING_EN</name>
+							<description>Enable DDRCTRL's core-clock auto clock gating for DDR fail safe.</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCH3_SREF_C_ENTER_EN</name>
+							<description>Enable DDR self-refresh mode for core-clock domain by hardware for DDR fail safe.</description>
+							<bitOffset>7</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCH2_SREF_C_ENTER_EN</name>
+							<description>Enable DDR self-refresh mode for core-clock domain by hardware for DDR fail safe.</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCH1_SREF_C_ENTER_EN</name>
+							<description>Enable DDR self-refresh mode for core-clock domain by hardware for DDR fail safe.</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRCH0_SREF_C_ENTER_EN</name>
+							<description>Enable DDR self-refresh mode for core-clock domain by hardware for DDR fail safe.</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH3_RET_EXIT_ENA</name>
+							<description>Enable DDR IO exit retention mode through RETON/RETOFF or RSTIOV by hardware for DDR fail safe.</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH2_RET_EXIT_ENA</name>
+							<description>Enable DDR IO exit retention mode through RETON/RETOFF or RSTIOV by hardware for DDR fail safe.</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH1_RET_EXIT_ENA</name>
+							<description>Enable DDR IO exit retention mode through RETON/RETOFF or RSTIOV by hardware for DDR fail safe.</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH0_RET_EXIT_ENA</name>
+							<description>Enable DDR IO exit retention mode through RETON/RETOFF or RSTIOV by hardware for DDR fail safe.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>SOC_CON7</name>
 					<description>System control register 7</description>
 					<addressOffset>0x001C</addressOffset>
+					<fields>
+						<field>
+							<name>PRESETN_PMU_PWM_HOLD_ENA</name>
+							<description>Enable reset hold for presetn_pmu_pwm.</description>
+							<bitOffset>15</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PRESETN_PMU1_BIU_HOLD_ENA</name>
+							<description>Enable reset hold for presetn_pmu1_biu.</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PRESETN_PMU1_IOC_HOLD_ENA</name>
+							<description>Enable reset hold for presetn_pmu1_ioc.</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PRESETN_PMU1_GRF_HOLD_ENA</name>
+							<description>Enable reset hold for presetn_pmu1_grf.</description>
+							<bitOffset>12</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PRESETN_I2C0_HOLD_ENA</name>
+							<description>Enable reset hold for presetn_i2c0.</description>
+							<bitOffset>11</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PRESETN_PMU1_CRU_HOLD_ENA</name>
+							<description>Enable reset hold for presetn_pmu1_cru.</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>MRESETN_MIPI_DCPHY1_HOLD_ENA</name>
+							<description>Enable reset hold for mresetn_mipi_dcphy1.</description>
+							<bitOffset>9</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>MRESETN_MIPI_DCPHY0_HOLD_ENA</name>
+							<description>Enable reset hold for mresetn_mipi_dcphy0.</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>MRESETN_I2S1_8CH_TX_HOLD_ENA</name>
+							<description>Enable reset hold for mresetn_i2s1_8ch_tx.</description>
+							<bitOffset>7</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>MRESETN_I2S1_8CH_RX_HOLD_ENA</name>
+							<description>Enable reset hold for mresetn_i2s1_8ch_rx.</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>HRESETN_VAD_HOLD_ENA</name>
+							<description>Enable reset hold for hresetn_vad.</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>HRESETN_PMU_MCU_BIU_HOLD_ENA</name>
+							<description>Enable reset hold for hresetn_pmu_mcu_biu.</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>HRESETN_PMU_BIU_HOLD_ENA</name>
+							<description>Enable reset hold for hresetn_pmu_biu.</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>HRESETN_PDM0_HOLD_ENA</name>
+							<description>Enable reset hold for hresetn_pdm0.</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>HRESETN_I2S1_8CH_HOLD_ENA</name>
+							<description>Enable reset hold for hresetn_i2s1_8ch.</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>FRESETN_PMU_MCU_HOLD_ENA</name>
+							<description>Enable reset hold for fresetn_pmu_mcu.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>SOC_CON8</name>
 					<description>System control register 8</description>
 					<addressOffset>0x0020</addressOffset>
+					<fields>
+						<field>
+							<name>RESETN_PDM0_HOLD_ENA</name>
+							<description>Enable reset hold for resetn_pdm0.</description>
+							<bitOffset>15</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RESETN_OTGPHY_U3_1_HOLD_ENA</name>
+							<description>Enable reset hold for resetn_otgphy_u3_1.</description>
+							<bitOffset>14</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RESETN_OTGPHY_U3_0_HOLD_ENA</name>
+							<description>Enable reset hold for resetn_otgphy_u3_0.</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RESETN_OTGPHY_U2_1_HOLD_ENA</name>
+							<description>Enable reset hold for resetn_otgphy_u2_1.</description>
+							<bitOffset>12</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RESETN_OTGPHY_U2_0_HOLD_ENA</name>
+							<description>Enable reset hold for resetn_otgphy_u2_0.</description>
+							<bitOffset>11</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RESETN_I2C0_HOLD_ENA</name>
+							<description>Enable reset hold for resetn_i2c0.</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RESETN_HDPTX1_LANE_HOLD_ENA</name>
+							<description>Enable reset hold for resetn_hdptx1_lane.</description>
+							<bitOffset>9</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RESETN_HDPTX1_INIT_HOLD_ENA</name>
+							<description>Enable reset hold for resetn_hdptx1_init.</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RESETN_HDPTX1_CMN_HOLD_ENA</name>
+							<description>Enable reset hold for resetn_hdptx1_cmn.</description>
+							<bitOffset>7</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RESETN_HDPTX0_LANE_HOLD_ENA</name>
+							<description>Enable reset hold for resetn_hdptx0_lane.</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RESETN_HDPTX0_INIT_HOLD_ENA</name>
+							<description>Enable reset hold for resetn_hdptx0_init.</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RESETN_HDPTX0_CMN_HOLD_ENA</name>
+							<description>Enable reset hold for resetn_hdptx0_cmn.</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RESETN_DDR_FAIL_SAFE_HOLD_ENA</name>
+							<description>Enable reset hold for resetn_ddr_fail_safe.</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PRESETN_UART0_HOLD_ENA</name>
+							<description>Enable reset hold for presetn_uart0.</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PRESETN_PMU_WDT_HOLD_ENA</name>
+							<description>Enable reset hold for presetn_pmu_wdt.</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PRESETN_PMU_TIMER_HOLD_ENA</name>
+							<description>Enable reset hold for presetn_pmu_timer.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>SOC_CON9</name>
 					<description>System control register 9</description>
 					<addressOffset>0x0024</addressOffset>
+					<fields>
+						<field>
+							<name>TRESETN_PMU_WDT_HOLD_ENA</name>
+							<description>Enable reset hold for tresetn_pmu_wdt.</description>
+							<bitOffset>7</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>TRESETN_PMU_MCU_JTAG_HOLD_ENA</name>
+							<description>Enable reset hold for tresetn_pmu_mcu_jtag.</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>SRESETN_UART0_HOLD_ENA</name>
+							<description>Enable reset hold for sresetn_uart0.</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>SRESETN_MIPI_DCPHY1_HOLD_ENA</name>
+							<description>Enable reset hold for sresetn_mipi_dcphy1.</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>SRESETN_MIPI_DCPHY0_HOLD_ENA</name>
+							<description>Enable reset hold for sresetn_mipi_dcphy0.</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RESETN_PMU_TIMER1_HOLD_ENA</name>
+							<description>Enable reset hold for resetn_pmu_timer1.</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RESETN_PMU_TIMER0_HOLD_ENA</name>
+							<description>Enable reset hold for resetn_pmu_timer0.</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RESETN_PMU_PWM_HOLD_ENA</name>
+							<description>Enable reset hold for resetn_pmu_pwm.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>SOC_CON10</name>
 					<description>System control register 10</description>
 					<addressOffset>0x0028</addressOffset>
+					<fields>
+						<field>
+							<name>UPCTL_A_SYSREQ_SFTENA</name>
+							<description>Enable for AXI hardware low-power clock request by software.</description>
+							<bitOffset>12</bitOffset>
+							<bitWidth>4</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRC_A_GATING_EN</name>
+							<description>Enable DDRCTRL's AXI-clock auto clock gating for DDR fail safe.</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>4</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>SREF_A_ENTER_EN</name>
+							<description>Enable DDR self-refresh mode for AXI-clock domain by hardware for DDR fail safe.</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>4</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>SOC_CON11</name>
 					<description>System control register 11</description>
 					<addressOffset>0x002C</addressOffset>
+					<fields>
+						<field>
+							<name>UART2RX_LOW_DLY</name>
+							<description>uart2_rx low count.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>32</bitWidth>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>BIU_CON</name>
 					<description>BIU interface control register</description>
 					<addressOffset>0x0050</addressOffset>
+					<fields>
+						<field>
+							<name>IDLE_REQ_TOP_SFTENA</name>
+							<description>Enable sending idle request to BIU_TOP by software.</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>IDLE_REQ_BUS_SFTENA</name>
+							<description>Enable sending idle request to BIU_BUS by software.</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>BIU_STS</name>
 					<description>BIU interface status register</description>
 					<addressOffset>0x0054</addressOffset>
+					<fields>
+						<field>
+							<name>IDLE_ACK_TOP</name>
+							<description>BIU_TOP idle acknowledge state.</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NAK</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACK</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>IDLE_TOP</name>
+							<description>BIU_TOP idle state.</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_IDLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>IDLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>IDLE_ACK_BUS</name>
+							<description>BIU_BUS idle acknowledge state.</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NAK</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACK</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>IDLE_BUS</name>
+							<description>BIU_BUS idle state.</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NOT_IDLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>IDLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PMU_BIU_PWRACTIVE</name>
+							<description>Power active status for BIU_PMU.</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>VAD_NOPENDINGTRANS</name>
+							<description>No pending transfer status for VAD.</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PMU_MCU_NOPENDINGTRANS</name>
+							<description>No pending transfer status for PMU_MCU.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>SOC_STS</name>
 					<description>System status register</description>
 					<addressOffset>0x0060</addressOffset>
+					<fields>
+						<field>
+							<name>PMIC_INT</name>
+							<description>PMIC interrupt status.</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PMU1SGRF_CRC_CHK_RST_REQ</name>
+							<description>PMU1SGRF CRC check reset status. It is set to 1 if CRC check error.</description>
+							<bitOffset>12</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PMU0SGRF_CRC_CHK_RST_REQ</name>
+							<description>PMU0SGRF CRC check reset status. It is set to 1 if CRC check error.</description>
+							<bitOffset>11</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PMU_MCU_DEEPSLEEP</name>
+							<description>PMU_MCU deep sleep status.</description>
+							<bitOffset>10</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PMU_MCU_SLEEPING</name>
+							<description>PMU_MCU sleeping status.</description>
+							<bitOffset>9</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PMU_MCU_LOCKUP</name>
+							<description>PMU_MCU lock up status.</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PMU_MCU_HALTED</name>
+							<description>PMU_MCU halt status.</description>
+							<bitOffset>7</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PMU_MCU_CACHE_FLUSH_ACK</name>
+							<description>PMU_MCU cache flush acknowledge.</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>NAK</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACK</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PMU_MCU_TXEV</name>
+							<description>PMU_MCU TXEV status.</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>VAD_DIG_MIC_STS</name>
+							<description>VAD digital mic status.</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PMU_TIMER1_EN_STATUS</name>
+							<description>PMU_TIMER1 enable status.</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PMU_TIMER0_EN_STATUS</name>
+							<description>PMU_TIMER0 enable status.</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>PMU_WDT_SYS_RSTN</name>
+							<description>PMU_WDT reset request status.</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>OSC_CHK_RST_REQ</name>
+							<description>OSC_CHK reset request status.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>MEM_CON0</name>
 					<description>Memory interface control register 0</description>
 					<addressOffset>0x0080</addressOffset>
+					<fields>
+						<field>
+							<name>PMU1_MEM_CFG_HDSPRA</name>
+							<description>Interface configuration for HDSPRA type memory in PD_PMU1. Bit[0]: TEST1 Bit[1]: TEST_RNM Bit[4:2]: RM Bit[5]: WMD Bit[7]: LS Bit[11:10]: WPULSE Bit[13:12]: RA Other bits: Reserved</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>MEM_CON1</name>
 					<description>Memory interface control register 1</description>
 					<addressOffset>0x0084</addressOffset>
+					<fields>
+						<field>
+							<name>MEM_CFG_HDSPRF</name>
+							<description>Interface configuration for HDSPRF type memory in PD_PMU1. Bit[0]: TEST1 Bit[1]: TEST_RNM Bit[4:2]: RM Bit[5]: WMD Bit[7]: LS Bit[11:10]: WPULSE Bit[13:12]: RA Other bits: Reserved</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>MEM_CON2</name>
 					<description>Memory interface control register 2</description>
 					<addressOffset>0x0088</addressOffset>
+					<fields>
+						<field>
+							<name>MEM_CFG_HSDPRA_L16</name>
+							<description>Lower 16 bits of interface configuration for HSDPRA type memory. Bit[0]: TEST1A Bit[1]: TEST_RNMA Bit[4:2]: RMA Bit[5]: WMDA Bit[7]: LS Bit[11:10]: WPULSE Bit[13:12]: RA Bit[15:14]: WA</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>MEM_CON3</name>
 					<description>Memory interface control register 3</description>
 					<addressOffset>0x008C</addressOffset>
+					<fields>
+						<field>
+							<name>MEM_CFG_HSDPRA_H9</name>
+							<description>Higher 9 bits of interface configuration for HSDPRA type memory. Bit[0]: TEST1B Bit[1]: TEST_RNMB Bit[4:2]: RMB Bit[5]: WMDB Other bits: Reserved</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>9</bitWidth>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>OS_REG0</name>
@@ -58373,31 +60466,387 @@
 					<name>RST_STS</name>
 					<description>System reset status register</description>
 					<addressOffset>0x0230</addressOffset>
+					<fields>
+						<field>
+							<name>DDRIO_CH3_RET_FAILSAFE_STS</name>
+							<description>DDRIO channel 3 retention status under DDR fail safe condition.</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH2_RET_FAILSAFE_STS</name>
+							<description>DDRIO channel 2 retention status under DDR fail safe condition.</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH1_RET_FAILSAFE_STS</name>
+							<description>DDRIO channel 1 retention status under DDR fail safe condition.</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH0_RET_FAILSAFE_STS</name>
+							<description>DDRIO channel 0 retention status under DDR fail safe condition.</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>TSADC_SHUT_STS</name>
+							<description>TSADC shut status.</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>WDT_RESET_STS</name>
+							<description>WDT reset status.</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>FIRST_RESET_STS</name>
+							<description>First reset status.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>RST_CLR</name>
 					<description>System reset status clear register</description>
 					<addressOffset>0x0234</addressOffset>
+					<fields>
+						<field>
+							<name>DDRIO_CH3_RET_FAILSAFE_CLR</name>
+							<description>Enable clear for DDRIO channel 3 retention status under DDR fail safe condition.</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>write-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH2_RET_FAILSAFE_CLR</name>
+							<description>Enable clear for DDRIO channel 2 retention status under DDR fail safe condition.</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>write-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH1_RET_FAILSAFE_CLR</name>
+							<description>Enable clear for DDRIO channel 1 retention status under DDR fail safe condition.</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>write-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DDRIO_CH0_RET_FAILSAFE_CLR</name>
+							<description>Enable clear for DDRIO channel 0 retention status under DDR fail safe condition.</description>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>write-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>TSADC_RESET_CLR</name>
+							<description>Enable clear for TSADC shut status.</description>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>write-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>WDT_RESET_CLR</name>
+							<description>Enable clear for WDT reset status.</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>write-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>FIRST_RESET_CLR</name>
+							<description>Enable clear for first reset status.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>write-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>SD_DETECT_CON</name>
 					<description>SDMMC detect control register</description>
 					<addressOffset>0x0380</addressOffset>
+					<fields>
+						<field>
+							<name>SD_DETECT_FALL_EN</name>
+							<description>Enable SDMMC detect pin falling edge interrupt.</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>SD_DETECT_RISE_EN</name>
+							<description>Enable SDMMC detect pin rising edge interrupt.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>SD_DETECT_STS</name>
 					<description>SDMMC detect status register</description>
 					<addressOffset>0x0390</addressOffset>
+					<fields>
+						<field>
+							<name>SD_DETECT_FALL_STS</name>
+							<description>SDMMC detect pin falling edge status.</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>SD_DETECT_RISE_STS</name>
+							<description>SDMMC detect pin rising edge status.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>SD_DETECT_CLR</name>
 					<description>SDMMC detect clear register</description>
 					<addressOffset>0x03A0</addressOffset>
+					<fields>
+						<field>
+							<name>SD_DETECT_FALL_CLR</name>
+							<description>Enable clear for SDMMC detect pin falling edge interrupt.</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>write-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>SD_DETECT_RISE_CLR</name>
+							<description>Enable clear for SDMMC detect pin rising edge interrupt.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>write-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
 				</register>
 				<register>
 					<name>SD_DETECT_CNT</name>
 					<description>SDMMC detect count register</description>
 					<addressOffset>0x03B0</addressOffset>
+					<fields>
+						<field>
+							<name>SD_DET_CNT</name>
+							<description>SDMMC detect count</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>22</bitWidth>
+						</field>
+					</fields>
 				</register>
 			</registers>
 		</peripheral>
