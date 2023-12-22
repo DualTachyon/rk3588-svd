@@ -56972,6 +56972,260 @@
 			</registers>
 		</peripheral>
 		<peripheral>
+			<name>GRF_GPU</name>
+			<groupName>GRF</groupName>
+			<baseAddress>0x0FD5A0000</baseAddress>
+			<addressBlock>
+				<offset>0x0</offset>
+				<size>0x2000</size>
+				<usage>registers</usage>
+			</addressBlock>
+			<registers>
+				<register>
+					<name>PVTPLL_CON0_L</name>
+					<description>PVTPLL Control Register 0</description>
+					<addressOffset>0x0000</addressOffset>
+					<fields>
+						<field>
+							<name>BYPASS</name>
+							<bitOffset>15</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>SUPPORT</name>
+									<description>Support glitch-free frequency conversion.</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_SUPPORT</name>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>CLK_DIV_OSC</name>
+							<description>Frequency division factor for osc_clk.</description>
+							<bitOffset>13</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>CLK_DIV_REF</name>
+							<description>Frequency division factor for ref_clk.</description>
+							<bitOffset>11</bitOffset>
+							<bitWidth>2</bitWidth>
+						</field>
+						<field>
+							<name>OSC_RING_SEL</name>
+							<description>Oscillator ring channel select.</description>
+							<bitOffset>8</bitOffset>
+							<bitWidth>3</bitWidth>
+						</field>
+						<field>
+							<name>OUT_POLAR</name>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>OUT_1</name>
+									<description>Out=1 when need to increase voltage.</description>
+									<value>0</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>OUT_0</name>
+									<description>Out=0 when need to increase voltage.</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>OSC_EN</name>
+							<description>Oscillator ring enable.</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>START</name>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>START</name>
+									<description>PVTPLL monitor start.</description>
+									<value>1</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>PVTPLL_CON0_H</name>
+					<description>PVTPLL Control Register 0</description>
+					<addressOffset>0x0004</addressOffset>
+					<fields>
+						<field>
+							<name>RING_LENGTH_SEL</name>
+							<description>Oscillator ring inverter length select.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>6</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>PVTPLL_CON1</name>
+					<description>PVTPLL Control Register 1</description>
+					<addressOffset>0x0008</addressOffset>
+					<fields>
+						<field>
+							<name>CAL_CNT</name>
+							<description>Target frequency value.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>32</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>PVTPLL_CON2</name>
+					<description>PVTPLL Control Register 2</description>
+					<addressOffset>0x000C</addressOffset>
+					<fields>
+						<field>
+							<name>CKG_VAL</name>
+							<description>Clock gating interval control count value.</description>
+							<bitOffset>16</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+						<field>
+							<name>THRESHOLD</name>
+							<description>Count difference threshold value.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>16</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>PVTPLL_CON3</name>
+					<description>PVTPLL Control Register 3</description>
+					<addressOffset>0x0010</addressOffset>
+					<fields>
+						<field>
+							<name>REF_CNT</name>
+							<description>Frequency measurement period setting value.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>32</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>MEMCFG_CON0</name>
+					<description>Memory Configuration Control Register 0</description>
+					<addressOffset>0x0024</addressOffset>
+					<fields>
+						<field>
+							<name>MEMCFG_HDSPRF</name>
+							<description>memory configuration of hdsprf type bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMD bit 7: LS bit 11~10: WPULSE bit 13~12: RA</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>32</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>MEMCFG_CON1</name>
+					<description>Memory Configuration Control Register 1</description>
+					<addressOffset>0x0028</addressOffset>
+					<fields>
+						<field>
+							<name>MEMCFG_UHDPDPRF</name>
+							<description>memory configuration of uhdpdprf type. bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMDA bit 7: LS</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>32</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>CON0</name>
+					<description>GPU Control Register 0</description>
+					<addressOffset>0x0040</addressOffset>
+					<fields>
+						<field>
+							<name>PROTMODE_EN</name>
+							<description>gpu protected mode enable.</description>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>HALTED_EN</name>
+							<description>daplite2m halted enable.</description>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>GPU_CKG_EN</name>
+							<description>Clock gate enable.</description>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+						</field>
+						<field>
+							<name>STRIPING_GRANULE</name>
+							<description>Memory striping control. This signal must be set during the GPU reset and remain static during operation.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>4</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>STATUS0</name>
+					<description>GPU Status Register 0</description>
+					<addressOffset>0x0044</addressOffset>
+					<fields>
+						<field>
+							<name>SWACTIVE</name>
+							<description>Serial wire active. high when the debug port is operating using the serial wire protocol.</description>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ACTIVE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>INACTIVE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>DORMANTSTATE</name>
+							<description>Active-high status to indicate that none of the protocol engines are selected and that the DP is in dormant state.</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<access>read-only</access>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>DORMANT</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>NOT_DORMANT</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+			</registers>
+		</peripheral>
+		<peripheral>
 			<name>GRF_LITCORE</name>
 			<groupName>GRF</groupName>
 			<baseAddress>0x0FD594000</baseAddress>

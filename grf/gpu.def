@@ -1,3 +1,60 @@
 [GRF_GPU, GRF]
 @ = 0x0FD5A0000, 0x00002000
 
+PVTPLL_CON0_L = 0x0000 ; PVTPLL Control Register 0
+> 15, 1, BYPASS
+= 0, SUPPORT ; Support glitch-free frequency conversion.
+= 1, NOT_SUPPORT
+
+> 13, 2, CLK_DIV_OSC ; Frequency division factor for osc_clk.
+> 11, 2, CLK_DIV_REF ; Frequency division factor for ref_clk.
+> 8, 3, OSC_RING_SEL ; Oscillator ring channel select.
+
+> 2, 1, OUT_POLAR
+= 0, OUT_1 ; Out=1 when need to increase voltage.
+= 1, OUT_0 ; Out=0 when need to increase voltage.
+
+> 1, 1, OSC_EN ; Oscillator ring enable.
+= 1, ENABLE
+= 0, DISABLE
+
+> 0, 1, START
+= 1, START ; PVTPLL monitor start.
+
+PVTPLL_CON0_H = 0x0004 ; PVTPLL Control Register 0
+> 0, 6, RING_LENGTH_SEL ; Oscillator ring inverter length select.
+
+PVTPLL_CON1 = 0x0008 ; PVTPLL Control Register 1
+> 0, 32, CAL_CNT ; Target frequency value.
+
+PVTPLL_CON2 = 0x000C ; PVTPLL Control Register 2
+> 16, 16, CKG_VAL ; Clock gating interval control count value.
+> 0, 16, THRESHOLD ; Count difference threshold value.
+
+PVTPLL_CON3 = 0x0010 ; PVTPLL Control Register 3
+> 0, 32, REF_CNT ; Frequency measurement period setting value.
+
+MEMCFG_CON0 = 0x0024 ; Memory Configuration Control Register 0
+> 0, 32, MEMCFG_HDSPRF ; memory configuration of hdsprf type bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMD bit 7: LS bit 11~10: WPULSE bit 13~12: RA
+
+MEMCFG_CON1 = 0x0028 ; Memory Configuration Control Register 1
+> 0, 32, MEMCFG_UHDPDPRF ; memory configuration of uhdpdprf type. bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMDA bit 7: LS
+
+CON0 = 0x0040 ; GPU Control Register 0
+> 6, 1, PROTMODE_EN ; gpu protected mode enable.
+
+> 5, 1, HALTED_EN ; daplite2m halted enable.
+
+> 4, 1, GPU_CKG_EN ; Clock gate enable.
+
+> 0, 4, STRIPING_GRANULE ; Memory striping control. This signal must be set during the GPU reset and remain static during operation.
+
+STATUS0 = 0x0044 ; GPU Status Register 0
+> 1, 1, SWACTIVE, RO ; Serial wire active. high when the debug port is operating using the serial wire protocol.
+= 1, ACTIVE
+= 0, INACTIVE
+
+> 0, 1, DORMANTSTATE, RO ; Active-high status to indicate that none of the protocol engines are selected and that the DP is in dormant state.
+= 1, DORMANT
+= 0, NOT_DORMANT
+
