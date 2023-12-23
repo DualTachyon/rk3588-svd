@@ -1,5 +1,5 @@
 TARGET = rk3588.svd
-DEFS = $(wildcard *.def) $(wildcard */*.def)
+DEFS = $(wildcard def/*.def) $(wildcard def/*/*.def)
 
 all: $(TARGET)
 
