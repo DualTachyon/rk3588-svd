@@ -50071,13 +50071,13 @@
 					<fields>
 						<field>
 							<name>TOP_MB</name>
-							<description>First MByte</description>
+							<description>Last 1MB</description>
 							<bitOffset>16</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
 						<field>
 							<name>BASE_MB</name>
-							<description>Last MByte</description>
+							<description>First 1MB</description>
 							<bitOffset>0</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
@@ -50089,13 +50089,13 @@
 					<fields>
 						<field>
 							<name>TOP_MB</name>
-							<description>First MByte</description>
+							<description>Last 1MB</description>
 							<bitOffset>16</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
 						<field>
 							<name>BASE_MB</name>
-							<description>Last MByte</description>
+							<description>First 1MB</description>
 							<bitOffset>0</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
@@ -50107,13 +50107,13 @@
 					<fields>
 						<field>
 							<name>TOP_MB</name>
-							<description>First MByte</description>
+							<description>Last 1MB</description>
 							<bitOffset>16</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
 						<field>
 							<name>BASE_MB</name>
-							<description>Last MByte</description>
+							<description>First 1MB</description>
 							<bitOffset>0</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
@@ -50125,13 +50125,13 @@
 					<fields>
 						<field>
 							<name>TOP_MB</name>
-							<description>First MByte</description>
+							<description>Last 1MB</description>
 							<bitOffset>16</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
 						<field>
 							<name>BASE_MB</name>
-							<description>Last MByte</description>
+							<description>First 1MB</description>
 							<bitOffset>0</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
@@ -50143,13 +50143,13 @@
 					<fields>
 						<field>
 							<name>TOP_MB</name>
-							<description>First MByte</description>
+							<description>Last 1MB</description>
 							<bitOffset>16</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
 						<field>
 							<name>BASE_MB</name>
-							<description>Last MByte</description>
+							<description>First 1MB</description>
 							<bitOffset>0</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
@@ -50161,13 +50161,13 @@
 					<fields>
 						<field>
 							<name>TOP_MB</name>
-							<description>First MByte</description>
+							<description>Last 1MB</description>
 							<bitOffset>16</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
 						<field>
 							<name>BASE_MB</name>
-							<description>Last MByte</description>
+							<description>First 1MB</description>
 							<bitOffset>0</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
@@ -50179,13 +50179,13 @@
 					<fields>
 						<field>
 							<name>TOP_MB</name>
-							<description>First MByte</description>
+							<description>Last 1MB</description>
 							<bitOffset>16</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
 						<field>
 							<name>BASE_MB</name>
-							<description>Last MByte</description>
+							<description>First 1MB</description>
 							<bitOffset>0</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
@@ -50197,13 +50197,13 @@
 					<fields>
 						<field>
 							<name>TOP_MB</name>
-							<description>First MByte</description>
+							<description>Last 1MB</description>
 							<bitOffset>16</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
 						<field>
 							<name>BASE_MB</name>
-							<description>Last MByte</description>
+							<description>First 1MB</description>
 							<bitOffset>0</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
@@ -50215,13 +50215,13 @@
 					<fields>
 						<field>
 							<name>TOP_MB</name>
-							<description>First MByte</description>
+							<description>Last 1MB</description>
 							<bitOffset>16</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
 						<field>
 							<name>BASE_MB</name>
-							<description>Last MByte</description>
+							<description>First 1MB</description>
 							<bitOffset>0</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
@@ -50233,13 +50233,13 @@
 					<fields>
 						<field>
 							<name>TOP_MB</name>
-							<description>First MByte</description>
+							<description>Last 1MB</description>
 							<bitOffset>16</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
 						<field>
 							<name>BASE_MB</name>
-							<description>Last MByte</description>
+							<description>First 1MB</description>
 							<bitOffset>0</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
@@ -50251,13 +50251,13 @@
 					<fields>
 						<field>
 							<name>TOP_MB</name>
-							<description>First MByte</description>
+							<description>Last 1MB</description>
 							<bitOffset>16</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
 						<field>
 							<name>BASE_MB</name>
-							<description>Last MByte</description>
+							<description>First 1MB</description>
 							<bitOffset>0</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
@@ -50269,13 +50269,13 @@
 					<fields>
 						<field>
 							<name>TOP_MB</name>
-							<description>First MByte</description>
+							<description>Last 1MB</description>
 							<bitOffset>16</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
 						<field>
 							<name>BASE_MB</name>
-							<description>Last MByte</description>
+							<description>First 1MB</description>
 							<bitOffset>0</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
@@ -50287,13 +50287,13 @@
 					<fields>
 						<field>
 							<name>TOP_MB</name>
-							<description>First MByte</description>
+							<description>Last 1MB</description>
 							<bitOffset>16</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
 						<field>
 							<name>BASE_MB</name>
-							<description>Last MByte</description>
+							<description>First 1MB</description>
 							<bitOffset>0</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
@@ -50305,13 +50305,13 @@
 					<fields>
 						<field>
 							<name>TOP_MB</name>
-							<description>First MByte</description>
+							<description>Last 1MB</description>
 							<bitOffset>16</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
 						<field>
 							<name>BASE_MB</name>
-							<description>Last MByte</description>
+							<description>First 1MB</description>
 							<bitOffset>0</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
@@ -50323,13 +50323,13 @@
 					<fields>
 						<field>
 							<name>TOP_MB</name>
-							<description>First MByte</description>
+							<description>Last 1MB</description>
 							<bitOffset>16</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
 						<field>
 							<name>BASE_MB</name>
-							<description>Last MByte</description>
+							<description>First 1MB</description>
 							<bitOffset>0</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
@@ -50341,13 +50341,13 @@
 					<fields>
 						<field>
 							<name>TOP_MB</name>
-							<description>First MByte</description>
+							<description>Last 1MB</description>
 							<bitOffset>16</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
 						<field>
 							<name>BASE_MB</name>
-							<description>Last MByte</description>
+							<description>First 1MB</description>
 							<bitOffset>0</bitOffset>
 							<bitWidth>15</bitWidth>
 						</field>
@@ -50645,6 +50645,459 @@
 								</enumeratedValue>
 							</enumeratedValues>
 						</field>
+						<field>
+							<name>RGN7</name>
+							<bitOffset>7</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RGN6</name>
+							<bitOffset>6</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RGN5</name>
+							<bitOffset>5</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RGN4</name>
+							<bitOffset>4</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RGN3</name>
+							<bitOffset>3</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RGN2</name>
+							<bitOffset>2</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RGN1</name>
+							<bitOffset>1</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+						<field>
+							<name>RGN0</name>
+							<bitOffset>0</bitOffset>
+							<bitWidth>1</bitWidth>
+							<enumeratedValues>
+								<enumeratedValue>
+									<name>ENABLE</name>
+									<value>1</value>
+								</enumeratedValue>
+								<enumeratedValue>
+									<name>DISABLE</name>
+									<value>0</value>
+								</enumeratedValue>
+							</enumeratedValues>
+						</field>
+					</fields>
+				</register>
+			</registers>
+		</peripheral>
+		<peripheral>
+			<name>FIREWALL_SYSMEM</name>
+			<baseAddress>0x0FE038000</baseAddress>
+			<addressBlock>
+				<offset>0x0</offset>
+				<size>0x8000</size>
+				<usage>registers</usage>
+			</addressBlock>
+			<registers>
+				<register>
+					<name>RGN0</name>
+					<addressOffset>0x0000</addressOffset>
+					<fields>
+						<field>
+							<name>TOP_4KB</name>
+							<description>Last 4KB</description>
+							<bitOffset>16</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+						<field>
+							<name>BASE_4KB</name>
+							<description>First 4KB</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>RGN1</name>
+					<addressOffset>0x0004</addressOffset>
+					<fields>
+						<field>
+							<name>TOP_4KB</name>
+							<description>Last 4KB</description>
+							<bitOffset>16</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+						<field>
+							<name>BASE_4KB</name>
+							<description>First 4KB</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>RGN2</name>
+					<addressOffset>0x0008</addressOffset>
+					<fields>
+						<field>
+							<name>TOP_4KB</name>
+							<description>Last 4KB</description>
+							<bitOffset>16</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+						<field>
+							<name>BASE_4KB</name>
+							<description>First 4KB</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>RGN3</name>
+					<addressOffset>0x000C</addressOffset>
+					<fields>
+						<field>
+							<name>TOP_4KB</name>
+							<description>Last 4KB</description>
+							<bitOffset>16</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+						<field>
+							<name>BASE_4KB</name>
+							<description>First 4KB</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>RGN4</name>
+					<addressOffset>0x0010</addressOffset>
+					<fields>
+						<field>
+							<name>TOP_4KB</name>
+							<description>Last 4KB</description>
+							<bitOffset>16</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+						<field>
+							<name>BASE_4KB</name>
+							<description>First 4KB</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>RGN5</name>
+					<addressOffset>0x0014</addressOffset>
+					<fields>
+						<field>
+							<name>TOP_4KB</name>
+							<description>Last 4KB</description>
+							<bitOffset>16</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+						<field>
+							<name>BASE_4KB</name>
+							<description>First 4KB</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>RGN6</name>
+					<addressOffset>0x0018</addressOffset>
+					<fields>
+						<field>
+							<name>TOP_4KB</name>
+							<description>Last 4KB</description>
+							<bitOffset>16</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+						<field>
+							<name>BASE_4KB</name>
+							<description>First 4KB</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>RGN7</name>
+					<addressOffset>0x001C</addressOffset>
+					<fields>
+						<field>
+							<name>TOP_4KB</name>
+							<description>Last 4KB</description>
+							<bitOffset>16</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+						<field>
+							<name>BASE_4KB</name>
+							<description>First 4KB</description>
+							<bitOffset>0</bitOffset>
+							<bitWidth>8</bitWidth>
+						</field>
+					</fields>
+				</register>
+				<register>
+					<name>MST0</name>
+					<addressOffset>0x0040</addressOffset>
+				</register>
+				<register>
+					<name>MST1</name>
+					<addressOffset>0x0044</addressOffset>
+				</register>
+				<register>
+					<name>MST2</name>
+					<addressOffset>0x0048</addressOffset>
+				</register>
+				<register>
+					<name>MST3</name>
+					<addressOffset>0x004C</addressOffset>
+				</register>
+				<register>
+					<name>MST4</name>
+					<addressOffset>0x0050</addressOffset>
+				</register>
+				<register>
+					<name>MST5</name>
+					<addressOffset>0x0054</addressOffset>
+				</register>
+				<register>
+					<name>MST6</name>
+					<addressOffset>0x0058</addressOffset>
+				</register>
+				<register>
+					<name>MST7</name>
+					<addressOffset>0x005C</addressOffset>
+				</register>
+				<register>
+					<name>MST8</name>
+					<addressOffset>0x0060</addressOffset>
+				</register>
+				<register>
+					<name>MST9</name>
+					<addressOffset>0x0064</addressOffset>
+				</register>
+				<register>
+					<name>MST10</name>
+					<addressOffset>0x0068</addressOffset>
+				</register>
+				<register>
+					<name>MST11</name>
+					<addressOffset>0x006C</addressOffset>
+				</register>
+				<register>
+					<name>MST12</name>
+					<addressOffset>0x0070</addressOffset>
+				</register>
+				<register>
+					<name>MST13</name>
+					<addressOffset>0x0074</addressOffset>
+				</register>
+				<register>
+					<name>MST14</name>
+					<addressOffset>0x0078</addressOffset>
+				</register>
+				<register>
+					<name>MST15</name>
+					<addressOffset>0x007C</addressOffset>
+				</register>
+				<register>
+					<name>MST16</name>
+					<addressOffset>0x0080</addressOffset>
+				</register>
+				<register>
+					<name>MST17</name>
+					<addressOffset>0x0084</addressOffset>
+				</register>
+				<register>
+					<name>MST18</name>
+					<addressOffset>0x0088</addressOffset>
+				</register>
+				<register>
+					<name>MST19</name>
+					<addressOffset>0x008C</addressOffset>
+				</register>
+				<register>
+					<name>MST20</name>
+					<addressOffset>0x0090</addressOffset>
+				</register>
+				<register>
+					<name>MST21</name>
+					<addressOffset>0x0094</addressOffset>
+				</register>
+				<register>
+					<name>MST22</name>
+					<addressOffset>0x0098</addressOffset>
+				</register>
+				<register>
+					<name>MST23</name>
+					<addressOffset>0x009C</addressOffset>
+				</register>
+				<register>
+					<name>MST24</name>
+					<addressOffset>0x00A0</addressOffset>
+				</register>
+				<register>
+					<name>MST25</name>
+					<addressOffset>0x00A4</addressOffset>
+				</register>
+				<register>
+					<name>MST26</name>
+					<addressOffset>0x00A8</addressOffset>
+				</register>
+				<register>
+					<name>MST27</name>
+					<addressOffset>0x00AC</addressOffset>
+				</register>
+				<register>
+					<name>MST28</name>
+					<addressOffset>0x00B0</addressOffset>
+				</register>
+				<register>
+					<name>MST29</name>
+					<addressOffset>0x00B4</addressOffset>
+				</register>
+				<register>
+					<name>MST30</name>
+					<addressOffset>0x00B8</addressOffset>
+				</register>
+				<register>
+					<name>MST31</name>
+					<addressOffset>0x00BC</addressOffset>
+				</register>
+				<register>
+					<name>MST32</name>
+					<addressOffset>0x00C0</addressOffset>
+				</register>
+				<register>
+					<name>MST33</name>
+					<addressOffset>0x00C4</addressOffset>
+				</register>
+				<register>
+					<name>MST34</name>
+					<addressOffset>0x00C8</addressOffset>
+				</register>
+				<register>
+					<name>MST35</name>
+					<addressOffset>0x00CC</addressOffset>
+				</register>
+				<register>
+					<name>MST36</name>
+					<addressOffset>0x00D0</addressOffset>
+				</register>
+				<register>
+					<name>MST37</name>
+					<addressOffset>0x00D4</addressOffset>
+				</register>
+				<register>
+					<name>MST38</name>
+					<addressOffset>0x00D8</addressOffset>
+				</register>
+				<register>
+					<name>MST39</name>
+					<addressOffset>0x00DC</addressOffset>
+				</register>
+				<register>
+					<name>MST40</name>
+					<addressOffset>0x00E0</addressOffset>
+				</register>
+				<register>
+					<name>MST41</name>
+					<addressOffset>0x00E4</addressOffset>
+				</register>
+				<register>
+					<name>MST42</name>
+					<addressOffset>0x00E8</addressOffset>
+				</register>
+				<register>
+					<name>CON0</name>
+					<addressOffset>0x00F0</addressOffset>
+					<fields>
 						<field>
 							<name>RGN7</name>
 							<bitOffset>7</bitOffset>
