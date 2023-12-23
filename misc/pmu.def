@@ -2490,7 +2490,7 @@ PMU_DSU_MEM_PWR_CON = 0x809C ; DSU memory power control register
 = 1, ENABLE
 
 # 0, 4, DSU_MEM_SD_ENA ; Enable DSU memory enters shutdown mode by hardware.
-> 3, 1, DSU_MEM_SD_ENA3 ; used to shutdown "L3 Tag ways 8~11, L3 Data portion 1 RAMs". 
+> 3, 1, DSU_MEM_SD_ENA3 ; used to shutdown "L3 Tag ways 8~11, L3 Data portion 1 RAMs".
 = 0, DISABLE
 = 1, ENABLE
 
