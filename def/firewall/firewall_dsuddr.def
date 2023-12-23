@@ -1,3 +1,330 @@
 [FIREWALL_DSUDDR]
 @ = 0x0FE010000, 0x00008000
 
+RGN0 = 0x0000
+> 16, 15, TOP_MB ; Last 1MB
+> 0, 15, BASE_MB ; First 1MB
+
+RGN1 = 0x0004
+> 16, 15, TOP_MB ; Last 1MB
+> 0, 15, BASE_MB ; First 1MB
+
+RGN2 = 0x0008
+> 16, 15, TOP_MB ; Last 1MB
+> 0, 15, BASE_MB ; First 1MB
+
+RGN3 = 0x000C
+> 16, 15, TOP_MB ; Last 1MB
+> 0, 15, BASE_MB ; First 1MB
+
+RGN4 = 0x0010
+> 16, 15, TOP_MB ; Last 1MB
+> 0, 15, BASE_MB ; First 1MB
+
+RGN5 = 0x0014
+> 16, 15, TOP_MB ; Last 1MB
+> 0, 15, BASE_MB ; First 1MB
+
+RGN6 = 0x0018
+> 16, 15, TOP_MB ; Last 1MB
+> 0, 15, BASE_MB ; First 1MB
+
+RGN7 = 0x001C
+> 16, 15, TOP_MB ; Last 1MB
+> 0, 15, BASE_MB ; First 1MB
+
+RGN8 = 0x0020
+> 16, 15, TOP_MB ; Last 1MB
+> 0, 15, BASE_MB ; First 1MB
+
+RGN9 = 0x0024
+> 16, 15, TOP_MB ; Last 1MB
+> 0, 15, BASE_MB ; First 1MB
+
+RGN10 = 0x0028
+> 16, 15, TOP_MB ; Last 1MB
+> 0, 15, BASE_MB ; First 1MB
+
+RGN11 = 0x002C
+> 16, 15, TOP_MB ; Last 1MB
+> 0, 15, BASE_MB ; First 1MB
+
+RGN12 = 0x0030
+> 16, 15, TOP_MB ; Last 1MB
+> 0, 15, BASE_MB ; First 1MB
+
+RGN13 = 0x0034
+> 16, 15, TOP_MB ; Last 1MB
+> 0, 15, BASE_MB ; First 1MB
+
+RGN14 = 0x0038
+> 16, 15, TOP_MB ; Last 1MB
+> 0, 15, BASE_MB ; First 1MB
+
+RGN15 = 0x003C
+> 16, 15, TOP_MB ; Last 1MB
+> 0, 15, BASE_MB ; First 1MB
+
+MST0 = 0x0040
+MST1 = 0x0044
+
+CON_CH0 = 0x00F0
+> 15, 1, RGN15
+= 1, ENABLE
+= 0, DISABLE
+
+> 14, 1, RGN14
+= 1, ENABLE
+= 0, DISABLE
+
+> 13, 1, RGN13
+= 1, ENABLE
+= 0, DISABLE
+
+> 12, 1, RGN12
+= 1, ENABLE
+= 0, DISABLE
+
+> 11, 1, RGN11
+= 1, ENABLE
+= 0, DISABLE
+
+> 10, 1, RGN10
+= 1, ENABLE
+= 0, DISABLE
+
+> 9, 1, RGN9
+= 1, ENABLE
+= 0, DISABLE
+
+> 8, 1, RGN8
+= 1, ENABLE
+= 0, DISABLE
+
+> 7, 1, RGN7
+= 1, ENABLE
+= 0, DISABLE
+
+> 6, 1, RGN6
+= 1, ENABLE
+= 0, DISABLE
+
+> 5, 1, RGN5
+= 1, ENABLE
+= 0, DISABLE
+
+> 4, 1, RGN4
+= 1, ENABLE
+= 0, DISABLE
+
+> 3, 1, RGN3
+= 1, ENABLE
+= 0, DISABLE
+
+> 2, 1, RGN2
+= 1, ENABLE
+= 0, DISABLE
+
+> 1, 1, RGN1
+= 1, ENABLE
+= 0, DISABLE
+
+> 0, 1, RGN0
+= 1, ENABLE
+= 0, DISABLE
+
+CON_CH1 = 0x00F4
+> 15, 1, RGN15
+= 1, ENABLE
+= 0, DISABLE
+
+> 14, 1, RGN14
+= 1, ENABLE
+= 0, DISABLE
+
+> 13, 1, RGN13
+= 1, ENABLE
+= 0, DISABLE
+
+> 12, 1, RGN12
+= 1, ENABLE
+= 0, DISABLE
+
+> 11, 1, RGN11
+= 1, ENABLE
+= 0, DISABLE
+
+> 10, 1, RGN10
+= 1, ENABLE
+= 0, DISABLE
+
+> 9, 1, RGN9
+= 1, ENABLE
+= 0, DISABLE
+
+> 8, 1, RGN8
+= 1, ENABLE
+= 0, DISABLE
+
+> 7, 1, RGN7
+= 1, ENABLE
+= 0, DISABLE
+
+> 6, 1, RGN6
+= 1, ENABLE
+= 0, DISABLE
+
+> 5, 1, RGN5
+= 1, ENABLE
+= 0, DISABLE
+
+> 4, 1, RGN4
+= 1, ENABLE
+= 0, DISABLE
+
+> 3, 1, RGN3
+= 1, ENABLE
+= 0, DISABLE
+
+> 2, 1, RGN2
+= 1, ENABLE
+= 0, DISABLE
+
+> 1, 1, RGN1
+= 1, ENABLE
+= 0, DISABLE
+
+> 0, 1, RGN0
+= 1, ENABLE
+= 0, DISABLE
+
+CON_CH2 = 0x00F8
+> 15, 1, RGN15
+= 1, ENABLE
+= 0, DISABLE
+
+> 14, 1, RGN14
+= 1, ENABLE
+= 0, DISABLE
+
+> 13, 1, RGN13
+= 1, ENABLE
+= 0, DISABLE
+
+> 12, 1, RGN12
+= 1, ENABLE
+= 0, DISABLE
+
+> 11, 1, RGN11
+= 1, ENABLE
+= 0, DISABLE
+
+> 10, 1, RGN10
+= 1, ENABLE
+= 0, DISABLE
+
+> 9, 1, RGN9
+= 1, ENABLE
+= 0, DISABLE
+
+> 8, 1, RGN8
+= 1, ENABLE
+= 0, DISABLE
+
+> 7, 1, RGN7
+= 1, ENABLE
+= 0, DISABLE
+
+> 6, 1, RGN6
+= 1, ENABLE
+= 0, DISABLE
+
+> 5, 1, RGN5
+= 1, ENABLE
+= 0, DISABLE
+
+> 4, 1, RGN4
+= 1, ENABLE
+= 0, DISABLE
+
+> 3, 1, RGN3
+= 1, ENABLE
+= 0, DISABLE
+
+> 2, 1, RGN2
+= 1, ENABLE
+= 0, DISABLE
+
+> 1, 1, RGN1
+= 1, ENABLE
+= 0, DISABLE
+
+> 0, 1, RGN0
+= 1, ENABLE
+= 0, DISABLE
+
+CON_CH3 = 0x00FC
+> 15, 1, RGN15
+= 1, ENABLE
+= 0, DISABLE
+
+> 14, 1, RGN14
+= 1, ENABLE
+= 0, DISABLE
+
+> 13, 1, RGN13
+= 1, ENABLE
+= 0, DISABLE
+
+> 12, 1, RGN12
+= 1, ENABLE
+= 0, DISABLE
+
+> 11, 1, RGN11
+= 1, ENABLE
+= 0, DISABLE
+
+> 10, 1, RGN10
+= 1, ENABLE
+= 0, DISABLE
+
+> 9, 1, RGN9
+= 1, ENABLE
+= 0, DISABLE
+
+> 8, 1, RGN8
+= 1, ENABLE
+= 0, DISABLE
+
+> 7, 1, RGN7
+= 1, ENABLE
+= 0, DISABLE
+
+> 6, 1, RGN6
+= 1, ENABLE
+= 0, DISABLE
+
+> 5, 1, RGN5
+= 1, ENABLE
+= 0, DISABLE
+
+> 4, 1, RGN4
+= 1, ENABLE
+= 0, DISABLE
+
+> 3, 1, RGN3
+= 1, ENABLE
+= 0, DISABLE
+
+> 2, 1, RGN2
+= 1, ENABLE
+= 0, DISABLE
+
+> 1, 1, RGN1
+= 1, ENABLE
+= 0, DISABLE
+
+> 0, 1, RGN0
+= 1, ENABLE
+= 0, DISABLE
+
