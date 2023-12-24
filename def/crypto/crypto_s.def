@@ -385,7 +385,7 @@ CH6_TAG_1 = 0x0384, RO ;  Channel 6 Tag Register 1
 CH6_TAG_2 = 0x0388, RO ;  Channel 6 Tag Register 2
 CH6_TAG_3 = 0x038C, RO ;  Channel 6 Tag Register 3
 CH7_TAG_0 = 0x0390, RO ;  Channel 7 Tag Register 0
-CH7_TAG_1 = 0x0329, RO ;  Channel 7 Tag Register 1
+CH7_TAG_1 = 0x0394, RO ;  Channel 7 Tag Register 1
 CH7_TAG_2 = 0x0398, RO ;  Channel 7 Tag Register 2
 CH7_TAG_3 = 0x039C, RO ;  Channel 7 Tag Register 3
 
@@ -403,7 +403,7 @@ HASH_DOUT_10 = 0x03C8, RO ;  HASH Data Output Register 10
 HASH_DOUT_11 = 0x03CC, RO ;  HASH Data Output Register 11
 HASH_DOUT_12 = 0x03D0, RO ;  HASH Data Output Register 12
 HASH_DOUT_13 = 0x03D4, RO ;  HASH Data Output Register 13
-HASH_DOUT_14 = 0x03AD, RO ;  HASH Data Output Register 14
+HASH_DOUT_14 = 0x03D8, RO ;  HASH Data Output Register 14
 HASH_DOUT_15 = 0x03DC, RO ;  HASH Data Output Register 15
 
 TAG_VALID = 0x03E0, W1C ; TAG Valid Register
