@@ -58,7 +58,6 @@ PMU_PWR_CON0 = 0x0000 ; PMU power control 0 register
 = 0, DISABLE
 = 1, ENABLE
 
-# Bitfield was tagged SC = Secure?
 > 0, 1, POWERMODE0_EN ; Power mode 0 enable. When controller enters power mode 0 procedure, this bit is automatically cleared.
 = 0, DISABLE
 = 1, ENABLE
@@ -503,7 +502,6 @@ PMU_DDR_CH0_PWR_SFTCON = 0x4030 ; DDR channel 0 software power control register
 = 0, NOT_NEED ; Not need to wait for ddrctl_a_active low before FSM enter self-refresh state
 = 1, NEED ; Need to wait for ddrctl_a_active low before FSM enter self- refresh state
 
-# Bitfield was tagged SC = Secure?
 > 7, 1, DDRIO_RSTIOV_EXIT_SFTENA ; Enable DDR exits retention mode through RST_IOV by software. It is auto cleared after DDR exits retention mode.
 = 0, DISABLE
 = 1, ENABLE
@@ -512,7 +510,6 @@ PMU_DDR_CH0_PWR_SFTCON = 0x4030 ; DDR channel 0 software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-# Bitfield was tagged SC = Secure?
 > 5, 1, DDRIO_RETON_EXIT_SFTENA ; Enable DDR exits retention mode through RETON/RETOFF by software. It is auto cleared after DDR exits retention mode.
 = 0, DISABLE
 = 1, ENABLE
@@ -546,7 +543,6 @@ PMU_DDR_CH1_PWR_SFTCON = 0x4034 ; DDR channel 1 software power control register
 = 0, NOT_NEED ; Not need to wait for ddrctl_a_active low before FSM enter self-refresh state
 = 1, NEED ; Need to wait for ddrctl_a_active low before FSM enter self- refresh state
 
-# Bitfield was tagged SC = Secure?
 > 7, 1, DDRIO_RSTIOV_EXIT_SFTENA ; Enable DDR exits retention mode through RST_IOV by software. It is auto cleared after DDR exits retention mode.
 = 0, DISABLE
 = 1, ENABLE
@@ -555,7 +551,6 @@ PMU_DDR_CH1_PWR_SFTCON = 0x4034 ; DDR channel 1 software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-# Bitfield was tagged SC = Secure?
 > 5, 1, DDRIO_RETON_EXIT_SFTENA ; Enable DDR exits retention mode through RETON/RETOFF by software. It is auto cleared after DDR exits retention mode.
 = 0, DISABLE
 = 1, ENABLE
@@ -589,7 +584,6 @@ PMU_DDR_CH2_PWR_SFTCON = 0x4038 ; DDR channel 2 software power control register
 = 0, NOT_NEED ; Not need to wait for ddrctl_a_active low before FSM enter self-refresh state
 = 1, NEED ; Need to wait for ddrctl_a_active low before FSM enter self- refresh state
 
-# Bitfield was tagged SC = Secure?
 > 7, 1, DDRIO_RSTIOV_EXIT_SFTENA ; Enable DDR exits retention mode through RST_IOV by software. It is auto cleared after DDR exits retention mode.
 = 0, DISABLE
 = 1, ENABLE
@@ -598,7 +592,6 @@ PMU_DDR_CH2_PWR_SFTCON = 0x4038 ; DDR channel 2 software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-# Bitfield was tagged SC = Secure?
 > 5, 1, DDRIO_RETON_EXIT_SFTENA ; Enable DDR exits retention mode through RETON/RETOFF by software. It is auto cleared after DDR exits retention mode.
 = 0, DISABLE
 = 1, ENABLE
@@ -632,7 +625,6 @@ PMU_DDR_CH3_PWR_SFTCON = 0x403C ; DDR channel 3 software power control register
 = 0, NOT_NEED ; Not need to wait for ddrctl_a_active low before FSM enter self-refresh state
 = 1, NEED ; Need to wait for ddrctl_a_active low before FSM enter self- refresh state
 
-# Bitfield was tagged SC = Secure?
 > 7, 1, DDRIO_RSTIOV_EXIT_SFTENA ; Enable DDR exits retention mode through RST_IOV by software. It is auto cleared after DDR exits retention mode.
 = 0, DISABLE
 = 1, ENABLE
@@ -641,7 +633,6 @@ PMU_DDR_CH3_PWR_SFTCON = 0x403C ; DDR channel 3 software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-# Bitfield was tagged SC = Secure?
 > 5, 1, DDRIO_RETON_EXIT_SFTENA ; Enable DDR exits retention mode through RETON/RETOFF by software. It is auto cleared after DDR exits retention mode.
 = 0, DISABLE
 = 1, ENABLE
@@ -1221,7 +1212,6 @@ PMU_CPU0_AUTO_PWR_CON = 0x8010 ; CPU0 automatic power control register
 = 0, DISABLE
 = 1, ENABLE
 
-# Bitfield was tagged SC = Secure?
 > 6, 1, CPU_DBGRCV_ENA ; Enable CPU debug recovery mode by hardware. It is auto cleared when FSM enters debug recovery state.
 = 0, DISABLE
 = 1, ENABLE
@@ -1263,7 +1253,6 @@ PMU_CPU1_AUTO_PWR_CON = 0x8014 ; CPU1 automatic power control register
 = 0, DISABLE
 = 1, ENABLE
 
-# Bitfield was tagged SC = Secure?
 > 6, 1, CPU_DBGRCV_ENA ; Enable CPU debug recovery mode by hardware. It is auto cleared when FSM enters debug recovery state.
 = 0, DISABLE
 = 1, ENABLE
@@ -1305,7 +1294,6 @@ PMU_CPU2_AUTO_PWR_CON = 0x8018 ; CPU2 automatic power control register
 = 0, DISABLE
 = 1, ENABLE
 
-# Bitfield was tagged SC = Secure?
 > 6, 1, CPU_DBGRCV_ENA ; Enable CPU debug recovery mode by hardware. It is auto cleared when FSM enters debug recovery state.
 = 0, DISABLE
 = 1, ENABLE
@@ -1347,7 +1335,6 @@ PMU_CPU3_AUTO_PWR_CON = 0x801C ; CPU3 automatic power control register
 = 0, DISABLE
 = 1, ENABLE
 
-# Bitfield was tagged SC = Secure?
 > 6, 1, CPU_DBGRCV_ENA ; Enable CPU debug recovery mode by hardware. It is auto cleared when FSM enters debug recovery state.
 = 0, DISABLE
 = 1, ENABLE
@@ -1389,7 +1376,6 @@ PMU_CPU4_AUTO_PWR_CON = 0x8020 ; CPU4 automatic power control register
 = 0, DISABLE
 = 1, ENABLE
 
-# Bitfield was tagged SC = Secure?
 > 6, 1, CPU_DBGRCV_ENA ; Enable CPU debug recovery mode by hardware. It is auto cleared when FSM enters debug recovery state.
 = 0, DISABLE
 = 1, ENABLE
@@ -1431,7 +1417,6 @@ PMU_CPU5_AUTO_PWR_CON = 0x8024 ; CPU5 automatic power control register
 = 0, DISABLE
 = 1, ENABLE
 
-# Bitfield was tagged SC = Secure?
 > 6, 1, CPU_DBGRCV_ENA ; Enable CPU debug recovery mode by hardware. It is auto cleared when FSM enters debug recovery state.
 = 0, DISABLE
 = 1, ENABLE
@@ -1473,7 +1458,6 @@ PMU_CPU6_AUTO_PWR_CON = 0x8028 ; CPU6 automatic power control register
 = 0, DISABLE
 = 1, ENABLE
 
-# Bitfield was tagged SC = Secure?
 > 6, 1, CPU_DBGRCV_ENA ; Enable CPU debug recovery mode by hardware. It is auto cleared when FSM enters debug recovery state.
 = 0, DISABLE
 = 1, ENABLE
@@ -1515,7 +1499,6 @@ PMU_CPU7_AUTO_PWR_CON = 0x802C ; CPU7 automatic power control register
 = 0, DISABLE
 = 1, ENABLE
 
-# Bitfield was tagged SC = Secure?
 > 6, 1, CPU_DBGRCV_ENA ; Enable CPU debug recovery mode by hardware. It is auto cleared when FSM enters debug recovery state.
 = 0, DISABLE
 = 1, ENABLE
