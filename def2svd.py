@@ -34,6 +34,15 @@ DEVICE_TAGS = [
     ('access', 'read-write'),
 ]
 
+ACCESS_TAGS = {
+    'RO': 'read-only',
+    'WO': 'write-only',
+}
+
+MODIFIED_TAGS = {
+    'W1C': 'oneToClear',
+}
+
 def parse_peripheral_name(line, original):
     if line[-1] != ']':
         raise Exception('Invalid peripheral name: %s' % original)
@@ -96,7 +105,7 @@ def parse_register(line, original):
         tokens.append('RW')
     else:
         tokens[2] = tokens[2].strip().upper()
-        if not tokens[2] in [ 'RW', 'RO', 'WO' ]:
+        if not tokens[2] in [ 'RW', 'RO', 'WO', 'W1C' ]:
             raise Exception('Invalid bitfield access mode: %s' % original)
 
     try:
@@ -124,7 +133,7 @@ def parse_bitfield(line, original):
         tokens.append('RW')
     else:
         tokens[3] = tokens[3].strip().upper()
-        if not tokens[3] in [ 'RW', 'RO', 'WO' ]:
+        if not tokens[3] in [ 'RW', 'RO', 'WO', 'W1C' ]:
             raise Exception('Invalid bitfield access mode: %s' % original)
 
     return (*tokens, description)
@@ -256,10 +265,15 @@ def generate_svd(all_peripherals, filename):
             addressOffset.text = '0x%04X' % r_offset
             register.append(addressOffset)
 
-            if r_access != 'RW':
+            if r_access in ACCESS_TAGS:
                 access = xml.Element('access')
-                access.text = 'read-only' if r_access == 'RO' else 'write-only'
+                access.text = ACCESS_TAGS[r_access]
                 register.append(access)
+
+            if r_access in MODIFIED_TAGS:
+                modified = xml.Element('modifiedWriteValues')
+                modified.text = MODIFIED_TAGS[r_access]
+                register.append(modified)
 
             if len(bitfields):
                 fields = xml.Element('fields')
@@ -283,10 +297,15 @@ def generate_svd(all_peripherals, filename):
                     bitWidth.text = str(width)
                     field.append(bitWidth)
 
-                    if bf_access != 'RW':
+                    if bf_access in ACCESS_TAGS:
                         access = xml.Element('access')
-                        access.text = 'read-only' if bf_access == 'RO' else 'write-only'
+                        access.text = ACCESS_TAGS[bf_access]
                         field.append(access)
+
+                    if bf_access in MODIFIED_TAGS:
+                        modified = xml.Element('modifiedWriteValues')
+                        modified.text = MODIFIED_TAGS[bf_access]
+                        field.append(modified)
 
                     if len(enums):
                         enumeratedValues = xml.Element('enumeratedValues')
@@ -422,6 +441,7 @@ if __name__ == "__main__":
     try:
         for filename in args.i:
             load_definition(peripherals, filename)
+        filename = 'consistency check'
         check_for_overlaps(peripherals)
     except Exception as e:
         print('Error in %s: %s' % (filename, e.args))

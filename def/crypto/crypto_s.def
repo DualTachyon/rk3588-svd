@@ -1,5 +1,5 @@
-[CRYPTO_NS]
-@ = 0x0FE370000, 0x00008000
+[CRYPTO_S]
+@ = 0x0FE390000, 0x00008000
 
 CLK_CTL = 0x0000 ; Clock Control Register
 > 0, 1, AUTO_CLKGATE_EN ; CRYPTO will gate unused Block Cipher and HASH module automatically
@@ -17,6 +17,10 @@ RST_CTL = 0x0004 ; Reset Control Register
 = 1, START
 
 DMA_INT_EN = 0x0008 ; DMA Interrupt Enable Register
+> 7, 1, LOCKSTEP_INT_EN
+= 0, DISABLE
+= 1, ENABLE
+
 > 6, 1, ZERO_LEN_INT_EN
 = 0, DISABLE
 = 1, ENABLE
@@ -46,6 +50,10 @@ DMA_INT_EN = 0x0008 ; DMA Interrupt Enable Register
 = 1, ENABLE
 
 DMA_INT_ST = 0x000C ; DMA Interrupt Status Register
+> 7, 1, LOCKSTEP_FLAG, W1C
+= 0, NOTHING
+= 1, ATTACK ; Indicate that crypto was attacked
+
 > 6, 1, ZERO_LEN, W1C
 = 1, SET ; Indicate that DMA has met an 0 byte source transfer length in list descriptors.
 = 0, NOTHING
@@ -437,25 +445,23 @@ HASH_VALID = 0x03E4 ; HASH Output Valid Register
 = 1, VALID ; HASH_DOUT is valid
 
 RNG_CTL = 0x0400 ; RNG Control Register
-> 4, 2, RNG_LEN
+> 5, 3, MODE ; Register for RNG mode selected If want to generate random numbers, this bit segment must be 0x4
+
+> 3, 2, RNG_LEN ; TRNG output length select
 = 0, 64BIT
 = 1, 128BIT
 = 2, 192BIT
 = 3, 256BIT
 
-> 2, 2, RING_SEL ; There are 4 OSC rings choice to decide the RNG output data
+> 1, 2, RING_SEL ; There are 4 OSC rings choice to decide the RNG output data
 = 0, SLOWEST ; Slowest OSC ring
 = 1, FASTER_THAN_0 ; Faster than OSC ring 0
 = 2, FASTER_THAN_1 ; Faster than OSC ring 1
 = 3, FASTEST ; Fastest OSC ring
 
-> 1, 1, RNG_ENABLE
+> 0, 1, RNG_ENABLE ; TRNG OSC ring enable
 = 0, DISABLE
 = 1, ENABLE
-
-> 0, 1, RNG_START ; The application triggers this bit to start collect RNG output data. After RNG is started, CRYPTO will clear the bit automatically
-= 0, DO_NOTHING
-= 1, START
 
 RNG_SAMPLE_CNT = 0x0404 ; RNG Sample Counter Register
 > 0, 16, RNG_SAMPLE_CNT ; RNG collects OSC ring output bit every rng_sample_cnt time. The value of rng_sample_cnt affects RNG output data rate, the value more bigger, the rate more slower.
@@ -506,6 +512,40 @@ DEBUG_ST = 0x04A4 ; PKA Debug Status Register
 
 DEBUG_MONITOR = 0x04A8 ; PKA Debug Monitor Bus Register
 > 0, 32, PKA_MONITOR_BUS ; For debug use only.
+
+RNG_START = 0x0520 ; RNG start
+> 0, 1, RNG_START ; The application triggers this bit to make RNG working. After RNG is started, CRYPTO will clear the bit automatically.
+= 0, DO_NOTHING
+= 1, START
+
+RNG_ST = 0x0524 ; RNG work status
+> 0, 1, RNG_ST, W1C ; RNG work state
+= 0, IDLE
+= 1, BUSY
+
+RNG_INTEN = 0x0528 ; RNG interrupt enable
+> 0, 1, CPINTEN ; Mode completed interrupt enable
+= 0, DISABLE ; Disable the interrupt
+= 1, ENABLE ; Enable the interrupt
+
+RNG_INTST = 0x052C ; RNG interrupt status
+> 0, 1, CPINTS, W1C ; Mode completed interrupt status
+= 0, INACTIVE ; Interrupt is inactive
+= 1, ACTIVE ; Interrupt is active
+
+KEY_SEL = 0x0610 ; Operation key select
+> 0, 32, KEY_SEL ; Select which key to use as the operation key.
+= 0x5A5A5A5A, KEY_TABLE
+
+LOCKSTEP_FLAG = 0x0618 ; Lockstep mistake flag
+> 0, 1, LOCKSTEP_FLAG, RO ;  Indicates whether CIPHER has been attacked
+= 0, NOT_UNDER_ATTACK
+= 1, UNDER_ATTACK
+
+LOCKSTEP_EN = 0x061C ; Lockstep check enable
+> 0, 1, LOCKSTEP_EN ; Enable lockstep check. If disable, lockstep_flag field of DMA_INT_ST register will never pull up
+= 0, DISABLE
+= 1, ENABLE
 
 AES_VERSION = 0x0680, RO ; AES_VERSION code is 0x0007_07ff
 > 18, 1, AES256_FLAG ; Whether the AES supports AES256
@@ -692,14 +732,14 @@ HMAC_VERSION = 0x0690, RO ; HMAC_VERSION code is 0x0000_001f
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
-RNG_VERSION = 0x0694, RO ; RNG_VERSION code is 0x0100_0000
-> 0, 32, RNG_VERSION_CODE ; RNG version code is 0x0100_0000.
+RNG_VERSION = 0x0694, RO ; RNG_VERSION code is 0x0200_0000
+> 0, 32, RNG_VERSION_CODE ; RNG version code is 0x0200_0000.
 
 PKA_VERSION = 0x0698, RO ; PKA_VERSION code is 0x0100_0000
 > 0, 32, PKA_VERSION_CODE ; PKA version code is 0x0100_0000.
 
-CRYPTO_VERSION = 0x06F0, RO ; CRYPTO_VERSION code is 0x0200_0001
-> 0, 32, NS ; crypto_version_code NSCRYPTO version code is 0x0200_0001.
+CRYPTO_VERSION = 0x06F0, RO ; CRYPTO_VERSION code is 0x0200_0002
+> 0, 32, S ; crypto_version_code SCRYPTO version code is 0x0200_0002.
 
 PKA_MEM_MAP0 = 0x0800 ; PKA Memory Map 0 Register
 > 2, 10, MEMORY_MAP0 ; MAP 0 range from 0 to 31. Memory map 0 [11:2], bit[1:0] is stuck to 0
