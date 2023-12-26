@@ -1,3 +1,66 @@
 [HPTIMER]
 @ = 0x0FD8C8000, 0x00004000
 
+REVISION = 0x0000, RO ; HPTIMER version
+> 16, 16, SVN_REVISION ; SVN revision: 16'd5073.
+> 8, 2, CH_TYPE ; Channel 0 is a low power recovery self-correction count up counter.
+> 0, 8, IP_FUNCTION ; IP function: 16'd1.
+
+CTRL = 0x0004 ; HPTIMER control
+> 3, 1, COUNT_MODE ; Timer count mode
+= 0, FREE_RUNNING
+= 1, USER_DEFINED_COUNT
+
+> 1, 2, TIMER_MODE ; Select timer as which timer
+= 0, NORMAL_TIMER
+= 1, HW_ADJUST
+= 2, SW_ADJUST
+
+> 0, 1, TIMER_EN ; Timer enable
+= 0, DISABLE
+= 1, ENABLE
+
+INTR_EN = 0x0008 ; Interrupt musk
+> 2, 1, SYNC_DONE_INTR_EN ; Synchronization done interrupt enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, INI_ADJ_DONE_INTR_EN ; Initial adjust done interrupt enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, COUNT_REACH_INTR_EN ; Timer count reach load_count interrupt enable
+= 0, DISABLE
+= 1, ENABLE
+
+T24_GCD = 0x000C ; Common multiple div 24M
+T32_GCD = 0x0010 ; Common multiple div 32K
+LOAD_COUNT0 = 0x0014 ; Low 32bits of load count value
+LOAD_COUNT1 = 0x0018 ; High 32bits of load count value
+T24_DELAT_COUNT0 = 0x001C ; Low 32bits of 24M clock delay time count value
+T24_DELAT_COUNT1 = 0x0020 ; High 32bits of 24M clock delay time count value
+CURR_32K_VALUE0 = 0x0024 ; Low 32bits of current cnt_32k value
+CURR_32K_VALUE1 = 0x0028 ; High 32bits of current cnt_32k value
+CURR_TIMER_VALUE0 = 0x002C ; Low 32bits of current timer_cnt value
+CURR_TIMER_VALUE1 = 0x0030 ; High 32bits of current timer_cnt value
+T24_32BEGIN0 = 0x0034 ; Low 32 bits of low power begin
+T24_32BEGIN1 = 0x0038 ; High 32 bits of low power begin
+T32_24END0 = 0x003C ; Low 32 bits of low power end
+T32_24END1 = 0x0040 ; High 32 bits of low power end
+BEGIN_END_VALID = 0x0044 ; Low power count value valid
+> 1, 1, T32_24END_VALID, W1C ; T32_24END value valid
+= 0, INVALID
+= 1, VALID
+
+> 0, 1, T24_32BEGIN_VALID, W1C ; T24_32BEGIN value valid
+= 0, INVALID
+= 1, VALID
+
+SYNC_REQ = 0x0048 ; Synchronize request
+> 0, 1, SYNC_REQUEST ; Timer_cnt synchronize request.
+
+INTR_STATUS = 0x004C ; Interrupt status
+> 2, 1, SYNC_DONE, W1C ; Timer_cnt synchronization done.
+> 1, 1, INI_ADJ_DONE, W1C ; Cnt_32k initial adjust done.
+> 0, 1, COUNT_REACH, W1C ; Normal counter: timer_cnt reach load_count value.
+
