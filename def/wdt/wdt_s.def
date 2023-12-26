@@ -1,3 +1,55 @@
 [WDT_S]
 @ = 0x0FE3E0000, 0x00010000
 
+CR = 0x0000 ; Control Register
+> 2, 3, RST_PLUSE_LENGTH ; This is used to select the number of pclk cycles for which the system reset stays asserted.
+= 0, 2_PCLK_CYCLES
+= 1, 4_PCLK_CYCLES
+= 2, 8_PCLK_CYCLES
+= 3, 16_PCLK_CYCLES
+= 4, 32_PCLK_CYCLES
+= 5, 64_PCLK_CYCLES
+= 6, 128_PCLK_CYCLES
+= 7, 256_PCLK_CYCLES
+
+> 1, 1, RESP_MODE ; Selects the output response generated to a timeout.
+= 0, SYSRESET ; Generate a system reset.
+= 1, IRQ_FIRST ; First generate an interrupt and if it is not cleared by the time a second timeout occurs then generate a system reset.
+
+> 0, 1, EN ; This bit is used to enable and disable the WDT.When disabled, the counter dose not decrement .Thus, no interrupt or system reset are generated. Once this bit has been enabled, it can be cleared only by a system reset.
+= 0, DISABLED
+= 1, ENABLED
+
+TORR = 0x0004 ; Timeout Range Register
+> 0, 4, TIMEOUT_PERIOD ; This field is used to select the timeout period from which the watchdog counter restarts. A change of the timeout period takes effect only after the next counter restart (kick). The range of values available for a 32-bit watchdog counter are:
+= 0, 0x0000FFFF
+= 1, 0x0001FFFF
+= 2, 0x0003FFFF
+= 3, 0x0007FFFF
+= 4, 0x000FFFFF
+= 5, 0x001FFFFF
+= 6, 0x003FFFFF
+= 7, 0x007FFFFF
+= 8, 0x00FFFFFF
+= 9, 0x01FFFFFF
+= 10, 0x03FFFFFF
+= 11, 0x07FFFFFF
+= 12, 0x0FFFFFFF
+= 13, 0x1FFFFFFF
+= 14, 0x3FFFFFFF
+= 15, 0x7FFFFFFF
+
+CCVR = 0x0008, RO ; Current Counter Value Register
+> 0, 32, CUR_CNT ; This register, when read, is the current value of the internal counter. This value is read coherently whenever it is read.
+
+CRR = 0x000C ; Counter Restart Register
+> 0, 8, CNT_RESTART, WO ; This register is used to restart the WDT counter. As a safety feature to prevent accidental restarts, the value 0x76 must be written. A restart also clears the WDT interrupt. Reading this register returns zero.
+
+STAT = 0x0010 ; Interrupt Status Register
+> 0, 1, STATUS, RO ; This register shows the interrupt status of the WDT.
+= 1, ACTIVE ; Interrupt is active regardless of polarity.
+= 0, INACTIVE ; Interrupt is inactive.
+
+EOI = 0x0014 ; Interrupt Clear Register
+> 0, 1, INT_CLR, RO ; This can be used to clear the interrupt without restarting the watchdog counter.
+
