@@ -1,3 +1,444 @@
 [PWM0]
 @ = 0x0FD8B0000, 0x00010000
 
+CH0_CNT = 0x0000 ; PWM Channel 0 Counter Register
+> 0, 32, CNT, RO ; The 32-bit indicates current value of PWM Channel 0 counter. The counter runs at the rate of PWM clock. The value ranges from 0 to (2^32-1).
+
+CH0_PERIOD_HPR = 0x0004 ; PWM Channel 0 Period Register/High Polarity Capture Register
+> 0, 32, PERIOD_HPR ; If PWM is operated at the continuous mode or one-shot mode, this value defines the period of the output waveform. Note that, if the PWM is operated at the center-aligned mode, the period should be an even one, and therefore only the bit [31:1] is taken into account and bit [0] always considered as 0. If PWM is operated at the capture mode, this value indicates the effective high polarity cycles of input waveform. This value is based on the PWM clock. The value ranges from 0 to (2^32-1).
+
+CH0_DUTY_LPR = 0x0008 ; PWM Channel 0 Duty Register/Low Polarity Capture Register
+> 0, 32, DUTY_LPR ; If PWM is operated at the continuous mode or one-shot mode, this value defines the duty cycle of the output waveform. The PWM starts the output waveform with duty cycle. Note that, if the PWM is operated at the center-aligned mode, the period should be an even one, and therefore only the [31:1] is taken into account. If PWM is operated at the capture mode, this value indicates the effective low polarity cycles of input waveform. This value is based on the PWM clock. The value ranges from 0 to (2^32-1).
+
+CH0_CTRL = 0x000C ; PWM Channel 0 Control Register
+> 24, 8, RPT ; This field defines the repeated effective periods of output waveform in one-shot mode. The value N means N+1 repeated effective periods.
+
+> 16, 8, SCALE ; This field defines the scale factor applied to prescaled clock. The value N means the clock is divided by 2*N. If N is 0, it means that the clock is divided by 512(2*256).
+
+> 12, 3, PRESCALE ; This field defines the prescale factor applied to input clock. The value N means that the input clock is divided by 2^N.
+
+> 10, 1, CLK_SRC_SEL
+= 0, CLK_PWM ; Select clk_pwm as root clock source. Clock is from PLL and the frequency can be configured.
+= 1, CLK_PWM_CAPTURE ; Select clk_pwm_capture as root clock source. Clock is from crystal oscillator and the frequency is fixed.
+
+> 9, 1, CLK_SEL
+= 0, NON_SCALED ; Non-scaled clock is selected as PWM clock source. It means that the prescaled clock is directly used as the PWM clock source.
+= 1, SCALED ; Scaled clock is selected as PWM clock source.
+
+> 8, 1, FORCE_CLK_EN
+= 0, DISABLED ; When PWM channel is inactive state, the clk_pwm to PWM clock prescale module is blocked to reduce power consumption.
+= 1, ENABLED ; The clk_pwm to PWM Clock prescale module is always enabled.
+
+> 7, 1, CH_CNT_EN
+= 0, DISABLED
+= 1, ENABLED
+
+> 6, 1, CONLOCK ; PWM period and duty lock to previous configuration
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, OUTPUT_MODE
+= 0, LEFT_ALIGNED
+= 1, CENTER_ALIGNED
+
+> 4, 1, INACTIVE_POL ; This defines the output waveform polarity when PWM channel is in inactive state. The inactive state means that PWM finishes the complete waveform in one-shot mode or PWM channel is disabled.
+= 0, NEGATIVE
+= 1, POSITIVE
+
+> 3, 1, DUTY_POL ; This defines the polarity for duty cycle. PWM starts the output waveform with duty cycle.
+= 0, NEGATIVE
+= 1, POSITIVE
+
+> 1, 2, PWM_MODE
+= 0, ONE_SHOT ; PWM produces the waveform within the repeated times defined by CH0_CTRL.rpt.
+= 1, CONTINUOUS ; PWM produces the waveform continuously.
+= 2, CAPTURE ; PWM measures the cycles of high/low polarity of input waveform.
+= 3, RESERVED
+
+> 0, 1, PWM_EN
+= 0, DISABLED
+= 1, ENABLED ; If the PWM is worked in the one-shot mode, this bit will be cleared at the end of operation.
+
+CH1_CNT = 0x0010 ; PWM Channel 1 Counter Register
+> 0, 32, CNT, RO ; The 32-bit indicates current value of PWM Channel 1 counter. The counter runs at the rate of PWM clock. The value ranges from 0 to (2^32-1).
+
+CH1_PERIOD_HPR = 0x0014 ; PWM Channel 1 Period Register/High Polarity Capture Register
+> 0, 32, PERIOD_HPR ; If PWM is operated at the continuous mode or one-shot mode, this value defines the period of the output waveform. Note that, if the PWM is operated at the center-aligned mode, the period should be an even one, and therefore only the bit [31:1] is taken into account and bit [0] always considered as 0. If PWM is operated at the capture mode, this value indicates the effective high polarity cycles of input waveform. This value is based on the PWM clock. The value ranges from 0 to (2^32-1).
+
+CH1_DUTY_LPR = 0x0018 ; PWM Channel 1 Duty Register/Low Polarity Capture Register
+> 0, 32, DUTY_LPR ; If PWM is operated at the continuous mode or one-shot mode, this value defines the duty cycle of the output waveform. The PWM starts the output waveform with duty cycle. Note that, if the PWM is operated at the center-aligned mode, the period should be an even one, and therefore only the [31:1] is taken into account. If PWM is operated at the capture mode, this value indicates the effective low polarity cycles of input waveform. This value is based on the PWM clock. The value ranges from 0 to (2^32-1).
+
+CH1_CTRL = 0x001C ; PWM Channel 1 Control Register
+> 24, 8, RPT ; This field defines the repeated effective periods of output waveform in one-shot mode. The value N means N+1 repeated effective periods.
+
+> 16, 8, SCALE ; This field defines the scale factor applied to prescaled clock. The value N means the clock is divided by 2*N. If N is 0, it means that the clock is divided by 512(2*256).
+
+> 12, 3, PRESCALE ; This field defines the prescale factor applied to input clock. The value N means that the input clock is divided by 2^N.
+> 10, 1, CLK_SRC_SEL
+= 0, CLK_PWM ; Select clk_pwm as root clock source. Clock is from PLL and the frequency can be configured.
+= 1, CLK_PWM_CAPTURE ; Select clk_pwm_capture as root clock source. Clock is from crystal oscillator and the frequency is fixed.
+
+> 9, 1, CLK_SEL
+= 0, NON_SCALED ; Non-scaled clock is selected as PWM clock source. It means that the prescaled clock is directly used as the PWM clock source.
+= 1, SCALED ; Scaled clock is selected as PWM clock source.
+
+> 8, 1, FORCE_CLK_EN
+= 0, DISABLED ; When PWM channel is inactive state, the clk_pwm to PWM clock prescale module is blocked to reduce power consumption.
+= 1, ENABLED ; The clk_pwm to PWM Clock prescale module is always enabled.
+
+> 7, 1, CH_CNT_EN
+= 0, DISABLED
+= 1, ENABLED
+
+> 6, 1, CONLOCK ; PWM period and duty lock to previous configuration
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, OUTPUT_MODE
+= 0, LEFT_ALIGNED
+= 1, CENTER_ALIGNED
+
+> 4, 1, INACTIVE_POL ; This defines the output waveform polarity when PWM channel is in inactive state. The inactive state means that PWM finishes the complete waveform in one-shot mode or PWM channel is disabled.
+= 0, NEGATIVE
+= 1, POSITIVE
+
+> 3, 1, DUTY_POL ; This defines the polarity for duty cycle. PWM starts the output waveform with duty cycle.
+= 0, NEGATIVE
+= 1, POSITIVE
+
+> 1, 2, PWM_MODE
+= 0, ONE_SHOT ; PWM produces the waveform within the repeated times defined by CH1_CTRL.rpt.
+= 1, CONTINUOUS ; PWM produces the waveform continuously.
+= 2, CAPTURE ; PWM measures the cycles of high/low polarity of input waveform.
+= 3, RESERVED
+
+> 0, 1, PWM_EN
+= 0, DISABLED
+= 1, ENABLED ; If the PWM is worked in the one-shot mode, this bit will be cleared at the end of operation.
+
+CH2_CNT = 0x0020 ; PWM Channel 2 Counter Register
+> 0, 32, CNT, RO ; The 32-bit indicates current value of PWM Channel 2 counter. The counter runs at the rate of PWM clock. The value ranges from 0 to (2^32-1).
+
+CH2_PERIOD_HPR = 0x0024 ; PWM Channel 2 Period Register/High Polarity Capture Register
+> 0, 32, PERIOD_HPR ; If PWM is operated at the continuous mode or one-shot mode, this value defines the period of the output waveform. Note that, if the PWM is operated at the center-aligned mode, the period should be an even one, and therefore only the bit [31:1] is taken into account and bit [0] always considered as 0. If PWM is operated at the capture mode, this value indicates the effective high polarity cycles of input waveform. This value is based on the PWM clock. The value ranges from 0 to (2^32-1).
+
+CH2_DUTY_LPR = 0x0028 ; PWM Channel 2 Duty Register/Low Polarity Capture Register
+> 0, 32, DUTY_LPR ; If PWM is operated at the continuous mode or one-shot mode, this value defines the duty cycle of the output waveform. The PWM starts the output waveform with duty cycle. Note that, if the PWM is operated at the center-aligned mode, the period should be an even one, and therefore only the [31:1] is taken into account. If PWM is operated at the capture mode, this value indicates the effective low polarity cycles of input waveform. This value is based on the PWM clock. The value ranges from 0 to (2^32-1).
+
+CH2_CTRL = 0x002C ; PWM Channel 2 Control Register
+> 24, 8, RPT ; This field defines the repeated effective periods of output waveform in one-shot mode. The value N means N+1 repeated effective periods.
+
+> 16, 8, SCALE ; This field defines the scale factor applied to prescaled clock. The value N means the clock is divided by 2*N. If N is 0, it means that the clock is divided by 512(2*256).
+
+> 12, 3, PRESCALE ; This field defines the prescale factor applied to input clock. The value N means that the input clock is divided by 2^N.
+> 10, 1, CLK_SRC_SEL
+= 0, CLK_PWM ; Select clk_pwm as root clock source. Clock is from PLL and the frequency can be configured.
+= 1, CLK_PWM_CAPTURE ; Select clk_pwm_capture as root clock source. Clock is from crystal oscillator and the frequency is fixed.
+
+> 9, 1, CLK_SEL
+= 0, NON_SCALED ; Non-scaled clock is selected as PWM clock source. It means that the prescaled clock is directly used as the PWM clock source.
+= 1, SCALED ; Scaled clock is selected as PWM clock source.
+
+> 8, 1, FORCE_CLK_EN
+= 0, DISABLED ; When PWM channel is inactive state, the clk_pwm to PWM clock prescale module is blocked to reduce power consumption.
+= 1, ENABLED ; The clk_pwm to PWM Clock prescale module is always enabled.
+
+> 7, 1, CH_CNT_EN
+= 0, DISABLED
+= 1, ENABLED
+
+> 6, 1, CONLOCK ; PWM period and duty lock to previous configuration
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, OUTPUT_MODE
+= 0, LEFT_ALIGNED
+= 1, CENTER_ALIGNED
+
+> 4, 1, INACTIVE_POL ; This defines the output waveform polarity when PWM channel is in inactive state. The inactive state means that PWM finishes the complete waveform in one-shot mode or PWM channel is disabled.
+= 0, NEGATIVE
+= 1, POSITIVE
+
+> 3, 1, DUTY_POL ; This defines the polarity for duty cycle. PWM starts the output waveform with duty cycle.
+= 0, NEGATIVE
+= 1, POSITIVE
+
+> 1, 2, PWM_MODE
+= 0, ONE_SHOT ; PWM produces the waveform within the repeated times defined by CH2_CTRL.rpt.
+= 1, CONTINUOUS ; PWM produces the waveform continuously.
+= 2, CAPTURE ; PWM measures the cycles of high/low polarity of input waveform.
+= 3, RESERVED
+
+> 0, 1, PWM_EN
+= 0, DISABLED
+= 1, ENABLED ; If the PWM is worked in the one-shot mode, this bit will be cleared at the end of operation.
+
+CH3_CNT = 0x0030 ; PWM Channel 3 Counter Register
+> 0, 32, CNT, RO ; The 32-bit indicates current value of PWM Channel 3 counter. The counter runs at the rate of PWM clock. The value ranges from 0 to (2^32-1).
+
+CH3_PERIOD_HPR = 0x0034 ; PWM Channel 3 Period Register/High Polarity Capture Register
+> 0, 32, PERIOD_HPR ; If PWM is operated at the continuous mode or one-shot mode, this value defines the period of the output waveform. Note that, if the PWM is operated at the center-aligned mode, the period should be an even one, and therefore only the bit [31:1] is taken into account and bit [0] always considered as 0. If PWM is operated at the capture mode, this value indicates the effective high polarity cycles of input waveform. This value is based on the PWM clock. The value ranges from 0 to (2^32-1).
+
+CH3_DUTY_LPR = 0x0038 ; PWM Channel 3 Duty Register/Low Polarity Capture Register
+> 0, 32, DUTY_LPR ; If PWM is operated at the continuous mode or one-shot mode, this value defines the duty cycle of the output waveform. The PWM starts the output waveform with duty cycle. Note that, if the PWM is operated at the center-aligned mode, the period should be an even one, and therefore only the [31:1] is taken into account. If PWM is operated at the capture mode, this value indicates the effective low polarity cycles of input waveform. This value is based on the PWM clock. The value ranges from 0 to (2^32-1).
+
+CH3_CTRL = 0x003C ; PWM Channel 3 Control Register
+> 24, 8, RPT ; This field defines the repeated effective periods of output waveform in one-shot mode. The value N means N+1 repeated effective periods.
+
+> 16, 8, SCALE ; This field defines the scale factor applied to prescaled clock. The value N means the clock is divided by 2*N. If N is 0, it means that the clock is divided by 512(2*256).
+
+> 12, 3, PRESCALE ; This field defines the prescale factor applied to input clock. The value N means that the input clock is divided by 2^N.
+> 10, 1, CLK_SRC_SEL
+= 0, CLK_PWM ; Select clk_pwm as root clock source. Clock is from PLL and the frequency can be configured.
+= 1, CLK_PWM_CAPTURE ; Select clk_pwm_capture as root clock source. Clock is from crystal oscillator and the frequency is fixed.
+
+> 9, 1, CLK_SEL
+= 0, NON_SCALED ; Non-scaled clock is selected as PWM clock source. It means that the prescaled clock is directly used as the PWM clock source.
+= 1, SCALED ; Scaled clock is selected as PWM clock source.
+
+> 8, 1, FORCE_CLK_EN
+= 0, DISABLED ; When PWM channel is inactive state, the clk_pwm to PWM clock prescale module is blocked to reduce power consumption.
+= 1, ENABLED ; The clk_pwm to PWM Clock prescale module is always enabled.
+
+> 7, 1, CH_CNT_EN
+= 0, DISABLED
+= 1, ENABLED
+
+> 6, 1, CONLOCK ; PWM period and duty lock to previous configuration
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, OUTPUT_MODE
+= 0, LEFT_ALIGNED
+= 1, CENTER_ALIGNED
+
+> 4, 1, INACTIVE_POL ; This defines the output waveform polarity when PWM channel is in inactive state. The inactive state means that PWM finishes the complete waveform in one-shot mode or PWM channel is disabled.
+= 0, NEGATIVE
+= 1, POSITIVE
+
+> 3, 1, DUTY_POL ; This defines the polarity for duty cycle. PWM starts the output waveform with duty cycle.
+= 0, NEGATIVE
+= 1, POSITIVE
+
+> 1, 2, PWM_MODE
+= 0, ONE_SHOT ; PWM produces the waveform within the repeated times defined by CH3_CTRL.rpt.
+= 1, CONTINUOUS ; PWM produces the waveform continuously.
+= 2, CAPTURE ; PWM measures the cycles of high/low polarity of input waveform.
+= 3, RESERVED
+
+> 0, 1, PWM_EN
+= 0, DISABLED
+= 1, ENABLED ; If the PWM is worked in the one-shot mode, this bit will be cleared at the end of operation.
+
+INTSTS = 0x0040 ; Interrupt Status Register
+> 11, 1, CH3_POL, RO ; This bit is used in capture mode in order to identify the transition of the input waveform when interrupt is generated. When bit is 1, please refer to CH3_PERIOD_HPR to know the effective high cycle of Channel 3 input waveform. Otherwise, please refer to CH3_PERIOD_LPR to know the effective low cycle of Channel 3 input waveform. Write 1 to CH3_IntSts will clear this bit.
+
+> 10, 1, CH2_POL, RO ; This bit is used in capture mode in order to identify the transition of the input waveform when interrupt is generated. When bit is 1, please refer to CH2_PERIOD_HPR to know the effective high cycle of Channel 2 input waveform. Otherwise, please refer to CH2_PERIOD_LPR to know the effective low cycle of Channel 2 input waveform. Write 1 to CH2_IntSts will clear this bit.
+
+> 9, 1, CH1_POL, RO ; This bit is used in capture mode in order to identify the transition of the input waveform when interrupt is generated. When bit is 1, please refer to CH1_PERIOD_HPR to know the effective high cycle of Channel 1 input waveform. Otherwise, please refer to CH1_PERIOD_LPR to know the effective low cycle of Channel 1 input waveform. Write 1 to CH1_IntSts will clear this bit.
+
+> 8, 1, CH0_POL, RO ; This bit is used in capture mode in order to identify the transition of the input waveform when interrupt is generated. When bit is 1, please refer to CH0_PERIOD_HPR to know the effective high cycle of Channel 0 input waveform. Otherwise, please refer to CH0_PERIOD_LPR to know the effective low cycle of Channel 0 input waveform. Write 1 to CH0_IntSts will clear this bit.
+
+> 7, 1, CH3_PWR_INTSTS, W1C
+= 0, NOT_GENERATED ; Channel 3 power key Interrupt not generated
+= 1, GENERATED ; Channel 3 power key Interrupt generated
+
+> 3, 1, CH3_INTSTS, W1C
+= 0, NOT_GENERATED ; Channel 3 Interrupt not generated
+= 1, GENERATED ; Channel 3 Interrupt generated
+
+> 2, 1, CH2_INTSTS, W1C
+= 0, NOT_GENERATED ; Channel 2 Interrupt not generated
+= 1, GENERATED ; Channel 2 Interrupt generated
+
+> 1, 1, CH1_INTSTS, W1C
+= 0, NOT_GENERATED ; Channel 1 Interrupt not generated
+= 1, GENERATED ; Channel 1 Interrupt generated
+
+> 0, 1, CH0_INTSTS, W1C
+= 0, NOT_GENERATED ; Channel 0 Interrupt not generated
+= 1, GENERATED ; Channel 0 Interrupt generated
+
+INT_EN = 0x0044 ; Interrupt Enable Register
+> 7, 1, CH3_PWR_INT_EN
+= 0, DISABLED ; Channel 3 power key Interrupt disabled
+= 1, ENBLED ; Channel 3 power key Interrupt enabled
+
+> 3, 1, CH3_INT_EN
+= 0, DISABLED ; Channel 3 Interrupt disabled
+= 1, ENBLED ; Channel 3 Interrupt enabled
+
+> 2, 1, CH2_INT_EN
+= 0, DISABLED ; Channel 2 Interrupt disabled
+= 1, ENBLED ; Channel 2 Interrupt enabled
+
+> 1, 1, CH1_INT_EN
+= 0, DISABLED ; Channel 1 Interrupt disabled
+= 1, ENBLED ; Channel 1 Interrupt enabled
+
+> 0, 1, CH0_INT_EN
+= 0, DISABLED ; Channel 0 Interrupt disabled
+= 1, ENBLED ; Channel 0 Interrupt enabled
+
+FIFO_CTRL = 0x0050 ; PWM Channel 3 FIFO Mode Control Register
+> 12, 2, DMA_CH_SEL
+= 0, CH0
+= 1, CH1
+= 2, CH2
+= 3, CH3
+
+> 10, 1, DMA_CH_SEL_EN
+= 0, DISABLE ; Select the channel CH3 to FIFO mode and DMA mode.
+= 1, ENABLE ; Use dma_ch_sel to select the channel to FIFO mode and DMA mode.
+
+> 9, 1, TIMEOUT_EN ; FIFO timeout enable.
+= 1, ENABLE
+= 0, DISABLE
+
+> 8, 1, DMA_MODE_EN
+= 1, ENABLE
+= 0, DISABLE
+
+> 4, 3, ALMOST_FULL_WATERMARK ; Almost full Watermark level.
+= 1, ENABLE
+= 0, DISABLE
+
+> 3, 1, WATERMARK_INT_EN ; Watermark full interrupt.
+= 1, ENABLE
+= 0, DISABLE
+
+> 2, 1, OVERFLOW_INT_EN ; When high, an interrupt asserts when the FIFO overflow.
+= 1, ENABLE
+= 0, DISABLE
+
+> 1, 1, FULL_INT_EN ; When high, an interrupt asserts when the FIFO is full.
+= 1, ENABLE
+= 0, DISABLE
+
+> 0, 1, FIFO_MODE_SEL ; When high, PWM FIFO mode is activated.
+= 1, ENABLE
+= 0, DISABLE
+
+FIFO_INTSTS = 0x0054 ; FIFO Interrupts Status Register
+> 4, 1, FIFO_EMPTY_STATUS, RO ; This bit indicates the FIFO is empty.
+= 1, EMPTY
+= 0, NOT_EMPTY
+
+> 3, 1, TIMEOUT_INTSTS, W1C ;  Timeout interrupt.
+= 1, ASSERTED
+= 0, DEASSERTED
+
+> 2, 1, FIFO_WATERMARK_FULL_INTSTS, W1C ;  This bit indicates the FIFO is Watermark full.
+= 1, FULL
+= 0, NOT_FULL
+
+> 1, 1, FIFO_OVERFLOW_INTSTS, W1C ;  This bit indicates the FIFO is overflow.
+= 1, OVERFLOW
+= 0, NOT_OVERFLOW
+
+> 0, 1, FIFO_FULL_INTSTS, W1C ;  This bit indicates the FIFO is full.
+= 1, FULL
+= 0, NOT_FULL
+
+FIFO_TOUTTHR = 0x0058 ; FIFO Timeout Threshold Register
+> 0, 20, TIMEOUT_THRESHOLD ; FIFO timeout value (Unit: pwm clock).
+
+# TODO: Verify, this register is listed R/W
+VERSION_ID = 0x005C, RO ; PWM Version ID Register
+> 24, 8, MAIN_VERSION ; Main version
+= 0, BASE_VERSION
+= 1, SUPPORT_DMA
+= 2, SUPPORT_DMA_POWER_KEY
+
+> 16, 8, MINOR_VERSION ; Minor version
+
+> 0, 16, SVN_VERSION ; SVN version
+
+FIFO = 0x0060, RO ; FIFO Register
+> 31, 1, POL ; This bit indicates the polarity of the lower 31-bit counter.
+= 0, LOW
+= 1, HIGH
+
+> 0, 31, CYCLE_CNT ; This 31-bit counter indicates the effective cycles of high/low waveform.
+
+PWRMATCH_CTRL = 0x0080 ; Power Key Match Control Register
+> 15, 1, CH3_PWRKEY_INT_CTRL
+= 0, ASSERT_WITH_POWER_KEY ; Assert interrupt after key capture with power key match
+= 1, ASSERT_WITHOUT_POWER_KEY ; Assert interrupt after key capture without power key match
+
+> 11, 1, CH3_PWRKEY_CAPTURE_CTRL
+= 0, AFTER_IRQ ; Capture the value after interrupt
+= 1, DIRECTLY ; Capture the value directly
+
+> 7, 1, CH3_PWRKEY_POLARITY
+= 0, POSITIVE ; PWM in polarity is positive
+= 1, NEGATIVE ; PWM in polarity is negative
+
+> 3, 1, CH3_PWRKEY_ENABLE
+= 0, DISABLE
+= 1, ENABLE
+
+PWRMATCH_LPRE = 0x0084 ; Power Key Match Of Low Preload Register
+> 16, 16, CNT_MAX ; The maximum counter value.
+> 0, 16, CNT_MIN ; The minimum counter value.
+
+PWRMATCH_HPRE = 0x0088 ; Power Key Match Of High Preload Register
+> 16, 16, CNT_MAX ; The maximum counter value.
+> 0, 16, CNT_MIN ; The minimum counter value.
+
+PWRMATCH_LD = 0x008C ; Power Key Match Of Low Data Register
+> 16, 16, CNT_MAX ; The maximum counter value.
+> 0, 16, CNT_MIN ; The minimum counter value.
+
+PWRMATCH_HD_ZERO = 0x0090 ; Power Key Match Of High Data For Zero Register
+> 16, 16, CNT_MAX ; The maximum counter value.
+> 0, 16, CNT_MIN ; The minimum counter value.
+
+PWRMATCH_HD_ONE = 0x0094 ; Power Key Match Of High Data For One Register
+> 16, 16, CNT_MAX ; The maximum counter value.
+> 0, 16, CNT_MIN ; The minimum counter value.
+
+PWRMATCH_VALUE0 = 0x0098 ; Power Key Match Value 0 Register
+PWRMATCH_VALUE1 = 0x009C ; Power Key Match Value 1 Register
+PWRMATCH_VALUE2 = 0x00A0 ; Power Key Match Value 2 Register
+PWRMATCH_VALUE3 = 0x00A4 ; Power Key Match Value 3 Register
+PWRMATCH_VALUE4 = 0x00A8 ; Power Key Match Value 4 Register
+PWRMATCH_VALUE5 = 0x00AC ; Power Key Match Value 5 Register
+PWRMATCH_VALUE6 = 0x00B0 ; Power Key Match Value 6 Register
+PWRMATCH_VALUE7 = 0x00B4 ; Power Key Match Value 7 Register
+PWRMATCH_VALUE8 = 0x00B8 ; Power Key Match Value 8 Register
+PWRMATCH_VALUE9 = 0x00BC ; Power Key Match Value 9 Register
+
+CH3_PWRCAPTURE_VALUE = 0x00CC ; Channel 3 Power Key Capture Value Register
+
+CHANNEL_IO_CTRL = 0x00D0 ; Channel IO Control Register
+> 18, 1, CH2_AND_CH3_SWITCH_EN
+= 0, DISABLE
+= 1, ENABLE
+
+> 17, 1, CH1_AND_CH3_SWITCH_EN
+= 0, DISABLE
+= 1, ENABLE
+
+> 16, 1, CH0_AND_CH3_SWITCH_EN
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 9, FILTER_NUMBER ; Filter window number
+
+> 3, 1, CH3_INPUT_FILTER_ENABLE
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, CH2_INPUT_FILTER_ENABLE
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, CH1_INPUT_FILTER_ENABLE
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, CH0_INPUT_FILTER_ENABLE
+= 0, DISABLE
+= 1, ENABLE
+
