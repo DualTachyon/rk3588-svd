@@ -1,3 +1,158 @@
 [TIMER_NS_1]
 @ = 0x0FEAE8000, 0x00008000
 
+TIMER0_LOAD_COUNT0 = 0x0000 ; Timer0 Load Count Register 0. Lower 32 bits Value to be loaded into Timer 0
+TIMER0_LOAD_COUNT1 = 0x0004 ; Timer0 Load Count Register 1. Higher 32 bits Value to be loaded into Timer 0. This is the value from which counting commences
+TIMER0_CURRENT_VALUE0 = 0x0008, RO ; Timer0 Current Value Register 0. Lower 32 bits of Current Value of Timer 0
+TIMER0_CURRENT_VALUE1 = 0x000C, RO ; Timer0 Current Value Register 1. High 32 bits of Current Value of Timer 0
+
+TIMER0_CONTROL_REG = 0x0010 ; Timer0 Control Register
+> 2, 1, TIMER_INT_EN ; Timer interrupt enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, TIMER_MODE ; Timer mode
+= 0, FREE_RUNNING
+= 1, USER_DEFINED_COUNT
+
+> 0, 1, TIMER_EN ; Timer enable
+= 0, DISABLE
+= 1, ENABLE
+
+TIMER0_INTSTATUS = 0x0018, RO ; Timer0 Interrupt Status Register
+> 0, 1, TIMER0_INT ; This register contains the interrupt status for timern.
+
+TIMER1_LOAD_COUNT0 = 0x0020 ; Timer1 Load Count Register 0. Lower 32 bits Value to be loaded into Timer 1
+TIMER1_LOAD_COUNT1 = 0x0024 ; Timer1 Load Count Register 1. Higher 32 bits Value to be loaded into Timer 1. This is the value from which counting commences
+TIMER1_CURRENT_VALUE0 = 0x0028, RO ; Timer1 Current Value Register 0. Lower 32 bits Current Value of Timer 1
+TIMER1_CURRENT_VALUE1 = 0x002C, RO ; Timer1 Current Value Register 1. High 32 bits of Current Value of Timer 1
+
+TIMER1_CONTROL_REG = 0x0030 ; Timer1 Control Register
+> 2, 1, TIMER_INT_EN ; Timer interrupt enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, TIMER_MODE ; Timer mode
+= 0, FREE_RUNNING
+= 1, USER_DEFINED_COUNT
+
+> 0, 1, TIMER_EN ; Timer enable
+= 0, DISABLE
+= 1, ENABLE
+
+TIMER1_INTSTATUS = 0x0038, RO ; Timer1 Interrupt Status Register
+> 0, 1, TIMER1_INT ; This register contains the interrupt status for timern.
+
+TIMER2_LOAD_COUNT0 = 0x0040 ; Timer2 Load Count Register 0. Lower 32 bits Value to be loaded into Timer 2
+TIMER2_LOAD_COUNT1 = 0x0044 ; Timer2 Load Count Register 1. Higher 32 bits Value to be loaded into Timer 2. This is the value from which counting commences
+TIMER2_CURRENT_5ALUE0 = 0x0048, RO ; Timer2 Current Value Register 0. Lower 32 bits of Current Value of Timer 2
+TIMER2_CURRENT_VALUE1 = 0x004C, RO ; Timer2 Current Value Register 1. High 32 bits of Current Value of Timer 2
+
+TIMER2_CONTROL_REG = 0x0050 ; Timer2 Control Register
+> 2, 1, TIMER_INT_EN ; Timer interrupt enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, TIMER_MODE ; Timer mode
+= 0, FREE_RUNNING
+= 1, USER_DEFINED_COUNT
+
+> 0, 1, TIMER_EN ; Timer enable
+= 0, DISABLE
+= 1, ENABLE
+
+TIMER2_INTSTATUS = 0x0058, RO ; Timer2 Interrupt Status Register
+> 0, 1, TIMER2_INT ; This register contains the interrupt status for timern.
+
+TIMER3_LOAD_COUNT0 = 0x0060 ; Timer3 Load Count Register 0. Lower 32 bits Value to be loaded into Timer 3
+TIMER3_LOAD_COUNT1 = 0x0064 ; Timer3 Load Count Register 1. Higher 32 bits Value to be loaded into Timer 3. This is the value from which counting commences
+TIMER3_CURRENT_VALUE0 = 0x0068, RO ; Timer3 Current Value Register 0. Lower 32 bits of Current Value of Timer 3
+TIMER3_CURRENT_VALUE1 = 0x006C, RO ; Timer3 Current Value Register 1. High 32 bits of Current Value of Timer 3
+
+TIMER3_CONTROL_REG = 0x0070 ; Timer3 Control Register
+> 2, 1, TIMER_INT_EN ; Timer interrupt enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, TIMER_MODE ; Timer mode
+= 0, FREE_RUNNING
+= 1, USER_DEFINED_COUNT
+
+> 0, 1, TIMER_EN ; Timer enable
+= 0, DISABLE
+= 1, ENABLE
+
+TIMER3_INTSTATUS = 0x0078, RO ; Timer3 Interrupt Status Register
+> 0, 1, TIMER3_INT ; This register contains the interrupt status for timern.
+
+TIMER4_LOAD_COUNT0 = 0x0080 ; Timer4 Load Count Register 0. Lower 32 bits Value to be loaded into Timer 4
+TIMER4_LOAD_COUNT1 = 0x0084 ; Timer4 Load Count Register 1. Higher 32 bits Value to be loaded into Timer 4. This is the value from which counting commences
+TIMER4_CURRENT_VALUE0 = 0x0088, RO ; Timer4 Current Value Register 0. Lower 32 bits of Current Value of Timer 4
+TIMER4_CURRENT_VALUE1 = 0x008C, RO ; Timer4 Current Value Register 1. High 32 bits of Current Value of Timer 4
+
+TIMER4_CONTROL_REG = 0x0090 ; Timer4 Control Register
+> 2, 1, TIMER_INT_EN ; Timer interrupt enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, TIMER_MODE ; Timer mode
+= 0, FREE_RUNNING
+= 1, USER_DEFINED_COUNT
+
+> 0, 1, TIMER_EN ; Timer enable
+= 0, DISABLE
+= 1, ENABLE
+
+TIMER4_INTSTATUS = 0x0098, RO ; Timer4 Interrupt Status Register
+> 0, 1, TIMER4_INT ; This register contains the interrupt status for timern.
+
+TIMER5_LOAD_COUNT0 = 0x00A0 ; Timer5 Load Count Register 0. Lower 32 bits Value to be loaded into Timer 5
+TIMER5_LOAD_COUNT1 = 0x00A4 ; Timer5 Load Count Register 1. Higher 32 bits Value to be loaded into Timer 5. This is the value from which counting commences
+TIMER5_CURRENT_VALUE0 = 0x00A8, RO ; Timer5 Current Value Register 0. Lower 32 bits of Current Value of Timer 5
+TIMER5_CURRENT_VALUE1 = 0x00AC, RO ; Timer5 Current Value Register 1. High 32 bits of Current Value of Timer 5
+
+TIMER5_CONTROL_REG = 0x00B0 ; Timer5 Control Register
+> 2, 1, TIMER_INT_EN ; Timer interrupt enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, TIMER_MODE ; Timer mode
+= 0, FREE_RUNNING
+= 1, USER_DEFINED_COUNT
+
+> 0, 1, TIMER_EN ; Timer enable
+= 0, DISABLE
+= 1, ENABLE
+
+TIMER5_INTSTATUS = 0x00B8, RO ; Timer5 Interrupt Status Register
+> 0, 1, TIMER5_INT ; This register contains the interrupt status for timern.
+
+6CH_REVISION = 0x00F0, RO ; 6-channel TIMER version
+> 16, 16, SVN_REVISION ; SVN revision: 16'd4503.
+
+> 13, 1, CH5_TYPE ; Channel 5 is a count up counter.
+= 1, COUNT_UP
+= 0, COUNT_DOWN
+
+> 12, 1, CH4_TYPE ; Channel 4 is a count down counter.
+= 1, COUNT_UP
+= 0, COUNT_DOWN
+
+> 11, 1, CH3_TYPE ; Channel 3 is a count down counter.
+= 1, COUNT_UP
+= 0, COUNT_DOWN
+
+> 10, 1, CH2_TYPE ; Channel 2 is a count down counter.
+= 1, COUNT_UP
+= 0, COUNT_DOWN
+
+> 9, 1, CH1_TYPE ; Channel 1 is a count down counter.
+= 1, COUNT_UP
+= 0, COUNT_DOWN
+
+> 8, 1, CH0_TYPE ; Channel 0 is a count down counter.
+= 1, COUNT_UP
+= 0, COUNT_DOWN
+
+> 0, 8, IP_FUNCTION ; IP function: 16'd6.
+
