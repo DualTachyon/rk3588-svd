@@ -1,3 +1,106 @@
 [MCU_CACHE]
 @ = 0x0F6F10000, 0x00010000
 
+CACHE_CTRL = 0x0000 ; Cache Control Register
+> 13, 1, CACHE_PF_EN ; Cache prefetch enable register.
+= 0, DISABLE
+= 1, ENABLE
+
+> 12, 1, CACHE_MPU_MODE ; Cache MPU mode enable register. When this bit is set to 1, the cacheability policy is determined by MPU of Cortex-M4.
+= 0, DISABLE
+= 1, ENABLE
+
+> 8, 3, STB_ENTRY_THRESH ; Store buffer entry threshold control register. The depth of the store buffer entry is 8. When the number of the used data entries is greater than or equal to threshold value, the write data will be written to Cache RAM.
+
+> 7, 1, STB_TIMEOUT_EN ; Store buffer timeout enable register. When this bit is set to 1, the data in the store buffer must be flushed to Cache RAM if the counter value is equal to the timeout value.
+= 0, DISABLE
+= 1, ENABLE
+
+> 6, 1, CACHE_BYPASS ; Cache bypass mode enable register. When this bit is set to 1, data will bypass the Cache.
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, CACHE_PMU_EN ; Cache Performance Monitor Unit enable register.
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 1, CACHE_FLUSH ; Cache flush enable register. When this bit is set to 1, the dirty data is flushed to external memory and the cache line are invalidated.
+= 0, DISABLE
+= 1, ENABLE
+
+> 3, 1, CACHE_STB_EN ; Cache store buffer enable register. This bit must be set to 0 when Write-Through mode is selected and must be set to 1 when Write-Back mode is selected.
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, CACHE_HB_EN ; Cache hot buffer enable register.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, CACHE_WT_EN ; Cache mode control register.
+= 0, WRITE_BACK
+= 1, WRITE_THROUGH
+
+> 0, 1, CACHE_EN ; Cache initialization enable register.
+= 0, DISABLE
+= 1, ENABLE
+
+MAINTAIN0 = 0x0004 ; Cache Maintain 0 Register
+> 5, 27, CACHE_M_ADDR ; Cache maintain start address. This address is 32Byte cache line aligned, that is, the bits[4:0] are always 0.
+
+> 1, 2, CACHE_M_CMD ; Cache maintain command register.
+= 0, CLEAN_BY_ADDRESS
+= 1, INVALIDATE_BY_ADDRESS
+= 2, CLEAN_AND_INVALIDATE_BY_ADDRESS
+= 3, INVALIDATE_ALL
+
+> 0, 1, CACHE_M_VALID ; Cache maintain valid register. The maintenance operation is valid only when this bit is set to 1.
+
+MAINTAIN1 = 0x0008 ; Cache Maintain 1 Register
+> 0, 27, CACHE_M_OFFSET ; Cache maintain offset. This bit field indicates the end offset of cache line, that is, the value plus 1 determines the number of cache line to be maintained. The bit field of cache_m_addr is treated as the start offset of cache line, so the maintain address range is from (cache_m_addr * 32) to (cache_m_addr * 32 + 31 + cache_m_offset * 32).
+
+STB_TIMEOUT_CTRL = 0x000C ; Store Buffer Timeout Control Register
+RAM_DEBUG = 0x0010 ; Cache RAM Debug Register
+> 0, 1, RAM_DEBUG_EN ; Cache RAM debug mode enable register.
+= 0, DISABLE
+= 1, ENABLE
+
+CACHE_INT_EN = 0x0020 ; Cache Interrupt Enable Register
+> 0, 1, ERR_RECORD_EN ; AHB master bus error record enable.
+= 0, DISABLE
+= 1, ENABLE
+
+CACHE_INT_ST = 0x0024 ; Cache Interrupt Status Register
+> 0, 1, AHB_ERROR_STATUS ; Error status bit for AHB master bus.
+= 0, NOTHING
+= 1, BUS_ERROR
+
+CACHE_ERR_HADDR = 0x0028 ; Cache Error Address Register
+> 0, 1, STATUS_HADDR, RO ; Recent record of AHB bus error address.
+
+CACHE_STATUS = 0x0030 ; Cache Status Register
+> 2, 1, CACHE_FLUSH_DONE, RO ; Cache flush done status register.
+= 0, NOTHING
+= 1, FLUSH_DONE
+
+> 1, 1, CACHE_M_BUSY, RO ; Cache maintain busy status register.
+= 0, IDLE
+= 1, BUSY
+
+> 0, 1, CACHE_INIT_FINISH, RO ; Cache initialization finish status register.
+= 0, UNINITIALIZED
+= 1, INITIALIZED
+
+PMU_RD_NUM_CNT = 0x0040, RO ; PMU Read Number Count Register
+PMU_WR_NUM_CNT = 0x0044, RO ; PMU Write Number Count Register
+PMU_SRAM_RD_HIT_CNT = 0x0048, RO ; PMU RAM Read Hit Count Register
+PMU_HB_RD_HIT_CNT = 0x004C, RO ; PMU Hot Buffer Read Hit Count Register
+PMU_STB_RD_HIT_CNT = 0x0050, RO ; PMU Store Buffer Read Hit Count Register
+PMU_RD_HIT_CNT = 0x0054, RO ; PMU Read Hit Count Register
+PMU_WR_HIT_CNT = 0x0058, RO ; PMU Write Hit Count Register
+PMU_RD_MISS_PENALTY_CNT = 0x005C, RO ; PMU Read Miss Penalty Count Register (in clock cycles)
+PMU_WR_MISS_PENALTY_CNT = 0x0060, RO ; PMU Write Miss Penalty Count Register (in clock cycles)
+PMU_RD_LAT_CNT = 0x0064, RO ; PMU Read Latency Count Register (in clock cycles)
+PMU_WR_LAT_CNT = 0x0068, RO ; PMU Write Latency Count Register (in clock cycles)
+
+REVISION = 0x00F0, RO ; Cache Design Revision Register
+
