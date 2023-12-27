@@ -225,7 +225,7 @@ def check_for_overlaps(peripherals):
                         raise Exception('Enum %d for bitfield %s at %s.%s (0x%04X)!' % (enum, b_name, p_name, r_name, offset))
                     enumset.add(enum)
 
-def generate_svd(all_peripherals, filename):
+def generate_svd(all_peripherals, filename, gen_empty):
     device = xml.Element('device')
     device.attrib['schemaVersion'] = "1.3"
     device.attrib['xmlns:xs'] = "http://www.w3.org/2001/XMLSchema-instance"
@@ -360,7 +360,10 @@ def generate_svd(all_peripherals, filename):
             registers.append(register)
         if len(p_regs) > 0:
             peripheral.append(registers)
+        if len(p_regs) > 0 or gen_empty:
             peripherals.append(peripheral)
+        else:
+            print('Peripheral %s has no registers!' % p_name)
 
     device.append(peripherals)
     tree = xml.ElementTree(device)
@@ -450,6 +453,7 @@ def load_definition(peripherals, filename):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument('--empty', help='Emit peripherals with no registers', action='store_true')
     parser.add_argument('-o', help='output file', type=str)
     parser.add_argument('-i', help='input files', type=str, nargs='+')
     args = parser.parse_args()
@@ -471,5 +475,5 @@ if __name__ == "__main__":
     except Exception as e:
         print('Error in %s: %s' % (filename, e.args))
     else:
-        generate_svd(peripherals, args.o)
+        generate_svd(peripherals, args.o, args.empty)
 
