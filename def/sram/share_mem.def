@@ -1,0 +1,185 @@
+[SHAREMEM]
+@ = 0x0FE120000, 0x00008000
+
+RRA_SLT = 0x0000 ; RRA slot assignment register
+> 28, 4, REQ_SLOT7 ; Initial assignment to slot 7.
+= 0, AXIS0_READ_REQUESTER
+= 1, AXIS0_WRITE_REQUESTER
+= 2, AXIS1_READ_REQUESTER
+= 3, AXIS1_WRITE_REQUESTER
+= 4, AXIS2_READ_REQUESTER
+= 5, AXIS2_WRITE_REQUESTER
+= 6, AXIS3_READ_REQUESTER
+= 7, AXIS3_WRITE_REQUESTER
+
+> 24, 4, REQ_SLOT6 ; Initial assignment to slot 6.
+= 0, AXIS0_READ_REQUESTER
+= 1, AXIS0_WRITE_REQUESTER
+= 2, AXIS1_READ_REQUESTER
+= 3, AXIS1_WRITE_REQUESTER
+= 4, AXIS2_READ_REQUESTER
+= 5, AXIS2_WRITE_REQUESTER
+= 6, AXIS3_READ_REQUESTER
+= 7, AXIS3_WRITE_REQUESTER
+
+> 20, 4, REQ_SLOT5 ; Initial assignment to slot 5.
+= 0, AXIS0_READ_REQUESTER
+= 1, AXIS0_WRITE_REQUESTER
+= 2, AXIS1_READ_REQUESTER
+= 3, AXIS1_WRITE_REQUESTER
+= 4, AXIS2_READ_REQUESTER
+= 5, AXIS2_WRITE_REQUESTER
+= 6, AXIS3_READ_REQUESTER
+= 7, AXIS3_WRITE_REQUESTER
+
+> 16, 4, REQ_SLOT4 ; Initial assignment to slot 4.
+= 0, AXIS0_READ_REQUESTER
+= 1, AXIS0_WRITE_REQUESTER
+= 2, AXIS1_READ_REQUESTER
+= 3, AXIS1_WRITE_REQUESTER
+= 4, AXIS2_READ_REQUESTER
+= 5, AXIS2_WRITE_REQUESTER
+= 6, AXIS3_READ_REQUESTER
+= 7, AXIS3_WRITE_REQUESTER
+
+> 12, 4, REQ_SLOT3 ; Initial assignment to slot 3.
+= 0, AXIS0_READ_REQUESTER
+= 1, AXIS0_WRITE_REQUESTER
+= 2, AXIS1_READ_REQUESTER
+= 3, AXIS1_WRITE_REQUESTER
+= 4, AXIS2_READ_REQUESTER
+= 5, AXIS2_WRITE_REQUESTER
+= 6, AXIS3_READ_REQUESTER
+= 7, AXIS3_WRITE_REQUESTER
+
+> 8, 4, REQ_SLOT2 ; Initial assignment to slot 2.
+= 0, AXIS0_READ_REQUESTER
+= 1, AXIS0_WRITE_REQUESTER
+= 2, AXIS1_READ_REQUESTER
+= 3, AXIS1_WRITE_REQUESTER
+= 4, AXIS2_READ_REQUESTER
+= 5, AXIS2_WRITE_REQUESTER
+= 6, AXIS3_READ_REQUESTER
+= 7, AXIS3_WRITE_REQUESTER
+
+> 4, 4, REQ_SLOT1 ; Initial assignment to slot 1.
+= 0, AXIS0_READ_REQUESTER
+= 1, AXIS0_WRITE_REQUESTER
+= 2, AXIS1_READ_REQUESTER
+= 3, AXIS1_WRITE_REQUESTER
+= 4, AXIS2_READ_REQUESTER
+= 5, AXIS2_WRITE_REQUESTER
+= 6, AXIS3_READ_REQUESTER
+= 7, AXIS3_WRITE_REQUESTER
+
+> 0, 4, REQ_SLOT0 ; Initial assignment to slot 0.
+= 0, AXIS0_READ_REQUESTER
+= 1, AXIS0_WRITE_REQUESTER
+= 2, AXIS1_READ_REQUESTER
+= 3, AXIS1_WRITE_REQUESTER
+= 4, AXIS2_READ_REQUESTER
+= 5, AXIS2_WRITE_REQUESTER
+= 6, AXIS3_READ_REQUESTER
+= 7, AXIS3_WRITE_REQUESTER
+
+RRA_WEIGHT = 0x0008 ; RRA arbitration weight register
+> 28, 3, WEIGHT_AXIS3WR ; AXIS3 write port arbitration weight
+> 24, 3, WEIGHT_AXIS3RD ; AXIS3 read port arbitration weight
+> 20, 3, WEIGHT_AXIS2WR ; AXIS2 write port arbitration weight
+> 16, 3, WEIGHT_AXIS2RD ; AXIS2 read port arbitration weight
+> 12, 3, WEIGHT_AXIS1WR ; AXIS1 write port arbitration weight
+> 8, 3, WEIGHT_AXIS1RD ; AXIS1 read port arbitration weight
+> 4, 3, WEIGHT_AXIS0WR ; AXIS0 write port arbitration weight
+> 0, 3, WEIGHT_AXIS0RD ; AXIS0 read port arbitration weight
+
+RRA_SLT_PRI = 0x0010 ; RRA slot priority register
+> 8, 4, RRA_FIRSTSLOT_REGION3 ; The number of the lowest priority slot in the RRA priority region 3
+> 4, 4, RRA_FIRSTSLOT_REGION2 ; The number of the lowest priority slot in the RRA priority region 2
+> 0, 4, RRA_FIRSTSLOT_REGION1 ; The number of the lowest priority slot in the RRA priority region 1
+
+CTRL = 0x0020 ; Global control register
+> 6, 1, DOC_BUG_ADDR_ROUND_EN ; Bug? Only 4 axis, but 5 bits!
+= 1, ACTIVE
+= 0, NOT_ACTIVE
+
+> 5, 1, A3_ADDR_ROUND_EN ; AXIS3 address round enable, high active
+= 1, ACTIVE
+= 0, NOT_ACTIVE
+
+> 4, 1, A2_ADDR_ROUND_EN ; AXIS2 address round enable, high active
+= 1, ACTIVE
+= 0, NOT_ACTIVE
+
+> 3, 1, A1_ADDR_ROUND_EN ; AXIS1 address round enable, high active
+= 1, ACTIVE
+= 0, NOT_ACTIVE
+
+> 2, 1, A0_ADDR_ROUND_EN ; AXIS0 address round enable, high active
+= 1, ACTIVE
+= 0, NOT_ACTIVE
+
+> 1, 1, FREE_RUN_MODE ; Free run mode enable.
+= 0, LOW_POWER
+= 1, FREE_RUN
+
+> 0, 1, CFG_LOAD_EN ; RRA configuration load enable, high active.
+= 1, ACTIVE
+= 0, NOT_ACTIVE
+
+STATUS = 0x0024 ; Status register
+> 27, 1, AXI3_SLV_ADDR_ROUND ; AXI slave3 address round status.
+
+> 26, 1, AXI2_SLV_ADDR_ROUND ; AXI slave2 address round status.
+
+> 25, 1, AXI1_SLV_ADDR_ROUND ; AXI slave1 address round status.
+
+> 24, 1, AXI0_SLV_ADDR_ROUND ; AXI slave1 address round status.
+
+> 19, 1, AXI3_SLV_WRESPERR ; AXI slave write response error indication.
+= 1, ERROR
+= 0, OK
+
+> 18, 1, AXI2_SLV_WRESPERR ; AXI slave write response error indication.
+= 1, ERROR
+= 0, OK
+
+> 17, 1, AXI1_SLV_WRESPERR ; AXI slave write response error indication.
+= 1, ERROR
+= 0, OK
+
+> 16, 1, AXI0_SLV_WRESPERR ; AXI slave write response error indication.
+= 1, ERROR
+= 0, OK
+
+> 11, 1, AXI3_SLV_RRESPERR ; AXI slave read response error indication.
+= 1, ERROR
+= 0, OK
+
+> 10, 1, AXI2_SLV_RRESPERR ; AXI slave read response error indication.
+= 1, ERROR
+= 0, OK
+
+> 9, 1, AXI1_SLV_RRESPERR ; AXI slave read response error indication.
+= 1, ERROR
+= 0, OK
+
+> 8, 1, AXI0_SLV_RRESPERR ; AXI slave read response error indication.
+= 1, ERROR
+= 0, OK
+
+> 3, 1, AXI3_SLV_ACTIVE ; AXI slave status.
+= 1, ACTIVE
+= 0, INACTIVE
+
+> 2, 1, AXI2_SLV_ACTIVE ; AXI slave status.
+= 1, ACTIVE
+= 0, INACTIVE
+
+> 1, 1, AXI1_SLV_ACTIVE ; AXI slave status.
+= 1, ACTIVE
+= 0, INACTIVE
+
+> 0, 1, AXI0_SLV_ACTIVE ; AXI slave status.
+= 1, ACTIVE
+= 0, INACTIVE
+
