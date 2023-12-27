@@ -41,6 +41,13 @@ ACCESS_TAGS = {
 
 MODIFIED_TAGS = {
     'W1C': 'oneToClear',
+    'W1S': 'oneToSet',
+}
+
+SIZE_TAGS = {
+    'U8': 8,
+    'U16': 16,
+    'U32': 32,
 }
 
 def parse_peripheral_name(line, original):
@@ -94,19 +101,33 @@ def parse_register(line, original):
     if ',' in tokens[1]:
         sub = tokens[1].split(',')
         sub = [s.strip() for s in sub]
-        if len(sub) != 2:
-            raise Exception('Invalid register definition: %s' % original)
         tokens[1] = sub[0]
-        tokens.append(sub[1])
+        tokens.append(sub[1:])
 
     tokens[0] = tokens[0].strip()
     tokens[1] = tokens[1].strip()
     if len(tokens) == 2:
-        tokens.append('RW')
+        tokens.append(['RW'])
     else:
-        tokens[2] = tokens[2].strip().upper()
-        if not tokens[2] in [ 'RW', 'RO', 'WO', 'W1C' ]:
-            raise Exception('Invalid bitfield access mode: %s' % original)
+        modifiers = [modifier.strip().upper() for modifier in tokens[2]]
+        access_flag = False
+        modify_flag = False
+        size_flag = False
+        for modifier in modifiers:
+            if modifier in ACCESS_TAGS:
+                if access_flag:
+                    raise Exception('Unexpected bitfield modifier (%s): %s' % (modifier, original))
+                access_flag = True
+            elif modifier in MODIFIED_TAGS:
+                if modify_flag:
+                    raise Exception('Unexpected bitfield modifier (%s): %s' % (modifier, original))
+                modify_flag = True
+            elif modifier in SIZE_TAGS:
+                if size_flag:
+                    raise Exception('Unexpected bitfield modifier (%s): %s' % (modifier, original))
+                size_flag = True
+            else:
+                raise Exception('Invalid bitfield modifier (%s): %s' % (modifier, original))
 
     try:
         tokens[1] = int(tokens[1], 0)
@@ -133,7 +154,7 @@ def parse_bitfield(line, original):
         tokens.append('RW')
     else:
         tokens[3] = tokens[3].strip().upper()
-        if not tokens[3] in [ 'RW', 'RO', 'WO', 'W1C' ]:
+        if not tokens[3] in [*ACCESS_TAGS, *MODIFIED_TAGS]:
             raise Exception('Invalid bitfield access mode: %s' % original)
 
     return (*tokens, description)
@@ -249,7 +270,7 @@ def generate_svd(all_peripherals, filename):
 
         registers = xml.Element('registers')
 
-        for _, (r_name, r_offset, r_access, r_description, bitfields) in p_regs.items():
+        for _, (r_name, r_offset, r_modifiers, r_description, bitfields) in p_regs.items():
             register = xml.Element('register')
 
             name = xml.Element('name')
@@ -265,15 +286,19 @@ def generate_svd(all_peripherals, filename):
             addressOffset.text = '0x%04X' % r_offset
             register.append(addressOffset)
 
-            if r_access in ACCESS_TAGS:
-                access = xml.Element('access')
-                access.text = ACCESS_TAGS[r_access]
-                register.append(access)
-
-            if r_access in MODIFIED_TAGS:
-                modified = xml.Element('modifiedWriteValues')
-                modified.text = MODIFIED_TAGS[r_access]
-                register.append(modified)
+            for modifier in r_modifiers:
+                if modifier != 'RW' and modifier in ACCESS_TAGS:
+                    access = xml.Element('access')
+                    access.text = ACCESS_TAGS[modifier]
+                    register.append(access)
+                elif modifier in MODIFIED_TAGS:
+                    modified = xml.Element('modifiedWriteValues')
+                    modified.text = MODIFIED_TAGS[modifier]
+                    register.append(modified)
+                elif modifier in SIZE_TAGS:
+                    size = xml.Element('size')
+                    size.text = str(SIZE_TAGS[modifier])
+                    register.append(size)
 
             if len(bitfields):
                 fields = xml.Element('fields')

@@ -1,3 +1,2046 @@
 [EMMC]
 @ = 0x0FE2E0000, 0x00010000
 
+SDMASA = 0x0000 ; SDMA System Address Register
+> 0, 32, BLOCKCNT_SDMASA ; 32-bit Block Count (SDMA System Address). 1. SDMA System Address (Host Version 4 Enable = 0): This register contains the system memory address for an SDMA transfer in the 32-bit addressing mode. When the Host Controller stops an SDMA transfer, this register points to the system address of the next contiguous data position. It can be accessed only if no transaction is executing. Reading this register during data transfers may return an invalid value. 2. 32-bit Block Count (Host Version 4 Enable = 1): From the Host Controller Version 4.10 specification, this register is redefined as 32-bit Block Count. The Host Controller decrements the block count of this register for every block transfer and the data transfer stops when the count reaches zero. This register must be accessed when no transaction is executing. Reading this register during data transfers may return invalid value. a. For Host Version 4 Enable = 0, the Host driver does not program the system address in this register while operating in ADMA mode. The system address must be programmed in the ADMA System Address register. b. For Host Version 4 Enable = 0, the Host driver programs a non-zero 32-bit block count value in this register when Auto CMD23 is enabled for non-DMA and ADMA modes. Auto CMD23 cannot be used with SDMA. c. This register must be programmed with a non-zero value for data transfer if the 32-bit Block count register is used instead of the 16-bit Block count register.
+
+BLOCKSIZE = 0x0004, U16 ;  Block Size Register
+> 12, 3, SDMA_BUF_BDARY ; SDMA Buffer Boundary. These bits specify the size of contiguous buffer in system memory. The SDMA transfer waits at every boundary specified by these fields and the Host Controller generates the DMA interrupt to request the Host Driver to update the SDMA System Address register. Values:
+= 0, 4KB
+= 1, 8KB
+= 2, 16KB
+= 3, 32KB
+= 4, 64KB
+= 5, 128KB
+= 6, 256KB
+= 7, 512KB
+
+> 0, 12, XFER_BLOCK_SIZE ; Transfer Block Size. These bits specify the block size of data transfers. In case of memory, it is set to 512 bytes. It can be accessed only if no transaction is executing. Read operations during transfers may return an invalid value, and write operations are ignored. Note: This register must be programmed with a non-zero value for data transfer.
+
+BLOCKCOUNT = 0x0006, U16 ;  Block Count Register
+> 0, 16, BLOCK_CNT ; 16-bit Block Count. If the Host Version 4 Enable bit is set 0 or the 16-bit Block Count register is set to non-zero, the 16-bit Block Count register is selected. If the Host Version 4 Enable bit is set 1 and the 16-bit Block Count register is set to zero, the 32-bit Block Count register is selected. Note: For Host Version 4 Enable = 0, this register must be set to 0 before programming the 32-bit block count register when Auto CMD23 is enabled for non-DMA and ADMA modes.
+
+ARGUMENT = 0x0008 ; Argument Register
+> 0, 32, ARGUMENT ; Command Argument. These bits specify the SD/eMMC command argument that is specified in bits 39-8 of the Command format.
+
+XFER_MODE = 0x000C, U16 ;  Transfer Mode Register
+> 8, 1, RESP_INT_DISABLE ; Response Interrupt Disable. The Host Controller supports response check function to avoid overhead of response error check by the Host driver. Response types of only R1 and R5 can be checked by the Controller. If Host Driver checks the response error, set this bit to 0 and wait for Command Complete Interrupt and then check the response register. If the Host Controller checks the response error, set this bit to 1 and set the Response Error Check Enable bit to 1. The Command Complete Interrupt is disabled by this bit regardless of the Command Complete Signal Enable. Note: During tuning (when the Execute Tuning bit in the Host Control2 register is set), the Command Complete Interrupt is not generated irrespective of the Response Interrupt Disable setting.
+= 0, ENABLED
+= 1, DISABLED
+
+> 7, 1, RESP_ERR_CHK_ENABLE ; Response Error Check Enable. The Host Controller supports response check function to avoid overhead of response error check by Host driver. Response types of only R1 and R5 can be checked by the Controller. If the Host Controller checks the response error, set this bit to 1 and set Response Interrupt Disable to 1. If an error is detected, the Response Error interrupt is generated in the Error Interrupt Status register. Note: a. Response error check must not be enabled for any response type other than R1 and R5. b. Response check must not be enabled for the tuning command.
+= 0, DISABLED
+= 1, ENABLED
+
+> 6, 1, RESP_TYPE ; Response Type R1/R5. This bit selects either R1 or R5 as a response type when the Response Error Check is selected.
+= 0, R1
+= 1, R5
+
+> 5, 1, MULTI_BLK_SEL ; Multi/Single Block Select. This bit is set when issuing multiple-block transfer commands using the DAT line. If this bit is set to 0, it is not necessary to set the Block Count register.
+= 0, SINGLE
+= 1, MULTIPLE
+
+> 4, 1, DATA_XFER_DIR ; Data Transfer Direction Select. This bit defines the direction of DAT line data transfers. This bit is set to 1 by the Host Driver to transfer data from the SD/eMMC card to the Host Controller and it is set to 0 for all other commands.
+= 0, HOST_TO_CARD
+= 1, CARD_TO_HOST
+
+> 2, 2, AUTO_CMD_ENABLE ; Auto Command Enable. This field determines use of Auto Command functions.
+= 0, DISABLED
+= 1, CMD12_ENABLE
+= 2, CMD23_ENABLE
+= 3, CMD_AUTO_SELECT
+
+> 1, 1, BLOCK_COUNT_ENABLE ; Block Count Enable. This bit is used to enable the Block Count register, which is relevant for multiple block transfers. If this bit is set to 0, the Block Count register is disabled, which is useful in executing an infinite transfer. The Host Driver must set this bit to 0 when ADMA is used.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, DMA_ENABLE ; DMA Enable. This bit enables the DMA functionality. If this bit is set to 1, a DMA operation begins when the Host Driver writes to the Command register. You can select one of the DMA modes by using DMA Select in the Host Control 1 register.
+= 0, DISABLED
+= 1, ENABLED
+
+CMD = 0x000E, U16 ;  Command Register
+> 8, 6, CMD_INDEX ; Command Index. These bits are set to the command number that is specified in bits 45-40 of the command format.
+
+> 6, 2, CMD_TYPE ; Command Type. These bits indicate the command type. Note: While issuing Abort CMD using CMD12/CMD52 or reset CMD using CMD0/CMD52, CMD_TYPE field shall be set to 0x3.
+= 0, NORMAL
+= 1, SUSPEND
+= 2, RESUME
+= 3, ABORT
+
+> 5, 1, DATA_PRESENT_SEL ; Data Present Select. This bit is set to 1 to indicate that data is present and that the data is transferred using the DAT line. This bit is set to 0 in the following instances: a. Command using the CMD line b. Command with no data transfer but using busy signal on the DAT[0] line c. Resume Command
+= 0, NO_DATA_PRESENT
+= 1, DATA_PRESENT
+
+> 4, 1, CMD_IDX_CHK_ENABLE ; Command Index Check Enable. This bit enables the Host Controller to check the index field in the response to verify if it has the same value as the command index. If the value is not the same, it is reported as a Command Index error. Note: a. Index check enable must be set to 0 for the command with no response, R2 response, R3 response and R4 response. b. For the tuning command, this bit must always be set to enable the index check.
+= 0, DISABLE
+= 1, ENABLE
+
+> 3, 1, CMD_CRC_CHK_ENABLE ; Command CRC Check Enable. This bit enables the Host Controller to check the CRC field in the response. If an error is detected, it is reported as a Command CRC error. Note: a. CRC check enable must be set to 0 for the command with no response, R3 response, and R4 response. b. For the tuning command, this bit must always be set to 1 to enable the CRC check.
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, SUB_CMD_FLAG ; Sub Command Flag. This bit distinguishes between a main command and a sub command.
+= 0, MAIN
+= 1, SUB
+
+> 0, 2, RESP_TYPE_SELECT ; Response Type Select. This bit indicates the type of response expected from the card.
+= 0, NO_RESP
+= 1, LEN_136
+= 2, LEN_48
+= 3, LEN_48_CHECK_BUSY
+
+RESP01 = 0x0010, RO ; Response Register 0/1
+RESP23 = 0x0014, RO ; Response Register 2/3
+RESP45 = 0x0018, RO ; Response Register 4/5
+RESP67 = 0x001C, RO ; Response Register 6/7
+
+BUF_DATA = 0x0020 ; Buffer Data Port Register
+
+PSTATE = 0x0024, RO ; Present State Register
+> 28, 1, SUB_CMD_STAT ; Sub Command Status. This bit is used to distinguish between a main command and a sub command status.
+= 0, MAIN
+= 1, SUB
+
+> 27, 1, CMD_ISSUE_ERR ; Command Not Issued by Error. This bit is set if a command cannot be issued after setting the command register due to an error except the Auto CMD12 error.
+= 0, NO_ERROR
+= 1, CANNOT
+
+> 24, 1, CMD_LINE_LVL ; Command-Line Signal Level. This bit is used to check the CMD line level to recover from errors and for debugging.
+
+> 20, 4, DAT_3_0 ; DAT[3:0] Line Signal Level. This bit is used to check the DAT line level to recover from errors and for debugging.
+
+> 19, 1, WR_PROTECT_SW_LVL ; Write Protect Switch Pin Level. This bit is supported only for memory and combo cards.
+= 0, WRITE_PROTECTED
+= 1, WRITE_ENABLED
+
+> 18, 1, CARD_DETECT_PIN_LEVEL ; Card Detect Pin Level.
+= 0, NO_CARD_PRESENT
+= 1, CARD_PRESENT
+
+> 17, 1, CARD_STABLE ; Card Stable. This bit indicates the stability of the Card Detect Pin Level. A card is not detected if this bit is set to 1 and the value of the CARD_INSERTED bit is 0.
+= 0, RESET_OR_DEBOUNCING
+= 1, NO_CARD_OR_INSERTED
+
+> 16, 1, CARD_INSERTED ; Card Inserted. This bit indicates whether a card has been inserted. The Host Controller debounces this signal so that Host Driver need not wait for it to stabilize.
+= 0, RESET_DEBOUNCING_OR_NO_CARD
+= 1, CARD_INSERTED
+
+> 11, 1, BUF_RD_ENABLE ; Buffer Read Enable. This bit is used for non-DMA transfers. This bit is set if valid data exists in the Host buffer.
+= 0, DISABLE
+= 1, ENABLE
+
+> 10, 1, BUF_WR_ENABLE ; Buffer Write Enable. This bit is used for non-DMA transfers. This bit is set if space is available for writing data.
+= 0, WRITE_DISABLE
+= 1, WRITE_ENABLE
+
+> 9, 1, RD_XFER_ACTIVE ; Read Transfer Active. This bit indicates whether a read transfer is active for SD/eMMC mode.
+= 0, NO_VALID_DATA
+= 1, TRANSFERRING_DATA
+
+> 8, 1, WR_XFER_ACTIVE ; Write Transfer Active. This status indicates whether a write transfer is active for SD/eMMC mode.
+= 0, NO_VALID_DATA
+= 1, TRANSFERRING_DATA
+
+> 4, 4, DAT_7_4 ; DAT[7:4] Line Signal Level. This bit is used to check the DAT line level to recover from errors and for debugging.
+
+> 3, 1, RE_TUNE_REQ ; Re-Tuning Request. Host Controller does not generate retuning request. The software must maintain the Retuning timer.
+
+> 2, 1, DAT_LINE_ACTIVE ; DAT Line Active (SD/eMMC Mode only). This bit indicates whether one of the DAT lines on the SD/eMMC bus is in use. In the case of read transactions, this bit indicates whether a read transfer is executing on the SD/eMMC bus. In the case of write transactions, this bit indicates whether a write transfer is executing on the SD/eMMC bus. For a command with busy, this status indicates whether the command executing busy is executing on an SD/eMMC bus.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 1, 1, CMD_INHIBIT_DAT ; Command Inhibit (DAT). This bit is applicable for SD/eMMC mode and is generated if either DAT line active or Read transfer active is set to 1. If this bit is set to 0, it indicates that the Host Controller can issue subsequent SD/eMMC commands.
+= 0, CAN_ISSUE
+= 1, CANNOT_ISSUE
+
+> 0, 1, CMD_INHIBIT ; Command Inhibit (CMD). If this bit is set to 0, it indicates that the CMD line is not in use and the Host controller can issue an SD/eMMC command using the CMD line. This bit is set when the command register is written. This bit is cleared when the command response is received. This bit is not cleared by the response of auto CMD12/23 but cleared by the response of read/write command.
+= 0, IS_READY
+= 1, IS_NOT_READY
+
+HOST_CTRL1 = 0x0028, U8 ; Host Control 1 Register
+> 7, 1, CARD_DETECT_SIG_SEL ; Card Detect Signal Selection. This bit selects a source for card detection. When the source for the card detection is switched, the interrupt must be disabled during the switching period.
+= 0, CARD_DETECT_SIGNAL
+= 1, CARD_DETECT_TEST_LEVEL
+
+> 6, 1, CARD_DETECT_TEST_LVL ; Card Detect Test Level. This bit is enabled while the Card Detect Signal Selection is set to 1 and it indicates whether a card inserted or not.
+= 0, NO_CARD
+= 1, CARD_INSERTED
+
+> 5, 1, EXT_DAT_XFER ; Extended Data Transfer Width. This bit controls 8-bit bus width mode of embedded device.
+= 0, BY_DATA_TRANSFER_WIDTH
+= 1, 8BIT
+
+> 3, 2, DMA_SEL ; DMA Select. This field is used to select the DMA type.
+= 0, SDMA
+= 1, RESERVED
+= 2, ADMA2_OR_32BIT_ADDR_ADMA2
+= 3, ADMA2_OR_ADMA3_OR_RESERVED
+
+> 2, 1, HIGH_SPEED_EN ; High Speed Enable. In SD/eMMC mode, this bit is used to determine the selection of pre-set value for High Speed mode. Before setting this bit, the Host Driver checks the High Speed Support in the Capabilities register.
+= 0, NORMAL_SPEED
+= 1, HIGH_SPEED
+
+> 1, 1, DAT_XFER_WIDTH ; Data Transfer Width. For SD/eMMC mode, this bit selects the data transfer width of the Host Controller. The Host Driver sets it to match the data width of the SD/eMMC card.
+= 0, 1BIT
+= 1, 4BIT
+
+PWR_CTRL = 0x0029, U8 ; Power Control Register
+> 0, 1, SD_BUS_PWR ; If this bit is cleared, the Host Controller stops the SD Clock by clearing the SD_CLK_IN bit in the EMMC_CLK_CTRL register.
+= 0, POWER_OFF
+= 1, POWER_ON
+
+BGAP_CTRL = 0x002A, U8 ; Block Gap Control Register
+> 3, 1, INT_AT_BGAP ; Interrupt At Block Gap. This bit is valid only in the 4-bit mode of an SDIO card and is used to select a sample point in the interrupt cycle. Setting to 1 enables interrupt detection at the block gap for a multiple block transfer.
+
+> 2, 1, RD_WAIT_CTRL ; Read Wait Control. This bit is used to enable the read wait protocol to stop read data using DAT[2] line if the card supports read wait. Otherwise, the Host Controller has to stop the card clock to hold the read data.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, CONTINUE_REQ ; Continue Request. This bit is used to restart the transaction, which was stopped using the Stop At Block Gap Request. The Host Controller automatically clears this bit when the transaction restarts. If stop at block gap request is set to 1, any write to this bit is ignored.
+= 0, NO_AFFECT
+= 1, RESTART
+
+> 0, 1, STOP_BG_REQ ; Stop At Block Gap Request. This bit is used to stop executing read and write transactions at the next block gap for non-DMA, SDMA, and ADMA transfers.
+= 0, TRANSFER
+= 1, STOP
+
+CLK_CTRL = 0x002C, U16 ;  Clock Control Register
+> 8, 8, FREQ_SEL ; SDCLK Frequency Select. These bits specify the lower 8 bits of 10-bit SDCLK Frequency Select control. These bits are used to select the frequency of the SDCLK signal. These bits depend on setting of Preset Value Enable in the Host Control 2 register. If Preset Value Enable = 0, these bits are set by the Host Driver. If Preset Value Enable = 1, these bits are automatically set to a value specified in one of the Preset Value register.
+
+> 6, 2, UPPER_FREQ_SEL ; These bits specify the upper 2 bits of 10-bit SDCLK Frequency Select control.
+
+> 5, 1, CLK_GEN_SELECT ; Clock Generator Select. This bit is used to select the clock generator mode in SDCLK Frequency Select. If Preset Value Enable = 0, this bit is set by the Host Driver. If Preset Value Enable = 1, this bit is automatically set to a value specified in one of the Preset Value registers.
+= 0, DIVIDED
+= 1, PROGRAMMABLE
+
+> 2, 1, SD_CLK_EN ; SD/eMMC Clock Enable. This bit stops the SDCLK when set to 0. The SDCLK Frequency Select bit can be changed when this bit is set to 0.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, INTERNAL_CLK_STABLE, RO ; Internal Clock Stable.
+= 0, NOT_READY
+= 1, READY
+
+> 0, 1, INTERNAL_CLK_EN ; Internal Clock Enable. This bit is set to 0 when the Host Driver is not using the Host Controller. The Host Controller must stop its internal clock to enter a very low power state. However, registers can still be read and written to. Note: If this bit is not used to control the internal clock (base clock and master clock), it is recommended to set this bit to 1.
+= 0, STOP
+= 1, OSCILLATE
+
+TOUT_CTRL = 0x002E, U8 ; Timeout Control Register
+> 0, 4, TOUT_CNT ; Data Timeout Counter Value. This value determines the interval by which DAT line timeouts are detected. Timeout clock frequency will be generated by dividing the base clock TMCLK by this value. When setting this register, prevent inadvertent timeout events by clearing the Data Timeout Error Status Enable (in the Error Interrupt Status Enable register).
+= 0, TMCLK_TIMES_2_TO_13
+= 1, TMCLK_TIMES_2_TO_14
+= 2, TMCLK_TIMES_2_TO_15
+= 3, TMCLK_TIMES_2_TO_16
+= 4, TMCLK_TIMES_2_TO_17
+= 5, TMCLK_TIMES_2_TO_18
+= 6, TMCLK_TIMES_2_TO_19
+= 7, TMCLK_TIMES_2_TO_20
+= 8, TMCLK_TIMES_2_TO_21
+= 9, TMCLK_TIMES_2_TO_22
+= 10, TMCLK_TIMES_2_TO_23
+= 11, TMCLK_TIMES_2_TO_24
+= 12, TMCLK_TIMES_2_TO_25
+= 13, TMCLK_TIMES_2_TO_26
+= 14, TMCLK_TIMES_2_TO_27
+= 15, RESERVED
+
+SW_RST = 0x002F, U8 ; Software Reset Register
+> 2, 1, SW_RST_DAT ; Software Reset For DAT line. This bit is used in SD/eMMC mode and it resets only a part of the data circuit and the DMA circuit is also reset. The following registers and bits are cleared by this bit: a. Buffer Data Port register: Buffer is cleared and initialized. b. Present state register: Buffer Read Enable Buffer Write Enable Read Transfer Active Write Transfer Active DAT Line Active Command Inhibit (DAT) c. Block Gap Control register: Continue Request Stop At Block Gap Request d. Normal Interrupt status register: Buffer Read Ready Buffer Write Ready DMA Interrupt Block Gap Event Transfer Complete
+= 0, WORK
+= 1, RESET
+
+> 1, 1, SW_RST_CMD ; Software Reset For CMD line. This bit resets only a part of the command circuit to be able to issue a command. This reset is effective only for a command issuing circuit (including response error statuses related to Command Inhibit (CMD) control) and does not affect the data transfer circuit. Host Controller can continue data transfer even after this reset is executed while handling subcommand-response errors. The following registers and bits are cleared by this bit: a. Present State register - Command Inhibit (CMD) bit b. Normal Interrupt Status register - Command Complete bit c. Error Interrupt Status - Response error statuses related to Command Inhibit (CMD) bit
+= 0, WORK
+= 1, RESET
+
+> 0, 1, SW_RST_ALL ; Software Reset For All. This reset affects the entire Host Controller except for the card detection circuit. During its initialization, the Host Driver sets this bit to 1 to reset the Host Controller. All registers are reset except the capabilities register. If this bit is set to 1, the Host Driver must issue reset command and reinitialize the card.
+= 0, WORK
+= 1, RESET
+
+NORMAL_INT_STAT = 0x0030, U16 ;  Normal Interrupt Status Register
+> 15, 1, ERROR_INT_STAT, RO ; Error Interrupt. If any of the bits in the Error Interrupt Status register are set, then this bit is set.
+= 0, NO_ERROR
+= 1, ERROR
+
+# Was marked as RC/W1C
+> 14, 1, CQE_EVENT, W1C ; Command Queuing Event. This status is set if Command Queuing/Crypto related event has occurred in eMMC/SD mode. Read CQHCI's CQIS/CRNQIS register for more details.
+= 0, NO_EVENT
+= 1, DETECTED
+
+> 13, 1, FX_EVENT, RO ; FX Event. This status is set when R[14] of response register is set to 1 and Response Type R1/R5 is set to 0 in Transfer Mode register. This interrupt is used with response check function.
+= 0, NO_EVENT
+= 1, DETECTED
+
+> 12, 1, RE_TUNE_EVENT, RO ; Re-tuning Event. This bit is set if the Re-Tuning Request changes from 0 to 1. Re- Tuning request is not supported.
+
+> 8, 1, CARD_INTERRUPT, RO ; Card Interrupt. This bit reflects the synchronized value of DAT[1] Interrupt Input for SD Mode.
+= 0, NO_CARD_INTERRUPT
+= 1, GENERATE_CARD_INTERRUPT
+
+# Was marked as RC/W1C
+> 7, 1, CARD_REMOVAL, W1C ; Card Removal. This bit is set if the Card Inserted in the Present State register changes from 1 to 0.
+= 0, STABLE_OR_DEBOUNCING
+= 1, REMOVED
+
+# Was marked as RC/W1C
+> 6, 1, CARD_INSERTION, W1C ; Card Insertion. This bit is set if the Card Inserted in the Present State register changes from 0 to 1.
+= 0, STABLE_OR_DEBOUNCING
+= 1, CARD_INSERTED
+
+# Was marked as RC/W1C
+> 5, 1, BUF_RD_READY, W1C ; Buffer Read Ready. This bit is set if the Buffer Read Enable changes from 0 to 1.
+= 0, NOT_READY
+= 1, READY
+
+# Was marked as RC/W1C
+> 4, 1, BUF_WR_READY, W1C ; Buffer Write Ready. This bit is set if the Buffer Write Enable changes from 0 to 1.
+= 0, NOT_READY
+= 1, READY
+
+# Was marked as RC/W1C
+> 3, 1, DMA_INTERRUPT, W1C ; DMA Interrupt. This bit is set if the Host Controller detects the SDMA Buffer Boundary during transfer. In case of ADMA, by setting the Int field in the descriptor table, the Host controller generates this interrupt. This interrupt is not generated after a Transfer Complete.
+= 0, NO_IRQ
+= 1, IRQ_IS_GENERATED
+
+# Was marked as RC/W1C
+> 2, 1, BGAP_EVENT, W1C ; Block Gap Event. This bit is set when both read/write transaction is stopped at block gap due to a Stop at Block Gap Request.
+= 0, NO_EVENT
+= 1, TRANSACTION_STOPPED
+
+# Was marked as RC/W1C
+> 1, 1, XFER_COMPLETE, W1C ; Transfer Complete. This bit is set when a read/write transfer and a command with status busy is completed.
+= 0, NOT_COMPLETE
+= 1, COMPLETE
+
+# Was marked as RC/W1C
+> 0, 1, CMD_COMPLETE, W1C ; Command Complete. In an SD/eMMC Mode, this bit is set when the end bit of a response except for Auto CMD12 and Auto CMD23. This interrupt is not generated when the Response Interrupt Disable in Transfer Mode Register is set to 1.
+= 0, NOT_COMPLETE
+= 1, COMPLETE
+
+ERROR_INT_STAT = 0x0032, U16 ;  Error Interrupt Status Register
+# Was marked as RC/W1C
+> 12, 1, BOOT_ACK_ERR, W1C ; Boot Acknowledgement Error. This bit is set when there is a timeout for boot acknowledgement or when detecting boot acknowledgement status having a value other than 3'b010. This is applicable only when boot acknowledgement is expected in eMMC mode.
+= 0, NO_ERROR
+= 1, ERROR
+
+# Was marked as RC/W1C
+> 11, 1, RESP_ERR, W1C ; Response Error Host Controller Version 4.00 supports response error check function to avoid overhead of response error check by Host Driver during DMA execution. If Response Error Check Enable is set to 1 in the Transfer Mode register, Host Controller Checks R1 or R5 response. If an error is detected in a response, this bit is set to 1.
+= 0, NO_ERROR
+= 1, ERROR
+
+# Was marked as RC/W1C
+> 10, 1, TUNING_ERR, W1C ; Tuning Error. This bit is set when an unrecoverable error is detected in a tuning circuit except during the tuning procedure (occurrence of an error during tuning procedure is indicated by Sampling Clock Select in the Host Control 2 register). By detecting Tuning Error, Host Driver needs to abort a command executing and perform tuning. To reset tuning circuit, Sampling Clock Select is set to 0 before executing tuning procedure. The Tuning Error is higher priority than the other error interrupts generated during data transfer. By detecting Tuning Error, the Host Driver must discard data transferred by a current read/write command and retry data transfer after the Host Controller retrieved from the tuning circuit error.
+= 0, NO_ERROR
+= 1, ERROR
+
+# Was marked as RC/W1C
+> 9, 1, ADMA_ERR, W1C ; ADMA Error. This bit is set when the Host Controller detects error during ADMA-based data transfer. The error could be due to following reasons: a. Error response received from System bus b. ADMA3,ADMA2 Descriptors invalid c. CQE Task or Transfer descriptors invalid When the error occurs, the state of the ADMA is saved in the ADMA Error Status register. In eMMC CQE mode: The Host Controller generates this Interrupt when it detects an invalid descriptor data at the Fetch Descriptor state. ADMA Error State in the ADMA Error Status indicates that an error has occurred in Fetch Descriptor state. The Host Driver may find that Valid bit is not set at the error descriptor.
+= 0, NO_ERROR
+= 1, ERROR
+
+# Was marked as RC/W1C
+> 8, 1, AUTO_CMD_ERR, W1C ; Auto CMD Error. This error status is used by Auto CMD12 and Auto CMD23 in SD/eMMC mode. This bit is set when detecting that any of the bits D00 to D05 in Auto CMD Error Status register has changed from 0 to 1. D07 is effective in case of Auto CMD12. Auto CMD Error Status register is valid while this bit is set to 1 and may be cleared by clearing of this bit.
+= 0, NO_ERROR
+= 1, ERROR
+
+# Was marked as RC/W1C
+> 6, 1, DATA_END_BIT_ERR, W1C ; Data End Bit Error. This error occurs in SD/eMMC mode either when detecting 0 at the end bit position of read data that uses the DAT line or at the end bit position of the CRC status.
+= 0, NO_ERROR
+= 1, ERROR
+
+# Was marked as RC/W1C
+> 5, 1, DATA_CRC_ERR, W1C ; Data CRC Error. This error occurs in SD/eMMC mode when detecting CRC error when transferring read data which uses the DAT line, when detecting the Write CRC status having a value of other than 010 or when write CRC status timeout.
+= 0, NO_ERROR
+= 1, ERROR
+
+# Was marked as RC/W1C
+> 4, 1, DATA_TOUT_ERR, W1C ; Data Timeout Error. This bit is set in SD/eMMC mode when detecting one of the following timeout conditions: a. Busy timeout for R1b, R5b type b. Busy timeout after Write CRC status c. Write CRC Status timeout d. Read Data timeout
+= 0, NO_ERROR
+= 1, TIME_OUT
+
+# Was marked as RC/W1C
+> 3, 1, CMD_IDX_ERR, W1C ; Command Index Error. This bit is set if a Command Index error occurs in the command response in SD/eMMC mode.
+= 0, NO_ERROR
+= 1, ERROR
+
+# Was marked as RC/W1C
+> 2, 1, CMD_END_BIT_ERR, W1C ; Command End Bit Error. This bit is set when detecting that the end bit of a command response is 0 in SD/eMMC mode.
+= 0, NO_ERROR
+= 1, ERROR
+
+# Was marked as RC/W1C
+> 1, 1, CMD_CRC_ERR, W1C ; Command CRC Error. Command CRC Error is generated in SD/eMMC mode for following two cases. a. If a response is returned and the Command Timeout Error is set to 0 (indicating no timeout), this bit is set to 1 when detecting a CRC error in the command response. b. The Host Controller detects a CMD line conflict by monitoring the CMD line when a command is issued. If the Host Controller drives the CMD line to 1 level, but detects 0 level on the CMD line at the next SD clock edge, then the Host Controller aborts the command (stop driving CMD line) and set this bit to 1. The Command Timeout Error is also set to 1 to distinguish a CMD line conflict.
+= 0, NO_ERROR
+= 1, ERROR
+
+# Was marked as RC/W1C
+> 0, 1, CMD_TOUT_ERR, W1C ; Command Timeout Error. In SD/eMMC Mode, this bit is set only if no response is returned within 64 SD clock cycles from the end bit of the command. If the Host Controller detects a CMD line conflict, along with Command CRC Error bit, this bit is set to 1, without waiting for 64 SD/eMMC card clock cycles.
+= 0, NO_ERROR
+= 1, TIME_OUT
+
+NORMAL_INT_STAT_EN = 0x0034, U16 ;  Normal Interrupt Status Enable Register
+> 14, 1, CQE_EVENT_STAT_EN ; CQE Event Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 8, 1, CARD_INTERRUPT_STAT_EN ; Card Interrupt Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 7, 1, CARD_REMOVAL_STAT_EN ; Card Removal Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 6, 1, CARD_INSERTION_STAT_EN ; Card Insertion Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 5, 1, BUF_RD_READY_STAT_EN ; Buffer Read Ready Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 4, 1, BUF_WR_READY_STAT_EN ; Buffer Write Ready Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 3, 1, DMA_INTERRUPT_STAT_EN ; DMA Interrupt Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 2, 1, BGAP_EVENT_STAT_EN ; Block Gap Event Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 1, 1, XFER_COMPLETE_STAT_EN ; Transfer Complete Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 0, 1, CMD_COMPLETE_STAT_EN ; Command Complete Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+ERROR_INT_STAT_EN = 0x0036, U16 ;  Error Interrupt Status Enable Register
+> 12, 1, BOOT_ACK_ERR_STAT_EN ; Boot Acknowledgment Error Status Enable..
+= 0, MASKED
+= 1, ENABLED
+
+> 11, 1, RESP_ERR_STAT_EN ; Response Error Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 10, 1, TUNING_ERR_STAT_EN ; Tuning Error Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 9, 1, ADMA_ERR_STAT_EN ; ADMA Error Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 8, 1, AUTO_CMD_ERR_STAT_EN ; Auto CMD Error Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 6, 1, DATA_END_BIT_ERR_STAT_EN ; Data End Bit Error Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 5, 1, DATA_CRC_ERR_STAT_EN ; Data CRC Error Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 4, 1, DATA_TOUT_ERR_STAT_EN ; Data Timeout Error Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 3, 1, CMD_IDX_ERR_STAT_EN ; Command Index Error Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 2, 1, CMD_END_BIT_ERR_STAT_EN ; Command End Bit Error Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 1, 1, CMD_CRC_ERR_STAT_EN ; Command CRC Error Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 0, 1, CMD_TOUT_ERR_STAT_EN ; Command Timeout Error Status Enable.
+= 0, MASKED
+= 1, ENABLED
+
+NORMAL_INT_SIGNAL_EN = 0x0038, U16 ;  Normal Interrupt Signal Enable Register
+> 14, 1, CQE_EVENT_SIGNAL_EN ; CQE Event Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 8, 1, CARD_INTERRUPT_SIGNAL_EN ; Card Interrupt Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 7, 1, CARD_REMOVAL_SIGNAL_EN ; Card Removal Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 6, 1, CARD_INSERTION_SIGNAL_EN ; Card Insertion Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 5, 1, BUF_RD_READY_SIGNAL_EN ; Buffer Read Ready Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 4, 1, BUF_WR_READY_SIGNAL_EN ; Buffer Write Ready Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 3, 1, DMA_INTERRUPT_SIGNAL_EN ; DMA Interrupt Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 2, 1, BGAP_EVENT_SIGNAL_EN ; Block Gap Event Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 1, 1, XFER_COMPLETE_SIGNAL_EN ; Transfer Complete Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 0, 1, CMD_COMPLETE_SIGNAL_EN ; Command Complete Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+ERROR_INT_SIGNAL_EN = 0x003A, U16 ;  Error Interrupt Signal Enable Register
+> 12, 1, BOOT_ACK_ERR_SIGNAL_EN ; Boot Acknowledgment Error Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 11, 1, RESP_ERR_SIGNAL_EN ; Response Error Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 10, 1, TUNING_ERR_SIGNAL_EN ; Tuning Error Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 9, 1, ADMA_ERR_SIGNAL_EN ; ADMA Error Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 8, 1, AUTO_CMD_ERR_SIGNAL_EN ; Auto CMD Error Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 6, 1, DATA_END_BIT_ERR_SIGNAL_EN ; Data End Bit Error Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 5, 1, DATA_CRC_ERR_SIGNAL_EN ; Data CRC Error Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 4, 1, DATA_TOUT_ERR_SIGNAL_EN ; Data Timeout Error Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 3, 1, CMD_IDX_ERR_SIGNAL_EN ; Command Index Error Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 2, 1, CMD_END_BIT_ERR_SIGNAL_EN ; Command End Bit Error Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 1, 1, CMD_CRC_ERR_SIGNAL_EN ; Command CRC Error Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+> 0, 1, CMD_TOUT_ERR_SIGNAL_EN ; Command Timeout Error Signal Enable.
+= 0, MASKED
+= 1, ENABLED
+
+AUTO_CMD_STAT = 0x003C, U16 ;  Auto CMD Error Status Register
+> 7, 1, CMD_NOT_ISSUED_AUTO_CMD12, RO ; Command Not Issued By Auto CMD12 Error. If this bit is set to 1, CMD_wo_DAT is not executed due to an Auto CMD12 Error (D04-D01) in this register. This bit is set to 0 when Auto CMD Error is generated by Auto CMD23.
+= 0, NO_ERROR
+= 1, NOT_ISSUED
+
+> 5, 1, AUTO_CMD_RESP_ERR, RO ; Auto CMD Response Error. This bit is set when Response Error Check Enable in the Transfer Mode register is set to 1 and an error is detected in R1 response of either Auto CMD12 or CMD13. This status is ignored if any bit between D00 to D04 is set to 1.
+= 0, NO_ERROR
+= 1, ERROR
+
+> 4, 1, AUTO_CMD_IDX_ERR, RO ; Auto CMD Index Error. This bit is set if the command index error occurs in response to a command.
+= 0, NO_ERROR
+= 1, ERROR
+
+> 3, 1, AUTO_CMD_EBIT_ERR, RO ; Auto CMD End Bit Error. This bit is set when detecting that the end bit of command response is 0.
+= 0, NO_ERROR
+= 1, ERROR
+
+> 2, 1, AUTO_CMD_CRC_ERR, RO ; Auto CMD CRC Error. This bit is set when detecting a CRC error in the command response.
+= 0, NO_ERROR
+= 1, ERROR
+
+> 1, 1, AUTO_CMD_TOUT_ERR, RO ; Auto CMD Timeout Error. This bit is set if no response is returned with 64 SDCLK cycles from the end bit of the command. If this bit is set to 1, error status bits (D04-D01) are meaningless.
+= 0, NO_ERROR
+= 1, TIME_OUT
+
+> 0, 1, AUTO_CMD12_NOT_EXEC, RO ; Auto CMD12 Not Executed. If multiple memory block data transfer is not started due to a command error, this bit is not set because it is not necessary to issue an Auto CMD12. Setting this bit to 1 means that the Host Controller cannot issue Auto CMD12 to stop multiple memory block data transfer, due to some error. If this bit is set to 1, error status bits (D04-D01) is meaningless. This bit is set to 0 when Auto CMD Error is generated by Auto CMD23.
+= 0, EXECUTED
+= 1, NOT_EXECUTED
+
+HOST_CTRL2 = 0x003E, U16 ;  Host Control 2 Register
+> 15, 1, PRESET_VAL_ENABLE ; Preset Value Enable. This bit enables automatic selection of SDCLK frequency and Driver strength Preset Value registers. When Preset Value Enable is set, SDCLK frequency generation (Frequency Select and Clock Generator Select) and the driver strength selection are performed by the controller. These values are selected from set of Preset Value registers based on selected speed mode.
+= 0, BY_HOST_DRIVER
+= 1, BY_PRESET_VALUE
+
+> 14, 1, ASYNC_INT_ENABLE ; Asynchronous Interrupt Enable. This bit can be set if a card supports asynchronous interrupts and Asynchronous Interrupt Support is set to 1 in the Capabilities register.
+= 0, DISABLED
+= 1, ENABLED
+
+> 13, 1, ADDRESSING ; 64-bit Addressing. This bit is effective when Host Version 4 Enable is set to 1.
+= 0, 32BIT
+= 1, 64BIT
+
+> 12, 1, HOST_VER4_ENABLE ; Host Version 4 Enable. This bit selects either Version 3.00 compatible mode or Version 4 mode.
+= 0, VERSION_3
+= 1, VERSION_4
+
+> 11, 1, CMD23_ENABLE ; CMD23 Enable. If the card supports CMD23, this bit is set to 1. This bit is used to select Auto CMD23 or Auto CMD12 for ADMA3 data transfer.
+= 0, DISABLED
+= 1, ENABLED
+
+> 10, 1, ADMA2_LEN_MODE ; ADMA2 Length Mode. This bit selects ADMA2 Length mode to be either 16-bit or 26-bit.
+= 0, 16
+= 1, 26
+
+> 8, 1, UHS2_IF_ENABLE ; This bit should be set to 0 for SD/eMMC Interface.
+
+> 7, 1, SAMPLE_CLK_SEL ; Sampling Clock Select. This bit is used by the Host Controller to select the sampling clock in SD/eMMC mode to receive CMD and DAT. This bit is set by the tuning procedure and is valid after the completion of tuning (when Execute Tuning is cleared). Setting this bit to 1 means that tuning is completed successfully and setting this bit to 0 means that tuning has failed.
+= 0, FIXED_CLOCK
+= 1, TUNED_CLOCK
+
+> 6, 1, EXEC_TUNING ; Execute Tuning. This bit is set to 1 to start the tuning procedure in SD/eMMC speed modes and this bit is automatically cleared when tuning procedure is completed.
+= 0, NOT_TUNED_OR_COMPLETED
+= 1, EXECUTE_TUNING
+
+> 3, 1, SIGNALING_EN ; 1.8V Signalling Enable.
+= 0, 3_3V
+= 1, 1_8V
+
+> 0, 3, UHS_MODE_SEL ; UHS Mode/eMMC Speed Mode Select. These bits are used to select UHS mode in the SD mode of operation. In eMMC mode, these bits are used to select eMMC Speed mode.
+= 0, SDR12_OR_LEGACY
+= 1, SDR25_OR_HS_SDR
+= 2, SDR50
+= 3, SDR104_OR_HS200
+= 4, DDR50_OR_HS_DDR
+= 7, HS400
+
+CAPABILITIES1 = 0x0040, RO ; Capabilities Register 1
+> 30, 2, SLOT_TYPE ; Slot Type. These bits indicate usage of a slot by a specific Host System.
+= 0, REMOVABLE
+= 1, EMBEDDED
+= 2, SHARED_BUS
+= 3, RESERVED
+
+> 29, 1, ASYNC_INT_SUPPORT ; Asynchronous Interrupt Support (SD Mode only).
+= 0, NOT_SUPPORTED
+= 1, SUPPORTED
+
+> 28, 1, SYS_ADDR_64_V3 ; 64-bit System Address Support for V3. This bit sets the Host controller to support 64-bit System Addressing of V3 mode. SDMA cannot be used in 64-bit Addressing in Version 3 Mode. If this bit is set to 1, 64-bit ADMA2 with using 96-bit Descriptor can be enabled by setting Host Version 4 Enable (HOST_VER4_ENABLE = 0) and DMA select (DMA_SEL =11b).
+= 0, NOT_SUPPORTED
+= 1, SUPPORTED
+
+> 27, 1, SYS_ADDR_64_V4 ; 64-bit System Address Support for V4. This bit sets the Host Controller to support 64-bit System Addressing of V4 mode. When this bit is set to 1, full or part of 64-bit address must be used to decode the Host Controller Registers so that Host Controller Registers can be placed above system memory area. 64-bit address decode of Host Controller registers is effective regardless of setting to 64-bit Addressing in Host Control 2. If this bit is set to 1, 64-bit DMA Addressing for version 4 is enabled by setting Host Version 4 Enable (HOST_VER4_ENABLE = 1) and by setting 64-bit Addressing (ADDRESSING =1) in the Host Control 2 register. SDMA can be used and ADMA2 uses 128- bit Descriptor.
+= 0, NOT_SUPPORTED
+= 1, SUPPORTED
+
+> 23, 1, SUS_RES_SUPPORT ; Suspense/Resume Support. This bit indicates whether the Host Controller supports Suspend/Resume functionality. If this bit is 0, the Host Driver does not issue either Suspend or Resume commands because the Suspend and Resume mechanism is not supported.
+= 0, NOT SUPPORTED
+= 1, SUPPORTED
+
+> 22, 1, SDMA_SUPPORT ; SDMA Support. This bit indicates whether the Host Controller is capable of using SDMA to transfer data between the system memory and the Host Controller directly.
+= 0, NOT SUPPORTED
+= 1, SUPPORTED
+
+> 21, 1, HIGH_SPEED_SUPPORT ; High Speed Support. This bit indicates whether the Host Controller and the Host System supports High Speed mode and they can supply the SD Clock frequency from 25 MHz to 50 MHz.
+= 0, NOT SUPPORTED
+= 1, SUPPORTED
+
+> 19, 1, ADMA2_SUPPORT ; ADMA2 Support. This bit indicates whether the Host Controller is capable of using ADMA2.
+= 0, NOT SUPPORTED
+= 1, SUPPORTED
+
+> 18, 1, EMBEDDED_8_BIT ; 8-bit Support for Embedded Device. This bit indicates whether the Host Controller is capable of using an 8-bit bus width mode.
+= 0, NOT SUPPORTED
+= 1, SUPPORTED
+
+> 16, 2, MAX_BLK_LEN ; Maximum Block Length. This bit indicates the maximum block size that the Host driver can read and write to the buffer in the Host Controller. The buffer transfers this block size without wait cycles. The transfer block length is always 512 bytes for the SD Memory irrespective of this bit.
+= 0, 512
+= 1, 1024
+= 2, 2048
+= 3, RESERVED
+
+> 8, 8, BASE_CLK_FREQ ; Base Clock Frequency for SD clock. These bits indicate the base (maximum) clock frequency for the SD Clock. The definition of these bits depends on the Host Controller Version. (1) 6-Bit Base Clock Frequency: This mode is supported by the Host Controller version 1.00 and 2.00. The upper 2 bits are not effective and are always 0. The unit values are 1 MHz. The supported clock range is 10 MHz to 63 MHz.
+
+> 7, 1, TOUT_CLK_UNIT ; Timeout Clock Unit. This bit shows the unit of base clock frequency used to detect Data Timeout Error.
+= 0, KHZ
+= 1, MHZ
+
+> 0, 6, TOUT_CLK_FREQ ; Timeout Clock Frequency. This bit shows the base clock frequency used to detect Data Timeout Error. The Timeout Clock unit defines the unit of timeout clock frequency. It can be KHz or MHz.
+
+CAPABILITIES2 = 0x0044, RO ; Capabilities Register 2
+> 25, 1, ADMA3_SUPPORT ; ADMA3 Support. This bit indicates whether the Host Controller is capable of using ADMA3.
+= 0, NOT_SUPPORTED
+= 1, SUPPORTED
+
+> 16, 8, CLK_MUL ; Clock Multiplier. These bits indicate the clock multiplier of the programmable clock generator. Setting these bits to 0 means that the Host Controller does not support a programmable clock generator. Values: 8'h0: Clock Multiplier is not Supported 8'h1: Clock Multiplier M = 2 8'h2: Clock Multiplier M = 3 ......... 8'hFF: Clock Multiplier M = 256
+
+> 14, 2, RE_TUNING_MODES ; Re-Tuning Modes. Values: These bits select the re-tuning method and limit the maximum data length.
+= 0, TIMER
+= 1, TIMER_AND_RETUNING_REQUEST
+= 2, AUTO_FOR_TRANSFER
+= 3, RESERVED
+
+> 13, 1, USE_TUNING_SDR50 ; Use Tuning for SDR50.
+= 0, NOT_REQUIRED
+= 1, REQUIRED
+
+> 8, 4, RETUNE_CNT ; Timer Count for Re-Tuning.
+= 0, DISABLED
+= 1, 1
+= 2, 2
+= 3, 4
+= 4, 8
+= 5, 16
+= 6, 32
+= 7, 64
+= 8, 128
+= 9, 256
+= 10, 512
+= 11, 1024
+= 12, RESERVED12
+= 13, RESERVED13
+= 14, RESERVED14
+= 15, OTHER_SOURCE
+
+> 6, 1, DRV_TYPED ; This bit indicates support of Driver Type D for 1.8 Signaling.
+= 0, NOT_SUPPORTED
+= 1, SUPPORTED
+
+> 5, 1, DRV_TYPEC ; This bit indicates support of Driver Type C for 1.8 Signaling.
+= 0, NOT_SUPPORTED
+= 1, SUPPORTED
+
+> 4, 1, DRV_TYPEA ; This bit indicates support of Driver Type A for 1.8 Signaling.
+= 0, NOT_SUPPORTED
+= 1, SUPPORTED
+
+> 3, 1, UHS2_SUPPORT ; UHS-II Support.
+= 0, NOT_SUPPORTED
+= 1, SUPPORTED
+
+> 2, 1, DDR50_SUPPORT ; DDR50 Support.
+= 0, NOT_SUPPORTED
+= 1, SUPPORTED
+
+> 1, 1, SDR104_SUPPORT ; SDR104 Support.
+= 0, NOT_SUPPORTED
+= 1, SUPPORTED
+
+> 0, 1, SDR50_SUPPORT ; SDR50 Support.
+= 0, NOT_SUPPORTED
+= 1, SUPPORTED
+
+FORCE_AUTO_CMD_STAT = 0x0050, U16 ;  Force Event Register for Auto CMD Error Status Register
+> 7, 1, FORCE_CMD_NOT_ISSUED_AUTO_CMD12, WO ; Force Event for Command Not Issued By Auto CMD12 Error.
+= 0, NOT_AFFECTED
+= 1, ERROR
+
+> 5, 1, FORCE_AUTO_CMD_RESP_ERR, WO ; Force Event for Auto CMD Response Error.
+= 0, NOT_AFFECTED
+= 1, ERROR
+
+> 4, 1, FORCE_AUTO_CMD_IDX_ERR, WO ; Force Event for Auto CMD Index Error.
+= 0, NOT_AFFECTED
+= 1, ERROR
+
+> 3, 1, FORCE_AUTO_CMD_EBIT_ERR, WO ; Force Event for Auto CMD End Bit Error.
+= 0, NOT_AFFECTED
+= 1, ERROR
+
+> 2, 1, FORCE_AUTO_CMD_CRC_ERR, WO ; Force Event for Auto CMD CRC Error.
+= 0, NOT_AFFECTED
+= 1, ERROR
+
+> 1, 1, FORCE_AUTO_CMD12_TOUT_ERR, WO ; Force Event for Auto CMD Timeout Error.
+= 0, NOT_AFFECTED
+= 1, ERROR
+
+> 0, 1, FORCE_AUTO_CMD12_NOT_EXEC, WO ; Force Event for Auto CMD12 Not Executed.
+= 0, NOT_AFFECTED
+= 1, ERROR
+
+FORCE_ERR_INT_STAT = 0x0052, U16 ;  Force Event Register for Error Interrupt Status Register
+> 12, 1, FORCE_BOOT_ACK_ERR, WO ; Force Event for Boot Acknowledge error.
+= 0, NOT_AFFECTED
+= 1, ERROR
+
+> 11, 1, FORCE_RESP_ERR, WO ; Force Event for Response Error.
+= 0, NOT_AFFECTED
+= 1, ERROR
+
+> 10, 1, FORCE_TUNING_ERR, WO ; Force Event for Tuning Error
+= 0, NOT_AFFECTED
+= 1, ERROR
+
+> 9, 1, FORCE_ADMA_ERR, WO ; Force Event for ADMA Error.
+= 0, NOT_AFFECTED
+= 1, ERROR
+
+> 8, 1, FORCE_AUTO_CMD_ERR, WO ; Force Event for Auto CMD Error.
+= 0, NOT_AFFECTED
+= 1, ERROR
+
+> 6, 1, FORCE_DATA_END_BIT_ERR, WO ; Force Event for Data End Bit Error.
+= 0, NOT_AFFECTED
+= 1, ERROR
+
+> 5, 1, FORCE_DATA_CRC_ERR, WO ; Force Event for Data CRC Error.
+= 0, NOT_AFFECTED
+= 1, ERROR
+
+> 4, 1, FORCE_DATA_TOUT_ERR, WO ; Force Event for Data Timeout Error.
+= 0, NOT_AFFECTED
+= 1, ERROR
+
+> 3, 1, FORCE_CMD_IDX_ERR, WO ; Force Event for Command Index Error.
+= 0, NOT_AFFECTED
+= 1, ERROR
+
+> 2, 1, FORCE_CMD_END_BIT_ERR, WO ; Force Event for Command End Bit Error.
+= 0, NOT_AFFECTED
+= 1, ERROR
+
+> 1, 1, FORCE_CMD_CRC_ERR, WO ; Force Event for Command CRC Error.
+= 0, NOT_AFFECTED
+= 1, ERROR
+
+> 0, 1, FORCE_CMD_TOUT_ERR, WO ; Force Event for Command Timeout Error.
+= 0, NOT_AFFECTED
+= 1, ERROR
+
+ADMA_ERR_STAT = 0x0054, U8, RO ; ADMA Error Status Register
+> 2, 1, ADMA_LEN_ERR ; ADMA Length Mismatch Error States. This error occurs in the following instances: a. While the Block Count Enable is being set, the total data length specified by the Descriptor table is different from that specified by the Block Count and Block Length; b. When the total data length cannot be divided by the block length
+= 0, NO_ERROR
+= 1, ERROR
+
+> 0, 2, ADMA_ERR_STATES ; ADMA Error States. These bits indicate the state of ADMA when an error occurs during ADMA data transfer.
+= 0, STOP_DMA
+= 1, FETCH_DESCRIPTOR
+= 2, NEVER_SET_THIS_STATE
+= 3, TRANSFER_DATA
+
+ADMA_SA = 0x0058 ; ADMA System Address Register
+
+PRESET_INIT = 0x0060, U16, RO ;  Preset Value for Initialization Register
+> 10, 1, CLK_GEN_SEL_VAL ; Clock Generator Select Value. This bit is effective when the Host Controller supports a programmable clock generator.
+= 0, HOST_CONTROLLER
+= 1, PROGRAMMABLE
+
+> 0, 10, FREQ_SEL_VAL ; SDCLK Frequency Select Value. 10-bit preset value to be set in SDCLK Frequency Select field of the Clock Control register described by a Host System.
+
+PRESET_DS = 0x0062, U16, RO ;  Preset Value for Default Speed Register
+> 10, 1, CLK_GEN_SEL_VAL ; Clock Generator Select Value. This bit is effective when the Host Controller supports a programmable clock generator.
+= 0, HOST_CONTROLLER
+= 1, PROGRAMMABLE
+
+> 0, 10, FREQ_SEL_VAL ; SDCLK Frequency Select Value. 10-bit preset value to be set in SDCLK Frequency Select field of the Clock Control register described by a Host System.
+
+PRESET_HS = 0x0064, U16, RO ;  Preset Value for High Speed Register
+> 10, 1, CLK_GEN_SEL_VAL ; Clock Generator Select Value. This bit is effective when the Host Controller supports a programmable clock generator.
+= 0, HOST_CONTROLLER
+= 1, PROGRAMMABLE
+
+> 0, 10, FREQ_SEL_VAL ; SDCLK Frequency Select Value. 10-bit preset value to be set in SDCLK Frequency Select field of the Clock Control register described by a Host System.
+
+PRESET_SDR12 = 0x0066, U16, RO ;  Preset Value for SDR12 Register
+> 10, 1, CLK_GEN_SEL_VAL ; Clock Generator Select Value. This bit is effective when the Host Controller supports a programmable clock generator.
+= 0, HOST_CONTROLLER
+= 1, PROGRAMMABLE
+
+> 0, 10, FREQ_SEL_VAL ; SDCLK Frequency Select Value. 10-bit preset value to be set in SDCLK Frequency Select field of the Clock Control register described by a Host System.
+
+PRESET_SDR25 = 0x0068, U16, RO ;  Preset Value for SDR25 Register
+> 10, 1, CLK_GEN_SEL_VAL ; Clock Generator Select Value. This bit is effective when the Host Controller supports a programmable clock generator.
+= 0, HOST_CONTROLLER
+= 1, PROGRAMMABLE
+
+> 0, 10, FREQ_SEL_VAL ; SDCLK Frequency Select Value. 10-bit preset value to be set in SDCLK Frequency Select field of the Clock Control register described by a Host System.
+
+PRESET_SDR50 = 0x006A, U16, RO ;  Preset Value for SDR50 Register
+> 10, 1, CLK_GEN_SEL_VAL ; Clock Generator Select Value. This bit is effective when the Host Controller supports a programmable clock generator.
+= 0, HOST_CONTROLLER
+= 1, PROGRAMMABLE
+
+> 0, 10, FREQ_SEL_VAL ; SDCLK Frequency Select Value. 10-bit preset value to be set in SDCLK Frequency Select field of the Clock Control register described by a Host System.
+
+PRESET_SDR104 = 0x006C, U16, RO ;  Preset Value for SDR104 Register
+> 10, 1, CLK_GEN_SEL_VAL ; Clock Generator Select Value. This bit is effective when the Host Controller supports a programmable clock generator.
+= 0, HOST_CONTROLLER
+= 1, PROGRAMMABLE
+
+> 0, 10, FREQ_SEL_VAL ; SDCLK Frequency Select Value. 10-bit preset value to be set in SDCLK Frequency Select field of the Clock Control register described by a Host System.
+
+PRESET_DDR50 = 0x006E, U16, RO ;  Preset Value for DDR50 Register
+> 10, 1, CLK_GEN_SEL_VAL ; Clock Generator Select Value. This bit is effective when the Host Controller supports a programmable clock generator.
+= 0, HOST_CONTROLLER
+= 1, PROGRAMMABLE
+
+> 0, 10, FREQ_SEL_VAL ; SDCLK Frequency Select Value. 10-bit preset value to be set in SDCLK Frequency Select field of the Clock Control register described by a Host System.
+
+ADMA_ID = 0x0078 ; ADMA3 Integrated Descriptor Address Register
+
+SLOT_INTR_STATUS = 0x00FC, U16, RO ;  Slot Interrupt Status Register
+> 0, 8, INTR_SLOT ; Interrupt signal for each Slot. Host Controller support single card slot. This register shall always return 0.
+
+HOST_CNTRL_VERS = 0x00FE, U16, RO ;  Host Controller Version Register
+> 8, 8, VENDOR_VERSION_NUM ; Vendor Version Number.
+
+> 0, 8, SPEC_VERSION_NUM ; Specification Version Number. Values:
+= 0, V1_00
+= 1, V2_00
+= 2, V3_00
+= 3, V4_00
+= 4, V4_10
+= 5, V4_20
+
+CQVER = 0x0180, RO ; Command Queuing Version Register
+> 8, 4, EMMC_VER_MAJOR ; eMMC Major Version Number (1st digit left of decimal point) in BCD format
+> 4, 4, EMMC_VER_MINOR ; eMMC Minor Version Number(1st digit right of decimal point) in BCD format
+> 0, 4, EMMC_VER_SUFFIX ; eMMC Version Suffix (2nd digit right of decimal point) in BCD format
+
+CQCAP = 0x0184, RO ; Command Queuing Capabilities Register
+> 28, 1, CRYPTO_SUPPORT ; Crypto Support. This bit indicates whether the Host Controller supports cryptographic operations.
+= 0, NOT_SUPPORTED
+= 1, SUPPORTED
+
+> 12, 4, ITCFMUL ; Internal Timer Clock Frequency Multiplier. This field indicates the frequency of the clock used for interrupt coalescing timer and for determining the SQS polling period. See ITCFVAL definition for details.
+= 0, 1KHZ
+= 1, 10KHZ
+= 2, 100KHZ
+= 3, 1MHZ
+= 4, 10MHZ
+
+> 0, 10, ITCFVAL, RO ; Internal Timer Clock Frequency Value. This field scales the frequency of the timer clock provided by ITCFMUL. The Final clock frequency of actual timer clock is calculated as ITCFVAL* ITCFMUL.
+
+CQCFG = 0x0188 ; Command Queuing Configuration Register
+> 12, 1, DCMD_EN ; Direct Command (DCMD) Enable. This bit indicates to the hardware whether the Task Descriptor in slot #31 of the TDL is a Data Transfer Task Descriptor, or a Direct Command Task Descriptor. CQE uses this bit when a task is issued in slot #31, to determine how to decode the Task Descriptor.
+= 0, DTTD
+= 1, DCTD
+
+> 8, 1, TASK_DESC_SIZE ; This bit indicates the size of task descriptor used in host memory. This bit can only be configured when Command Queueing Enable bit is 0 (command queueing is disabled)
+= 0, 64BITS
+= 1, 128BITS
+
+> 1, 1, CR_GENERAL_EN ; Crypto General Enable. Enable/Disable bit for Crypto Engine. If cryptographic operations are not_supported, this status bit is reserved.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, CQ_EN ; Command Queueing Enable. When CQE is disable, the software controls the eMMC bus using the registers between the addresses 0x000 to 0x1FF. Before the software writes to this bit, the software verifies that the eMMC host controller is in idle state and there are no ongoing commands or data transfers. When software wants to exit command queuing mode, it clears all previous tasks (if any) before setting this bit to 0.
+= 0, DISABLE
+= 1, ENABLE
+
+CQCTRL = 0x018C ; Command Queuing Control Register
+> 8, 1, CLR_ALL_TASKS ; Clear all tasks. This bit can only be written when the controller is halted. This bit does not clear tasks in the device. The software has to use the CMDQ_TASK_MGMT command to clear device's queue.
+= 0, NO_EFFECT
+= 1, CLEAR_ALL_TASKS
+
+> 0, 1, HALT ; Halt request and resume.
+= 0, RESUME_CQE ; Software writes 0 to this bit to exit from the halt state and resume CQE activity.
+= 1, HALT_CQE ; Software writes 1 to this bit when it wants to acquire software control over the eMMC bus and to disable CQE from issuing command on the bus. For example, issuing a Discard Task command (CMDQ_TASK_MGMT). When the software writes 1, CQE completes the ongoing task (if any in progress). After the task is completed and the CQE is in idle state, CQE does not issue new commands and indicates to the software by setting this bit to 1. The software can poll on this bit until it is set to 1 and only then send commands on the eMMC bus.
+
+CQIS = 0x0190 ; Command Queuing Interrupt Status Register
+# Was marked as RC/W1C
+> 3, 1, TCL, W1C ; Task Cleared Interrupt. This status bit is asserted (if CQISTE.TCL=1) when a task clear operation is completed by CQE. The completed task clear operation is either an individual task clear (CQTCLR) or clearing of all tasks (CQCTL).
+= 0, NOT_SET
+= 1, SET
+
+# Was marked as RC/W1C
+> 2, 1, RED, W1C ; Response Error Detected Interrupt. This status bit is asserted (if CQISTE.RED=1) when a response is received with an error bit set in the device status field. Software uses CQRMEM register to configure which device status bit fields may trigger an interrupt, and which are masked.
+= 0, NOT_SET
+= 1, SET
+
+# Was marked as RC/W1C
+> 1, 1, TCC, W1C ; Task Complete Interrupt. This status bit is asserted(if CQISTE.TCC=1) when at least one of the following two conditions are met: a. A task is completed and the INT bit is set in its Task Descriptor b. Interrupt caused by Interrupt Coalescing logic
+= 0, NOT_SET
+= 1, SET
+
+# Was marked as RC/W1C
+> 0, 1, HAC, W1C ; Halt Complete Interrupt. This status bit is asserted (if CQISTE.HAC=1) when halt bit in CQCTL register transitions from 0 to 1 indicating that Hhost Controller has completed its current ongoing task and has entered halt state.
+= 0, NOT_SET
+= 1, SET
+
+CQISE = 0x0194 ; Command Queuing Interrupt Status Enable Register
+> 3, 1, TCL_STE ; Task Cleared Interrupt status enable.
+= 0, DISABLED
+= 1, ENABLED
+
+> 2, 1, RED_STE ; Response Error Detected Interrupt status enable.
+= 0, DISABLED
+= 1, ENABLED
+
+> 1, 1, TCC_STE ; Task Complete Interrupt status enable.
+= 0, DISABLED
+= 1, ENABLED
+
+> 0, 1, HAC_STE ; Halt Complete Interrupt status enable.
+= 0, DISABLED
+= 1, ENABLED
+
+CQISGE = 0x0198 ; Command Queuing Interrupt Signal Enable Register
+> 3, 1, TCL_SGE ; Task Cleared Interrupt signal enable.
+= 0, DISABLED
+= 1, ENABLED
+
+> 2, 1, RED_SGE ; Response Error Detected Interrupt signal enable.
+= 0, DISABLED
+= 1, ENABLED
+
+> 1, 1, TCC_SGE ; Task Complete Interrupt signal enable.
+= 0, DISABLED
+= 1, ENABLED
+
+> 0, 1, HAC_SGE ; Halt Complete Interrupt signal enable.
+= 0, DISABLED
+= 1, ENABLED
+
+CQIC = 0x019C ; Command Queuing Interrupt Coalescing Register
+> 31, 1, INTC_EN ; Interrupt Coalescing Enable Bit.
+= 0, DISABLED
+= 1, ENABLED
+
+> 20, 1, INTC_STAT, RO ; Interrupt Coalescing Status Bit. This bit indicates to the software whether any tasks (with INT=0) have completed and counted towards interrupt coalescing (that is, this is set if and only if INTC counter > 0).
+= 0, COUNTER_0
+= 1, COUNTER_NOT_0
+
+> 16, 1, INTC_RST, WO ; Counter and Timer Reset. When host driver writes 1, the interrupt coalescing timer and counter are reset.
+= 0, NO_EFFECT
+= 1, RESET
+
+> 15, 1, INTC_TH_WEN, WO ; Interrupt Coalescing Counter Threshold Write Enable. When software writes 1 to this bit, the value INTC_TH is updated with the contents written on the same cycle.
+= 0, CLEAR
+= 1, SET
+
+> 8, 5, INTC_TH Interrupt, WO ; Coalescing Counter Threshold filed. Software uses this field to configure the number of task completions (only tasks with INT=0 in the Task Descriptor), which are required in order to generate an interrupt. Counter Operation: As data transfer tasks with INT=0 complete, they are counted by CQE. The counter is reset by software during the interrupt service routine. The counter stops counting when it reaches the value configured in INTC_TH, and generates interrupt. 5'h0: Interrupt coalescing feature disabled 5'h1: Interrupt coalescing interrupt generated after 1 task when INT=0 completes 5'h2: Interrupt coalescing interrupt generated after 2 tasks when INT=0 completes ........ 5'h1f: Interrupt coalescing interrupt generated after 31 tasks when INT=0 completes To write to this field, the INTC_TH_WEN bit must be set during the same write operation. 7 WO 0x0 TOUT_VAL_WEN When software writes 1 to this bit, the value TOUT_VAL is updated with the contents written on the same cycle.
+= 0, CLEAR
+= 1, SET
+
+> 0, 8, TOUT_VAL ; Interrupt Coalescing Timeout Value. Software uses this field to configure the maximum time allowed between the completion of a task on the bus and the generation of an interrupt. Timer Operation: The timer is reset by software during the interrupt service routine. It starts running when a data transfer task with INT=0 is completed, after the timer was reset. When the timer reaches the value configured in ICTOVAL field it generates an interrupt and stops. The timer's unit is equal to 1024 clock periods of the clock whose frequency is specified in the Internal Timer Clock Frequency field CQCAP register.
+
+CQTDLBA = 0x01A0 ; Command Queuing Task Descriptor List Base Address Register
+
+CQTDBR = 0x01A8, W1S ; Command Queuing Door Bell Register
+> 31, 1, TASK31
+= 1, START
+
+> 30, 1, TASK30
+= 1, START
+
+> 29, 1, TASK29
+= 1, START
+
+> 28, 1, TASK28
+= 1, START
+
+> 27, 1, TASK27
+= 1, START
+
+> 26, 1, TASK26
+= 1, START
+
+> 25, 1, TASK25
+= 1, START
+
+> 24, 1, TASK24
+= 1, START
+
+> 23, 1, TASK23
+= 1, START
+
+> 22, 1, TASK22
+= 1, START
+
+> 21, 1, TASK21
+= 1, START
+
+> 20, 1, TASK20
+= 1, START
+
+> 19, 1, TASK19
+= 1, START
+
+> 18, 1, TASK18
+= 1, START
+
+> 17, 1, TASK17
+= 1, START
+
+> 16, 1, TASK16
+= 1, START
+
+> 15, 1, TASK15
+= 1, START
+
+> 14, 1, TASK14
+= 1, START
+
+> 13, 1, TASK13
+= 1, START
+
+> 12, 1, TASK12
+= 1, START
+
+> 11, 1, TASK11
+= 1, START
+
+> 10, 1, TASK10
+= 1, START
+
+> 9, 1, TASK9
+= 1, START
+
+> 8, 1, TASK8
+= 1, START
+
+> 7, 1, TASK7
+= 1, START
+
+> 6, 1, TASK6
+= 1, START
+
+> 5, 1, TASK5
+= 1, START
+
+> 4, 1, TASK4
+= 1, START
+
+> 3, 1, TASK3
+= 1, START
+
+> 2, 1, TASK2
+= 1, START
+
+> 1, 1, TASK1
+= 1, START
+
+> 0, 1, TASK0
+= 1, START
+
+CQTCN = 0x01AC, W1C ; Command Queuing Task Clear Notification Register
+> 31, 1, TASK31
+= 1, COMPLETE
+
+> 30, 1, TASK30
+= 1, COMPLETE
+
+> 29, 1, TASK29
+= 1, COMPLETE
+
+> 28, 1, TASK28
+= 1, COMPLETE
+
+> 27, 1, TASK27
+= 1, COMPLETE
+
+> 26, 1, TASK26
+= 1, COMPLETE
+
+> 25, 1, TASK25
+= 1, COMPLETE
+
+> 24, 1, TASK24
+= 1, COMPLETE
+
+> 23, 1, TASK23
+= 1, COMPLETE
+
+> 22, 1, TASK22
+= 1, COMPLETE
+
+> 21, 1, TASK21
+= 1, COMPLETE
+
+> 20, 1, TASK20
+= 1, COMPLETE
+
+> 19, 1, TASK19
+= 1, COMPLETE
+
+> 18, 1, TASK18
+= 1, COMPLETE
+
+> 17, 1, TASK17
+= 1, COMPLETE
+
+> 16, 1, TASK16
+= 1, COMPLETE
+
+> 15, 1, TASK15
+= 1, COMPLETE
+
+> 14, 1, TASK14
+= 1, COMPLETE
+
+> 13, 1, TASK13
+= 1, COMPLETE
+
+> 12, 1, TASK12
+= 1, COMPLETE
+
+> 11, 1, TASK11
+= 1, COMPLETE
+
+> 10, 1, TASK10
+= 1, COMPLETE
+
+> 9, 1, TASK9
+= 1, COMPLETE
+
+> 8, 1, TASK8
+= 1, COMPLETE
+
+> 7, 1, TASK7
+= 1, COMPLETE
+
+> 6, 1, TASK6
+= 1, COMPLETE
+
+> 5, 1, TASK5
+= 1, COMPLETE
+
+> 4, 1, TASK4
+= 1, COMPLETE
+
+> 3, 1, TASK3
+= 1, COMPLETE
+
+> 2, 1, TASK2
+= 1, COMPLETE
+
+> 1, 1, TASK1
+= 1, COMPLETE
+
+> 0, 1, TASK0
+= 1, COMPLETE
+
+CQDQS = 0x01B0, RO ; Command Queuing Device Queue Status Register
+> 31, 1, TASK31
+= 1, READY
+= 0, NOT_READY
+
+> 30, 1, TASK30
+= 1, READY
+= 0, NOT_READY
+
+> 29, 1, TASK29
+= 1, READY
+= 0, NOT_READY
+
+> 28, 1, TASK28
+= 1, READY
+= 0, NOT_READY
+
+> 27, 1, TASK27
+= 1, READY
+= 0, NOT_READY
+
+> 26, 1, TASK26
+= 1, READY
+= 0, NOT_READY
+
+> 25, 1, TASK25
+= 1, READY
+= 0, NOT_READY
+
+> 24, 1, TASK24
+= 1, READY
+= 0, NOT_READY
+
+> 23, 1, TASK23
+= 1, READY
+= 0, NOT_READY
+
+> 22, 1, TASK22
+= 1, READY
+
+> 21, 1, TASK21
+= 1, READY
+= 0, NOT_READY
+
+> 20, 1, TASK20
+= 1, READY
+= 0, NOT_READY
+
+> 19, 1, TASK19
+= 1, READY
+= 0, NOT_READY
+
+> 18, 1, TASK18
+= 1, READY
+= 0, NOT_READY
+
+> 17, 1, TASK17
+= 1, READY
+= 0, NOT_READY
+
+> 16, 1, TASK16
+= 1, READY
+= 0, NOT_READY
+
+> 15, 1, TASK15
+= 1, READY
+= 0, NOT_READY
+
+> 14, 1, TASK14
+= 1, READY
+= 0, NOT_READY
+
+> 13, 1, TASK13
+= 1, READY
+= 0, NOT_READY
+
+> 12, 1, TASK12
+= 1, READY
+= 0, NOT_READY
+
+> 11, 1, TASK11
+= 1, READY
+= 0, NOT_READY
+
+> 10, 1, TASK10
+= 1, READY
+= 0, NOT_READY
+
+> 9, 1, TASK9
+= 1, READY
+= 0, NOT_READY
+
+> 8, 1, TASK8
+= 1, READY
+= 0, NOT_READY
+
+> 7, 1, TASK7
+= 1, READY
+= 0, NOT_READY
+
+> 6, 1, TASK6
+= 1, READY
+= 0, NOT_READY
+
+> 5, 1, TASK5
+= 1, READY
+= 0, NOT_READY
+
+> 4, 1, TASK4
+= 1, READY
+= 0, NOT_READY
+
+> 3, 1, TASK3
+= 1, READY
+= 0, NOT_READY
+
+> 2, 1, TASK2
+= 1, READY
+= 0, NOT_READY
+
+> 1, 1, TASK1
+= 1, READY
+= 0, NOT_READY
+
+> 0, 1, TASK0
+= 1, READY
+= 0, NOT_READY
+
+CQDPT = 0x01B4, RO ; Command Queuing Device Pending Tasks Register
+> 31, 1, TASK31
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 30, 1, TASK30
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 29, 1, TASK29
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 28, 1, TASK28
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 27, 1, TASK27
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 26, 1, TASK26
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 25, 1, TASK25
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 24, 1, TASK24
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 23, 1, TASK23
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 22, 1, TASK22
+= 1, PENDING
+
+> 21, 1, TASK21
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 20, 1, TASK20
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 19, 1, TASK19
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 18, 1, TASK18
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 17, 1, TASK17
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 16, 1, TASK16
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 15, 1, TASK15
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 14, 1, TASK14
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 13, 1, TASK13
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 12, 1, TASK12
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 11, 1, TASK11
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 10, 1, TASK10
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 9, 1, TASK9
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 8, 1, TASK8
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 7, 1, TASK7
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 6, 1, TASK6
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 5, 1, TASK5
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 4, 1, TASK4
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 3, 1, TASK3
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 2, 1, TASK2
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 1, 1, TASK1
+= 1, PENDING
+= 0, NOT_PENDING
+
+> 0, 1, TASK0
+= 1, PENDING
+= 0, NOT_PENDING
+
+CQTCLR = 0x01B8 ; Command Queuing Task Clear Register
+> 31, 1, TASK31
+= 1, CLEAR
+= 0, CLEARED
+
+> 30, 1, TASK30
+= 1, CLEAR
+= 0, CLEARED
+
+> 29, 1, TASK29
+= 1, CLEAR
+= 0, CLEARED
+
+> 28, 1, TASK28
+= 1, CLEAR
+= 0, CLEARED
+
+> 27, 1, TASK27
+= 1, CLEAR
+= 0, CLEARED
+
+> 26, 1, TASK26
+= 1, CLEAR
+= 0, CLEARED
+
+> 25, 1, TASK25
+= 1, CLEAR
+= 0, CLEARED
+
+> 24, 1, TASK24
+= 1, CLEAR
+= 0, CLEARED
+
+> 23, 1, TASK23
+= 1, CLEAR
+= 0, CLEARED
+
+> 22, 1, TASK22
+= 1, CLEAR
+
+> 21, 1, TASK21
+= 1, CLEAR
+= 0, CLEARED
+
+> 20, 1, TASK20
+= 1, CLEAR
+= 0, CLEARED
+
+> 19, 1, TASK19
+= 1, CLEAR
+= 0, CLEARED
+
+> 18, 1, TASK18
+= 1, CLEAR
+= 0, CLEARED
+
+> 17, 1, TASK17
+= 1, CLEAR
+= 0, CLEARED
+
+> 16, 1, TASK16
+= 1, CLEAR
+= 0, CLEARED
+
+> 15, 1, TASK15
+= 1, CLEAR
+= 0, CLEARED
+
+> 14, 1, TASK14
+= 1, CLEAR
+= 0, CLEARED
+
+> 13, 1, TASK13
+= 1, CLEAR
+= 0, CLEARED
+
+> 12, 1, TASK12
+= 1, CLEAR
+= 0, CLEARED
+
+> 11, 1, TASK11
+= 1, CLEAR
+= 0, CLEARED
+
+> 10, 1, TASK10
+= 1, CLEAR
+= 0, CLEARED
+
+> 9, 1, TASK9
+= 1, CLEAR
+= 0, CLEARED
+
+> 8, 1, TASK8
+= 1, CLEAR
+= 0, CLEARED
+
+> 7, 1, TASK7
+= 1, CLEAR
+= 0, CLEARED
+
+> 6, 1, TASK6
+= 1, CLEAR
+= 0, CLEARED
+
+> 5, 1, TASK5
+= 1, CLEAR
+= 0, CLEARED
+
+> 4, 1, TASK4
+= 1, CLEAR
+= 0, CLEARED
+
+> 3, 1, TASK3
+= 1, CLEAR
+= 0, CLEARED
+
+> 2, 1, TASK2
+= 1, CLEAR
+= 0, CLEARED
+
+> 1, 1, TASK1
+= 1, CLEAR
+= 0, CLEARED
+
+> 0, 1, TASK0
+= 1, CLEAR
+= 0, CLEARED
+
+CQSSC1 = 0x01C0 ; Command Queuing Send Status Configuration 1 Register
+> 16, 4, SQSCMD_BLK_CNT ; Send Status Command Block Counter. This field indicates when SQS CMD is sent while data transfer is in progress. A value of 'n' indicates that CQE sends status command on the CMD line, during the transfer of data block BLOCK_CNT-n, on the data lines, where BLOCK_CNT is the number of blocks in the current transaction.
+= 0, WHEN_IDLE
+= 1, LAST_BLOCK
+= 2, LAST_2_BLOCKS
+= 3, LAST_3_BLOCKS
+= 4, LAST_4_BLOCKS
+= 5, LAST_5_BLOCKS
+= 6, LAST_6_BLOCKS
+= 7, LAST_7_BLOCKS
+= 8, LAST_8_BLOCKS
+= 9, LAST_9_BLOCKS
+= 10, LAST_10_BLOCKS
+= 11, LAST_11_BLOCKS
+= 12, LAST_12_BLOCKS
+= 13, LAST_13_BLOCKS
+= 14, LAST_14_BLOCKS
+= 15, LAST_15_BLOCKS
+
+> 0, 16, SQSCMD_IDLE_TMR ; Send Status Command Idle Timer. This field configures the polling period to be used when using periodic SEND_QUEUE_STATUS (CMD13) polling. Periodic polling is used when tasks are pending in the device, but no data transfer is in progress. When a SEND_QUEUE_STATUS response indicates that no task is ready for execution, CQE counts the configured time until it issues the next SEND_QUEUE_STATUS. Timer units are clock periods of the clock whose frequency is specified in the Internal Timer Clock Frequency field CQCAP register. The minimum value is 0x0001 (1 clock period) and the maximum value is 0xFFFF (65535 clock periods). For example, a CQCAP field value of 0 indicates a 19.2 MHz clock frequency (period = 52.08 ns). If the setting in CQSSC1.CIT is 0x1000, the calculated polling period is 4096*52.08 ns= 213.33 ns. Should be programmed only when CQCFG.CQ_EN is '0'.
+
+CQSSC2 = 0x01C4 ; Command Queuing Send Status Configuration 2 Register
+> 0, 16, SQSCMD_RCA ; Send Queue RCA. This field provides CQE with the contents of the 16-bit RCA field in SEND_QUEUE_STATUS (CMD13) command argument. CQE copies this field to bits 31:16 of the argument when transmitting SEND_ QUEUE_STATUS (CMD13) command.
+
+CQCRDCT = 0x01C8, RO ; Command Queuing Command Response For Direct Command Register
+
+CQRMEM = 0x01D0 ; Command Queuing Command Response Mode Error Mask Register. Note: Responses to CMD13 (SQS) encode the QSR so that they are ignored by this logic.
+> 31, 1, RESP_ERR_31 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 30, 1, RESP_ERR_30 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 29, 1, RESP_ERR_29 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 28, 1, RESP_ERR_28 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 27, 1, RESP_ERR_27 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 26, 1, RESP_ERR_26 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 25, 1, RESP_ERR_25 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 24, 1, RESP_ERR_24 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 23, 1, RESP_ERR_23 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 22, 1, RESP_ERR_22 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 21, 1, RESP_ERR_21 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 20, 1, RESP_ERR_20 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 19, 1, RESP_ERR_19 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 18, 1, RESP_ERR_18 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 17, 1, RESP_ERR_17 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 16, 1, RESP_ERR_16 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 15, 1, RESP_ERR_15 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 14, 1, RESP_ERR_14 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 13, 1, RESP_ERR_13 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 12, 1, RESP_ERR_12 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 11, 1, RESP_ERR_11 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 10, 1, RESP_ERR_10 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 9, 1, RESP_ERR_9 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 8, 1, RESP_ERR_8 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 7, 1, RESP_ERR_7 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 6, 1, RESP_ERR_6 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 5, 1, RESP_ERR_5 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 4, 1, RESP_ERR_4 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 3, 1, RESP_ERR_3 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 2, 1, RESP_ERR_2 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 1, 1, RESP_ERR_1 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+> 0, 1, RESP_ERR_0 ; Response Mode Error Mask. The bits of this field are bit mapped to the device response. This bit is used as an interrupt mask on the device status filed that is received in R1/R1b responses. The reset value of this register is set to trigger an interrupt on all "Error" type bits in the device status.
+= 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
+= 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
+
+
+CQTERRI = 0x01D4, RO ; Command Queuing Task Error Information Register
+> 31, 1, TRANS_ERR_FIELDS_VALID ; Data Transfer Error Field Valid. This bit is updated when an error is detected while a data transfer transaction was in progress.
+= 0, IGNORE
+= 1, ERROR_DETECTED
+
+> 24, 5, TRANS_ERR_TASKID ; Data Transfer Error Task ID. This field captures the ID of the task that was executed and whose data transfer has errors.
+
+> 16, 6, TRANS_ERR_CMD_INDX ; Data Transfer Error Command Index. This field captures the index of the command that was executed and whose data transfer has errors.
+
+> 15, 1, RESP_ERR_FIELDS_VALID ; Response Mode Error Fields Valid. This bit is updated when an error is detected while a command transaction was in progress.
+= 0, IGNORE
+= 1, ERROR_DETECTED
+
+> 8, 5, RESP_ERR_TASKID ; Response Mode Error Task ID. This field captures the ID of the task which was executed on the command line when the error occurred.
+
+> 0, 6, RESP_ERR_CMD_INDX ; Response Mode Error Command Index. This field captures the index of the command that was executed on the command line when the error occurred.
+
+CQCRI = 0x01D8 ; Command Queuing Command Response Index Register
+> 0, 6, CMD_RESP_INDX ; Last Command Response Index This field stores the index of the last received command response. CQE shall update the value every time a command response is received.
+
+CQCRA = 0x01DC, RO ; Command Queuing Command Response Argument Register
+
+VER_ID = 0x0500, RO ; Host Version ID Register
+VER_TYPE = 0x0504, RO ; Host Version Type Register
+
+HOST_CTRL3 = 0x0508, U8 ; Host Control 3 Register
+> 4, 1, SW_CG_DIS ; Internal clock gating disable control. This bit must be used to disable IP's internal clock gating when required. When disabled clocks are not gated. Clocks to the core (except AHB bus clock) must be stopped when programming this bit.
+= 0, DISABLE ; Internal clock gating is disabled, clocks are not gated internally
+= 1, ENABLE ; Internal clock gates are active and clock gating is controlled internally
+
+> 0, 1, CMD_CONFLICT_CHECK ; Command conflict check. This bit enables command conflict check. Host Controller monitors the CMD line whenever a command is issued and checks whether the value driven on command output line matches the value on command input line at next subsequent edge of transmit clock to determine command conflict error. This bit is cleared only if the feed back delay (including IO Pad delay) is more than (card clock period - flop setup time).
+= 0, DISABLE ; Disable command conflict check
+= 1, ENABLE ; Check for command conflict after 1 card clock cycle
+
+EMMC_CTRL = 0x052C, U16 ;  EMMC Control Register
+> 10, 1, CQE_PREFETCH_DISABLE ; Enable or Disable CQE's PREFETCH feature. This field allows Software to disable CQE's data prefetch feature when set to 1.
+= 0, ENABLE ; CQE can prefetch data for successive WRITE transfers and pipeline successive READ transfers
+= 1, DISABLE ; Prefetch for WRITE and Pipeline for READ are disabled
+
+> 9, 1, CQE_ALGO_SEL ; Scheduler algorithm selected for execution. This bit selects the Algorithm used for selecting one of the many ready tasks for execution.
+= 0, PRIORITY ; Priority based reordering with FCFS to resolve equal priority tasks
+= 1, FIFO ; First come First serve, in the order of DBR rings
+
+> 8, 1, ENH_STROBE_ENABLE ; Enhanced Strobe Enable. This bit instructs Host to sample the CMD line using data strobe for HS400 mode.
+= 0, RECV_CLK ; CMD line is sampled using receive clock for HS400 mode
+= 1, DATA_STROBE ; CMD line is sampled using data strobe for HS400 mode
+
+> 2, 1, EMMC_RST_N ; EMMC Device Reset signal control.
+= 0, ASSERTED
+= 1, DEASSERTED
+
+> 1, 1, DISABLE_DATA_CRC_CHK ; Disable Data CRC Check. This bit controls masking of CRC16 error for Card Write in eMMC mode. This is useful in bus testing (CMD19) for an eMMC device. In bus testing, an eMMC card does not send CRC status for a block, which may generate CRC error. This CRC error can be masked using this bit during bus testing.
+= 0, ENABLED
+= 1, DISABLED
+
+> 0, 1, CARD_IS_EMMC ; eMMC Card present. This bit indicates the type of card connected. An application program this bit based on the card connected to Host Controller.
+= 0, NON_EMMC
+= 1, EMMC
+
+BOOT_CTRL = 0x052E, U16 ;  Boot Control Register
+> 12, 4, BOOT_TOUT_CNT ; Boot Acknowledge Timeout Counter Value. This value determines the interval by which boot acknowledge timeout (50 ms) is detected when boot acknowledge is expected during boot operation.
+= 0, TMCLK_TIMES_2_TO_13
+= 1, TMCLK_TIMES_2_TO_14
+= 2, TMCLK_TIMES_2_TO_15
+= 3, TMCLK_TIMES_2_TO_16
+= 4, TMCLK_TIMES_2_TO_17
+= 5, TMCLK_TIMES_2_TO_18
+= 6, TMCLK_TIMES_2_TO_19
+= 7, TMCLK_TIMES_2_TO_20
+= 8, TMCLK_TIMES_2_TO_21
+= 9, TMCLK_TIMES_2_TO_22
+= 10, TMCLK_TIMES_2_TO_23
+= 11, TMCLK_TIMES_2_TO_24
+= 12, TMCLK_TIMES_2_TO_25
+= 13, TMCLK_TIMES_2_TO_26
+= 14, TMCLK_TIMES_2_TO_27
+= 15, Reserved
+
+> 8, 1, BOOT_ACK_ENABLE ; Boot Acknowledge Enable. When this bit set, Host checks for boot acknowledge start pattern of 0-1-0 during boot operation. This bit is applicable for both mandatory and alternate boot mode.
+= 1, ENABLE
+= 0, DISABLE
+
+> 7, 1, VALIDATE_BOOT ; Validate Mandatory Boot Enable bit. This bit is used to validate the MAN_BOOT_EN bit.
+= 1, VALIDATE
+= 0, IGNORE
+
+> 0, 1, MAN_BOOT_EN ; Mandatory Boot Enable. This bit is used to initiate the mandatory boot operation. The application sets this bit along with VALIDATE_BOOT bit. Writing 0 is ignored. The Host Controller clears this bit after the boot transfer is completed or terminated.
+= 1, ENABLE
+= 0, DISABLE
+
+AT_CTRL = 0x0540 ; Tuning Control Register
+> 19, 2, POST_CHANGE_DLY ; Time taken for phase switching and stable clock output.
+= 0, LESS_THAN_1_CYCLE
+= 1, LESS_THAN_2_CYCLE
+= 2, LESS_THAN_3_CYCLE
+= 3, LESS_THAN_4_CYCLE
+
+> 17, 2, PRE_CHANGE_DLY ; Maximum Latency specification between transmit clock and receive clock.
+= 0, LESS_THAN_1_CYCLE
+= 1, LESS_THAN_2_CYCLE
+= 2, LESS_THAN_3_CYCLE
+= 3, LESS_THAN_4_CYCLE
+
+> 16, 1, TUNE_CLK_STOP_EN ; Clock stopping control for Tuning and auto-tuning circuit. When enabled, clock gate control output is pulled low before changing phase select codes. This effectively stops the receive clock. Changing phase code when clocks are stopped ensures glitch free phase switching.
+= 0, NOT_STOPPED ; Clocks not stopped
+= 1, STOPPED ; Clocks stopped during phase code change
+
+> 4, 1, SW_TUNE_EN ; This fields enables software-managed tuning flow.
+= 0, DISABLED ; Software-managed tuning disabled
+= 1, ENABLED ; Software-managed tuning enabled
+
+> 3, 1, RPT_TUNE_ERR ; Framing errors are not generated when executing tuning. This debug bit allows users to report these errors.
+= 0, DEFAULT ; Default mode where per host no errors are reported
+= 1, DEBUG ; Debug mode for reporting framing errors
+
+> 2, 1, SWIN_TH_EN ; Sampling window Threshold enable. Selects the tuning mode. Field should be programmed only when SAMPLE_CLK_SEL is '0'.
+= 0, LARGEST ; Tuning engine sweeps all taps and settles at the largest window.
+= 1, FIRST ; Tuning engine selects the first complete sampling window that meets the threshold set by SWIN_TH_VAL field.
+
+AT_STAT = 0x0544 ; Tuning Status Register
+> 16, 8, L_EDGE_PH_CODE, RO ; Left Edge Phase code. Reading this field returns the phase code value used by Auto- tuning engine to sample data on Left edge of sampling window.
+> 8, 8, R_EDGE_PH_CODE, RO ; Right Edge Phase code. Reading this field returns the phase code value used by Auto- tuning engine to sample data on Right edge of sampling window.
+> 0, 8, CENTER_PH_CODE ; Centered Phase code. Setting AT_CTRL.SW_TUNE_EN enables software to write to this field.
+
+DLL_CTRL = 0x0800 ; DLL Global Control Register
+> 24, 1, DLL_BYPASS_MODE ; DLL bypass mode select.
+= 0, NORMAL
+= 1, BYPASS
+
+> 16, 8, DLL_START_POINT DLL start point for phase detect.
+
+> 8, 8, DLL_INCRMENT ; DLL increment value.
+
+> 1, 1, DLL_SRST ; DLL software reset indication.
+= 0, NORMAL
+= 1, RESET
+
+> 0, 1, DLL_START ; DLL working indication.
+= 0, NOT_WORKING
+= 1, WORKING
+
+DLL_RXCLK = 0x0804 ; DLL Control Register For Receive Clock
+> 31, 1, RX_CLK_ORI_GATE ; Receive original clock source gating enable.
+= 0, DISABLED ; Receive original clock source is not auto gating, active when card clock is stable and enable.
+= 1, ENABLED ; Receive original clock source is auto gating, active when card is working.
+
+> 29, 1, RX_CLK_SRC_SEL ; Receive clock source selection.
+= 0, TRANSMIT_CLOCK_OUTPUT ; Receive clock source is transmit clock output
+= 1, ORIGINAL_CLOCK_INPUT ; Receive clock source is original clock input
+
+> 28, 1, RX_CLK_CHGWIN ; Receive clock change window configuration. When high, receive clock is gated.
+
+> 27, 1, RX_CLK_DLY_ENA ; Delay enable for receive clock output.
+= 0, DISABLE ; Receive clock output comes from receive clock source, determined by RX_CLK_SRC_SEL.
+= 1, ENABLE ; Receive clock output comes from delay line output of receive clock source.
+
+> 26, 1, RX_DELAY_NUM_SEL ; Delay element number selection for receive clock.
+= 0, HW ; Delay element number comes from hardware calculation
+= 1, SW ; Delay element number comes from software (RX_DELAY_NUM)
+
+> 25, 1, RX_TAP_VALUE_SEL ; Tap value selection for receive clock.
+= 0, FROM_DLL_LOCK_VALUE ; Tap value equals to (DLL_LOCK_VALUE*2)%256
+= 1, FROM_RX_TAP_VALUE ; Tap value comes from software (RX_TAP_VALUE)
+
+> 24, 1, RX_TAP_NUM_SEL ; Tap number selection for receive clock.
+= 0, FROM_TUNING ; Tap number comes from tuning result
+= 1, FROM_RX_TAP_NUM ; Tap number comes from software (RX_TAP_NUM)
+
+> 16, 8, RX_DELAY_NUM ; Total delay element number of selected tap used for receive clock.
+
+> 8, 8, RX_TAP_VALUE ; Tap value for receive clock. It denotes delay element number for receive clock cycle.
+
+> 0, 5, RX_TAP_NUM ; Tap number for receive clock. Every clock is divided into 32 taps equably. The selected tap number is RX_TAP_NUM+1. Use tap number to select tap used for receive clock.
+
+DLL_TXCLK = 0x0808 ; DLL Control Register For Transmit Clock
+> 30, 2, reserved, RO ; 29 RW 0x0 TX_CLK_SRC_SEL Transmit clock source selection.
+= 0, INVERTED ; Transmit clock source is invertion of original clock input
+= 1, ORIGINAL ; Transmit clock source is original clock input
+
+> 27, 1, TX_CLK_DLY_ENA ; Delay enable for transmit clock output.
+= 0, DISABLE ; Transmit clock output comes from transmit clock source, determined by TX_CLK_SRC_SEL.
+= 1, ENABLE ; Transmit clock output comes from delay line output of transmit clock source.
+
+> 26, 1, TX_DELAY_NUM_SEL ; Delay element number selection for transmit clock.
+= 0, HW ; Delay element number comes from hardware calculation
+= 1, SW ; Delay element number comes from software (TX_DELAY_NUM)
+
+> 25, 1, TX_TAP_VALUE_SEL ; Tap value selection for transmit clock.
+= 0, FROM_DLL_LOCK_VALUE ; Tap value equals to (DLL_LOCK_VALUE*2)%256
+= 1, FROM_TX_TAP_VALUE ; Tap value comes from software (TX_TAP_VALUE)
+
+> 24, 1, TX_TAP_NUM_SEL ; Tap number selection for transmit clock.
+= 0, 8 ; Tap number is 8
+= 1, TX_TAP_NUM ; Tap number comes from software (TX_TAP_NUM)
+
+> 16, 8, TX_DELAY_NUM ; Total delay element number of selected tap used for transmit clock.
+
+> 8, 8, TX_TAP_VALUE ; Tap value for transmit clock. It denotes delay element number for transmit clock cycle.
+
+> 0, 5, TX_TAP_NUM ; Tap number for transmit clock. Every clock is divided into 32 taps equably. The selected tap number is TX_TAP_NUM+1. Use tap number to select tap used for transmit clock.
+
+DLL_STRBIN = 0x080C ; DLL Control Register For Strobe Input
+> 27, 1, STRBIN_DELAY_ENA ; Delay enable for strobe input.
+= 0, DISABLE ; Strobe input comes from original data strobe.
+= 1, ENABLE ; Strobe input comes from delay line output of original data strobe.
+
+> 26, 1, STRBIN_DELAY_NUM_SEL ; Delay element number selection for strobe input.
+= 0, HW ; Delay element number comes from hardware calculation
+= 1, SW ; Delay element number comes from software (STRBIN_DELAY_NUM)
+
+> 25, 1, STRBIN_TAP_VALUE_SEL ; Tap value selection for strobe input.
+= 0, FROM_DLL_LOCK_VALUE ; Tap value equals to (DLL_LOCK_VALUE*2)%256
+= 1, FROM_STRBIN_TAP_VALUE ; Tap value comes from software (STRBIN_TAP_VALUE)
+
+> 24, 1, STRBIN_TAP_NUM_SEL ; Tap number selection for strobe input.
+= 0, 8 ; Tap number is 8
+= 1, TAPNUM_TAP_NUM ; Tap number comes from software (TAPNUM_TAP_NUM)
+
+> 16, 8, STRBIN_DELAY_NUM ; Total delay element number of selected tap used for strobe input.
+
+> 8, 8, STRBIN_TAP_VALUE ; Tap value for strobe input. It denotes delay element number for strobe input cycle.
+
+> 0, 5, STRBIN_TAP_NUM ; Tap number for strobe input. Every clock is divided into 32 taps equably. The selected tap number is STRBIN_TAP_NUM+1. Use tap number to select tap used for strobe input.
+
+DLL_CMDOUT = 0x0810 ; DLL Control Register For Command Output
+> 29, 2, CMDOEN_SRC_SEL ; Command output enable selection.
+= 0, RISING_EDGE ; Command output enable is from register output triggered by clock rising edge
+= 1, FALLING_EDGE ; Command output enable is from register output triggered by clock falling edge
+
+> 28, 1, CMDOUT_SRC_SEL ; Command output source selection.
+= 0, RISING_EDGE ; Command output source is from register output triggered by clock rising edge
+= 1, FALLING_EDGE ; Command output source is from register output triggered by clock falling edge
+
+> 27, 1, CMDOUT_DELAY_ENA ; Delay enable for command output.
+= 0, DISABLE ; Command output comes from command output source, determined by CMDOUT_SRC_SEL.
+= 1, ENABLE ; Command output comes from delay line output of command output source.
+
+> 26, 1, CMDOUT_DELAY_NUM_SEL ; Delay element number selection for command output.
+= 0, HW ; Delay element number comes from hardware calculation
+= 1, SW ; Delay element number comes from software (CMDOUT_DELAY_NUM)
+
+> 25, 1, CMDOUT_TAP_VALUE_SEL ; Tap value selection for command output.
+= 0, FROM_DLL_LOCK_VALUE ; Tap value equals to (DLL_LOCK_VALUE*2)%256
+= 1, FROM_CMDOUT_TAP_VALUE ; Tap value comes from software (CMDOUT_TAP_VALUE)
+
+> 24, 1, CMDOUT_TAP_NUM_SEL ; Tap number selection for command output.
+= 1, CMDOUT_TAP_NUM ; Tap number comes from software (CMDOUT_TAP_NUM)
+
+> 16, 8, CMDOUT_DELAY_NUM ; Total delay element number of selected tap used for command output.
+
+> 8, 8, CMDOUT_TAP_VALUE ; Tap value for command output. It denotes delay element number for command output.
+
+> 0, 5, CMDOUT_TAP_NUM ; Tap number for command output. Every clock is divided into 32 taps equably. The selected tap number is CMDOUT_TAP_NUM+1. Use tap number to select tap used for command output.
+
+DLL_STATUS0 = 0x0840, RO ; DLL Status Register 0
+> 16, 8, DLL_CMDOUT_DELAY_VALUE ; Delay element number used for command output
+
+> 9, 1, DLL_LOCK_TIMEOUT ; Delay line phase detection timeout status.
+= 0, NOT_TIMEOUT
+= 1, TIMEOUT
+
+> 8, 1, DLL_LOCK ; Delay line lock indication.
+= 0, NOT_LOCKED ; Delay line is not locked
+= 1, LOCKED ; Delay line is locked
+
+> 0, 8, DLL_LOCK_VALUE ; Delay line lock value for half card clock cycle. It denotes the delay element number needed for delay line locked. It is valid when DLL_LOCK is high.
+
+DLL_STATUS1 = 0x0844, RO ; DLL Status Register 1
+> 16, 8, DLL_STRBIN_DELAY_VALUE ; Delay element number used for strobe input
+> 8, 8, DLL_RXCLK_DELAY_VALUE ; Delay element number used for receive clock
+> 0, 8, DLL_TXCLK_DELAY_VALUE ; Delay element number used for transmit clock
+
