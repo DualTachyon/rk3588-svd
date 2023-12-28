@@ -161,7 +161,7 @@ BC_CTL = 0x0044 ; Block Cipher Control Register
 = 1, ENABLE
 
 HASH_CTL = 0x0048 ; Hash Control Register
-> 4, 4, HASH_CIPHER_SEL ;
+> 4, 4, HASH_CIPHER_SEL
 = 0, SHA1
 = 1, MD5
 = 2, SHA256
