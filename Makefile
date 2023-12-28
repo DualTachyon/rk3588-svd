@@ -4,7 +4,7 @@ DEFS = $(wildcard def/*.def) $(wildcard def/*/*.def)
 all: $(TARGET)
 
 $(TARGET): $(DEFS)
-	./def2svd.py -o $@ -i $^
+	./convert-def.py -o $@ -i $^
 
 clean:
 	rm -f $(TARGET)
