@@ -438,7 +438,7 @@ AUTOCS_ACLK_M_DSU_BIU_CON1 = 0x0D04 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_m_dsu_biu switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_M_DSU_BIU_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+> 0, 12, ACLK_M_DSU_BIU_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_m_dsu_biu switch to lower frequency.
 = 0x000, DISABLE
 
@@ -460,7 +460,7 @@ AUTOCS_ACLK_S_DSU_BIU_CON1 = 0x0D0C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_s_dsu_biu switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_S_DSU_BIU_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+> 0, 12, ACLK_S_DSU_BIU_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_s_dsu_biu switch to lower frequency.
 = 0x000, DISABLE
 
@@ -482,7 +482,7 @@ AUTOCS_ACLK_MP_DSU_BIU_CON1 = 0x0D14 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_mp_dsu_biu switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_MP_DSU_BIU_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+> 0, 12, ACLK_MP_DSU_BIU_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_mp_dsu_biu switch to lower frequency.
 = 0x000, DISABLE
 
@@ -504,7 +504,7 @@ AUTOCS_SCLK_DSU_SRC_CON1 = 0x0D1C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable sclk_dsu_src switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, SCLK_DSU_SRC_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+> 0, 12, SCLK_DSU_SRC_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable sclk_dsu_src switch to lower frequency.
 = 0x000, DISABLE
 
@@ -526,7 +526,7 @@ AUTOCS_CLK_CORE_L_CON1 = 0x0D24 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable clk_core_l switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, CLK_CORE_L_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+> 0, 12, CLK_CORE_L_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable clk_core_l switch to lower frequency.
 = 0x000, DISABLE
 

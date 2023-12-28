@@ -404,7 +404,7 @@ AUTOCS_ACLK_SECURE_NS_ROOT_CON1 = 0x0D04 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_secure_ns_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_SECURE_NS_ROOT_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+> 0, 12, ACLK_SECURE_NS_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_secure_ns_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -426,7 +426,7 @@ AUTOCS_HCLK_SECURE_NS_ROOT_CON1 = 0x0D0C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_secure_ns_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_SECURE_NS_ROOT_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+> 0, 12, HCLK_SECURE_NS_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_secure_ns_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -448,7 +448,7 @@ AUTOCS_ACLK_SECURE_S_ROOT_CON1 = 0x0D14 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_secure_s_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_SECURE_S_ROOT_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+> 0, 12, ACLK_SECURE_S_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_secure_s_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -470,7 +470,7 @@ AUTOCS_HCLK_SECURE_S_ROOT_CON1 = 0x0D1C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_secure_s_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_SECURE_S_ROOT_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+> 0, 12, HCLK_SECURE_S_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_secure_s_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -492,7 +492,7 @@ AUTOCS_PCLK_SECURE_S_ROOT_CON1 = 0x0D24 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable pclk_secure_s_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, PCLK_SECURE_S_ROOT_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+> 0, 12, PCLK_SECURE_S_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable pclk_secure_s_root switch to lower frequency.
 = 0x000, DISABLE
 

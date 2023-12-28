@@ -451,27 +451,27 @@ CHB_STATUS17 = 0x00F4 ; DDR CHB Status Register 17
 > 0, 7, ST_LPR_CREDIT_CNT, RO ; DDRCTL lpr credit count
 
 CHB_STATUS19 = 0x00FC ; DDR CHB Status Register 19
-> 18, 2, ST_DERATE_TEMP_LIMIT_INTR_FAULT, RO ;  This signal is the derate temperature limit fault. This is a version of derate_temp_limit_intr, which can not be disabled or forced via a register. It is a 2-bit antivalent signal with encoding as follows:
+> 18, 2, ST_DERATE_TEMP_LIMIT_INTR_FAULT, RO ; This signal is the derate temperature limit fault. This is a version of derate_temp_limit_intr, which can not be disabled or forced via a register. It is a 2-bit antivalent signal with encoding as follows:
 = 1, NO_FAULT
 = 2, FAULT_DETECTED
 
-> 16, 2, ST_RD_LINKECC_CORR_ERR_INTR_FAULT, RO ;  This signal is the read Link-ECC corrected error fault. This is a version of rd_linkecc_corr_err_intr which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding of
+> 16, 2, ST_RD_LINKECC_CORR_ERR_INTR_FAULT, RO ; This signal is the read Link-ECC corrected error fault. This is a version of rd_linkecc_corr_err_intr which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding of
 = 1, NO_FAULT
 = 2, FAULT_DETECTED
 
-> 14, 2, ST_RD_LINKECC_UNCORR_ERR_INTR_FAULT, RO ;  This signal is the read Link-ECC uncorrected error fault. This is a version of rd_linkecc_uncorr_err_intr, which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding as follows:
+> 14, 2, ST_RD_LINKECC_UNCORR_ERR_INTR_FAULT, RO ; This signal is the read Link-ECC uncorrected error fault. This is a version of rd_linkecc_uncorr_err_intr, which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding as follows:
 = 1, NO_FAULT
 = 2, FAULT_DETECTED
 
-> 12, 2, ST_ECC_AP_ERR_INTR_FAULT, RO ;  This signal is the ECC address protection fault. This is a version of ecc_ap_err_intr which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding as follows:
+> 12, 2, ST_ECC_AP_ERR_INTR_FAULT, RO ; This signal is the ECC address protection fault. This is a version of ecc_ap_err_intr which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding as follows:
 = 1, NO_FAULT
 = 2, FAULT_DETECTED
 
-> 10, 2, ST_ECC_UNCORRECTED_ERR_INTR_FAULT, RO ;  This signal is the ECC uncorrected error fault. This is a version of ecc_uncorrected_err_intr which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding as follows:
+> 10, 2, ST_ECC_UNCORRECTED_ERR_INTR_FAULT, RO ; This signal is the ECC uncorrected error fault. This is a version of ecc_uncorrected_err_intr which can not be disabled or forced through a register. It is a 2-bit antivalent signal with encoding as follows:
 = 1, NO_FAULT
 = 2, FAULT_DETECTED
 
-> 8, 2, ST_ECC_CORRECTED_ERR_INTR_FAULT, RO ;  This signal is the ECC corrected error fault. This is a version of ecc_corrected_err_intr which can not be disabled or forced through register. It is a 2-bit antivalent signal with encoding as follows:
+> 8, 2, ST_ECC_CORRECTED_ERR_INTR_FAULT, RO ; This signal is the ECC corrected error fault. This is a version of ecc_corrected_err_intr which can not be disabled or forced through register. It is a 2-bit antivalent signal with encoding as follows:
 = 1, NO_FAULT
 = 2, FAULT_DETECTED
 
@@ -554,14 +554,14 @@ CHB_PHY_CON0 = 0x0134 ; DDRPHY CHB Control Register 0
 = 2, DVFS1
 
 CHA_PHY_STATUS0 = 0x0138 ; DDRPHY CHA Status Register 0
-> 4, 1, ST_DFI_INIT_COMPLETE, RO ;  Dfi_init_complete status
+> 4, 1, ST_DFI_INIT_COMPLETE, RO ; Dfi_init_complete status
 > 3, 1, ST_DFI_INIT_START, RO ; Dfi_init_start status
 > 2, 1, ST_DDRPHY2XCLKGATE_ENOUT, RO ; Status of ddrphy2xclkgate_enout signal. This is a feed-through signal of ddrphy2xclkgate_enable. This signal can be monitored to get the status of ddrphy2xclkgate_enable signal.
 > 1, 1, ST_DFI_PHYMSTR_ACTIVE, RO ; DDRPHY phymstr_active status
 > 0, 1, ST_DFI_ERROR, RO ; DDRPHY dfi error status Indicates that the DDRPHY has detected an error condition such as read FIFO pointer error, conflict DLL update and wrdata and conflict DLL update and rddata.
 
 CHB_PHY_STATUS0 = 0x013C ; DDRPHY CHB Status Register 1
-> 4, 1, ST_DFI_INIT_COMPLETE, RO ;  Dfi_init_complete status
+> 4, 1, ST_DFI_INIT_COMPLETE, RO ; Dfi_init_complete status
 > 3, 1, ST_DFI_INIT_START, RO ; Dfi_init_start status
 > 2, 1, ST_DDRPHY2XCLKGATE_ENOUT, RO ; Status of ddrphy2xclkgate_enout signal. This is a feed-through signal of ddrphy2xclkgate_enable. This signal can be monitored to get the status of ddrphy2xclkgate_enable signal.
 > 1, 1, ST_DFI_PHYMSTR_ACTIVE, RO ; DDRPHY phymstr_active status

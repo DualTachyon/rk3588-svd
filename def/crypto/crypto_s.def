@@ -98,17 +98,17 @@ DMA_ST = 0x0018 ; DMA Status Register
 = 1, BUSY ; DMA busy
 
 DMA_STATE = 0x001C ; DMA State Register
-> 4, 2, DMA_LLI_STATE, RO ; For debug use only. Others: Reserved
+> 4, 2, DMA_LLI_STATE, RO ; For debug use only.
 = 0, IDLE
 = 1, FETCH
 = 2, WORK
 
-> 2, 2, DMA_SRC_STATE, RO ; For debug use only. Others: Reserved
+> 2, 2, DMA_SRC_STATE, RO ; For debug use only.
 = 0, IDLE
 = 1, LOAD
 = 2, WORK
 
-> 0, 2, DMA_DST_STATE, RO ; For debug use only. Others: Reserved
+> 0, 2, DMA_DST_STATE, RO ; For debug use only.
 = 0, IDLE
 = 1, LOAD
 = 2, WORK
@@ -356,55 +356,55 @@ CH5_IV_LEN_0 = 0x0314 ; Channel 5 IV Length Register 0
 CH6_IV_LEN_0 = 0x0318 ; Channel 6 IV Length Register 0
 CH7_IV_LEN_0 = 0x031C ; Channel 7 IV Length Register 0
 
-CH0_TAG_0 = 0x0320, RO ;  Channel 0 Tag Register 0
-CH0_TAG_1 = 0x0324, RO ;  Channel 0 Tag Register 1
-CH0_TAG_2 = 0x0328, RO ;  Channel 0 Tag Register 2
-CH0_TAG_3 = 0x032C, RO ;  Channel 0 Tag Register 3
-CH1_TAG_0 = 0x0330, RO ;  Channel 1 Tag Register 0
-CH1_TAG_1 = 0x0334, RO ;  Channel 1 Tag Register 1
-CH1_TAG_2 = 0x0338, RO ;  Channel 1 Tag Register 2
-CH1_TAG_3 = 0x033C, RO ;  Channel 1 Tag Register 3
-CH2_TAG_0 = 0x0340, RO ;  Channel 2 Tag Register 0
-CH2_TAG_1 = 0x0344, RO ;  Channel 2 Tag Register 1
-CH2_TAG_2 = 0x0348, RO ;  Channel 2 Tag Register 2
-CH2_TAG_3 = 0x034C, RO ;  Channel 2 Tag Register 3
-CH3_TAG_0 = 0x0350, RO ;  Channel 3 Tag Register 0
-CH3_TAG_1 = 0x0354, RO ;  Channel 3 Tag Register 1
-CH3_TAG_2 = 0x0358, RO ;  Channel 3 Tag Register 2
-CH3_TAG_3 = 0x035C, RO ;  Channel 3 Tag Register 3
-CH4_TAG_0 = 0x0360, RO ;  Channel 4 Tag Register 0
-CH4_TAG_1 = 0x0364, RO ;  Channel 4 Tag Register 1
-CH4_TAG_2 = 0x0368, RO ;  Channel 4 Tag Register 2
-CH4_TAG_3 = 0x036C, RO ;  Channel 4 Tag Register 3
-CH5_TAG_0 = 0x0370, RO ;  Channel 5 Tag Register 0
-CH5_TAG_1 = 0x0374, RO ;  Channel 5 Tag Register 1
-CH5_TAG_2 = 0x0378, RO ;  Channel 5 Tag Register 2
-CH5_TAG_3 = 0x037C, RO ;  Channel 5 Tag Register 3
-CH6_TAG_0 = 0x0380, RO ;  Channel 6 Tag Register 0
-CH6_TAG_1 = 0x0384, RO ;  Channel 6 Tag Register 1
-CH6_TAG_2 = 0x0388, RO ;  Channel 6 Tag Register 2
-CH6_TAG_3 = 0x038C, RO ;  Channel 6 Tag Register 3
-CH7_TAG_0 = 0x0390, RO ;  Channel 7 Tag Register 0
-CH7_TAG_1 = 0x0394, RO ;  Channel 7 Tag Register 1
-CH7_TAG_2 = 0x0398, RO ;  Channel 7 Tag Register 2
-CH7_TAG_3 = 0x039C, RO ;  Channel 7 Tag Register 3
+CH0_TAG_0 = 0x0320, RO ; Channel 0 Tag Register 0
+CH0_TAG_1 = 0x0324, RO ; Channel 0 Tag Register 1
+CH0_TAG_2 = 0x0328, RO ; Channel 0 Tag Register 2
+CH0_TAG_3 = 0x032C, RO ; Channel 0 Tag Register 3
+CH1_TAG_0 = 0x0330, RO ; Channel 1 Tag Register 0
+CH1_TAG_1 = 0x0334, RO ; Channel 1 Tag Register 1
+CH1_TAG_2 = 0x0338, RO ; Channel 1 Tag Register 2
+CH1_TAG_3 = 0x033C, RO ; Channel 1 Tag Register 3
+CH2_TAG_0 = 0x0340, RO ; Channel 2 Tag Register 0
+CH2_TAG_1 = 0x0344, RO ; Channel 2 Tag Register 1
+CH2_TAG_2 = 0x0348, RO ; Channel 2 Tag Register 2
+CH2_TAG_3 = 0x034C, RO ; Channel 2 Tag Register 3
+CH3_TAG_0 = 0x0350, RO ; Channel 3 Tag Register 0
+CH3_TAG_1 = 0x0354, RO ; Channel 3 Tag Register 1
+CH3_TAG_2 = 0x0358, RO ; Channel 3 Tag Register 2
+CH3_TAG_3 = 0x035C, RO ; Channel 3 Tag Register 3
+CH4_TAG_0 = 0x0360, RO ; Channel 4 Tag Register 0
+CH4_TAG_1 = 0x0364, RO ; Channel 4 Tag Register 1
+CH4_TAG_2 = 0x0368, RO ; Channel 4 Tag Register 2
+CH4_TAG_3 = 0x036C, RO ; Channel 4 Tag Register 3
+CH5_TAG_0 = 0x0370, RO ; Channel 5 Tag Register 0
+CH5_TAG_1 = 0x0374, RO ; Channel 5 Tag Register 1
+CH5_TAG_2 = 0x0378, RO ; Channel 5 Tag Register 2
+CH5_TAG_3 = 0x037C, RO ; Channel 5 Tag Register 3
+CH6_TAG_0 = 0x0380, RO ; Channel 6 Tag Register 0
+CH6_TAG_1 = 0x0384, RO ; Channel 6 Tag Register 1
+CH6_TAG_2 = 0x0388, RO ; Channel 6 Tag Register 2
+CH6_TAG_3 = 0x038C, RO ; Channel 6 Tag Register 3
+CH7_TAG_0 = 0x0390, RO ; Channel 7 Tag Register 0
+CH7_TAG_1 = 0x0394, RO ; Channel 7 Tag Register 1
+CH7_TAG_2 = 0x0398, RO ; Channel 7 Tag Register 2
+CH7_TAG_3 = 0x039C, RO ; Channel 7 Tag Register 3
 
-HASH_DOUT_0 = 0x03A0, RO ;  HASH Data Output Register 0
-HASH_DOUT_1 = 0x03A4, RO ;  HASH Data Output Register 1
-HASH_DOUT_2 = 0x03A8, RO ;  HASH Data Output Register 2
-HASH_DOUT_3 = 0x03AC, RO ;  HASH Data Output Register 3
-HASH_DOUT_4 = 0x03B0, RO ;  HASH Data Output Register 4
-HASH_DOUT_5 = 0x03B4, RO ;  HASH Data Output Register 5
-HASH_DOUT_6 = 0x03B8, RO ;  HASH Data Output Register 6
-HASH_DOUT_7 = 0x03BC, RO ;  HASH Data Output Register 7
-HASH_DOUT_8 = 0x03C0, RO ;  HASH Data Output Register 8
-HASH_DOUT_9 = 0x03C4, RO ;  HASH Data Output Register 9
-HASH_DOUT_10 = 0x03C8, RO ;  HASH Data Output Register 10
-HASH_DOUT_11 = 0x03CC, RO ;  HASH Data Output Register 11
-HASH_DOUT_12 = 0x03D0, RO ;  HASH Data Output Register 12
-HASH_DOUT_13 = 0x03D4, RO ;  HASH Data Output Register 13
-HASH_DOUT_14 = 0x03D8, RO ;  HASH Data Output Register 14
-HASH_DOUT_15 = 0x03DC, RO ;  HASH Data Output Register 15
+HASH_DOUT_0 = 0x03A0, RO ; HASH Data Output Register 0
+HASH_DOUT_1 = 0x03A4, RO ; HASH Data Output Register 1
+HASH_DOUT_2 = 0x03A8, RO ; HASH Data Output Register 2
+HASH_DOUT_3 = 0x03AC, RO ; HASH Data Output Register 3
+HASH_DOUT_4 = 0x03B0, RO ; HASH Data Output Register 4
+HASH_DOUT_5 = 0x03B4, RO ; HASH Data Output Register 5
+HASH_DOUT_6 = 0x03B8, RO ; HASH Data Output Register 6
+HASH_DOUT_7 = 0x03BC, RO ; HASH Data Output Register 7
+HASH_DOUT_8 = 0x03C0, RO ; HASH Data Output Register 8
+HASH_DOUT_9 = 0x03C4, RO ; HASH Data Output Register 9
+HASH_DOUT_10 = 0x03C8, RO ; HASH Data Output Register 10
+HASH_DOUT_11 = 0x03CC, RO ; HASH Data Output Register 11
+HASH_DOUT_12 = 0x03D0, RO ; HASH Data Output Register 12
+HASH_DOUT_13 = 0x03D4, RO ; HASH Data Output Register 13
+HASH_DOUT_14 = 0x03D8, RO ; HASH Data Output Register 14
+HASH_DOUT_15 = 0x03DC, RO ; HASH Data Output Register 15
 
 TAG_VALID = 0x03E0, W1C ; TAG Valid Register
 > 7, 1, CH7 ; When channel 7 tag calculation is finished, CRYPTO will set this bit. After the bit is read by application, it should be cleared by writing 1 to this bit
@@ -496,7 +496,7 @@ RAM_CTL = 0x0480 ; RAM Control Register
 = 1, PKA ; RAM is controlled by CRYPTO PKA engine
 
 RAM_ST = 0x0484, RO ; RAM Status Register
-> 0, 1, CLK_RAM_RDY ;  Indicate whether clk_ram is stable, and ready for use
+> 0, 1, CLK_RAM_RDY ; Indicate whether clk_ram is stable, and ready for use
 = 0, NOT_STABLE
 = 1, STABLE
 
@@ -506,7 +506,7 @@ DEBUG_CTL = 0x04A0 ; PKA Debug Control Register
 = 1, DEBUG ; PKA is in debug mode
 
 DEBUG_ST = 0x04A4 ; PKA Debug Status Register
-> 0, 1, PKA_DEBUG_CLK_EN, RO ;  For debug use only
+> 0, 1, PKA_DEBUG_CLK_EN, RO ; For debug use only
 = 0, DISABLE
 = 1, ENABLE
 
@@ -538,7 +538,7 @@ KEY_SEL = 0x0610 ; Operation key select
 = 0x5A5A5A5A, KEY_TABLE
 
 LOCKSTEP_FLAG = 0x0618 ; Lockstep mistake flag
-> 0, 1, LOCKSTEP_FLAG, RO ;  Indicates whether CIPHER has been attacked
+> 0, 1, LOCKSTEP_FLAG, RO ; Indicates whether CIPHER has been attacked
 = 0, NOT_UNDER_ATTACK
 = 1, UNDER_ATTACK
 
@@ -596,11 +596,11 @@ AES_VERSION = 0x0680, RO ; AES_VERSION code is 0x0007_07ff
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
-> 1, 1, CBC_FLAG ;  Whether the AES supports CBC
+> 1, 1, CBC_FLAG ; Whether the AES supports CBC
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
-> 0, 1, ECB_FLAG ;  Whether the AES supports ECB
+> 0, 1, ECB_FLAG ; Whether the AES supports ECB
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
@@ -621,11 +621,11 @@ DES_VERSION = 0x0684, RO ; DES_VERSION code is 0x0003_0033
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
-> 1, 1, CBC_FLAG ;  Whether the DES supports CBC
+> 1, 1, CBC_FLAG ; Whether the DES supports CBC
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
-> 0, 1, ECB_FLAG ;  Whether the DES supports ECB
+> 0, 1, ECB_FLAG ; Whether the DES supports ECB
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
@@ -666,11 +666,11 @@ SM4_VERSION = 0x0688, RO ; SM4_VERSION code is 0x0000_07ff
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
-> 1, 1, CBC_FLAG ;  Whether the SM4 supports CBC
+> 1, 1, CBC_FLAG ; Whether the SM4 supports CBC
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
-> 0, 1, ECB_FLAG ;  Whether the SM4 supports ECB
+> 0, 1, ECB_FLAG ; Whether the SM4 supports ECB
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
@@ -703,11 +703,11 @@ HASH_VERSION = 0x068C, RO ; HASH_VERSION code is 0x0000_01ff
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
-> 1, 1, SHA224_FLAG ;  Whether the HASH supports SHA-224
+> 1, 1, SHA224_FLAG ; Whether the HASH supports SHA-224
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
-> 0, 1, SHA1_FLAG ;  Whether the HASH supports SHA-1
+> 0, 1, SHA1_FLAG ; Whether the HASH supports SHA-1
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
@@ -724,11 +724,11 @@ HMAC_VERSION = 0x0690, RO ; HMAC_VERSION code is 0x0000_001f
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
-> 1, 1, SHA256_FLAG ;  Whether the HMAC supports SHA-256
+> 1, 1, SHA256_FLAG ; Whether the HMAC supports SHA-256
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
-> 0, 1, SHA1_FLAG ;  Whether the HMAC supports SHA-1
+> 0, 1, SHA1_FLAG ; Whether the HMAC supports SHA-1
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
@@ -881,8 +881,8 @@ PKA_STATUS = 0x0888, RO ; PKA Status Register
 > 4, 1, DIV_BY_ZERO ; Division by 0
 > 3, 1, ALU_MOD_OVFLW ; Modular overflow flag
 > 2, 1, ALU_OUT_ZERO ; ALU out is 0
-> 1, 1, PKA_BUSY ;  PKA is busy
-> 0, 1, PIPE_IS_BUSY ;  PKA ready signal
+> 1, 1, PKA_BUSY ; PKA is busy
+> 0, 1, PIPE_IS_BUSY ; PKA ready signal
 = 0, FULL ; Pipe full
 = 1, READY ; PKA ready for new command
 
@@ -914,10 +914,10 @@ PKA_L7 = 0x08AC ; PKA Length 7 Register
 > 0, 13, PKA_LN ; PKA length n, in bit unit
 
 PKA_PIPE_RDY = 0x08B0 ; PKA pipe is ready for new opcode
-> 0, 1, PKA_PIPE_RDY, RO ;  PKA pipe is ready for new opcode.
+> 0, 1, PKA_PIPE_RDY, RO ; PKA pipe is ready for new opcode.
 
 PKA_DONE = 0x08B4 ; PKA Done Register
-> 0, 1, PKA_DONE, RO ;  PKA operation is completed and pipe is empty.
+> 0, 1, PKA_DONE, RO ; PKA operation is completed and pipe is empty.
 
 PKA_MON_SELECT = 0x08B8 ; PKA Monitor Select Register
 > 0, 4, PKA_MON_SELECT ; PKA monitor select which PKA FSM monitor is being output.
@@ -934,7 +934,7 @@ DEBUG_EXT_ADDR = 0x08C4 ; Debug Extra Address Register
 > 0, 1, DEBUG_EXT_ADDR ; Disable the debug Mechanism.
 
 PKA_DEBUG_HALT = 0x08C8 ; PKA Debug Halt State Register
-> 0, 1, PKA_DEBUG_HALT, RO ;  In debug mode: PKA is in halt state.
+> 0, 1, PKA_DEBUG_HALT, RO ; In debug mode: PKA is in halt state.
 
 PKA_MON_READ = 0x08D0 ; PKA Monitor Read Register
 > 0, 32, PKA_MON_READ, RO ; This is the PKA monitor bus register output.

@@ -660,7 +660,7 @@ PMU_DDR_POWER_STS = 0x4040 ; DDR power state register
 = 6, _ ; Exit retention mode through RST_IOV state
 = 7, _ ; Exit retention mode through RETON/RETOFF state
 = 8, _ ; Exit self-refresh mode for core-clock state
-= 9, _ ; Exit self-refresh mode for AXI-clock state Others: Reserved
+= 9, _ ; Exit self-refresh mode for AXI-clock state
 
 PMU_DDR_STS = 0x4044 ; DDR state register
 > 29, 1, DDR_CH3_IO_RSTIOV, RO ; DDR RST_IOV state for channel 3.
@@ -846,7 +846,7 @@ PMU_CRU_POWER_STS = 0x4058 ; Clock and reset power state register
 = 8, _ ; Oscillator enable state
 = 9, _ ; Clock high frequency state
 = 10, _ ; Wake up reset clear state
-= 12, _ ; PLL power up state Others: Reserved
+= 12, _ ; PLL power up state
 
 PMU_PLLPD_CON0 = 0x4060 ; PLL hardware power control register 0
 > 15, 1, NPLL_PD_ENA ; Enable power down NPLL by hardware.
@@ -2084,56 +2084,56 @@ PMU_CLUSTER_STS = 0x8080 ; Cluster status register
 = 1, POWER_DOWN
 
 PMU_CLUSTER_POWER_STS0 = 0x8084 ; Cluster power status register 0
-> 28, 3, CPU7_POWER_STATE ; CPU7 power state. Others: Reserved
+> 28, 3, CPU7_POWER_STATE ; CPU7 power state.
 = 0, _ ; Normal state
 = 1, _ ; Off state
 = 2, _ ; Emulated off state
 = 3, _ ; Retention state
 = 4, _ ; Debug recovery state
 
-> 24, 3, CPU6_POWER_STATE, RO ; CPU6 power state. Others: Reserved
+> 24, 3, CPU6_POWER_STATE, RO ; CPU6 power state.
 = 0, _ ; Normal state
 = 1, _ ; Off state
 = 2, _ ; Emulated off state
 = 3, _ ; Retention state
 = 4, _ ; Debug recovery state
 
-> 20, 3, CPU5_POWER_STATE, RO ; CPU5 power state. Others: Reserved
+> 20, 3, CPU5_POWER_STATE, RO ; CPU5 power state.
 = 0, _ ; Normal state
 = 1, _ ; Off state
 = 2, _ ; Emulated off state
 = 3, _ ; Retention state
 = 4, _ ; Debug recovery state
 
-> 16, 3, CPU4_POWER_STATE, RO ; CPU4 power state. Others: Reserved
+> 16, 3, CPU4_POWER_STATE, RO ; CPU4 power state.
 = 0, _ ; Normal state
 = 1, _ ; Off state
 = 2, _ ; Emulated off state
 = 3, _ ; Retention state
 = 4, _ ; Debug recovery state
 
-> 12, 3, CPU3_POWER_STATE, RO ; CPU3 power state. Others: Reserved
+> 12, 3, CPU3_POWER_STATE, RO ; CPU3 power state.
 = 0, _ ; Normal state
 = 1, _ ; Off state
 = 2, _ ; Emulated off state
 = 3, _ ; Retention state
 = 4, _ ; Debug recovery state
 
-> 8, 3, CPU2_POWER_STATE, RO ; CPU2 power state. Others: Reserved
+> 8, 3, CPU2_POWER_STATE, RO ; CPU2 power state.
 = 0, _ ; Normal state
 = 1, _ ; Off state
 = 2, _ ; Emulated off state
 = 3, _ ; Retention state
 = 4, _ ; Debug recovery state
 
-> 4, 3, CPU1_POWER_STATE, RO ; CPU1 power state. Others: Reserved
+> 4, 3, CPU1_POWER_STATE, RO ; CPU1 power state.
 = 0, _ ; Normal state
 = 1, _ ; Off state
 = 2, _ ; Emulated off state
 = 3, _ ; Retention state
 = 4, _ ; Debug recovery state
 
-> 0, 3, CPU0_POWER_STATE, RO ; CPU0 power state. Others: Reserved
+> 0, 3, CPU0_POWER_STATE, RO ; CPU0 power state.
 = 0, _ ; Normal state
 = 1, _ ; Off state
 = 2, _ ; Emulated off state
@@ -2159,7 +2159,7 @@ PMU_CLUSTER_POWER_STS1 = 0x8088 ; Cluster power status register 1
 = 14, _ ; DSU 1/4 FUNC_RET state
 = 15, _ ; DSU SFONLY FUNC_RET state
 
-> 4, 4, CORE1_POWER_STATE, RO ; BIGCORE1 power state. Others: Reserved
+> 4, 4, CORE1_POWER_STATE, RO ; BIGCORE1 power state.
 = 0, _ ; Normal state
 = 1, _ ; CPU power down state
 = 2, _ ; Core transfer idle state
@@ -2170,7 +2170,7 @@ PMU_CLUSTER_POWER_STS1 = 0x8088 ; Cluster power status register 1
 = 7, _ ; Core transfer resume state
 = 8, _ ; CPU power up state
 
-> 0, 4, CORE0_POWER_STATE, RO ; BIGCORE0 power state. Others: Reserved
+> 0, 4, CORE0_POWER_STATE, RO ; BIGCORE0 power state.
 = 0, _ ; Normal state
 = 1, _ ; CPU power down state
 = 2, _ ; Core transfer idle state
@@ -3932,7 +3932,7 @@ PMU_PWR_GATE_STS1 = 0x8184 ; Power domain power status register 1
 = 1, POWER_DOWN
 
 PMU_PWR_GATE_POWER_STS = 0x8188 ; Power gating status register
-> 0, 3, POWER_GATE_STATE, RO ; Power gating state. Others: Reserved
+> 0, 3, POWER_GATE_STATE, RO ; Power gating state.
 = 0, _ ; Normal state
 = 1, _ ; Power down start state
 = 2, _ ; Power down running state

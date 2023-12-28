@@ -410,8 +410,8 @@ SOC_CON13 = 0x0334 ; System Control Register 13
 = 1, ACTIVE ; Active the top level's hpd port as the input hpd port
 = 0, INACTIVE ; Inactive the top level's hpd port as the input hpd port
 
-> 8, 6, HDMITX1_SETDLY_EN
-= 0, INACTIVE ; Inactive SET_LNUM_MS value Others not
+> 8, 6, HDMITX1_SETDLY_EN ; Other values = ACTIVE
+= 0, INACTIVE ; Inactive SET_LNUM_MS value
 
 > 0, 8, HDMITX1_SET_LNUM_MS ; The low level count threshold value. For example: 20 means low level stable 20ms.
 

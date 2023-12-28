@@ -4,7 +4,7 @@
 SDMASA = 0x0000 ; SDMA System Address Register
 > 0, 32, BLOCKCNT_SDMASA ; 32-bit Block Count (SDMA System Address). 1. SDMA System Address (Host Version 4 Enable = 0): This register contains the system memory address for an SDMA transfer in the 32-bit addressing mode. When the Host Controller stops an SDMA transfer, this register points to the system address of the next contiguous data position. It can be accessed only if no transaction is executing. Reading this register during data transfers may return an invalid value. 2. 32-bit Block Count (Host Version 4 Enable = 1): From the Host Controller Version 4.10 specification, this register is redefined as 32-bit Block Count. The Host Controller decrements the block count of this register for every block transfer and the data transfer stops when the count reaches zero. This register must be accessed when no transaction is executing. Reading this register during data transfers may return invalid value. a. For Host Version 4 Enable = 0, the Host driver does not program the system address in this register while operating in ADMA mode. The system address must be programmed in the ADMA System Address register. b. For Host Version 4 Enable = 0, the Host driver programs a non-zero 32-bit block count value in this register when Auto CMD23 is enabled for non-DMA and ADMA modes. Auto CMD23 cannot be used with SDMA. c. This register must be programmed with a non-zero value for data transfer if the 32-bit Block count register is used instead of the 16-bit Block count register.
 
-BLOCKSIZE = 0x0004, U16 ;  Block Size Register
+BLOCKSIZE = 0x0004, U16 ; Block Size Register
 > 12, 3, SDMA_BUF_BDARY ; SDMA Buffer Boundary. These bits specify the size of contiguous buffer in system memory. The SDMA transfer waits at every boundary specified by these fields and the Host Controller generates the DMA interrupt to request the Host Driver to update the SDMA System Address register. Values:
 = 0, 4KB
 = 1, 8KB
@@ -17,13 +17,13 @@ BLOCKSIZE = 0x0004, U16 ;  Block Size Register
 
 > 0, 12, XFER_BLOCK_SIZE ; Transfer Block Size. These bits specify the block size of data transfers. In case of memory, it is set to 512 bytes. It can be accessed only if no transaction is executing. Read operations during transfers may return an invalid value, and write operations are ignored. Note: This register must be programmed with a non-zero value for data transfer.
 
-BLOCKCOUNT = 0x0006, U16 ;  Block Count Register
+BLOCKCOUNT = 0x0006, U16 ; Block Count Register
 > 0, 16, BLOCK_CNT ; 16-bit Block Count. If the Host Version 4 Enable bit is set 0 or the 16-bit Block Count register is set to non-zero, the 16-bit Block Count register is selected. If the Host Version 4 Enable bit is set 1 and the 16-bit Block Count register is set to zero, the 32-bit Block Count register is selected. Note: For Host Version 4 Enable = 0, this register must be set to 0 before programming the 32-bit block count register when Auto CMD23 is enabled for non-DMA and ADMA modes.
 
 ARGUMENT = 0x0008 ; Argument Register
 > 0, 32, ARGUMENT ; Command Argument. These bits specify the SD/eMMC command argument that is specified in bits 39-8 of the Command format.
 
-XFER_MODE = 0x000C, U16 ;  Transfer Mode Register
+XFER_MODE = 0x000C, U16 ; Transfer Mode Register
 > 8, 1, RESP_INT_DISABLE ; Response Interrupt Disable. The Host Controller supports response check function to avoid overhead of response error check by the Host driver. Response types of only R1 and R5 can be checked by the Controller. If Host Driver checks the response error, set this bit to 0 and wait for Command Complete Interrupt and then check the response register. If the Host Controller checks the response error, set this bit to 1 and set the Response Error Check Enable bit to 1. The Command Complete Interrupt is disabled by this bit regardless of the Command Complete Signal Enable. Note: During tuning (when the Execute Tuning bit in the Host Control2 register is set), the Command Complete Interrupt is not generated irrespective of the Response Interrupt Disable setting.
 = 0, ENABLED
 = 1, DISABLED
@@ -58,7 +58,7 @@ XFER_MODE = 0x000C, U16 ;  Transfer Mode Register
 = 0, DISABLED
 = 1, ENABLED
 
-CMD = 0x000E, U16 ;  Command Register
+CMD = 0x000E, U16 ; Command Register
 > 8, 6, CMD_INDEX ; Command Index. These bits are set to the command number that is specified in bits 45-40 of the command format.
 
 > 6, 2, CMD_TYPE ; Command Type. These bits indicate the command type. Note: While issuing Abort CMD using CMD12/CMD52 or reset CMD using CMD0/CMD52, CMD_TYPE field shall be set to 0x3.
@@ -204,7 +204,7 @@ BGAP_CTRL = 0x002A, U8 ; Block Gap Control Register
 = 0, TRANSFER
 = 1, STOP
 
-CLK_CTRL = 0x002C, U16 ;  Clock Control Register
+CLK_CTRL = 0x002C, U16 ; Clock Control Register
 > 8, 8, FREQ_SEL ; SDCLK Frequency Select. These bits specify the lower 8 bits of 10-bit SDCLK Frequency Select control. These bits are used to select the frequency of the SDCLK signal. These bits depend on setting of Preset Value Enable in the Host Control 2 register. If Preset Value Enable = 0, these bits are set by the Host Driver. If Preset Value Enable = 1, these bits are automatically set to a value specified in one of the Preset Value register.
 
 > 6, 2, UPPER_FREQ_SEL ; These bits specify the upper 2 bits of 10-bit SDCLK Frequency Select control.
@@ -257,7 +257,7 @@ SW_RST = 0x002F, U8 ; Software Reset Register
 = 0, WORK
 = 1, RESET
 
-NORMAL_INT_STAT = 0x0030, U16 ;  Normal Interrupt Status Register
+NORMAL_INT_STAT = 0x0030, U16 ; Normal Interrupt Status Register
 > 15, 1, ERROR_INT_STAT, RO ; Error Interrupt. If any of the bits in the Error Interrupt Status register are set, then this bit is set.
 = 0, NO_ERROR
 = 1, ERROR
@@ -317,7 +317,7 @@ NORMAL_INT_STAT = 0x0030, U16 ;  Normal Interrupt Status Register
 = 0, NOT_COMPLETE
 = 1, COMPLETE
 
-ERROR_INT_STAT = 0x0032, U16 ;  Error Interrupt Status Register
+ERROR_INT_STAT = 0x0032, U16 ; Error Interrupt Status Register
 # Was marked as RC/W1C
 > 12, 1, BOOT_ACK_ERR, W1C ; Boot Acknowledgement Error. This bit is set when there is a timeout for boot acknowledgement or when detecting boot acknowledgement status having a value other than 3'b010. This is applicable only when boot acknowledgement is expected in eMMC mode.
 = 0, NO_ERROR
@@ -378,7 +378,7 @@ ERROR_INT_STAT = 0x0032, U16 ;  Error Interrupt Status Register
 = 0, NO_ERROR
 = 1, TIME_OUT
 
-NORMAL_INT_STAT_EN = 0x0034, U16 ;  Normal Interrupt Status Enable Register
+NORMAL_INT_STAT_EN = 0x0034, U16 ; Normal Interrupt Status Enable Register
 > 14, 1, CQE_EVENT_STAT_EN ; CQE Event Status Enable.
 = 0, MASKED
 = 1, ENABLED
@@ -419,7 +419,7 @@ NORMAL_INT_STAT_EN = 0x0034, U16 ;  Normal Interrupt Status Enable Register
 = 0, MASKED
 = 1, ENABLED
 
-ERROR_INT_STAT_EN = 0x0036, U16 ;  Error Interrupt Status Enable Register
+ERROR_INT_STAT_EN = 0x0036, U16 ; Error Interrupt Status Enable Register
 > 12, 1, BOOT_ACK_ERR_STAT_EN ; Boot Acknowledgment Error Status Enable..
 = 0, MASKED
 = 1, ENABLED
@@ -468,7 +468,7 @@ ERROR_INT_STAT_EN = 0x0036, U16 ;  Error Interrupt Status Enable Register
 = 0, MASKED
 = 1, ENABLED
 
-NORMAL_INT_SIGNAL_EN = 0x0038, U16 ;  Normal Interrupt Signal Enable Register
+NORMAL_INT_SIGNAL_EN = 0x0038, U16 ; Normal Interrupt Signal Enable Register
 > 14, 1, CQE_EVENT_SIGNAL_EN ; CQE Event Signal Enable.
 = 0, MASKED
 = 1, ENABLED
@@ -509,7 +509,7 @@ NORMAL_INT_SIGNAL_EN = 0x0038, U16 ;  Normal Interrupt Signal Enable Register
 = 0, MASKED
 = 1, ENABLED
 
-ERROR_INT_SIGNAL_EN = 0x003A, U16 ;  Error Interrupt Signal Enable Register
+ERROR_INT_SIGNAL_EN = 0x003A, U16 ; Error Interrupt Signal Enable Register
 > 12, 1, BOOT_ACK_ERR_SIGNAL_EN ; Boot Acknowledgment Error Signal Enable.
 = 0, MASKED
 = 1, ENABLED
@@ -558,7 +558,7 @@ ERROR_INT_SIGNAL_EN = 0x003A, U16 ;  Error Interrupt Signal Enable Register
 = 0, MASKED
 = 1, ENABLED
 
-AUTO_CMD_STAT = 0x003C, U16 ;  Auto CMD Error Status Register
+AUTO_CMD_STAT = 0x003C, U16 ; Auto CMD Error Status Register
 > 7, 1, CMD_NOT_ISSUED_AUTO_CMD12, RO ; Command Not Issued By Auto CMD12 Error. If this bit is set to 1, CMD_wo_DAT is not executed due to an Auto CMD12 Error (D04-D01) in this register. This bit is set to 0 when Auto CMD Error is generated by Auto CMD23.
 = 0, NO_ERROR
 = 1, NOT_ISSUED
@@ -587,7 +587,7 @@ AUTO_CMD_STAT = 0x003C, U16 ;  Auto CMD Error Status Register
 = 0, EXECUTED
 = 1, NOT_EXECUTED
 
-HOST_CTRL2 = 0x003E, U16 ;  Host Control 2 Register
+HOST_CTRL2 = 0x003E, U16 ; Host Control 2 Register
 > 15, 1, PRESET_VAL_ENABLE ; Preset Value Enable. This bit enables automatic selection of SDCLK frequency and Driver strength Preset Value registers. When Preset Value Enable is set, SDCLK frequency generation (Frequency Select and Clock Generator Select) and the driver strength selection are performed by the controller. These values are selected from set of Preset Value registers based on selected speed mode.
 = 0, BY_HOST_DRIVER
 = 1, BY_PRESET_VALUE
@@ -750,7 +750,7 @@ CAPABILITIES2 = 0x0044, RO ; Capabilities Register 2
 = 0, NOT_SUPPORTED
 = 1, SUPPORTED
 
-FORCE_AUTO_CMD_STAT = 0x0050, U16 ;  Force Event Register for Auto CMD Error Status Register
+FORCE_AUTO_CMD_STAT = 0x0050, U16 ; Force Event Register for Auto CMD Error Status Register
 > 7, 1, FORCE_CMD_NOT_ISSUED_AUTO_CMD12, WO ; Force Event for Command Not Issued By Auto CMD12 Error.
 = 0, NOT_AFFECTED
 = 1, ERROR
@@ -779,7 +779,7 @@ FORCE_AUTO_CMD_STAT = 0x0050, U16 ;  Force Event Register for Auto CMD Error Sta
 = 0, NOT_AFFECTED
 = 1, ERROR
 
-FORCE_ERR_INT_STAT = 0x0052, U16 ;  Force Event Register for Error Interrupt Status Register
+FORCE_ERR_INT_STAT = 0x0052, U16 ; Force Event Register for Error Interrupt Status Register
 > 12, 1, FORCE_BOOT_ACK_ERR, WO ; Force Event for Boot Acknowledge error.
 = 0, NOT_AFFECTED
 = 1, ERROR
@@ -841,56 +841,56 @@ ADMA_ERR_STAT = 0x0054, U8, RO ; ADMA Error Status Register
 
 ADMA_SA = 0x0058 ; ADMA System Address Register
 
-PRESET_INIT = 0x0060, U16, RO ;  Preset Value for Initialization Register
+PRESET_INIT = 0x0060, U16, RO ; Preset Value for Initialization Register
 > 10, 1, CLK_GEN_SEL_VAL ; Clock Generator Select Value. This bit is effective when the Host Controller supports a programmable clock generator.
 = 0, HOST_CONTROLLER
 = 1, PROGRAMMABLE
 
 > 0, 10, FREQ_SEL_VAL ; SDCLK Frequency Select Value. 10-bit preset value to be set in SDCLK Frequency Select field of the Clock Control register described by a Host System.
 
-PRESET_DS = 0x0062, U16, RO ;  Preset Value for Default Speed Register
+PRESET_DS = 0x0062, U16, RO ; Preset Value for Default Speed Register
 > 10, 1, CLK_GEN_SEL_VAL ; Clock Generator Select Value. This bit is effective when the Host Controller supports a programmable clock generator.
 = 0, HOST_CONTROLLER
 = 1, PROGRAMMABLE
 
 > 0, 10, FREQ_SEL_VAL ; SDCLK Frequency Select Value. 10-bit preset value to be set in SDCLK Frequency Select field of the Clock Control register described by a Host System.
 
-PRESET_HS = 0x0064, U16, RO ;  Preset Value for High Speed Register
+PRESET_HS = 0x0064, U16, RO ; Preset Value for High Speed Register
 > 10, 1, CLK_GEN_SEL_VAL ; Clock Generator Select Value. This bit is effective when the Host Controller supports a programmable clock generator.
 = 0, HOST_CONTROLLER
 = 1, PROGRAMMABLE
 
 > 0, 10, FREQ_SEL_VAL ; SDCLK Frequency Select Value. 10-bit preset value to be set in SDCLK Frequency Select field of the Clock Control register described by a Host System.
 
-PRESET_SDR12 = 0x0066, U16, RO ;  Preset Value for SDR12 Register
+PRESET_SDR12 = 0x0066, U16, RO ; Preset Value for SDR12 Register
 > 10, 1, CLK_GEN_SEL_VAL ; Clock Generator Select Value. This bit is effective when the Host Controller supports a programmable clock generator.
 = 0, HOST_CONTROLLER
 = 1, PROGRAMMABLE
 
 > 0, 10, FREQ_SEL_VAL ; SDCLK Frequency Select Value. 10-bit preset value to be set in SDCLK Frequency Select field of the Clock Control register described by a Host System.
 
-PRESET_SDR25 = 0x0068, U16, RO ;  Preset Value for SDR25 Register
+PRESET_SDR25 = 0x0068, U16, RO ; Preset Value for SDR25 Register
 > 10, 1, CLK_GEN_SEL_VAL ; Clock Generator Select Value. This bit is effective when the Host Controller supports a programmable clock generator.
 = 0, HOST_CONTROLLER
 = 1, PROGRAMMABLE
 
 > 0, 10, FREQ_SEL_VAL ; SDCLK Frequency Select Value. 10-bit preset value to be set in SDCLK Frequency Select field of the Clock Control register described by a Host System.
 
-PRESET_SDR50 = 0x006A, U16, RO ;  Preset Value for SDR50 Register
+PRESET_SDR50 = 0x006A, U16, RO ; Preset Value for SDR50 Register
 > 10, 1, CLK_GEN_SEL_VAL ; Clock Generator Select Value. This bit is effective when the Host Controller supports a programmable clock generator.
 = 0, HOST_CONTROLLER
 = 1, PROGRAMMABLE
 
 > 0, 10, FREQ_SEL_VAL ; SDCLK Frequency Select Value. 10-bit preset value to be set in SDCLK Frequency Select field of the Clock Control register described by a Host System.
 
-PRESET_SDR104 = 0x006C, U16, RO ;  Preset Value for SDR104 Register
+PRESET_SDR104 = 0x006C, U16, RO ; Preset Value for SDR104 Register
 > 10, 1, CLK_GEN_SEL_VAL ; Clock Generator Select Value. This bit is effective when the Host Controller supports a programmable clock generator.
 = 0, HOST_CONTROLLER
 = 1, PROGRAMMABLE
 
 > 0, 10, FREQ_SEL_VAL ; SDCLK Frequency Select Value. 10-bit preset value to be set in SDCLK Frequency Select field of the Clock Control register described by a Host System.
 
-PRESET_DDR50 = 0x006E, U16, RO ;  Preset Value for DDR50 Register
+PRESET_DDR50 = 0x006E, U16, RO ; Preset Value for DDR50 Register
 > 10, 1, CLK_GEN_SEL_VAL ; Clock Generator Select Value. This bit is effective when the Host Controller supports a programmable clock generator.
 = 0, HOST_CONTROLLER
 = 1, PROGRAMMABLE
@@ -899,10 +899,10 @@ PRESET_DDR50 = 0x006E, U16, RO ;  Preset Value for DDR50 Register
 
 ADMA_ID = 0x0078 ; ADMA3 Integrated Descriptor Address Register
 
-SLOT_INTR_STATUS = 0x00FC, U16, RO ;  Slot Interrupt Status Register
+SLOT_INTR_STATUS = 0x00FC, U16, RO ; Slot Interrupt Status Register
 > 0, 8, INTR_SLOT ; Interrupt signal for each Slot. Host Controller support single card slot. This register shall always return 0.
 
-HOST_CNTRL_VERS = 0x00FE, U16, RO ;  Host Controller Version Register
+HOST_CNTRL_VERS = 0x00FE, U16, RO ; Host Controller Version Register
 > 8, 8, VENDOR_VERSION_NUM ; Vendor Version Number.
 
 > 0, 8, SPEC_VERSION_NUM ; Specification Version Number. Values:
@@ -1806,7 +1806,7 @@ HOST_CTRL3 = 0x0508, U8 ; Host Control 3 Register
 = 0, DISABLE ; Disable command conflict check
 = 1, ENABLE ; Check for command conflict after 1 card clock cycle
 
-EMMC_CTRL = 0x052C, U16 ;  EMMC Control Register
+EMMC_CTRL = 0x052C, U16 ; EMMC Control Register
 > 10, 1, CQE_PREFETCH_DISABLE ; Enable or Disable CQE's PREFETCH feature. This field allows Software to disable CQE's data prefetch feature when set to 1.
 = 0, ENABLE ; CQE can prefetch data for successive WRITE transfers and pipeline successive READ transfers
 = 1, DISABLE ; Prefetch for WRITE and Pipeline for READ are disabled
@@ -1831,7 +1831,7 @@ EMMC_CTRL = 0x052C, U16 ;  EMMC Control Register
 = 0, NON_EMMC
 = 1, EMMC
 
-BOOT_CTRL = 0x052E, U16 ;  Boot Control Register
+BOOT_CTRL = 0x052E, U16 ; Boot Control Register
 > 12, 4, BOOT_TOUT_CNT ; Boot Acknowledge Timeout Counter Value. This value determines the interval by which boot acknowledge timeout (50 ms) is detected when boot acknowledge is expected during boot operation.
 = 0, TMCLK_TIMES_2_TO_13
 = 1, TMCLK_TIMES_2_TO_14

@@ -22,7 +22,7 @@ SOC_CON0 = 0x0000 ; System control register 0
 = 0, OSCILLATOR ; Select from oscillator
 = 1, CLK_DEEPSLOW ; Select from clk_deepslow
 
-> 5, 2, CLK_DEEPSLOW_SEL ; Clock source selection for clk_deepslow. Others: Reserved.
+> 5, 2, CLK_DEEPSLOW_SEL ; Clock source selection for clk_deepslow.
 = 0, OSC_OUT ; Select from divider output of oscillator
 = 1, EXT_IO_CLK ; Select from external IO clock
 = 2, PMU_PVTM_OUT ; Select from divider output of PMU_PVTM

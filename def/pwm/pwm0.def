@@ -324,19 +324,19 @@ FIFO_INTSTS = 0x0054 ; FIFO Interrupts Status Register
 = 1, EMPTY
 = 0, NOT_EMPTY
 
-> 3, 1, TIMEOUT_INTSTS, W1C ;  Timeout interrupt.
+> 3, 1, TIMEOUT_INTSTS, W1C ; Timeout interrupt.
 = 1, ASSERTED
 = 0, DEASSERTED
 
-> 2, 1, FIFO_WATERMARK_FULL_INTSTS, W1C ;  This bit indicates the FIFO is Watermark full.
+> 2, 1, FIFO_WATERMARK_FULL_INTSTS, W1C ; This bit indicates the FIFO is Watermark full.
 = 1, FULL
 = 0, NOT_FULL
 
-> 1, 1, FIFO_OVERFLOW_INTSTS, W1C ;  This bit indicates the FIFO is overflow.
+> 1, 1, FIFO_OVERFLOW_INTSTS, W1C ; This bit indicates the FIFO is overflow.
 = 1, OVERFLOW
 = 0, NOT_OVERFLOW
 
-> 0, 1, FIFO_FULL_INTSTS, W1C ;  This bit indicates the FIFO is full.
+> 0, 1, FIFO_FULL_INTSTS, W1C ; This bit indicates the FIFO is full.
 = 1, FULL
 = 0, NOT_FULL
 

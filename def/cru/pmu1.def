@@ -460,7 +460,7 @@ AUTOCS_HCLK_PMU_CM0_ROOT_I_CON1 = 0x0D04 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_pmu_cm0_root_i switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_PMU_CM0_ROOT_I_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+> 0, 12, HCLK_PMU_CM0_ROOT_I_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_pmu_cm0_root_i switch to lower frequency.
 = 0x000, DISABLE
 

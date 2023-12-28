@@ -233,7 +233,7 @@ AUTOCS_CLK_CORE_B23_I_CON1 = 0x0D04 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable clk_core_b23_i switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, CLK_CORE_B23_I_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+> 0, 12, CLK_CORE_B23_I_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable clk_core_b23_i switch to lower frequency.
 = 0x000, DISABLE
 

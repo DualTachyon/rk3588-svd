@@ -7094,7 +7094,7 @@ SDIO_CON0 = 0x0C24 ; System control register
 = 0, PHASE ; Select clock delayed by phase shift
 = 1, PHASE_AND_DELAY ; Select clock delayed by phase shift and delay line It can be modified when init_state=1 and should be stable when init_state=0.
 
-> 3, 8, DRV_DELAYNUM  ; Delay element number configuration for drive clock. It can be modified when init_state=1 and should be stable when init_state=0.
+> 3, 8, DRV_DELAYNUM ; Delay element number configuration for drive clock. It can be modified when init_state=1 and should be stable when init_state=0.
 
 > 1, 2, DRV_DEGREE ; Phase selection for drive clock. It can be modified when init_state=1 and should be stable when init_state=0.
 = 0, DEGREE_0
@@ -7120,7 +7120,7 @@ SDIO_CON1 = 0x0C28 ; System control register
 = 3, DEGREE_270
 
 SDMMC_CON0 = 0x0C30 ; System control register
-> 11, 1, DRV_SEL ;Selection for drive clock.  It can be modified when init_state=1 and should be stable when init_state=0.
+> 11, 1, DRV_SEL ;Selection for drive clock. It can be modified when init_state=1 and should be stable when init_state=0.
 = 0, PHASE ; Select clock delayed by phase shift
 = 1, PHASE_AND_DELAY ; Select clock delayed by phase shift and delay line
 
@@ -7327,7 +7327,7 @@ AUTOCS_ACLK_TOP_ROOT_CON1 = 0x0D04 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_top_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_TOP_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_TOP_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_top_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7349,7 +7349,7 @@ AUTOCS_ACLK_LO_TOP_ROOT_CON1 = 0x0D0C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_low_top_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_LOW_TOP_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_LOW_TOP_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_low_top_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7371,7 +7371,7 @@ AUTOCS_ACLK_TOP_M400_ROOT_CON1 = 0x0D14 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_top_m400_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_TOP_M400_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_TOP_M400_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_top_m400_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7393,7 +7393,7 @@ AUTOCS_ACLK_TOP_S400_ROOT_CON1 = 0x0D1C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_top_s400_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_TOP_S400_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_TOP_S400_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_top_s400_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7415,7 +7415,7 @@ AUTOCS_ACLK_BUS_ROOT_CON1 = 0x0D24 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_bus_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_BUS_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_BUS_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_bus_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7437,7 +7437,7 @@ AUTOCS_ACLK_ISP1_ROOT_CON1 = 0x0D2C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_isp1_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_ISP1_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_ISP1_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_isp1_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7459,7 +7459,7 @@ AUTOCS_CLK_RKNN_DSU0_CON1 = 0x0D34 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable clk_rknn_dsu0 switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, CLK_RKNN_DSU0_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, CLK_RKNN_DSU0_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable clk_rknn_dsu0 switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7481,7 +7481,7 @@ AUTOCS_HCLK_RKNN_ROOT_CON1 = 0x0D3C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_rknn_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_RKNN_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_RKNN_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_rknn_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7503,7 +7503,7 @@ AUTOCS_ACLK_NVM_ROOT_CON1 = 0x0D44 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_nvm_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_NVM_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_NVM_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_nvm_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7525,7 +7525,7 @@ AUTOCS_ACLK_PHP_ROOT_CON1 = 0x0D4C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_php_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_PHP_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_PHP_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_php_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7547,7 +7547,7 @@ AUTOCS_ACLK_RKVDEC0_ROOT_CON1 = 0x0D54 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_rkvdec0_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_RKVDEC0_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_RKVDEC0_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_rkvdec0_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7569,7 +7569,7 @@ AUTOCS_ACLK_RKVDEC_CCU_CON1 = 0x0D5C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_rkvdec_ccu switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_RKVDEC_CCU_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_RKVDEC_CCU_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_rkvdec_ccu switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7591,7 +7591,7 @@ AUTOCS_ACLK_RKVDEC1_ROOT_CON1 = 0x0D64 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_rkvdec1_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_RKVDEC1_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_RKVDEC1_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_rkvdec1_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7613,7 +7613,7 @@ AUTOCS_ACLK_USB_ROOT_CON1 = 0x0D6C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_usb_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_USB_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_USB_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_usb_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7635,7 +7635,7 @@ AUTOCS_ACLK_VDPU_ROOT_CON1 = 0x0D74 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_vdpu_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_VDPU_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_VDPU_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_vdpu_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7657,7 +7657,7 @@ AUTOCS_ACLK_VDPU_LOW_ROOT_CON1 = 0x0D7C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_vdpu_low_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_VDPU_LOW_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_VDPU_LOW_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_vdpu_low_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7679,7 +7679,7 @@ AUTOCS_ACLK_JPEG_DECODER_ROOT_CON1 = 0x0D84 ; Auto clock switch control register
 = 1, ENABLE ; Enable aclk_jpeg_decoder_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_JPEG_DECODER_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_JPEG_DECODER_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_jpeg_decoder_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7701,7 +7701,7 @@ AUTOCS_ACLK_RKVENC0_ROOT_CON1 = 0x0D8C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_rkvenc0_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_RKVENC0_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_RKVENC0_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_rkvenc0_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7723,7 +7723,7 @@ AUTOCS_ACLK_RKVENC1_ROOT_CON1 = 0x0D94 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_rkvenc1_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_RKVENC1_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_RKVENC1_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_rkvenc1_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7745,7 +7745,7 @@ AUTOCS_ACLK_VI_ROOT_CON1 = 0x0D9C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_vi_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_VI_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_VI_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_vi_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7767,7 +7767,7 @@ AUTOCS_ACLK_VOP_ROOT_CON1 = 0x0DA4 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_vop_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_VOP_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_VOP_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_vop_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7789,7 +7789,7 @@ AUTOCS_ACLK_VO0_ROOT_CON1 = 0x0DAC ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_vo0_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_VO0_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_VO0_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_vo0_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7811,7 +7811,7 @@ AUTOCS_ACLK_HDCP1_ROOT_CON1 = 0x0DB4 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_hdcp1_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_HDCP1_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_HDCP1_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_hdcp1_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7833,7 +7833,7 @@ AUTOCS_ACLK_HDMIRX_ROOT_CON1 = 0x0DBC ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_hdmirx_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_HDMIRX_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_HDMIRX_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_hdmirx_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7855,7 +7855,7 @@ AUTOCS_CLK_GPU_COREGROUP_CON1 = 0x0DC4 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable clk_gpu_coregroup switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, CLK_GPU_COREGROUP_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, CLK_GPU_COREGROUP_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable clk_gpu_coregroup switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7877,7 +7877,7 @@ AUTOCS_ACLK_AV1_ROOT_CON1 = 0x0DE4 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_av1_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_AV1_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_AV1_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_av1_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7899,7 +7899,7 @@ AUTOCS_ACLK_CENTER_ROOT_CON1 = 0x0DEC ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_center_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_CENTER_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_CENTER_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_center_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7921,7 +7921,7 @@ AUTOCS_ACLK_CENTER_LOW_ROOT_CON1 = 0x0DF4 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_center_low_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_CENTER_LOW_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_CENTER_LOW_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_center_low_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7943,7 +7943,7 @@ AUTOCS_ACLK_CENTER_S400_ROOT_CON1 = 0x0DFC ; Auto clock switch control register 
 = 1, ENABLE ; Enable aclk_center_s400_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_CENTER_S400_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_CENTER_S400_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_center_s400_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7965,7 +7965,7 @@ AUTOCS_ACLK_VO1USB_TOP_ROOT_CON1 = 0x0E04 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_vo1usb_top_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_VO1USB_TOP_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_VO1USB_TOP_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_vo1usb_top_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -7987,7 +7987,7 @@ AUTOCS_ACLK_RGA3_ROOT_CON1 = 0x0E0C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_rga3_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_RGA3_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_RGA3_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_rga3_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8009,7 +8009,7 @@ AUTOCS_PCLK_AV1_ROOT_CON1 = 0x0E14 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable pclk_av1_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, PCLK_AV1_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, PCLK_AV1_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable pclk_av1_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8031,7 +8031,7 @@ AUTOCS_HCLK_ISP1_ROOT_CON1 = 0x0E1C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_isp1_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_ISP1_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_ISP1_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_isp1_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8053,7 +8053,7 @@ AUTOCS_PCLK_NPUTOP_ROOT_CON1 = 0x0E24 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable pclk_nputop_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, PCLK_NPUTOP_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, PCLK_NPUTOP_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable pclk_nputop_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8075,7 +8075,7 @@ AUTOCS_HCLK_NPU_CM0_ROOT_CON1 = 0x0E2C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_npu_cm0_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_NPU_CM0_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_NPU_CM0_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_npu_cm0_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8097,7 +8097,7 @@ AUTOCS_HCLK_NVM_ROOT_CON1 = 0x0E34 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_nvm_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_NVM_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_NVM_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_nvm_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8119,7 +8119,7 @@ AUTOCS_PCLK_PHP_ROOT_CON1 = 0x0E3C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable pclk_php_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, PCLK_PHP_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, PCLK_PHP_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable pclk_php_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8141,7 +8141,7 @@ AUTOCS_ACLK_PCIE_ROOT_CON1 = 0x0E44 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_pcie_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_PCIE_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_PCIE_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_pcie_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8163,7 +8163,7 @@ AUTOCS_HCLK_RKVDEC0_ROOT_CON1 = 0x0E4C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_rkvdec0_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_RKVDEC0_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_RKVDEC0_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_rkvdec0_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8185,7 +8185,7 @@ AUTOCS_HCLK_RKVDEC1_ROOT_CON1 = 0x0E54 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_rkvdec1_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_RKVDEC1_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_RKVDEC1_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_rkvdec1_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8207,7 +8207,7 @@ AUTOCS_PCLK_TOP_ROOT_CON1 = 0x0E5C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable pclk_top_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, PCLK_TOP_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, PCLK_TOP_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable pclk_top_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8229,7 +8229,7 @@ AUTOCS_ACLK_TOP_M500_ROOT_CON1 = 0x0E64 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_top_m500_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_TOP_M500_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_TOP_M500_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_top_m500_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8251,7 +8251,7 @@ AUTOCS_ACLK_TOP_S200_ROOT_CON1 = 0x0E6C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_top_s200_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_TOP_S200_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_TOP_S200_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_top_s200_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8273,7 +8273,7 @@ AUTOCS_HCLK_USB_ROOT_CON1 = 0x0E74 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_usb_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_USB_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_USB_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_usb_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8295,7 +8295,7 @@ AUTOCS_HCLK_VDPU_ROOT_CON1 = 0x0E7C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_vdpu_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_VDPU_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_VDPU_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_vdpu_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8317,7 +8317,7 @@ AUTOCS_HCLK_RKVENC0_ROOT_CON1 = 0x0E84 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_rkvenc0_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_RKVENC0_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_RKVENC0_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_rkvenc0_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8339,7 +8339,7 @@ AUTOCS_HCLK_RKVENC1_ROOT_CON1 = 0x0E8C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_rkvenc1_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_RKVENC1_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_RKVENC1_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_rkvenc1_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8361,7 +8361,7 @@ AUTOCS_HCLK_VI_ROOT_CON1 = 0x0E94 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_vi_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_VI_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_VI_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_vi_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8383,7 +8383,7 @@ AUTOCS_PCLK_VI_ROOT_CON1 = 0x0E9C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable pclk_vi_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, PCLK_VI_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, PCLK_VI_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable pclk_vi_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8405,7 +8405,7 @@ AUTOCS_ACLK_VOP_LOW_ROOT_CON1 = 0x0EA4 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_vop_low_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_VOP_LOW_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_VOP_LOW_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_vop_low_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8427,7 +8427,7 @@ AUTOCS_HCLK_VOP_ROOT_CON1 = 0x0EAC ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_vop_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_VOP_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_VOP_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_vop_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8449,7 +8449,7 @@ AUTOCS_PCLK_VOP_ROOT_CON1 = 0x0EB4 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable pclk_vop_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, PCLK_VOP_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, PCLK_VOP_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable pclk_vop_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8471,7 +8471,7 @@ AUTOCS_HCLK_VO0_ROOT_CON1 = 0x0EBC ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_vo0_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_VO0_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_VO0_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_vo0_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8493,7 +8493,7 @@ AUTOCS_HCLK_VO0_S_ROOT_CON1 = 0x0EC4 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_vo0_s_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_VO0_S_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_VO0_S_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_vo0_s_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8515,7 +8515,7 @@ AUTOCS_PCLK_VO0_ROOT_CON1 = 0x0ECC ; Auto clock switch control register 1
 = 1, ENABLE ; Enable pclk_vo0_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, PCLK_VO0_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, PCLK_VO0_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable pclk_vo0_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8537,7 +8537,7 @@ AUTOCS_PCLK_VO0_S_ROOT_CON1 = 0x0ED4 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable pclk_vo0_s_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, PCLK_VO0_S_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, PCLK_VO0_S_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable pclk_vo0_s_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8559,7 +8559,7 @@ AUTOCS_HCLK_VO1_ROOT_CON1 = 0x0EDC ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_vo1_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_VO1_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_VO1_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_vo1_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8581,7 +8581,7 @@ AUTOCS_HCLK_VO1_S_ROOT_CON1 = 0x0EE4 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_vo1_s_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_VO1_S_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_VO1_S_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_vo1_s_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8603,7 +8603,7 @@ AUTOCS_PCLK_VO1_ROOT_CON1 = 0x0EEC ; Auto clock switch control register 1
 = 1, ENABLE ; Enable pclk_vo1_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, PCLK_VO1_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, PCLK_VO1_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable pclk_vo1_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8625,7 +8625,7 @@ AUTOCS_PCLK_VO1_S_ROOT_CON1 = 0x0EF4 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable pclk_vo1_s_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, PCLK_VO1_S_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, PCLK_VO1_S_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable pclk_vo1_s_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8647,7 +8647,7 @@ AUTOCS_PCLK_GPU_ROOT_CON1 = 0x0EFC ; Auto clock switch control register 1
 = 1, ENABLE ; Enable pclk_gpu_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, PCLK_GPU_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, PCLK_GPU_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable pclk_gpu_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8669,7 +8669,7 @@ AUTOCS_HCLK_CENTER_ROOT_CON1 = 0x0F04 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_center_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_CENTER_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_CENTER_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_center_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8691,7 +8691,7 @@ AUTOCS_PCLK_CENTER_ROOT_CON1 = 0x0F0C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable pclk_center_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, PCLK_CENTER_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, PCLK_CENTER_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable pclk_center_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8713,7 +8713,7 @@ AUTOCS_ACLK_CENTER_S200_ROOT_CON1 = 0x0F14 ; Auto clock switch control register 
 = 1, ENABLE ; Enable aclk_center_s200_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_CENTER_S200_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_CENTER_S200_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_center_s200_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8735,7 +8735,7 @@ AUTOCS_HCLK_SDIO_ROOT_CON1 = 0x0F1C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_sdio_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_SDIO_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_SDIO_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_sdio_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8757,7 +8757,7 @@ AUTOCS_HCLK_RGA3_ROOT_CON1 = 0x0F24 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_rga3_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_RGA3_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_RGA3_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_rga3_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8779,7 +8779,7 @@ AUTOCS_HCLK_VO1USB_TOP_ROOT_CON1 = 0x0F2C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_vo1usb_top_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_VO1USB_TOP_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_VO1USB_TOP_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_vo1usb_top_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8801,7 +8801,7 @@ AUTOCS_ACLK_TOP_M300_ROOT_CON1 = 0x0F34 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable aclk_top_m300_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, ACLK_TOP_M300_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, ACLK_TOP_M300_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable aclk_top_m300_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8823,7 +8823,7 @@ AUTOCS_CLK_RKNN_DSU0_SRC_T_CON1 = 0x0F3C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable clk_rknn_dsu0_src_t switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, CLK_RKNN_DSU0_SRC_T_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, CLK_RKNN_DSU0_SRC_T_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable clk_rknn_dsu0_src_t switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8845,7 +8845,7 @@ AUTOCS_HCLK_AUDIO_ROOT_CON1 = 0x0F44 ; Auto clock switch control register 1
 = 1, ENABLE ; Enable hclk_audio_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, HCLK_AUDIO_ROOT_AUTOCS_CTRL ; autocs_ctrl.  Others: Reserved.
+> 0, 12, HCLK_AUDIO_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable hclk_audio_root switch to lower frequency.
 = 0x000, DISABLE
 
@@ -8867,7 +8867,7 @@ AUTOCS_PCLK_AUDIO_ROOT_CON1 = 0x0F4C ; Auto clock switch control register 1
 = 1, ENABLE ; Enable pclk_audio_root switch to lower frequency.
 = 0, DISABLE
 
-> 0, 12, PCLK_AUDIO_ROOT_AUTOCS_CTRL ; autocs_ctrl. Others: Reserved.
+> 0, 12, PCLK_AUDIO_ROOT_AUTOCS_CTRL ; autocs_ctrl.
 = 0xFFF, ENABLE ; Enable pclk_audio_root switch to lower frequency.
 = 0x000, DISABLE
 
