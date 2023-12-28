@@ -609,6 +609,7 @@ if __name__ == "__main__":
         resolve_derived(peripherals)
     except Exception as e:
         print('Error in %s: %s' % (filename, e.args))
+        sys.exit(1)
     else:
         generate_svd(peripherals, args.o, args.empty)
 
