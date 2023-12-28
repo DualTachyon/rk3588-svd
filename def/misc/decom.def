@@ -1,3 +1,276 @@
 [DECOM]
 @ = 0x0FEA80000, 0x00010000
 
+CTRL = 0x0000 ; Control Register
+> 5, 1, ZLIBM ; ZLIB mode. When decompressing ZLIB compressed data, ZLIBM must be enabled and DEM should be set to 1.
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 1, GZIPM ; GZIP mode. When decompressing GZIP files, GZIPM must be enabled and DEM should be set to 1.
+= 0, DISABLE
+= 1, ENABLE
+
+> 3, 1, CCEN ; LZ4 content checksum check enable. In LZ4 files, a 32-bits content checksum will be appended at the end of the file. When CCEN is enabled, DECOM will verify the content checksum to check if the decompressed data is correct. Only valid when decompressing LZ4 files.
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, BCEN ; LZ4 block checksum check enable. In LZ4 files, each data block will be followed by a 4-bytes checksum, calculated by using the xxHash-32 algorithm on the compressed data block. The intention is to detect data corruption(storage or transmission errors) immediately, before decoding. When BCEN is enabled, DECOM will check the block checksum to determine if the block to be decompressed is correct. Only valid when decompressing LZ4 files.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, HCEN ; LZ4 header checksum check enable. The LZ4 header contains a 1-byte xxh32 checksum value(HC). When HCEN is enabled, DECOM will check the HC to check if the header is correct. Only valid when decompressing LZ4 files.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, DEM ; DECOM mode select.
+= 0, UNLZ4 ; Decompress the file in LZ4 format.
+= 1, INFLATE ; Decompress the file in INFLATE format. If GZIPM=1'b1 or GZLIBM=1'b1, DEM must be set 1.
+
+ENR = 0x0004 ; Enable Register
+> 0, 1, ENR ; Enables and disables all decompress operations. All FIFO buffers and aclk/dclk domain work registers are cleared when the device is disabled. Self clear when decompression is complete. The ENR should be enabled after the other registers are configured.
+= 0, DISABLE
+= 1, ENABLE
+
+RADDR = 0x0008 ; Read Address
+> 0, 32, RADDR ; Read address. This register is used to configure the starting address of the file to be decompressed.
+
+WADDR = 0x000C ; Write Address
+> 0, 32, WADDR ; Write address. This register is used to configure the starting address of the location where the decompressed data is written. Note: WADDR[31:0] must be configured with a 128bit aligned address (WADDR[3:0]==4'b0).
+
+UDDSL = 0x0010 ; Undecompressed Data Size
+> 0, 32, UDDSL ; Undecompressed data size lower 32bits. (Unit:byte) UDDS[63:0] is the total size of undecompressed file. DECOM will read the compressed file data according to the value of UDDS[63:0], but the configuration of this register is optional. If this register is not configured, DECOM will use the default value of 64'hffff_ffff_ffff_ffff, and DECOM will keep reading data until the current decompression process ends.
+
+UDDSH = 0x0014 ; Undecompressed Data Size
+> 0, 32, UDDSH ; Undecompressed data size higher 32bits.
+
+TXTHR = 0x0018 ; Transmit Threshold Level
+> 0, 32, TXTHR ; When the number of 32K_MEM entries is greater than or equal to this value, the DECOM will automatically transfer the data in the 32K_MEM to the external via the AXI Master interface. The value ranges is 0~32256.(Unit:byte)
+
+SLEN = 0x0020, RO ; INFLATE Store Length
+> 0, 32, SLEN ; INFLATE store block size. (Unit:byte) Indicate the block size when decompressing the store block of INFALTE file. For debugging SLC_ERR.
+
+STAT = 0x0024, RO ; DECOM Status Register
+> 1, 1, LAST ; Used to indicate whether the currently processed compressed data block is the last one.
+= 0, NOT_LAST
+= 1, LAST
+
+> 0, 1, COMPLETE ; DECOM complete flag.
+= 0, NOT_COMPLETE
+= 1, COMPLETE ; Complete with no error Only decompress total complete with no error, this flag is set to 1.
+
+ISR = 0x0028, W1C ; Interrupt Status Register
+> 19, 1, DSOLI ; Decompressed data size over limit_size interrupt.
+= 0, NOT_ACTIVE
+= 1, ACTIVE
+
+> 18, 1, ZDICTEI ; ZLIB dictionary error interrupt.
+= 0, NOT_ACTIVE
+= 1, ACTIVE
+
+> 17, 1, GCMEI ; GZIP/ZLIB compression method check error interrupt.
+= 0, NOT_ACTIVE
+= 1, ACTIVE
+
+> 16, 1, GIDEI ; GZIP ID error interrupt.
+= 0, NOT_ACTIVE
+= 1, ACTIVE
+
+> 15, 1, CCCEI ; UNLZ4 content checksum check error interrupt.
+= 0, NOT_ACTIVE
+= 1, ACTIVE
+
+> 14, 1, BCCEI ; UNLZ4 block checksum check error interrupt.
+= 0, NOT_ACTIVE
+= 1, ACTIVE
+
+> 13, 1, HCCEI ; UNLZ4 header checksum check error interrupt.
+= 0, NOT_ACTIVE
+= 1, ACTIVE
+
+> 12, 1, CSEI ; UNLZ4 content size (or GZIP isize) error interrupt.
+= 0, NOT_ACTIVE
+= 1, ACTIVE
+
+> 11, 1, DICTEI ; UNLZ4 dictionary error interrupt.
+= 0, NOT_ACTIVE
+= 1, ACTIVE
+
+> 10, 1, VNEI ; UNLZ4 version number error interrupt.
+= 0, NOT_ACTIVE
+= 1, ACTIVE
+
+> 9, 1, MNEI ; UNLZ4 magic number error interrupt.
+= 0, NOT_ACTIVE
+= 1, ACTIVE
+
+> 8, 1, RDCEI ; AXI read channel error interrupt.
+= 0, NOT_ACTIVE
+= 1, ACTIVE
+
+> 7, 1, WRCEI ; AXI write channel error interrupt.
+= 0, NOT_ACTIVE
+= 1, ACTIVE
+
+> 6, 1, DISEI ; INFLATE huffman distance error interrupt.
+= 0, NOT_ACTIVE
+= 1, ACTIVE
+
+> 5, 1, LENEI ; INFLATE huffman length error interrupt.
+= 0, NOT_ACTIVE
+= 1, ACTIVE
+
+> 4, 1, LITEI ; INFLATE huffman literal error interrupt.
+= 0, NOT_ACTIVE
+= 1, ACTIVE
+
+> 3, 1, SQMEI ; INFLATE SQ match error interrupt.
+= 0, NOT_ACTIVE
+= 1, ACTIVE
+
+> 2, 1, SLCEI ; INFLATE store block length check error interrupt.
+= 0, NOT_ACTIVE
+= 1, ACTIVE
+
+> 1, 1, HDEI ; INFLATE file header error interrupt.
+= 0, NOT_ACTIVE
+= 1, ACTIVE
+
+> 0, 1, DSI ; DECOM stop interrupt. This interrupt indicates that DECOM has stopped working. Including decompression completion or decompression encountered an error.
+= 0, NOT_ACTIVE
+= 1, ACTIVE
+
+IEN = 0x002C ; Interrupt Enable Register
+> 19, 1, DSOLIEN ; Decompressed data size over limit_size interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 18, 1, ZDICTEIEN ; ZLIB dictionary error interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 17, 1, GCMEIEN ; GZIP/ZLIB compression method error interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 16, 1, GIDEIEN ; GZIP ID error interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 15, 1, CCCEIEN ; UNLZ4 content checksum check error interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 14, 1, BCCEIEN ; UNLZ4 block checksum check error interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 13, 1, HCCEIEN ; UNLZ4 header checksum check error interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 12, 1, CSEIEN ; UNLZ4 content size (or GZIP isize) error interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 11, 1, DICTEIEN ; UNLZ4 dictionary error interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 10, 1, VNEIEN ; UNLZ4 version number error interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 9, 1, WNEIEN ; UNLZ4 magic number error interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 8, 1, RDCEIEN ; AXI read channel error interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 7, 1, WRCEIEN ; AXI write channel error interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 6, 1, DISEIEN ; INFLATE huffman distance error interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, LENEIEN ; INFLATE huffman length error interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 1, LITEIEN ; INFLATE huffman literal error interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 3, 1, SQMEIEN ; INFLATE SQ match error interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, SLCIEN ; INFLATE store block length check error interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, HDEIEN ; INFLATE file header error interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, DSIEN ; DECOM stop interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+AXI_STAT = 0x0030, RO ; AXI Master Interface State
+> 4, 1, AXI_IDLE ; AXI master idle state register. When the decompression is aborted, DECOM will wait for AXI master's current read/write transfer to complete, that is, wait for AXI_IDLE=1, then reset DECOM, otherwise the uncompleted AXI transmission will cause AXI bus exception. It should be noted that after the decompression is abnormal, the AXI master's unfinished write operation will continue, but the output value of wstrb[15:0] will become 16'b0.
+= 0, BUSY
+= 1, IDLE
+
+> 2, 2, RRESP ; AXI read channel response state.
+> 0, 2, BRESP ; AXI write channel response state.
+
+TSIZEL = 0x0034, RO ; Decompressed Data Total Size Lower 32bit
+> 0, 32, TSIZEL, RO ; The total size of the data after decompression. TSIZE[63:0]. (Unit:byte)
+
+TSIZEH = 0x0038, RO ; Decompressed Data Total Size Upper 32bit
+> 0, 32, TSIZEH, RO ; The total size of the data after decompression.
+
+
+MGNUM = 0x003C, RO ; LZ4 File Magic Number
+> 0, 32, MGNUM ; Magic number of LZ4 is 0x184D2204. If the MGNUM is not 0x184D2204, a magic number error(mn_err) will be generated. And DECOM will stop decompressing.
+
+FRAME = 0x0040, RO ; LZ4 File Frame Descriptor
+> 16, 8, HCC ; Header checksum byte. One-byte checksum of combined descriptor fields, including optional ones. The value is the second byte of xxh32() using zero as a see, and the full frame descriptor as an input (including optional fields when they are present). A wrong checksum indicates an error in the descriptor. Header checksum is informational and can be skipped. The header checksum check function can be enabled by controlling the HCEN enable signal in the CTRL register. After being turned on, DECOM calculates the hash32 check value based on the data of the frame descriptor part of the LZ4 compressed file, and performs the header checksum byte in the file. In contrast, if they are not equal, an HCC error will be generated and an interrupt will be generated. 15:8 RO 0x00 BD BD byte. Including Block Maximum Size information. This information is useful to help the decoder allocate memory. Size here refers to the original(uncompressed) data size.
+
+> 6, 2, VN_NUM ; Version number. 2-bits field, must be set to 2'b01. Any other value cannot be decoded by this version of the specification. If the version number is error, Version number error(VNE) will be generated.
+
+> 5, 1, BCC_FLG ; Block checksum flag. If this flag is set, each data block will be followed by a 4-bytes checksum, calculated by using the xxHash-32 algorithm on the raw (compressed) data block. The intention is to detect data corruption (storage or transmission errors) immediately, before decoding. Block checksum usage is optional.
+
+> 4, 1, BIND_FLG ; Block independence flag. If this flag is set to "1", blocks are independent. If this flag is set to "0", each block depends on previous ones (up to LZ4 window size, which is 64 KB). In such case, it's necessary to decode all blocks in sequence. Block dependency improves compression ratio, especially for small blocks. On the other hand, it makes random access or multi-threaded decoding impossible. For debugging.
+
+> 3, 1, CS_FLG ; Content size flag. If this flag is set, the uncompressed size of data included within the frame will be present as an 8 bytes unsigned little endian value, after the flags. Content size usage is optional.
+
+> 2, 1, CCC_FLG ; Content checksum flag. If this flag is set, a 32-bits content checksum will be appended after the EndMark.
+
+> 0, 1, DICT_FLG ; Dictionary ID flag. If this flag is set, a 4-bytes Dict-ID field will be present, after the descriptor flags and the Content Size. If this flag is set, Dictionary ID error will be generated. DECOM will stop decompressing.
+
+DICTID = 0x0044, RO ; Dictionary ID
+> 0, 32, DICTID ; Dictionary ID in the compressed file header. Dictionary ID is only present if the DID_FLG is set. It works as a kind of "known prefix" which is used by both the compressor and the decompressor to "warm-up" reference tables.
+
+CSL = 0x0048, RO ; LZ4 Content Size(CS) Lower 32- bits
+> 0, 32, CSL ; Content size(CS) lower 32-bits. (Unit:byte) CS[63:0] is the original(uncompressed) size. This information is optional in LZ4 file header, and only present if CS_FLG is set. CS[63:0]={CSH, CSL};
+
+CSH = 0x004C, RO ; LZ4 Content Size(CS) Upper 32- bits
+> 0, 1, CSH ; Content size(CS) upper 32-bits.
+
+LMTSL = 0x0050 ; Limit Size of Decompressed Data
+> 0, 32, LMTSL ; Limit size of decompressed data lower 32bits. (Unit:byte) When the amount of decompressed data is greater than the LMTS, DSOLI interrupt is generated and the decompression process is stopped.
+
+LMTSH = 0x0054 ; Limit Size of Decompressed Data
+> 0, 32, LMTSH ; Limit size of decompressed data higher 32bits.
+
+GZFHD = 0x0058 ; GZIP/ZLIB File Header Information
+> 0, 1, GZFHD ; GZIP/ZLIB file header information. When GZIPM = 1, GZFHD is GZIP file header information. When ZLIBM = 1, GZFHD is ZLIB file header information.
+
+VERSION = 0x00F0 ; DECOM Version Number
+> 0, 32, VERSION ; Version number = 32'h0000_0926.
+
