@@ -1,3 +1,323 @@
 [UART0]
 @ = 0x0FD890000, 0x00010000
 
+RBR = 0x0000, RO ; Receive Buffer Register
+> 0, 8, DATA_INPUT ; Data byte received on the serial input port (sin) in UART mode, or the serial infrared input (sir_in) in infrared mode. The data in this register is valid only if the Data Ready (DR) bit in the Line Status Register (LCR) is set. If in non-FIFO mode (FIFO_MODE == NONE) or FIFOs are disabled (FCR[0] set to zero), the data in the RBR must be read before the next data arrives, otherwise it is overwritten, resulting in an over-run error. If in FIFO mode (FIFO_MODE != NONE) and FIFOs are enabled (FCR[0] set to one), this register accesses the head of the receive FIFO. If the receive FIFO is full and this register is not read before the next data character arrives, then the data already in the FIFO is preserved, but any incoming data are lost and an over-run error occurs.
+
+DLL = 0x0000, (RBR) ; Divisor Latch Low
+> 0, 8, BAUD_RATE_DIVISOR_L ; Lower 8 bits of a 16-bit, read/write, Divisor Latch register that contains the baud rate divisor for the UART. This register may only be accessed when the DLAB bit (LCR[7]) is set and the UART is not busy (USR[0] is zero). The output baud rate is equal to the serial clock (pclk if one clock design, sclk if two clock design (CLOCK_MODE == Enabled)) frequency divided by sixteen times the value of the baud rate divisor, as follows: baud rate = (serial clock freq) / (16 * divisor). Note that with the Divisor Latch Registers (DLL and DLH) set to zero, the baud clock is disabled and no serial communications occur. Also, once the DLL is set, at least 8 clock cycles of the slowest UART clock should be allowed to pass before transmitting or receiving data.
+
+THR = 0x0000, (RBR), WO ; Transmit Buffer Register
+> 0, 8, DATA_OUTPUT ; Data to be transmitted on the serial output port (sout) in UART mode or the serial infrared output (sir_out_n) in infrared mode. Data should only be written to the THR when the THR Empty (THRE) bit (LSR[5]) is set. If in non-FIFO mode or FIFOs are disabled (FCR[0] = 0) and THRE is set, writing a single character to the THR clears the THRE. Any additional writes to the THR before the THRE is set again causes the THR data to be overwritten. If in FIFO mode and FIFOs are enabled (FCR[0] = 1) and THRE is set, 64 characters of data may be written to the THR before the FIFO is full. Any attempt to write data when the FIFO is full results in the write data being lost.
+
+DLH = 0x0004 ; Divisor Latch High
+> 0, 8, BAUD_RATE_DIVISOR_H ; Upper 8-bits of a 16-bit, read/write, Divisor Latch register that contains the baud rate divisor for the UART. This register may only be accessed when the DLAB bit (LCR[7]) is set and the UART is not busy (USR[0] is zero). The output baud rate is equal to the serial clock (pclk if one clock design, sclk if two clock design CLOCK_MODE == Enabled)) frequency divided by sixteen times the value of the baud rate divisor, as follows: baud rate = (serial clock freq) / (16 * divisor). Note that with the Divisor Latch Registers (DLL and DLH) set to zero, the baud clock is disabled and no serial communications occur. Also, once the DLH is set, at least 8 clock cycles of the slowest UART clock should be allowed to pass before transmitting or receiving data.
+
+IER = 0x0004, (DLH) ; Interrupt Enable Register
+> 7, 1, PROG_THRE_INT_EN ; Programmable THRE Interrupt Mode Enable that can be written to only when THRE_MODE_USER == Enabled, always readable. This is used to enable/disable the generation of THRE Interrupt.
+= 0, DISABLED
+= 1, ENABLED
+
+> 3, 1, MODEM_STATUS_INT_EN ; Enable Modem Status Interrupt. This is used to enable/disable the generation of Modem Status Interrupt. This is the fourth highest priority interrupt.
+= 0, DISABLED
+= 1, ENABLED
+
+> 2, 1, RECEIVE_LINE_STATUS_INT_EN ; Enable Receiver Line Status Interrupt. This is used to enable/disable the generation of Receiver Line Status Interrupt. This is the highest priority interrupt.
+= 0, DISABLED
+= 1, ENABLED
+
+> 1, 1, TRANS_HOLD_EMPTY_INT_EN ; Enable Transmit Holding Register Empty Interrupt. This is used to enable/disable the generation of Transmitter Holding Register Empty Interrupt. This is the third highest priority interrupt.
+= 0, DISABLED
+= 1, ENABLED
+
+> 0, 1, RECEIVE_DATA_AVAILABLE_INT_EN ; Enable Received Data Available Interrupt. This is used to enable/disable the generation of Received Data Available Interrupt and the Character Timeout Interrupt (if in FIFO mode and FIFOs enabled). These are the second highest priority interrupts.
+= 0, DISABLED
+= 1, ENABLED
+
+FCR = 0x0008, WO ; FIFO Enable
+> 6, 2, RCVR_TRIGGER ; At which the Received Data Available Interrupt is generated. In auto flow control mode it is used to determine when the rts_n signal is de-asserted. It also determines when the dma_rx_req_n signal is asserted in certain modes of operation. For details on DMA support, refer to "DMA Support".
+= 0, 1CHAR
+= 1, QUARTER_FULL
+= 2, HALF_FULL
+= 3, ALMOST_FULL
+
+> 4, 2, TX_EMPTY_TRIGGER ; TX Empty Trigger. Writes have no effect when THRE_MODE_USER == Disabled. This is used to select the empty threshold level at which the THRE Interrupts are generated when the mode is active. It also determines when the dma_tx_req_n signal is asserted when in certain modes of operation. For details on DMA support, refer to "DMA Support" .
+= 0, EMPTY
+= 1, 2CHARS
+= 2, QUARTER_FULL
+= 3, HALF_FULL
+
+> 3, 1, DMA_MODE ; DMA Mode. This determines the DMA signaling mode used for the dma_tx_req_n and dma_rx_req_n output signals when additional DMA handshaking signals are not selected (DMA_EXTRA == No). For details on DMA support, refer to DMA Support.
+= 0, MODE_0
+= 1, MODE_1
+
+> 2, 1, XMIT_FIFO_RESET ; XMIT FIFO Reset. This resets the control portion of the transmit FIFO and treats the FIFO as empty. This also de-asserts the DMA TX request and single signals when additional DMA handshaking signals are selected (DMA_EXTRA == YES). Note that this bit is 'self-clearing'. It is not necessary to clear this bit.
+
+> 1, 1, RCVR_FIFO_RESET ; RCVR FIFO Reset. This resets the control portion of the receive FIFO and treats the FIFO as empty. This also de-asserts the DMA RX request and single signals when additional DMA handshaking signals are selected (DMA_EXTRA == YES). Note that this bit is 'self-clearing'. It is not necessary to clear this bit.
+
+> 0, 1, FIFO_EN ; FIFO Enable. This enables/disables the transmit (XMIT) and receive (RCVR) FIFOs. Whenever the value of this bit is changed both the XMIT and RCVR controller portion of FIFOs is reset.
+
+IIR = 0x0008, (FCR), RO ; Interrupt Identity Register
+> 6, 2, FIFOS_EN ; FIFOs Enabled. This is used to indicate whether the FIFOs are enabled or disabled.
+= 0, DISABLED
+= 3, ENABLED
+
+> 0, 4, INT_ID ; Interrupt ID. The interrupt priorities are split into four levels that are detailed in Table X. Bit 3 indicates an interrupt can only occur when the FIFOs are enabled and used to distinguish a Character Timeout condition interrupt.
+= 0, MODEM_STATUS
+= 1, NO_INTERRUPT_PENDING
+= 2, THR_EMPTY
+= 4, RECEIVED_DATA_AVAILABLE
+= 6, RECEIVER_LINE_STATUS
+= 7, BUSY_DETECT
+= 12, CHARACTER_TIMEOUT
+
+LCR = 0x000C ; Line Control Register
+> 7, 1, DIV_LAT_ACCESS ; Divisor Latch Access Bit. Writable only when UART is not busy (USR[0] is zero), always readable. This bit is used to enable reading and writing of the Divisor Latch register (DLL and DLH) to set the baud rate of the UART. This bit must be cleared after initial baud rate setup in order to access other registers.
+
+> 6, 1, BREAK_CTRL ; Break Control Bit. This is used to cause a break condition to be transmitted to the receiving device. If set to one the serial output is forced to the spacing (logic 0) state. When not in Loopback Mode, as determined by MCR[4], the sout line is forced low until the Break bit is cleared. If SIR_MODE == Enabled and active (MCR[6] set to one) the sir_out_n line is continuously pulsed. When in Loopback Mode, the break condition is internally looped back to the receiver and the sir_out_n line is forced low.
+
+> 5, 1, STICK_PARITY ; If UART_16550_COMPATIBLE = NO, then writable only when UART is not busy (USR[0] is 0); otherwise always writable and always readable. This bit is used to force parity value. When PEN, EPS and Stick Parity are set to 1, the parity bit is transmitted and checked as logic 0. If PEN and Stick Parity are set to 1 and EPS is a logic 0, then parity bit is transmitted and checked as a logic 1. If this bit is set to 0, Stick Parity is disabled.
+
+> 4, 1, EVEN_PARITY_SEL ; Even Parity Select. Writable only when UART is not busy (USR[0] is zero), always readable. This is used to select between even and odd parity, when parity is enabled (PEN set to one). If set to one, an even number of logic 1s is transmitted or checked. If set to zero, an odd number of logic 1s is transmitted or checked.
+
+> 3, 1, PARITY_EN ; Parity Enable. Writable only when UART is not busy (USR[0] is zero), always readable. This bit is used to enable and disable parity generation and detection in transmitted and received serial character respectively.
+= 0, DISABLED
+= 1, ENABLED
+
+> 2, 1, STOP_BITS_NUM ; Number of stop bits. Writable only when UART is not busy (USR[0] is zero), always readable. This is used to select the number of stop bits per character that the peripheral transmits and receives. If set to zero, one stop bit is transmitted in the serial data. If set to one and the data bits are set to 5 (LCR[1:0] set to zero) one and a half stop bits is transmitted. Otherwise, two stop bits are transmitted. Note that regardless of the number of stop bits selected, the receiver checks only the first stop bit.
+= 0, 1_STOP_BIT
+= 1, 1_5_STOP_BITS ; 1.5 bits when DLS (LCR[1:0]) is zero, else 2 stop bit.
+
+> 0, 2, DATA_LENGTH_SEL ; Data Length Select. Writable only when UART is not busy (USR[0] is zero), always readable. This is used to select the number of data bits per character that the peripheral transmits and receives. The number of bit that may be selected areas follows:
+= 0, 5BITS
+= 1, 6BITS
+= 2, 7BITS
+= 3, 8BITS
+
+MCR = 0x0010 ; Modem Control Register
+> 5, 1, AUTO_FLOW_CTRL_EN ; Auto Flow Control Enable. Writable only when AFCE_MODE == Enabled, always readable. When FIFOs are enabled and the Auto Flow Control Enable (AFCE) bit is set, Auto Flow Control features are enabled as described in "Auto Flow Control".
+= 0, DISABLED
+= 1, ENABLED
+
+> 4, 1, LOOPBACK ; LoopBack Bit. This is used to put the UART into a diagnostic mode for test purposes. If operating in UART mode (SIR_MODE != Enabled or not active, MCR[6] set to zero), data on the sout line is held high, while serial data output is looped back to the sin line, internally. In this mode all the interrupts are fully functional. Also, in loopback mode, the modem control inputs (dsr_n, cts_n, ri_n, dcd_n) are disconnected and the modem control outputs (dtr_n, rts_n, out1_n, out2_n) are looped back to the inputs, internally. If operating in infrared mode (SIR_MODE == Enabled AND active, MCR[6] set to one), data on the sir_out_n line is held low, while serial data output is inverted and looped back to the sir_in line.
+
+> 3, 1, OUT2 ; OUT2. This is used to directly control the user-designated Output2 (out2_n) output. The value written to this location is inverted and driven out on out2_n. Note that in Loopback mode (MCR[4] set to one), the out2_n output is held inactive high while the value of this location is internally looped back to an input.
+= 0, DEASSERTED ; (logic 1)
+= 1, ASSERTED ; (logic 0)
+
+> 2, 1, OUT1 ; OUT1. This is used to directly control the user-designated Output1 (out1_n) output. The value written to this location is inverted and driven out on out1_n. Note that in Loopback mode (MCR[4] set to one), the out1_n output is held inactive high while the value of this location is internally looped back to an input.
+= 0, DEASSERTED ; (logic 1)
+= 1, ASSERTED ; (logic 0)
+
+> 1, 1, REQ_TO_SEND ; Request to Send. This is used to directly control the Request to Send (rts_n) output. The Request To Send (rts_n) output is used to inform the modem or data set that the UART is ready to exchange data. When Auto RTS Flow Control is not enabled (MCR[5] set to zero), the rts_n signal is set low by programming MCR[1] (RTS) to a high. In Auto Flow Control, AFCE_MODE == Enabled and active (MCR[5] set to one) and FIFOs enable (FCR[0] set to one), the rts_n output is controlled in the same way, but is also gated with the receiver FIFO threshold trigger (rts_n is inactive high when above the threshold). The rts_n signal is de-asserted when MCR[1] is set low. Note that in Loopback mode (MCR[4] set to one), the rts_n output is held inactive high while the value of this location is internally looped back to an input.
+
+> 0, 1, DATA_TERMINAL_READY ; Data Terminal Ready. This is used to directly control the Data Terminal Ready (dtr_n) output. The value written to this location is inverted and driven out on dtr_n. The Data Terminal Ready output is used to inform the modem or data set that the UART is ready to establish communications. Note that in Loopback mode (MCR[4] set to one), the dtr_n output is held inactive
+= 0, DEASSERTED ; (logic 1)
+= 1, ASSERTED ; (logic 0)
+
+LSR = 0x0014, RO ; Line Status Register
+> 7, 1, RECEIVER_FIFO_ERROR, R2C ; Receiver FIFO Error bit. This bit is only relevant when FIFO_MODE != NONE AND FIFOs are enabled (FCR[0] set to one). This is used to indicate if there is at least one parity error, framing error, or break indication in the FIFO. This bit is cleared when the LSR is read and the character with the error is at the top of the receiver FIFO and there are no subsequent errors in the FIFO.
+= 0, NO_ERROR
+= 1, ERROR
+
+> 6, 1, TRANS_EMPTY ; Transmitter Empty bit. If in FIFO mode (FIFO_MODE != NONE) and FIFOs enabled (FCR[0] set to one), this bit is set whenever the Transmitter Shift Register and the FIFO are both empty. If in non-FIFO mode or FIFOs are disabled, this bit is set whenever the Transmitter Holding Register and the Transmitter Shift Register are both empty.
+
+> 5, 1, TRANS_HOLD_REG_EMPTY ; Transmit Holding Register Empty bit. If THRE_MODE_USER == Disabled or THRE mode is disabled (IER[7] set to zero) and regardless of FIFO's being implemented/enabled or not, this bit indicates that the THR or TX FIFO is empty. This bit is set whenever data is transferred from the THR or TX FIFO to the transmitter shift register and no new data has been written to the THR or TX FIFO. This also causes a THRE Interrupt to occur, if the THRE Interrupt is enabled. If THRE_MODE_USER == Enabled AND FIFO_MODE != NONE and both modes are active (IER[7] set to one and FCR[0] set to one respectively), the functionality is switched to indicate the transmitter FIFO is full, and no longer controls THRE interrupts, which are then controlled by the FCR[5:4] threshold setting.
+
+> 4, 1, BREAK_INT, R2C ; Break Interrupt bit. This is used to indicate the detection of a break sequence on the serial input data. If in UART mode (SIR_MODE == Disabled), it is set whenever the serial input, sin, is held in a logic '0' state for longer than the sum of start time + data bits + parity + stop bits. If in infrared mode (SIR_MODE == Enabled), it is set whenever the serial input, sir_in, is continuously pulsed to logic '0' for longer than the sum of start time + data bits + parity + stop bits. A break condition on serial input causes one and only one character, consisting of all zeros, to be received by the UART. In the FIFO mode, the character associated with the break condition is carried through the FIFO and is revealed when the character is at the top of the FIFO. In the non-FIFO mode, the BI indication occurs immediately and persists until the LSR is read.
+
+> 3, 1, FRAMING_ERROR, R2C ; Framing Error bit. This is used to indicate the occurrence of a framing error in the receiver. A framing error occurs when the receiver does not detect a valid STOP bit in the received data. In the FIFO mode, since the framing error is associated with a character received, it is revealed when the character with the framing error is at the top of the FIFO. When a framing error occurs, the UART tries to re-synchronize. It does this by assuming that the error was due to the start bit of the next character and then continues receiving the other bit i.e. data, and/or parity and stop. It should be noted that the Framing Error (FE) bit (LSR[3]) is set if a break interrupt has occurred, as indicated by Break Interrupt (BI) bit (LSR[4]).
+= 0, NO_ERROR
+= 1, ERROR
+
+> 2, 1, PARITY_ERROR, R2C ; Parity Error bit. This is used to indicate the occurrence of a parity error in the receiver if the Parity Enable (PEN) bit (LCR[3]) is set. In the FIFO mode, since the parity error is associated with a character received, it is revealed when the character with the parity error arrives at the top of the FIFO. It should be noted that the Parity Error (PE) bit (LSR[2]) is set if a break interrupt has occurred, as indicated by Break Interrupt (BI) bit (LSR[4]).
+= 0, NO_ERROR
+= 1, ERROR
+
+> 1, 1, OVERRUN_ERROR, R2C ; Overrun error bit. This is used to indicate the occurrence of an overrun error. This occurs if a new data character was received before the previous data was read. In the non-FIFO mode, the OE bit is set when a new character arrives in the receiver before the previous character was read from the RBR. When this happens, the data in the RBR is overwritten. In the FIFO mode, an overrun error occurs when the FIFO is full and a new character arrives at the receiver. The data in the FIFO is retained and the data in the receive shift register is lost.
+= 0, NO_ERROR
+= 1, ERROR
+
+> 0, 1, DATA_READY ; Data Ready bit. This is used to indicate that the receiver contains at least one character in the RBR or the receiver FIFO. This bit is cleared when the RBR is read in non-FIFO mode, or when the receiver FIFO is empty, in FIFO mode.
+= 0, NOT_READY
+= 1, READY
+
+MSR = 0x0018, RO ; Modem Status Register
+> 7, 1, DATA_CARRIOR_DETECT ; Data Carrier Detect. This is used to indicate the current state of the modem control line dcd_n. This bit is the complement of dcd_n. When the Data Carrier Detect input (dcd_n) is asserted it is an indication that the carrier has been detected by the modem or data set. In Loopback Mode (MCR[4] set to one), DCD is the same as MCR[3] (Out2).
+= 0, DEASSERTED ; (logic 1)
+= 1, ASSERTED ; (logic 0)
+
+> 6, 1, RING_INDICATOR ; Ring Indicator. This is used to indicate the current state of the modem control line ri_n. This bit is the complement of ri_n. When the Ring Indicator input (ri_n) is asserted it is an indication that a telephone ringing signal has been received by the modem or data set. In Loopback Mode (MCR[4] set to one), RI is the same as MCR[2] (Out1).
+= 0, DEASSERTED ; (logic 1)
+= 1, ASSERTED ; (logic 0)
+
+> 5, 1, DATA_SET_READY ; Data Set Ready. This is used to indicate the current state of the modem control line dsr_n. This bit is the complement of dsr_n. When the Data Set Ready input (dsr_n) is asserted it is an indication that the modem or data set is ready to establish communications with the UART. In Loopback Mode (MCR[4] set to one), DSR is the same as MCR[0] (DTR).
+= 0, DEASSERTED ; (logic 1)
+= 1, ASSERTED ; (logic 0)
+
+> 4, 1, CLEAR_TO_SEND ; Clear to Send. This is used to indicate the current state of the modem control line cts_n. This bit is the complement of cts_n. When the Clear to Send input (cts_n) is asserted it is an indication that the modem or data set is ready to exchange data with the UART. In Loopback Mode (MCR[4] = 1), CTS is the same as MCR[1] (RTS).
+= 0, DEASSERTED ; (logic 1)
+= 1, ASSERTED ; (logic 0)
+
+> 3, 1, DELTA_DATA_CARRIER_DETECT, R2C ; Delta Data Carrier Detect. This is used to indicate that the modem control line dcd_n has changed since the last time the MSR was read. In Loopback Mode (MCR[4] = 1), DDCD reflects changes on MCR[3] (Out2). Note, if the DDCD bit is not set and the dcd_n signal is asserted (low) and a reset occurs (software or otherwise), then the DDCD bit is set when the reset is removed if the dcd_n signal remains asserted.
+= 0, NO_CHANGE
+= 1, CHANGE
+
+> 2, 1, TRAILING_EDGE_RING_INDICATOR ; Trailing Edge of Ring Indicator. This is used to indicate that a change on the input ri_n (from an active-low to an inactive-high state) has occurred since the last time the MSR was read. In Loopback Mode (MCR[4] = 1), TERI reflects when MCR[2] (Out1) has changed state from a high to a low.
+= 0, NO_CHANGE
+= 1, CHANGE
+
+> 1, 1, DELTA_DATA_SET_READY ; Delta Data Set Ready. This is used to indicate that the modem control line dsr_n has changed since the last time the MSR was read. In Loopback Mode (MCR[4] = 1), DDSR reflects changes on MCR[0] (DTR). Note, if the DDSR bit is not set and the dsr_n signal is asserted (low) and a reset occurs (software or otherwise), then the DDSR bit is set when the reset is removed if the dsr_n signal remains asserted.
+= 0, NO_CHANGE
+= 1, CHANGE
+
+> 0, 1, DELTA_CLEAR_TO_SEND ; Delta Clear to Send. This is used to indicate that the modem control line cts_n has changed since the last time the MSR was read. In Loopback Mode (MCR[4] = 1), DCTS reflects changes on MCR[1] (RTS). Note, if the DCTS bit is not set and the cts_n signal is asserted (low) and a reset occurs (software or otherwise), then the DCTS bit is set when the reset is removed if the cts_n signal remains asserted.
+= 0, NO_CHANGE
+= 1, CHANGE
+
+SCR = 0x001C ; Scratchpad Register
+> 0, 8, TEMP_STORE_SPACE ; Scratchpad register. This register is for programmers to use as a temporary storage space. It has no defined purpose in the UART.
+
+SRBR = 0x0030, RO ; Shadow Receive Buffer Register
+> 0, 8, SHADOW_RBR ; This is a shadow register for the RBR and has been allocated sixteen 32-bit locations (0x30-0x6c) so as to accommodate burst accesses from the master. This register contains the data byte received on the serial input port (sin) in UART mode or the serial infrared input (sir_in) in infrared mode. The data in this register is valid only if the Data Ready (DR) bit in the Line status Register (LSR) is set. If in non-FIFO mode (FIFO_MODE == NONE) or FIFOs are disabled (FCR[0] set to zero), the data in the RBR must be read before the next data arrives, otherwise it is overwritten, resulting in an overrun error. If in FIFO mode (FIFO_MODE != NONE) and FIFOs are enabled (FCR[0] set to one), this register accesses the head of the receive FIFO. If the receive FIFO is full and this register is not read before the next data character arrives, then the data already in the FIFO are preserved, but any incoming data is lost. An overrun error also occurs.
+
+STHR = 0x0030, (SRBR), WO; Shadow Transmit Holding Register
+> 0, 8, SHADOW_THR ; This is a shadow register for the THR and has been allocated sixteen 32-bit locations(0x30-0x6c) so as to accommodate burst accesses from the master. This register contains data to be transmitted on the serial output port (sout) in UART mode or the serial infrared output (sir_out_n) in infrared mode. Data should only be written to the THR when the THR Empty (THRE) bit (LSR[5]) is set. If in non-FIFO mode or FIFOs are disabled (FCR[0] set to zero) and THRE is set, writing a single character to the THR clears the THRE. Any additional writes to the THR before the THRE is set again causes the THR data to be overwritten. If in FIFO mode and FIFOs are enabled (FCR[0] set to one) and THRE is set, x number of characters of data may be written to the THR before the FIFO is full. The number x (default=16) is determined by the value of FIFO Depth that you set during configuration. Any attempt to write data when the FIFO is full results in the write data being lost.
+
+FAR = 0x0070 ; FIFO Access Register
+> 0, 1, FIFO_ACCESS_TEST_EN ; Writes have no effect when FIFO_ACCESS == No, always readable. This register is use to enable a FIFO access mode for testing, so that the receive FIFO can be written by the master and the transmit FIFO can be read by the master when FIFOs are implemented and enabled. When FIFOs are not implemented or not enabled it allows the RBR to be written by the master and the THR to be read by the master. Note that when the FIFO access mode is enabled/disabled, the control portion of the receive FIFO and transmit FIFO is reset and the FIFOs are treated as empty.
+= 0, DISABLED
+= 1, ENABLED
+
+TFR = 0x0074, RO ; Transmit FIFO Read
+> 0, 8, TRANS_FIFO_READ ; Transmit FIFO Read. These bits are only valid when FIFO access mode is enabled (FAR[0] is set to one). When FIFOs are implemented and enabled, reading this register gives the data at the top of the transmit FIFO. Each consecutive read pops the transmit FIFO and gives the next data value that is currently at the top of the FIFO. When FIFOs are not implemented or not enabled, reading this register gives the data in the THR.
+
+RFW = 0x0078, WO ; Receive FIFO write
+> 9, 1, RECEIVE_FIFO_FRAMING_ERROR ; Receive FIFO Framing Error. These bits are only valid when FIFO access mode is enabled (FAR[0] is set to one). When FIFOs are implemented and enabled, this bit is used to write framing error detection information to the receive FIFO. When FIFOs are not implemented or not enabled, this bit is used to write framing error detection information to the RBR.
+> 8, 1, RECEIVE_FIFO_PARITY_ERROR ; Receive FIFO Parity Error. These bits are only valid when FIFO access mode is enabled (FAR[0] is set to one). When FIFOs are implemented and enabled, this bit is used to write parity error detection information to the receive FIFO. When FIFOs are not implemented or not enabled, this bit is used to write parity error detection information to the RBR.
+
+> 0, 8, RECEIVE_FIFO_WRITE ; Receive FIFO Write Data. These bits are only valid when FIFO access mode is enabled (FAR[0] is set to one). When FIFOs are implemented and enabled, the data that is written to the RFWD is pushed into the receive FIFO. Each consecutive write pushes the new data to the next write location in the receive FIFO. When FIFOs are not implemented or not enabled, the data that is written to the RFWD is pushed into the RBR.
+
+USR = 0x007C, RO ; UART Status Register
+> 4, 1, RECEIVE_FIFO_FULL ; Receive FIFO Full. This bit is only valid when FIFO_STAT == YES. This is used to indicate that the receive FIFO is completely full. This bit is cleared when the RX FIFO is no longer full.
+= 0, NOT_FULL
+= 1, FULL
+
+> 3, 1, RECEIVE_FIFO_NOT_EMPTY ; Receive FIFO Not Empty. This bit is only valid when FIFO_STAT == YES. This is used to indicate that the receive FIFO contains one or more entries. This bit is cleared when the RX FIFO is empty.
+= 0, EMPTY
+= 1, NOT_EMPTY
+
+> 2, 1, TRASN_FIFO_EMPTY ; Transmit FIFO Empty. This bit is only valid when FIFO_STAT == YES. This is used to indicate that the transmit FIFO is completely empty. This bit is cleared when the TX FIFO is no longer empty.
+= 0, NOT_EMPTY
+= 1, EMPTY
+
+> 1, 1, TRANS_FIFO_NOT_FULL ; Transmit FIFO Not Full. This bit is only valid when FIFO_STAT == YES. This is used to indicate that the transmit FIFO in not full. This bit is cleared when the TX FIFO is full.
+= 0, FULL
+= 1, NOT_FULL
+
+> 0, 1, UART_BUSY ; UART Busy. This is indicates that a serial transfer is in progress, when cleared indicates that the UART is idle or inactive. Note that it is possible for the UART Busy bit to be cleared even though a new character may have been sent from another device. That is, if the UART has no data in THR and RBR and there is no transmission in progress and a start bit of a new character has just reached the UART. This is due to the fact that a valid start is not seen until the middle of the bit period and this duration is dependent on the baud divisor that has been programmed. If a second system clock has been implemented (CLOCK_MODE == Enabled), the assertion of this bit is also delayed by several cycles of the slower clock.
+= 0, IDLE
+= 1, BUSY
+
+TFL = 0x0080, RO ; Transmit FIFO level
+> 0, 6, TRANS_FIFO_LEVEL ; Transmit FIFO Level. This is indicates the number of data entries in the transmit FIFO.
+
+RFL = 0x0084, RO ; Receive FIFO level
+> 0, 6, RECEIVE_FIFO_LEVEL ; Receive FIFO Level. This is indicates the number of data entries in the receive FIFO.
+
+SRR = 0x0088, WO ; Software Reset Register
+> 2, 1, XMIT_FIFO_RESET ; XMIT FIFO Reset. This is a shadow register for the XMIT FIFO Reset bit (FCR[2]). This can be used to remove the burden on software having to store previously written FCR values (which are pretty static) just to reset the transmit FIFO. This resets the control portion of the transmit FIFO and treats the FIFO as empty. This also de-asserts the DMA TX request and single signals when additional DMA handshaking signals are selected (DMA_EXTRA == YES). Note that this bit is 'self-clearing'. It is not necessary to clear this bit.
+
+> 1, 1, RCVR_FIFO_RESET ; RCVR FIFO Reset. This is a shadow register for the RCVR FIFO Reset bit (FCR[1]). This can be used to remove the burden on software having to store previously written FCR values (which are pretty static) just to reset the receive FIFO This resets the control portion of the receive FIFO and treats the FIFO as empty. This also de-asserts the DMA RX request and single signals when additional DMA handshaking signals are selected (DMA_EXTRA == YES). Note that this bit is 'self-clearing'. It is not necessary to clear this bit.
+
+> 0, 1, UART_RESET ; UART Reset. This asynchronously resets the UART and synchronously removes the reset assertion. For a two clock implementation both pclk and sclk domains are reset.
+
+SRTS = 0x008C ; Shadow Request to Send
+> 0, 1, SHADOW_REQ_TO_SEND ; Shadow Request to Send. This is a shadow register for the RTS bit (MCR[1]), this can be used to remove the burden of having to performing a read-modify-write on the MCR. This is used to directly control the Request to Send (rts_n) output. The Request To Send (rts_n) output is used to inform the modem or data set that the UART is ready to exchange data. When Auto RTS Flow Control is not enabled (MCR[5] = 0), the rts_n signal is set low by programming MCR[1] (RTS) to a high. In Auto Flow Control, AFCE_MODE == Enabled and active (MCR[5] = 1) and FIFOs enable (FCR[0] = 1), the rts_n output is controlled in the same way, but is also gated with the receiver FIFO threshold trigger (rts_n is inactive high when above the threshold). Note that in Loopback mode (MCR[4] = 1), the rts_n output is held inactive-high while the value of this location is internally looped back to an input.
+
+SBCR = 0x0090 ; Shadow Break Control Register
+> 0, 1, SHADOW_BREAK_CTRL ; Shadow Break Control Bit. This is a shadow register for the Break bit (LCR[6]), this can be used to remove the burden of having to performing a read modify write on the LCR. This is used to cause a break condition to be transmitted to the receiving device. If set to one the serial output is forced to the spacing (logic 0) state. When not in Loopback Mode, as determined by MCR[4], the sout line is forced low until the Break bit is cleared. If SIR_MODE == Enabled and active (MCR[6] = 1) the sir_out_n line is continuously pulsed. When in Loopback Mode, the break condition is internally looped back to the receiver.
+
+SDMAM = 0x0094 ; Shadow DMA Mode
+> 0, 1, SHADOW_DMA_MODE ; Shadow DMA Mode. This is a shadow register for the DMA mode bit (FCR[3]). This can be used to remove the burden of having to store the previously written value to the FCR in memory and having to mask this value so that only the DMA Mode bit gets updated. This determines the DMA signaling mode used for the dma_tx_req_n and dma_rx_req_n output signals when additional DMA handshaking signals are not selected (DMA_EXTRA == NO).
+= 0, MODE_0
+= 1, MODE_1
+
+SFE = 0x0098 ; Shadow FIFO enable
+> 0, 1, SHADOW_FIFO_EN ; Shadow FIFO Enable. This is a shadow register for the FIFO enable bit (FCR[0]). This can be used to remove the burden of having to store the previously written value to the FCR in memory and having to mask this value so that only the FIFO enable bit gets updated. This enables/disables the transmit (XMIT) and receive (RCVR) FIFOs. If this bit is set to zero (disabled) after being enabled then both the XMIT and RCVR controller portion of FIFOs are reset.
+
+SRT = 0x009C ; Shadow RCVR Trigger
+> 0, 2, SHADOW_RCVR_TRIGGER ; Shadow RCVR Trigger. This is a shadow register for the RCVR trigger bits (FCR[7:6]). This can be used to remove the burden of having to store the previously written value to the FCR in memory and having to mask this value so that only the RCVR trigger bit gets updated. This is used to select the trigger level in the receiver FIFO at which the Received Data Available Interrupt is generated. It also determines when the dma_rx_req_n signal is asserted when DMA Mode (FCR[3]) = 1. The following trigger levels are supported:
+= 0, 1CHAR
+= 1, QUARTER_FULL
+= 2, HALF_FULL
+= 3, ALMOST_FULL ; FIFO 2 less than full
+
+STET = 0x00A0 ; Shadow TX Empty Trigger
+> 0, 2, SHADOW_TX_EMPTY_TRIGGER ; Shadow TX Empty Trigger. This is a shadow register for the TX empty trigger bits (FCR[5:4]). This can be used to remove the burden of having to store the previously written value to the FCR in memory and having to mask this value so that only the TX empty trigger bit gets updated. This is used to select the empty threshold level at which the THRE Interrupts are generated when the mode is active. The following trigger levels are supported:
+= 0, EMPTY
+= 1, 2CHARS
+= 2, QUARTER_FULL
+= 3, HALF_FULL
+
+HTX = 0x00A4 ; Halt TX
+> 0, 1, HALT_TX_EN ; This register is use to halt transmissions for testing, so that the transmit FIFO can be filled by the master when FIFOs are implemented and enabled. Note, if FIFOs are implemented and not enabled, the setting of the halt TX register has no effect on operation.
+= 0, DISABLED
+= 1, ENABLED
+
+DMASA = 0x00A8, WO ; DMA Software Acknowledge
+> 0, 1, DMA_SOFTWARE_ACK ; This register is use to perform a DMA software acknowledge if a transfer needs to be terminated due to an error condition. For example, if the DMA disables the channel, then the UART should clear its request. This causes the TX request, TX single, RX request and RX single signals to de-assert. Note that this bit is 'self-clearing'. It is not necessary to clear this bit.
+
+CPR = 0x00F4, RO ; Component Parameter Register
+> 16, 8, FIFO_MODE
+= 4, MODE_64
+
+> 13, 1, DMA_EXTRA
+= 1, ENABLED
+= 0, DISABLED
+
+> 12, 1, UART_ADD_ENCODED_PARAMS
+= 1, ENABLED
+= 0, DISABLED
+
+> 11, 1, SHADOW
+= 1, ENABLED
+= 0, DISABLED
+
+> 10, 1, FIFO_STAT
+= 1, ENABLED
+= 0, DISABLED
+
+> 9, 1, FIFO_ACCESS
+= 1, ENABLED
+= 0, DISABLED
+
+> 8, 1, NEW_FEAT
+= 1, ENABLED
+= 0, DISABLED
+
+> 7, 1, SIR_LP_MODE
+= 1, ENABLED
+= 0, DISABLED
+
+> 6, 1, SIR_MODE
+= 1, ENABLED
+= 0, DISABLED
+
+> 5, 1, THRE_MODE
+= 1, ENABLED
+= 0, DISABLED
+
+> 4, 1, AFCE_MODE
+= 1, ENABLED
+= 0, DISABLED
+
+> 0, 2, APB_DATA_WIDTH
+= 2, 32BIT
+
+UCV = 0x00F8, RO ; UART Component Version
+> 0, 32, VER ; ASCII value for each number in the version.
+
+CTR = 0x00FC, RO ; Component Type Register
+> 0, 32, PERIPHERAL_ID ; This register contains the peripherals identification code.
+

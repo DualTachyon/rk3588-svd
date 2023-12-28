@@ -45,6 +45,10 @@ MODIFIED_TAGS = {
     'W1S': 'oneToSet',
 }
 
+READ_TAGS = {
+    'R2C': 'clear',
+}
+
 SIZE_TAGS = {
     'U8': 8,
     'U16': 16,
@@ -173,6 +177,7 @@ def parse_register(line, original):
     modify_flag = False
     size_flag = False
     alternate_flag = False
+    read_flag = False
     for modifier in modifiers:
         if modifier in ACCESS_TAGS:
             if access_flag:
@@ -190,6 +195,10 @@ def parse_register(line, original):
             if alternate_flag or not modifier[1:-1].isidentifier:
                 raise Exception('Unexpected bitfield modifier (%s): %s' % (modifier, original))
             alternate_flag = True
+        elif modifier in READ_TAGS:
+            if read_flag:
+                raise Exception('Unexpected bitfield modifier (%s): %s' % (modifier, original))
+            read_flag = True
         else:
             raise Exception('Invalid bitfield modifier (%s): %s' % (modifier, original))
 
@@ -232,7 +241,7 @@ def parse_bitfield(line, original):
         bitfield.modifier = None
     else:
         bitfield.modifier = tokens[3].strip().upper()
-        if not bitfield.modifier in [*ACCESS_TAGS, *MODIFIED_TAGS]:
+        if not bitfield.modifier in [*ACCESS_TAGS, *MODIFIED_TAGS, *READ_TAGS]:
             raise Exception('Invalid bitfield access mode: %s' % original)
 
 
@@ -386,6 +395,10 @@ def generate_peripheral(all_peripherals, root, p_name, gen_empty):
                 modified = xml.Element('modifiedWriteValues')
                 modified.text = MODIFIED_TAGS[modifier]
                 register.append(modified)
+            elif modifier in READ_TAGS:
+                read = xml.Element('readAction')
+                read.text = READ_TAGS[modifier]
+                register.append(read)
             elif modifier in SIZE_TAGS:
                 size = xml.Element('size')
                 size.text = str(SIZE_TAGS[modifier])
@@ -422,6 +435,11 @@ def generate_peripheral(all_peripherals, root, p_name, gen_empty):
                     modified = xml.Element('modifiedWriteValues')
                     modified.text = MODIFIED_TAGS[bitf.modifier]
                     field.append(modified)
+
+                if bitf.modifier in READ_TAGS:
+                    read = xml.Element('readAction')
+                    read.text = READ_TAGS[bitf.modifier]
+                    field.append(read)
 
                 if len(bitf.enums):
                     enumeratedValues = xml.Element('enumeratedValues')
