@@ -35,6 +35,7 @@ DEVICE_TAGS = [
 ]
 
 ACCESS_TAGS = {
+    'RW': 'read-write',
     'RO': 'read-only',
     'WO': 'write-only',
 }
@@ -49,6 +50,45 @@ SIZE_TAGS = {
     'U16': 16,
     'U32': 32,
 }
+
+class Peripheral:
+    def __init__(self):
+        self.name = None
+        self.group = None
+        self.address = None
+        self.size = None
+        self.registers = {}
+        self.derived = None
+
+class AddressBlock:
+    def __init__(self):
+        self.address = None
+        self.size = None
+        self.derived = None
+
+class Register:
+    def __init__(self):
+        self.name = None
+        self.offset = None
+        self.modifiers = None
+        self.description = None
+        self.bitfields = {}
+        self.alternate = None
+
+class Bitfield:
+    def __init__(self):
+        self.name = None
+        self.start = None
+        self.width = None
+        self.modifier = None
+        self.description = None
+        self.enums = {}
+
+class Enum:
+    def __init__(self):
+        self.name = None
+        self.value = None
+        self.description = None
 
 def parse_peripheral_name(line, original):
     if line[-1] != ']':
@@ -67,7 +107,11 @@ def parse_peripheral_name(line, original):
     if not name.isidentifier() or (group and not group.isidentifier()):
         raise Exception('Invalid peripheral name: %s' % original)
 
-    return (name, group)
+    peripheral = Peripheral()
+    peripheral.name = name
+    peripheral.group = group
+
+    return peripheral
 
 def parse_address_block(line, original):
     line = line.strip()
@@ -77,20 +121,20 @@ def parse_address_block(line, original):
     if len(tokens) < 2 or len(tokens) > 3:
         raise Exception('Invalid address block: %s' % original)
 
-    if len(tokens) == 2:
-        tokens.append(None)
-    else:
-        tokens[2] = tokens[2].strip()
-        if not tokens[2].isidentifier():
+    block = AddressBlock()
+
+    if len(tokens) != 2:
+        block.derived = tokens[2].strip()
+        if not block.derived.isidentifier():
             raise Exception('Invalid address block: %s' % original)
 
     try:
-        tokens[0] = int(tokens[0], 0)
-        tokens[1] = int(tokens[1], 0)
+        block.address = int(tokens[0], 0)
+        block.size = int(tokens[1], 0)
     except:
         raise Exception('Invalid address block: %s' % original)
 
-    return tokens
+    return block
 
 def parse_register(line, original):
     if not '=' in line:
@@ -104,6 +148,9 @@ def parse_register(line, original):
             description = None
         line = line[:i].strip()
 
+    register = Register()
+    register.description = description
+
     tokens = line.split('=')
     if len(tokens) != 2:
         raise Exception('Invalid register definition: %s' % original)
@@ -112,43 +159,43 @@ def parse_register(line, original):
         sub = tokens[1].split(',')
         sub = [s.strip() for s in sub]
         tokens[1] = sub[0]
-        tokens.append(sub[1:])
+        modifiers = sub[1:]
+    else:
+        modifiers = []
 
-    tokens[0] = tokens[0].strip()
-    tokens[1] = tokens[1].strip()
+    register.name = tokens[0].strip()
 
-    if not tokens[0].isidentifier():
+    if not register.name.isidentifier():
         raise Exception('Invalid register definition: %s' % original)
 
-    if len(tokens) == 2:
-        tokens.append(['RW'])
-    else:
-        modifiers = [modifier.strip().upper() for modifier in tokens[2]]
-        access_flag = False
-        modify_flag = False
-        size_flag = False
-        for modifier in modifiers:
-            if modifier in ACCESS_TAGS:
-                if access_flag:
-                    raise Exception('Unexpected bitfield modifier (%s): %s' % (modifier, original))
-                access_flag = True
-            elif modifier in MODIFIED_TAGS:
-                if modify_flag:
-                    raise Exception('Unexpected bitfield modifier (%s): %s' % (modifier, original))
-                modify_flag = True
-            elif modifier in SIZE_TAGS:
-                if size_flag:
-                    raise Exception('Unexpected bitfield modifier (%s): %s' % (modifier, original))
-                size_flag = True
-            else:
-                raise Exception('Invalid bitfield modifier (%s): %s' % (modifier, original))
+    modifiers = [modifier.strip().upper() for modifier in modifiers]
+    access_flag = False
+    modify_flag = False
+    size_flag = False
+    for modifier in modifiers:
+        if modifier in ACCESS_TAGS:
+            if access_flag:
+                raise Exception('Unexpected bitfield modifier (%s): %s' % (modifier, original))
+            access_flag = True
+        elif modifier in MODIFIED_TAGS:
+            if modify_flag:
+                raise Exception('Unexpected bitfield modifier (%s): %s' % (modifier, original))
+            modify_flag = True
+        elif modifier in SIZE_TAGS:
+            if size_flag:
+                raise Exception('Unexpected bitfield modifier (%s): %s' % (modifier, original))
+            size_flag = True
+        else:
+            raise Exception('Invalid bitfield modifier (%s): %s' % (modifier, original))
+
+    register.modifiers = modifiers
 
     try:
-        tokens[1] = int(tokens[1], 0)
+        register.offset = int(tokens[1], 0)
     except:
         raise Exception('Invalid register definition: %s' % original)
 
-    return (*tokens, description)
+    return register
 
 def parse_bitfield(line, original):
     description = None
@@ -159,24 +206,32 @@ def parse_bitfield(line, original):
             description = None
         line = line[:i].strip()
 
+    bitfield = Bitfield()
+    bitfield.description = description
+
     tokens = line.split(',')
     if len(tokens) != 3 and len(tokens) != 4:
         raise Exception('Invalid bitfield definition: %s' % original)
 
-    tokens[0] = int(tokens[0].strip(), 0)
-    tokens[1] = int(tokens[1].strip(), 0)
-    tokens[2] = tokens[2].strip()
-    if not tokens[2].isidentifier():
+    try:
+        bitfield.start = int(tokens[0].strip(), 0)
+        bitfield.width = int(tokens[1].strip(), 0)
+    except:
+        raise Exception('Invalid bitfield definition: %s' % original)
+
+    bitfield.name = tokens[2].strip()
+    if not bitfield.name.isidentifier():
         raise Exception('Invalid bitfield definition: %s' % original)
 
     if len(tokens) == 3:
-        tokens.append('RW')
+        bitfield.modifier = None
     else:
-        tokens[3] = tokens[3].strip().upper()
-        if not tokens[3] in [*ACCESS_TAGS, *MODIFIED_TAGS]:
+        bitfield.modifier = tokens[3].strip().upper()
+        if not bitfield.modifier in [*ACCESS_TAGS, *MODIFIED_TAGS]:
             raise Exception('Invalid bitfield access mode: %s' % original)
 
-    return (*tokens, description)
+
+    return bitfield
 
 def parse_enum(line, original):
     description = None
@@ -187,92 +242,94 @@ def parse_enum(line, original):
             description = None
         line = line[:i]
 
+    enum = Enum()
+    enum.description = description
+
     tokens = line.split(',')
     if len(tokens) != 2:
         raise Exception('Invalid bitfield enum: %s' % original)
 
     try:
-        tokens[0] = int(tokens[0], 0)
+        enum.value = int(tokens[0], 0)
     except:
         raise Exception('Invalid bitfield enum: %s' % original)
 
-    tokens[1] = tokens[1].strip()
+    enum.name = tokens[1].strip()
 
-    return (*tokens, description)
+    return enum
 
 def strip_comment(line):
     i = line.find('#')
     if i >= 0:
-        line = line[:i]
+        line = line[:i].rstrip()
     return line
 
 def check_for_overlaps(peripherals):
     addresses = []
 
-    for p_name, (_, p_address, p_size, p_regs, p_derived) in sorted(peripherals.items()):
-        if p_address is None or p_size is None:
-            raise Exception('Peripheral %s does not have an address block!' % p_name)
+    for _, peripheral in sorted(peripherals.items()):
+        if peripheral.address is None or peripheral.size is None:
+            raise Exception('Peripheral %s does not have an address block!' % peripheral.name)
 
         for addr in addresses:
-            tail = p_address + p_size - 1
+            tail = peripheral.address + peripheral.size - 1
             if tail < addr[0]:
                 continue
-            if p_address < addr[0] + addr[1]:
-                raise Exception('Peripheral %s overlaps with another!' % p_name)
+            if peripheral.address < addr[0] + addr[1]:
+                raise Exception('Peripheral %s overlaps with another!' % peripheral.name)
 
-        addresses.append((p_address, p_size))
+        addresses.append((peripheral.address, peripheral.size))
 
         reg_names = []
         reg_offsets = []
 
-        for _, (r_name, offset, _, _, bitfields) in p_regs.items():
-            if r_name in reg_names or offset in reg_offsets:
-                raise Exception('Register %s.%s (0x%04X) conflicts with another!' % (p_name, r_name, offset))
+        for _, register in peripheral.registers.items():
+            if register.name in reg_names or register.offset in reg_offsets:
+                if register.name in reg_names and not 'ALT' in modifiers:
+                    raise Exception('Register %s.%s (0x%04X) conflicts with another!' % (peripheral.name, register.name, register.offset))
 
-            reg_names.append(r_name)
-            reg_offsets.append(offset)
+            reg_names.append(register.name)
+            reg_offsets.append(register.offset)
 
             bitset = set()
-            for bitfield_k, (start, width, b_name, _, _, enums) in bitfields.items():
-                for i in range(width):
-                    bit = start + i
+            for _, bitfield in register.bitfields.items():
+                for i in range(bitfield.width):
+                    bit = bitfield.start + i
                     if bit in bitset:
-                        raise Exception('Bitfield %s for %s.%s (0x%04X) overlaps with another!' % (b_name, p_name, r_name, offset))
+                        raise Exception('Bitfield %s for %s.%s (0x%04X) overlaps with another!' % (bitfield.name, peripheral.name, register.name, register.offset))
                     bitset.add(bit)
 
                 enumset = set()
-                for enum_k, (enum, _, _) in enums.items():
-                    if enum in enumset:
-                        raise Exception('Enum %d for bitfield %s at %s.%s (0x%04X)!' % (enum, b_name, p_name, r_name, offset))
+                for _, enum in bitfield.enums.items():
+                    if enum.value in enumset:
+                        raise Exception('Enum %d for bitfield %s at %s.%s (0x%04X)!' % (enum.value, bitfield.name, peripheral.name, register.name, register.offset))
                     enumset.add(enum)
 
 def resolve_derived(peripherals):
-    for p_name, (_, _, _, p_regs, p_derived) in peripherals.items():
-        if not p_derived:
+    for _, peripheral in peripherals.items():
+        if not peripheral.derived:
             continue
-        if not p_derived in peripherals:
-            raise Exception('Peripheral %s requires %s but does not exist!' % (p_name, p_derived))
-
-        #peripherals[p_name][3] = peripherals[p_derived][3]
+        if not peripheral.derived in peripherals:
+            raise Exception('Peripheral %s requires %s but does not exist!' % (peripheral.name, peripheral.derived))
 
 def generate_peripheral(all_peripherals, root, p_name, gen_empty):
-    (p_group, p_address, p_size, p_regs, p_derived) = all_peripherals[p_name]
+    periph = all_peripherals[p_name]
 
     peripheral = xml.Element('peripheral')
-    if p_derived:
-        peripheral.attrib['derivedFrom'] = p_derived
+    if periph.derived:
+        peripheral.attrib['derivedFrom'] = periph.derived
 
     name = xml.Element('name')
-    name.text = p_name
+    name.text = periph.name
     peripheral.append(name)
 
-    if p_group:
+    if periph.group:
         group = xml.Element('groupName')
-        group.text = p_group
+        group.text = periph.group
         peripheral.append(group)
 
     baseAddress = xml.Element('baseAddress')
-    baseAddress.text = '0x%09X' % p_address
+    baseAddress.text = '0x%09X' % periph.address
     peripheral.append(baseAddress)
 
     addressBlock = xml.Element('addressBlock')
@@ -282,7 +339,7 @@ def generate_peripheral(all_peripherals, root, p_name, gen_empty):
     addressBlock.append(offset)
 
     size = xml.Element('size')
-    size.text = '0x%X' % p_size
+    size.text = '0x%X' % periph.size
     addressBlock.append(size)
 
     usage = xml.Element('usage')
@@ -293,24 +350,24 @@ def generate_peripheral(all_peripherals, root, p_name, gen_empty):
 
     registers = xml.Element('registers')
 
-    for _, (r_name, r_offset, r_modifiers, r_description, bitfields) in p_regs.items():
+    for _, reg in periph.registers.items():
         register = xml.Element('register')
 
         name = xml.Element('name')
-        name.text = r_name
+        name.text = reg.name
         register.append(name)
 
-        if r_description is not None:
+        if reg.description is not None:
             description = xml.Element('description')
-            description.text = r_description
+            description.text = reg.description
             register.append(description)
 
         addressOffset = xml.Element('addressOffset')
-        addressOffset.text = '0x%04X' % r_offset
+        addressOffset.text = '0x%04X' % reg.offset
         register.append(addressOffset)
 
-        for modifier in r_modifiers:
-            if modifier != 'RW' and modifier in ACCESS_TAGS:
+        for modifier in reg.modifiers:
+            if modifier in ACCESS_TAGS:
                 access = xml.Element('access')
                 access.text = ACCESS_TAGS[modifier]
                 register.append(access)
@@ -323,54 +380,54 @@ def generate_peripheral(all_peripherals, root, p_name, gen_empty):
                 size.text = str(SIZE_TAGS[modifier])
                 register.append(size)
 
-        if len(bitfields):
+        if len(reg.bitfields):
             fields = xml.Element('fields')
-            for bitfield_k, (offset, width, bf_name, bf_access, bf_description, enums) in bitfields.items():
+            for _, bitf in reg.bitfields.items():
                 field = xml.Element('field')
 
                 name = xml.Element('name')
-                name.text = bf_name
+                name.text = bitf.name
                 field.append(name)
 
-                if bf_description is not None:
+                if bitf.description is not None:
                     description = xml.Element('description')
-                    description.text = bf_description
+                    description.text = bitf.description
                     field.append(description)
 
                 bitOffset = xml.Element('bitOffset')
-                bitOffset.text = str(offset)
+                bitOffset.text = str(bitf.start)
                 field.append(bitOffset)
 
                 bitWidth = xml.Element('bitWidth')
-                bitWidth.text = str(width)
+                bitWidth.text = str(bitf.width)
                 field.append(bitWidth)
 
-                if bf_access in ACCESS_TAGS:
+                if bitf.modifier in ACCESS_TAGS:
                     access = xml.Element('access')
-                    access.text = ACCESS_TAGS[bf_access]
+                    access.text = ACCESS_TAGS[bitf.modifier]
                     field.append(access)
 
-                if bf_access in MODIFIED_TAGS:
+                if bitf.modifier in MODIFIED_TAGS:
                     modified = xml.Element('modifiedWriteValues')
-                    modified.text = MODIFIED_TAGS[bf_access]
+                    modified.text = MODIFIED_TAGS[bitf.modifier]
                     field.append(modified)
 
-                if len(enums):
+                if len(bitf.enums):
                     enumeratedValues = xml.Element('enumeratedValues')
-                    for enum_k, (enum_value, enum_name, enum_description) in enums.items():
+                    for _, e in bitf.enums.items():
                         enumeratedValue = xml.Element('enumeratedValue')
 
                         name = xml.Element('name')
-                        name.text = enum_name if enum_name != '_' else ''
+                        name.text = e.name if e.name != '_' else ''
                         enumeratedValue.append(name)
 
-                        if enum_description is not None:
+                        if e.description is not None:
                             description = xml.Element('description')
-                            description.text = enum_description
+                            description.text = e.description
                             enumeratedValue.append(description)
 
                         value = xml.Element('value')
-                        value.text = str(enum_value)
+                        value.text = str(e.value)
                         enumeratedValue.append(value)
 
                         enumeratedValues.append(enumeratedValue)
@@ -380,12 +437,12 @@ def generate_peripheral(all_peripherals, root, p_name, gen_empty):
                 fields.append(field)
             register.append(fields)
         registers.append(register)
-    if len(p_regs) > 0:
+    if len(periph.registers) > 0:
         peripheral.append(registers)
-    if len(p_regs) > 0 or gen_empty or p_derived:
+    if len(periph.registers) > 0 or gen_empty or periph.derived:
         root.append(peripheral)
-    elif not p_derived:
-        print('Peripheral %s has no registers!' % p_name)
+    elif not periph.derived:
+        print('Peripheral %s has no registers!' % periph.name)
 
 def generate_svd(all_peripherals, filename, gen_empty):
     device = xml.Element('device')
@@ -401,19 +458,18 @@ def generate_svd(all_peripherals, filename, gen_empty):
     processed = []
 
     peripherals = xml.Element('peripherals')
-    for p_name, p_value in sorted(all_peripherals.items()):
-        p_derived = p_value[4]
-        if p_derived:
-            if not p_derived in processed:
-                derived.append(p_name)
+    for _, periph in sorted(all_peripherals.items()):
+        if periph.derived:
+            if not periph.derived in processed:
+                derived.append(periph.name)
                 continue
-            if p_name in derived:
-                derived.remove(p_name)
+            if periph.name in derived:
+                derived.remove(periph.name)
 
-        generate_peripheral(all_peripherals, peripherals, p_name, gen_empty)
-        processed.append(p_name)
+        generate_peripheral(all_peripherals, peripherals, periph.name, gen_empty)
+        processed.append(periph.name)
         for d in derived:
-            if all_peripherals[d][4] in processed:
+            if all_peripherals[d].derived in processed:
                 generate_peripheral(all_peripherals, peripherals, d, gen_empty)
 
     device.append(peripherals)
@@ -440,11 +496,11 @@ def load_definition(peripherals, filename):
             continue
 
         if line[0] == '[':
-            (name, group) = parse_peripheral_name(line[1:], original)
-            if name in peripherals:
-                raise Exception('Duplicate peripheral name at line %d: %s' % (line_num, name))
-            current_peripheral = [group, None, None, {}, None]
-            peripherals[name] = current_peripheral
+            peripheral = parse_peripheral_name(line[1:], original)
+            if peripheral.name in peripherals:
+                raise Exception('Duplicate peripheral name at line %d: %s' % (line_num, peripheral.name))
+            current_peripheral = peripheral
+            peripherals[peripheral.name] = peripheral
             current_register = None
             current_bitfield = None
 
@@ -453,12 +509,12 @@ def load_definition(peripherals, filename):
             if not current_peripheral:
                 raise Exception('Peripheral address block without name at line %d: %s' % (line_num, original))
 
-            if current_peripheral[1] is not None or current_peripheral[2] is not None:
+            if current_peripheral.address is not None or current_peripheral.size is not None:
                 raise Exception('Duplicate peripheral address block at line %d: %s' % (line_num, original))
 
-            current_peripheral[1] = address_block[0]
-            current_peripheral[2] = address_block[1]
-            current_peripheral[4] = address_block[2]
+            current_peripheral.address = address_block.address
+            current_peripheral.size = address_block.size
+            current_peripheral.derived = address_block.derived
 
         elif line[0] == '>':
             bitfield = parse_bitfield(line[1:], original)
@@ -466,13 +522,11 @@ def load_definition(peripherals, filename):
             if not current_register:
                 raise Exception('Bitfield definition without register at line %d: %s' % (line_num, original))
 
-            register = current_peripheral[3][current_register]
-            bitfields = register[4]
-            if bitfield[0] in bitfields:
-                raise Exception('Duplicate bitfield definition at line %d for %s: %s' % (line_num, current_register, original))
+            if bitfield.start in current_register.bitfields:
+                raise Exception('Duplicate bitfield definition at line %d for %s: %s' % (line_num, current_register.name, original))
 
-            bitfields[bitfield[0]] = (*bitfield, {})
-            current_bitfield = bitfield[0]
+            current_register.bitfields[bitfield.start] = bitfield
+            current_bitfield = bitfield
 
         elif line[0] == '=':
             enum = parse_enum(line[1:], original)
@@ -480,14 +534,12 @@ def load_definition(peripherals, filename):
             if current_bitfield is None:
                 raise Exception('Enum without bitfield at line %d: %s' % (line_num, original))
 
-            register = current_peripheral[3][current_register]
-            bitfields = register[4]
-            enums = bitfields[current_bitfield][5]
+            enums = current_bitfield.enums
 
-            if enum[0] in enums:
-                raise Exception('Duplicate enum definition at line %d for %s at %s: %s' % (line_num, current_register, current_bitfield, original))
+            if enum.value in enums:
+                raise Exception('Duplicate enum definition at line %d for %s at %s: %s' % (line_num, current_register.name, current_bitfield, original))
 
-            enums[enum[0]] = enum
+            enums[enum.value] = enum
 
         else:
             if '=' not in line:
@@ -497,10 +549,11 @@ def load_definition(peripherals, filename):
                 raise Exception('Register definition without peripheral at line %d: %s' % (line_num, original))
 
             register = parse_register(line, original)
-            if register[0] in current_peripheral[3]:
-                raise Exception('Duplicate register definition at line %d: %s' % (line_num, register[0]))
-            current_peripheral[3][register[0]] = (*register, {})
-            current_register = register[0]
+            if register.name in current_peripheral.registers:
+                raise Exception('Duplicate register definition at line %d: %s' % (line_num, register.name))
+
+            current_peripheral.registers[register.name] = register
+            current_register = register
             current_bitfield = None
 
 if __name__ == "__main__":
