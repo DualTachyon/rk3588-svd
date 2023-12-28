@@ -23,7 +23,7 @@ CTRL = 0x0000 ; Control register
 = 1, TODO_FIX_NAME ; After suspend command is issued during read-transfer, software polls card to find when suspend happened. Once suspend occurs, software sets bit to reset data state-machine, which is waiting for next block of data. Bit automatically clears once data state machine resets to idle. Used in SDIO card suspend sequence.
 
 > 7, 1, SEND_IRQ_RESPONSE ; Bit automatically clears once response is sent. To wait for MMC card interrupts, software issues CMD40, and the Host Controller waits for interrupt response from MMC card. In meantime, if software wants the Controller to exit waiting for interrupt state, it can set this bit, at which time the Host Controller command state-machine sends CMD40 response on bus and returns to idle state.
-= 0, NO CHANGE
+= 0, NO_CHANGE
 = 1, SEND_AUTO_IRQ
 
 > 6, 1, READ_WAIT ; For sending read-wait to SDIO cards.
@@ -321,7 +321,7 @@ STATUS = 0x0048, RO ; Status register
 = 1, SEND_INIT_SEQUENCE
 = 2, TX_CMD_START_BIT
 = 3, TX_CMD_TX_BIT
-= 4, TX_CMD_INDEX_+_ARG
+= 4, TX_CMD_INDEX_ARG
 = 5, TX_CMD_CRC7
 = 6, TX_CMD_END_BIT
 = 7, TX_RESP_START_BIT
@@ -443,9 +443,9 @@ HCON = 0x0070, RO ; Hardware configuration register
 = 31, 32BITS
 
 > 7, 3, H_DATA_WIDTH
-= 0, 16 bits
-= 1, 32 bits
-= 2, 64 bits
+= 0, 16BITS
+= 1, 32BITS
+= 2, 64BITS
 
 > 6, 1, H_BUS_TYPE
 = 0, APB

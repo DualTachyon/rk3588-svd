@@ -156,8 +156,8 @@ CPLL_CON4 = 0x01B0 ; CPLL configuration register 4
 > 4, 5, CPLL_EXTAFC ; EXTAFC: Monitoring pin. If pll_afc_enb=1, AFC is disabled and VCO is calibrated manually by pll_extafc[4:0] for the test of VCO range.
 
 > 3, 1, CPLL_AFC_ENB ; AFC_ENB: Monitoring pin.
-= 0, AFC is enabled and VCO is calibrated automatically.
-= 1, AFC is disabled and VCO is calibrated manually by pll_extafc[4:0] for the test of VCO range.
+= 0, ENABLED ; AFC is enabled and VCO is calibrated automatically.
+= 1, DISABLED ; AFC is disabled and VCO is calibrated manually by pll_extafc[4:0] for the test of VCO range.
 
 > 0, 1, CPLL_SSCG_EN ; SSCG_EN: Enable pin for dithered mode.
 = 0, DISABLE ; disable dithered mode.

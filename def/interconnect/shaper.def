@@ -5,410 +5,206 @@ NBPKTMAX0 = 0x0008 ; Max pending packet number register
 > 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
 
 [SHAPER_ISP0_MRO, INTERCONNECT]
-@ = 0xFDF40480, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF40480, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_ISP1_MWO, INTERCONNECT]
-@ = 0xFDF41080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF41080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_ISP1_MRO, INTERCONNECT]
-@ = 0xFDF41180, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF41180, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_VICAP_M0, INTERCONNECT]
-@ = 0xFDF40680, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF40680, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_VICAP_M1, INTERCONNECT]
-@ = 0xFDF40880, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF40880, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_FISHEYE0, INTERCONNECT]
-@ = 0xFDF40080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF40080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_FISHEYE1, INTERCONNECT]
-@ = 0xFDF40280, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF40280, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_VOP_M0, INTERCONNECT]
-@ = 0xFDF82080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF82080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_VOP_M1, INTERCONNECT]
-@ = 0xFDF82280, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF82280, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_RKVDEC0, INTERCONNECT]
-@ = 0xFDF62080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF62080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_RKVDEC1, INTERCONNECT]
-@ = 0xFDF63080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF63080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_AV1, INTERCONNECT]
-@ = 0xFDF64080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF64080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_RKVENC0_M0RO, INTERCONNECT]
-@ = 0xFDF60080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF60080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_RKVENC0_M1RO, INTERCONNECT]
-@ = 0xFDF60280, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF60280, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_RKVENC0_M2WO, INTERCONNECT]
-@ = 0xFDF60480, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF60480, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_RKVENC1_M0RO, INTERCONNECT]
-@ = 0xFDF61080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF61080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_RKVENC1_M1RO, INTERCONNECT]
-@ = 0xFDF61280, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF61280, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_RKVENC1_M2WO, INTERCONNECT]
-@ = 0xFDF61480, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF61480, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_DSU_MP, INTERCONNECT]
-@ = 0xFDF34280, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF34280, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_DEBUG, INTERCONNECT]
-@ = 0xFDF34480, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF34480, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_GPU_M0, INTERCONNECT]
-@ = 0xFDF35080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF35080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_GPU_M1, INTERCONNECT]
-@ = 0xFDF35280, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF35280, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_GPU_M2, INTERCONNECT]
-@ = 0xFDF35480, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF35480, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_GPU_M3, INTERCONNECT]
-@ = 0xFDF35680, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF35680, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_NPU1, INTERCONNECT]
-@ = 0xFDF70080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF70080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_NPU0_MRO, INTERCONNECT]
-@ = 0xFDF72280, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF72280, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_NPU2, INTERCONNECT]
-@ = 0xFDF71080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF71080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_NPU0_MWR, INTERCONNECT]
-@ = 0xFDF72080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF72080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_MCU_NPU, INTERCONNECT]
-@ = 0xFDF72480, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF72480, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_JPEG_DEC, INTERCONNECT]
-@ = 0xFDF66280, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF66280, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_JPEG_ENC0, INTERCONNECT]
-@ = 0xFDF66480, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF66480, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_JPEG_ENC1, INTERCONNECT]
-@ = 0xFDF66680, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF66680, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_JPEG_ENC2, INTERCONNECT]
-@ = 0xFDF66880, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF66880, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_JPEG_ENC3, INTERCONNECT]
-@ = 0xFDF66A80, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF66A80, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_RGA2_MRO, INTERCONNECT]
-@ = 0xFDF66C80, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF66C80, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_RGA2_MWO, INTERCONNECT]
-@ = 0xFDF66E80, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF66E80, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_RGA3_0, INTERCONNECT]
-@ = 0xFDF67080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF67080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_VDPU, INTERCONNECT]
-@ = 0xFDF67280, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF67280, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_IEP, INTERCONNECT]
-@ = 0xFDF66080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF66080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_RGA3_1, INTERCONNECT]
-@ = 0xFDF36080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF36080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_HDCP0, INTERCONNECT]
-@ = 0xFDF80080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF80080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_HDCP1, INTERCONNECT]
-@ = 0xFDF81080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF81080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_HDMIRX, INTERCONNECT]
-@ = 0xFDF81280, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF81280, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_GIC600_M0, INTERCONNECT]
-@ = 0xFDF3A080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF3A080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_GIC600_M1, INTERCONNECT]
-@ = 0xFDF3A280, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF3A280, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_MMU600PCIE_TCU, INTERCONNECT]
-@ = 0xFDF3A480, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF3A480, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_MMU600PHP_TBU, INTERCONNECT]
-@ = 0xFDF3A680, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF3A680, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_MMU600PHP_TCU, INTERCONNECT]
-@ = 0xFDF3A880, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF3A880, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_USB3_0, INTERCONNECT]
-@ = 0xFDF3E280, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF3E280, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_USB3_1, INTERCONNECT]
-@ = 0xFDF3E080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF3E080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_USB2HOST_0, INTERCONNECT]
-@ = 0xFDF3E480, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF3E480, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_USB2HOST_1, INTERCONNECT]
-@ = 0xFDF3E680, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF3E680, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_EMMC, INTERCONNECT]
-@ = 0xFDF38280, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF38280, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_FSPI, INTERCONNECT]
-@ = 0xFDF38080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF38080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_SDIO, INTERCONNECT]
-@ = 0xFDF39080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF39080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_DECOM, INTERCONNECT]
-@ = 0xFDF32080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF32080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_DMAC0, INTERCONNECT]
-@ = 0xFDF32280, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF32280, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_DMAC1, INTERCONNECT]
-@ = 0xFDF32480, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF32480, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_DMAC2, INTERCONNECT]
-@ = 0xFDF32680, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF32680, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_GIC600M, INTERCONNECT]
-@ = 0xFDF32880, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF32880, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_DMA2DDR, INTERCONNECT]
-@ = 0xFDF52080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF52080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_MCU_DDR, INTERCONNECT]
-@ = 0xFDF52280, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF52280, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_VAD, INTERCONNECT]
-@ = 0xFDF3B280, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF3B280, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_MCU_PMU, INTERCONNECT]
-@ = 0xFDF3B080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF3B080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_CRYPTOS, INTERCONNECT]
-@ = 0xFDF3D280, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF3D280, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_CRYPTONS, INTERCONNECT]
-@ = 0xFDF3D080, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF3D080, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_DCF, INTERCONNECT]
-@ = 0xFDF3D480, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF3D480, 0x80, SHAPER_ISP0_MWO
 
 [SHAPER_SDMMC, INTERCONNECT]
-@ = 0xFDF3D880, 0x80
-
-NBPKTMAX0 = 0x0008 ; Max pending packet number register
-> 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
+@ = 0xFDF3D880, 0x80, SHAPER_ISP0_MWO
 

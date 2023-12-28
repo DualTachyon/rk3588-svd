@@ -313,7 +313,7 @@ GPIO0C_P = 0x002C ; GPIO0C Pull-up/down Control
 
 > 9, 1, GPIO0C4_PS ; GPIO0C4 PS control Weak PU/PD Resistor Selection
 = 0, PD_SELECTION
-= 1, PU SELECTION
+= 1, PU_SELECTION
 
 > 8, 1, GPIO0C4_PE ; GPIO0C4 PE control Active High Weak PU/PD Resistor Enable
 = 0, PU_PD_DISABLE
@@ -321,7 +321,7 @@ GPIO0C_P = 0x002C ; GPIO0C Pull-up/down Control
 
 > 7, 1, GPIO0C3_PS ; GPIO0C3 PS control Weak PU/PD Resistor Selection
 = 0, PD_SELECTION
-= 1, PU SELECTION
+= 1, PU_SELECTION
 
 > 6, 1, GPIO0C3_PE ; GPIO0C3 PE control Active High Weak PU/PD Resistor Enable
 = 0, PU_PD_DISABLE
@@ -329,7 +329,7 @@ GPIO0C_P = 0x002C ; GPIO0C Pull-up/down Control
 
 > 5, 1, GPIO0C2_PS ; GPIO0C2 PS control Weak PU/PD Resistor Selection
 = 0, PD_SELECTION
-= 1, PU SELECTION
+= 1, PU_SELECTION
 
 > 4, 1, GPIO0C2_PE ; GPIO0C2 PE control Active High Weak PU/PD Resistor Enable
 = 0, PU_PD_DISABLE
@@ -337,7 +337,7 @@ GPIO0C_P = 0x002C ; GPIO0C Pull-up/down Control
 
 > 3, 1, GPIO0C1_PS ; GPIO0C1 PS control Weak PU/PD Resistor Selection
 = 0, PD_SELECTION
-= 1, PU SELECTION
+= 1, PU_SELECTION
 
 > 2, 1, GPIO0C1_PE ; GPIO0C1 PE control Active High Weak PU/PD Resistor Enable
 = 0, PU_PD_DISABLE
@@ -345,7 +345,7 @@ GPIO0C_P = 0x002C ; GPIO0C Pull-up/down Control
 
 > 1, 1, GPIO0C0_PS ; GPIO0C0 PS control Weak PU/PD Resistor Selection
 = 0, PD_SELECTION
-= 1, PU SELECTION
+= 1, PU_SELECTION
 
 > 0, 1, GPIO0C0_PE ; GPIO0C0 PE control Active High Weak PU/PD Resistor Enable
 = 0, PU_PD_DISABLE
@@ -370,7 +370,7 @@ GPIO0D_P = 0x0030 ; GPIO0D Pull-up/down Control
 
 > 9, 1, GPIO0D4_PS ; GPIO0D4 PS control Weak PU/PD Resistor Selection
 = 0, PD_SELECTION
-= 1, PU SELECTION
+= 1, PU_SELECTION
 
 > 8, 1, GPIO0D4_PE ; GPIO0D4 PE control Active High Weak PU/PD Resistor Enable
 = 0, PU_PD_DISABLE
@@ -378,7 +378,7 @@ GPIO0D_P = 0x0030 ; GPIO0D Pull-up/down Control
 
 > 7, 1, GPIO0D3_PS ; GPIO0D3 PS control Weak PU/PD Resistor Selection
 = 0, PD_SELECTION
-= 1, PU SELECTION
+= 1, PU_SELECTION
 
 > 6, 1, GPIO0D3_PE ; GPIO0D3 PE control Active High Weak PU/PD Resistor Enable
 = 0, PU_PD_DISABLE
@@ -386,7 +386,7 @@ GPIO0D_P = 0x0030 ; GPIO0D Pull-up/down Control
 
 > 5, 1, GPIO0D2_PS ; GPIO0D2 PS control Weak PU/PD Resistor Selection
 = 0, PD_SELECTION
-= 1, PU SELECTION
+= 1, PU_SELECTION
 
 > 4, 1, GPIO0D2_PE ; GPIO0D2 PE control Active High Weak PU/PD Resistor Enable
 = 0, PU_PD_DISABLE
@@ -394,7 +394,7 @@ GPIO0D_P = 0x0030 ; GPIO0D Pull-up/down Control
 
 > 3, 1, GPIO0D1_PS ; GPIO0D1 PS control Weak PU/PD Resistor Selection
 = 0, PD_SELECTION
-= 1, PU SELECTION
+= 1, PU_SELECTION
 
 > 2, 1, GPIO0D1_PE ; GPIO0D1 PE control Active High Weak PU/PD Resistor Enable
 = 0, PU_PD_DISABLE
@@ -402,7 +402,7 @@ GPIO0D_P = 0x0030 ; GPIO0D Pull-up/down Control
 
 > 1, 1, GPIO0D0_PS ; GPIO0D0 PS control Weak PU/PD Resistor Selection
 = 0, PD_SELECTION
-= 1, PU SELECTION
+= 1, PU_SELECTION
 
 > 0, 1, GPIO0D0_PE ; GPIO0D0 PE control Active High Weak PU/PD Resistor Enable
 = 0, PU_PD_DISABLE

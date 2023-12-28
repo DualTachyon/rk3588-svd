@@ -1222,7 +1222,7 @@ GPIO4C_SMT = 0x0248 ; GPIO4C Schmitt Trigger Control
 = 0, CMOS
 = 1, SCHMITT_TRIGGER
 
-GPIO_PD IS = 0x0288 ; Auto Pull-up/down disable Control
+GPIO_PDIS = 0x0288 ; Auto Pull-up/down disable Control
 > 1, 1, VCCIO5_PULL_DIS
 = 1, DISABLE ; disable VCCIO5 GPIO pull up/down when output enable
 

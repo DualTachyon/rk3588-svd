@@ -127,7 +127,7 @@ TIMER5_CONTROL_REG = 0x00B0 ; Timer5 Control Register
 TIMER5_INTSTATUS = 0x00B8, RO ; Timer5 Interrupt Status Register
 > 0, 1, TIMER5_INT ; This register contains the interrupt status for timern.
 
-6CH_REVISION = 0x00F0, RO ; 6-channel TIMER version
+REVISION = 0x00F0, RO ; 6-channel TIMER version
 > 16, 16, SVN_REVISION ; SVN revision: 16'd4503.
 
 > 13, 1, CH5_TYPE ; Channel 5 is a count up counter.

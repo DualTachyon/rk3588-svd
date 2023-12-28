@@ -174,14 +174,14 @@ CHB_CON0 = 0x0030 ; DDR CHB Control Register 0
 = 0, NOT_URGENT
 
 > 12, 1, ARURGENT_0 ; DDRCTL AXI read address urgent
-= 1, Current ar command is urgent
+= 1, URGENT ; Current ar command is urgent
 = 0, NOT_URGENT
 
 > 8, 1, DIS_REGS_ECC_SYNDROME ; Value of dis_regs_ecc_syndrome. Signal used to hide the value of ECCCSYN* and ECCUSYN* registers for security purposes. When this value is set to 1, reading registers ECCCSYN*/ECCUSYN* returns value 0 always, otherwise it returns appropriate value. If this feature is not used, this port can be tied to 0. The value of dis_regs_ecc_syndrome signal cannot change outside of reset(presetn=0 && core_ddrc_core_rstn=0).
 
-> 6, 1, AXI_ORDER_EN ; Enable preserve DDRCTL AXI cmd order counter
+> 6, 1, AXI_ORDER_EN ; Enable preserve DDRCTL AXI cmd order counter. Please keep default 1 all the time.
 = 1, ENABLE
-= 0, Disable Please keep default 1 all the time.
+= 0, DISABLE
 
 > 5, 1, DDRCTL_A_SYSREQ_SEL ; DDRCTL AXI hardware low power request by PMU
 = 1, BY_PMU ; DDRCTL AXI hardware low power request is driven by PMU.

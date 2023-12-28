@@ -152,13 +152,13 @@ BC_CTL = 0x0044 ; Block Cipher Control Register
 = 7, CCM
 = 8, GCM
 = 9, CMAC
-= 10, CBC-MAC
+= 10, CBC_MAC
 
 > 2, 2, KEY_SIZE ; For AES
-= 0, 128 bit
-= 1, 192 bit
-= 2, 256 bit
-= 3, reserved
+= 0, 128
+= 1, 192
+= 2, 256
+= 3, RESERVED
 
 > 1, 1, DECRYPT
 = 0, ENCRYPT
@@ -169,16 +169,16 @@ BC_CTL = 0x0044 ; Block Cipher Control Register
 = 1, ENABLE
 
 HASH_CTL = 0x0048 ; Hash Control Register
-> 4, 4, HASH_CIPHER_SEL ;
-= 0, SHA_1
-= 1, MD_5
-= 2, SHA_256
-= 3, SHA_224
+> 4, 4, HASH_CIPHER_SEL
+= 0, SHA1
+= 1, MD5
+= 2, SHA256
+= 3, SHA224
 = 4, SM3
-= 8, SHA_512
-= 9, SHA_384
-= 10, SHA_512_224
-= 11, SHA_512_256
+= 8, SHA512
+= 9, SHA384
+= 10, SHA512_224
+= 11, SHA512_256
 
 > 3, 1, HMAC_ENABLE ; CRYPTO supports HMAC-SHA1, HMAC-SHA256, HMAC_SHA512, HMAC-MD5, HMAC-SM3. Note: If hmac_enable set '1' hash_cipher_sel must set 0x6 when chose HMAC-SM3 mode hash_cipher_sel set the corresponding value when chose other mode
 = 0, DISABLE

@@ -1002,13 +1002,13 @@ PMU_PMIC_STABLE_CNT = 0x4080 ; PMIC stable count register
 PMU_OSC_STABLE_CNT = 0x4084 ; Oscillator stable count register
 > 0, 20, OSC_STABLE_CNT ; Oscillator stable count for mode 1 procedure. Number of clk_pmu used by counter logic.
 
-PMU_WAKEUP_RST_CLR_ CNT = 0x4088 ; Wake up reset clear count register
+PMU_WAKEUP_RST_CLR_CNT = 0x4088 ; Wake up reset clear count register
 > 0, 20, WAKEUP_RST_CLR_CNT ; Wake up reset clear count for mode 1 procedure. Number of clk_pmu used by counter logic.
 
 PMU_PLL_LOCK_CNT = 0x408C ; PLL lock count register
 > 0, 20, PLL_LOCK_CNT ; Count for PLL from power up to lock. Number of clk_pmu used by counter logic.
 
-PMU_WAKEUP_TIMEOUT_ CNT = 0x4094 ; PMU wake up timeout count register
+PMU_WAKEUP_TIMEOUT_CNT = 0x4094 ; PMU wake up timeout count register
 > 0, 20, WAKEUP_TIMEOUT_CNT ; Wake up timeout count. Number of clk_pmu used by counter logic.
 
 PMU_PWM_SWITCH_CNT = 0x4098 ; PWM switch stable count register
@@ -4622,31 +4622,31 @@ PMU_QCHANNEL_PWR_STS = 0x81D8 ; Q-Channel power status register
 = 1, DENY
 
 > 6, 1, BUSGIC_ITS1_QCH_ACCEPT, RO ; Accept status for BUSGIC-ITS1 Q-Channel power control.
-= 0, NOT ACCEPT
+= 0, NOT_ACCEPT
 = 1, ACCEPT
 
 > 5, 1, BUSGIC_ITS0_QCH_ACCEPT, RO ; Accept status for BUSGIC-ITS0 Q-Channel power control.
-= 0, NOT ACCEPT
+= 0, NOT_ACCEPT
 = 1, ACCEPT
 
 > 4, 1, PHPGIC_ITS_QCH_ACCEPT, RO ; Accept status for PHPGIC-ITS Q-Channel power control.
-= 0, NOT ACCEPT
+= 0, NOT_ACCEPT
 = 1, ACCEPT
 
 > 3, 1, PCIEMMU_TCU_QCH_ACCEPT, RO ; Accept status for PCIEMMU-TCU Q-Channel power control.
-= 0, NOT ACCEPT
+= 0, NOT_ACCEPT
 = 1, ACCEPT
 
 > 2, 1, PCIEMMU_TBU_QCH_ACCEPT, RO ; Accept status for PCIEMMU-TBU Q-Channel power control.
-= 0, NOT ACCEPT
+= 0, NOT_ACCEPT
 = 1, ACCEPT
 
 > 1, 1, PHPMMU_TCU_QCH_ACCEPT, RO ; Accept status for PHPMMU-TCU Q-Channel power control.
-= 0, NOT ACCEPT
+= 0, NOT_ACCEPT
 = 1, ACCEPT
 
 > 0, 1, PHPMMU_TBU_QCH_ACCEPT, RO ; Accept status for PHPMMU-TBU Q-Channel power control.
-= 0, NOT ACCEPT
+= 0, NOT_ACCEPT
 = 1, ACCEPT
 
 PMU_DEBUG_INFO_CON = 0x81E0 ; PMU debug information control register
@@ -4894,7 +4894,7 @@ PMU_PWR_CHAIN0_STS0 = 0x81E8 ; Power domain power chain 0 status register 0
 
 > 0, 1, PD_CPU_0_C0_PWR_STAT, RO ; The power state of PD_CPU_0 power chain 0.
 = 0, POWER_DOWN
-= 1, POWER UP
+= 1, POWER_UP
 
 PMU_PWR_CHAIN0_STS1 = 0x81EC ; Power domain power chain 0 status register 1
 > 7, 1, PD_CENTER_C0_PWR_STAT, RO ; The power state of PD_CENTER power chain 0.
@@ -4927,7 +4927,7 @@ PMU_PWR_CHAIN0_STS1 = 0x81EC ; Power domain power chain 0 status register 1
 
 > 0, 1, PD_NVM_C0_PWR_STAT, RO ; The power state of PD_NVM power chain 0.
 = 0, POWER_DOWN
-= 1, POWER UP
+= 1, POWER_UP
 
 PMU_PWR_CHAIN1_STS0 = 0x81F0 ; Power domain power chain 1 status register 0
 > 31, 1, PD_PCIE_C1_PWR_STAT, RO ; The power state of PD_PCIE power chain 1.
@@ -5044,7 +5044,7 @@ PMU_PWR_CHAIN1_STS0 = 0x81F0 ; Power domain power chain 1 status register 0
 
 > 0, 1, PD_CPU_0_C1_PWR_STAT, RO ; The power state of PD_CPU_0 power chain 1.
 = 0, POWER_DOWN
-= 1, POWER UP
+= 1, POWER_UP
 
 PMU_PWR_CHAIN1_STS1 = 0x81F4 ; Power domain power chain 1 status register 1
 > 7, 1, PD_CENTER_C1_PWR_STAT, RO ; The power state of PD_CENTER power chain 1.
@@ -5077,7 +5077,7 @@ PMU_PWR_CHAIN1_STS1 = 0x81F4 ; Power domain power chain 1 status register 1
 
 > 0, 1, PD_NVM_C1_PWR_STAT, RO ; The power state of PD_NVM power chain 1.
 = 0, POWER_DOWN
-= 1, POWER UP
+= 1, POWER_UP
 
 PMU_PWR_MEM_STS0 = 0x81F8 ; Power domain memory power status register 0
 > 31, 1, PD_PCIE_MEM_PWR_STAT, RO ; The power state of PD_PCIE memory.

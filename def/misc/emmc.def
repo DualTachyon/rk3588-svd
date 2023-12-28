@@ -654,23 +654,23 @@ CAPABILITIES1 = 0x0040, RO ; Capabilities Register 1
 = 1, SUPPORTED
 
 > 23, 1, SUS_RES_SUPPORT ; Suspense/Resume Support. This bit indicates whether the Host Controller supports Suspend/Resume functionality. If this bit is 0, the Host Driver does not issue either Suspend or Resume commands because the Suspend and Resume mechanism is not supported.
-= 0, NOT SUPPORTED
+= 0, NOT_SUPPORTED
 = 1, SUPPORTED
 
 > 22, 1, SDMA_SUPPORT ; SDMA Support. This bit indicates whether the Host Controller is capable of using SDMA to transfer data between the system memory and the Host Controller directly.
-= 0, NOT SUPPORTED
+= 0, NOT_SUPPORTED
 = 1, SUPPORTED
 
 > 21, 1, HIGH_SPEED_SUPPORT ; High Speed Support. This bit indicates whether the Host Controller and the Host System supports High Speed mode and they can supply the SD Clock frequency from 25 MHz to 50 MHz.
-= 0, NOT SUPPORTED
+= 0, NOT_SUPPORTED
 = 1, SUPPORTED
 
 > 19, 1, ADMA2_SUPPORT ; ADMA2 Support. This bit indicates whether the Host Controller is capable of using ADMA2.
-= 0, NOT SUPPORTED
+= 0, NOT_SUPPORTED
 = 1, SUPPORTED
 
 > 18, 1, EMBEDDED_8_BIT ; 8-bit Support for Embedded Device. This bit indicates whether the Host Controller is capable of using an 8-bit bus width mode.
-= 0, NOT SUPPORTED
+= 0, NOT_SUPPORTED
 = 1, SUPPORTED
 
 > 16, 2, MAX_BLK_LEN ; Maximum Block Length. This bit indicates the maximum block size that the Host driver can read and write to the buffer in the Host Controller. The buffer transfers this block size without wait cycles. The transfer block length is always 512 bytes for the SD Memory irrespective of this bit.
@@ -1030,7 +1030,7 @@ CQIC = 0x019C ; Command Queuing Interrupt Coalescing Register
 = 0, CLEAR
 = 1, SET
 
-> 8, 5, INTC_TH Interrupt, WO ; Coalescing Counter Threshold filed. Software uses this field to configure the number of task completions (only tasks with INT=0 in the Task Descriptor), which are required in order to generate an interrupt. Counter Operation: As data transfer tasks with INT=0 complete, they are counted by CQE. The counter is reset by software during the interrupt service routine. The counter stops counting when it reaches the value configured in INTC_TH, and generates interrupt. 5'h0: Interrupt coalescing feature disabled 5'h1: Interrupt coalescing interrupt generated after 1 task when INT=0 completes 5'h2: Interrupt coalescing interrupt generated after 2 tasks when INT=0 completes ........ 5'h1f: Interrupt coalescing interrupt generated after 31 tasks when INT=0 completes To write to this field, the INTC_TH_WEN bit must be set during the same write operation. 7 WO 0x0 TOUT_VAL_WEN When software writes 1 to this bit, the value TOUT_VAL is updated with the contents written on the same cycle.
+> 8, 5, INTC_TH, WO ; Interrupt Coalescing Counter Threshold filed. Software uses this field to configure the number of task completions (only tasks with INT=0 in the Task Descriptor), which are required in order to generate an interrupt. Counter Operation: As data transfer tasks with INT=0 complete, they are counted by CQE. The counter is reset by software during the interrupt service routine. The counter stops counting when it reaches the value configured in INTC_TH, and generates interrupt. 5'h0: Interrupt coalescing feature disabled 5'h1: Interrupt coalescing interrupt generated after 1 task when INT=0 completes 5'h2: Interrupt coalescing interrupt generated after 2 tasks when INT=0 completes ........ 5'h1f: Interrupt coalescing interrupt generated after 31 tasks when INT=0 completes To write to this field, the INTC_TH_WEN bit must be set during the same write operation. 7 WO 0x0 TOUT_VAL_WEN When software writes 1 to this bit, the value TOUT_VAL is updated with the contents written on the same cycle.
 = 0, CLEAR
 = 1, SET
 
@@ -1901,7 +1901,7 @@ DLL_CTRL = 0x0800 ; DLL Global Control Register
 = 0, NORMAL
 = 1, BYPASS
 
-> 16, 8, DLL_START_POINT DLL start point for phase detect.
+> 16, 8, DLL_START_POINT ; DLL start point for phase detect.
 
 > 8, 8, DLL_INCRMENT ; DLL increment value.
 

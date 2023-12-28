@@ -43,7 +43,7 @@ TIMER1_CONTROL_REG = 0x0030 ; Timer1 Control Register
 TIMER1_INTSTATUS = 0x0038, RO ; Timer1 Interrupt Status Register
 > 0, 1, TIMER1_INT ; This register contains the interrupt status for timern.
 
-2CH_REVISION = 0x00F0, RO ; 2-channel TIMER version
+REVISION = 0x00F0, RO ; 2-channel TIMER version
 > 16, 16, SVN_REVISION ; SVN revision: 16'd5477.
 
 > 9, 1, CH1_TYPE ; Channel 1 is a count up counter.
