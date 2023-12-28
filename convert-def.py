@@ -172,6 +172,7 @@ def parse_register(line, original):
     access_flag = False
     modify_flag = False
     size_flag = False
+    alternate_flag = False
     for modifier in modifiers:
         if modifier in ACCESS_TAGS:
             if access_flag:
@@ -185,6 +186,10 @@ def parse_register(line, original):
             if size_flag:
                 raise Exception('Unexpected bitfield modifier (%s): %s' % (modifier, original))
             size_flag = True
+        elif modifier[0] == '(' and modifier[-1] == ')':
+            if alternate_flag or not modifier[1:-1].isidentifier:
+                raise Exception('Unexpected bitfield modifier (%s): %s' % (modifier, original))
+            alternate_flag = True
         else:
             raise Exception('Invalid bitfield modifier (%s): %s' % (modifier, original))
 
@@ -361,6 +366,12 @@ def generate_peripheral(all_peripherals, root, p_name, gen_empty):
             description = xml.Element('description')
             description.text = reg.description
             register.append(description)
+
+        for modifier in reg.modifiers:
+            if modifier[0] == '(':
+                alternate = xml.Element('alternateRegister')
+                alternate.text = modifier[1:-1]
+                register.append(alternate)
 
         addressOffset = xml.Element('addressOffset')
         addressOffset.text = '0x%04X' % reg.offset
