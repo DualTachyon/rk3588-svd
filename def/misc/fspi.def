@@ -20,7 +20,7 @@ CTRL0 = 0x0000 ; Control Register for CS0 Device
 = 2, 4BITS_X4_MODE
 = 3, RESERVED
 
-> 4, 2, IDLE_CYCLE ; Idle Cycles When Switching IO from Output to Input. To improve the transform IO timing, the application can set this register to hold the SCLK in low state or high state.
+> 4, 4, IDLE_CYCLE ; Idle Cycles When Switching IO from Output to Input. To improve the transform IO timing, the application can set this register to hold the SCLK in low state or high state.
 = 0, DISABLED
 = 1, 2CYCLES
 = 2, 3CYCLES
@@ -538,7 +538,7 @@ CTRL1 = 0x0200 ; Control Register for CS1 Device
 = 2, 4BITS_X4_MODE
 = 3, RESERVED
 
-> 4, 2, IDLE_CYCLE ; Idle Cycles When Switching IO from Output to Input. To improve the transform IO timing, the application can set this register to hold the SCLK in low state or high state.
+> 4, 4, IDLE_CYCLE ; Idle Cycles When Switching IO from Output to Input. To improve the transform IO timing, the application can set this register to hold the SCLK in low state or high state.
 = 0, DISABLED
 = 1, 2CYCLES
 = 2, 3CYCLES
