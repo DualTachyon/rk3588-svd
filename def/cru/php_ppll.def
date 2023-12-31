@@ -61,39 +61,39 @@ PPLL_CON6 = 0x0218 ; PPLL configuration register 6
 GATE_CON00 = 0x0800 ; Internal clock gate and division register 0
 > 9, 1, PCLK_APB2ASB_SLV_CHIP_TOP_EN ; pclk_apb2asb_slv_chip_top clock gating control.
 = 0, ENABLE
-= 1, ENABLE
+= 1, DISABLE
 
 > 8, 1, PCLK_PCIE3_PHY_EN ; pclk_pcie3_phy clock gating control.
 = 0, ENABLE
-= 1, ENABLE
+= 1, DISABLE
 
 > 7, 1, PCLK_PCIE_COMBO_PIPE_PHY2_EN ; pclk_pcie_combo_pipe_phy2 clock gating control.
 = 0, ENABLE
-= 1, ENABLE
+= 1, DISABLE
 
 > 6, 1, PCLK_PCIE_COMBO_PIPE_PHY1_EN ; pclk_pcie_combo_pipe_phy1 clock gating control.
 = 0, ENABLE
-= 1, ENABLE
+= 1, DISABLE
 
 > 5, 1, PCLK_PCIE_COMBO_PIPE_PHY0_EN ; pclk_pcie_combo_pipe_phy0 clock gating control.
 = 0, ENABLE
-= 1, ENABLE
+= 1, DISABLE
 
 > 4, 1, PCLK_PCIE_COMBO_PIPE_GRF2_EN ; pclk_pcie_combo_pipe_grf2 clock gating control.
 = 0, ENABLE
-= 1, ENABLE
+= 1, DISABLE
 
 > 3, 1, PCLK_PCIE_COMBO_PIPE_GRF1_EN ; pclk_pcie_combo_pipe_grf1 clock gating control.
 = 0, ENABLE
-= 1, ENABLE
+= 1, DISABLE
 
 > 2, 1, PCLK_PCIE_COMBO_PIPE_GRF0_EN ; pclk_pcie_combo_pipe_grf0 clock gating control.
 = 0, ENABLE
-= 1, ENABLE
+= 1, DISABLE
 
 > 1, 1, PCLK_PHPTOP_CRU_EN ; pclk_phptop_cru clock gating control.
 = 0, ENABLE
-= 1, ENABLE
+= 1, DISABLE
 
 SOFTRST_CON00 = 0x0A00 ; Internal clock reset register 0
 > 10, 1, RESETN_PCIE3_PHY ; When high, reset relative logic
