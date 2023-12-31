@@ -314,10 +314,14 @@ def check_for_overlaps(peripherals):
                     bitset.add(bit)
 
                 enumset = set()
+                enum_names = []
                 for _, enum in bitfield.enums.items():
                     if enum.value in enumset:
                         raise Exception('Enum %d for bitfield %s at %s.%s (0x%04X)!' % (enum.value, bitfield.name, peripheral.name, register.name, register.offset))
+                    if enum.name in enum_names:
+                        raise Exception('Enum %d for bitfield %s at %s.%s (0x%04X)!' % (enum.value, bitfield.name, peripheral.name, register.name, register.offset))
                     enumset.add(enum)
+                    enum_names.append(enum.name)
 
 def resolve_derived(peripherals):
     for _, peripheral in peripherals.items():
