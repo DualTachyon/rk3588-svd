@@ -10,7 +10,7 @@ endif
 all: $(TARGET)
 
 $(TARGET): $(DEFS)
-	./convert-def.py $(FLAGS) -o $@ -i $^
+	./convert-def.py --svd $(FLAGS) -o $@ -i $^
 	xmllint --schema CMSIS-SVD.xsd --noout $@
 
 clean:

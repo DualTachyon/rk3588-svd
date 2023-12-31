@@ -16,6 +16,7 @@
 #     limitations under the License.
 
 import argparse
+import os
 import sys
 import xml.etree.ElementTree as xml
 
@@ -329,12 +330,15 @@ def check_for_overlaps(peripherals):
                     enumset.add(enum)
                     enum_names.append(enum.name)
 
-def resolve_derived(peripherals):
+def resolve_derived(peripherals, duplicate=False):
     for peripheral in peripherals.values():
         if not peripheral.derived:
             continue
         if not peripheral.derived in peripherals:
             raise Exception('Peripheral %s requires %s but does not exist!' % (peripheral.name, peripheral.derived))
+
+        if duplicate:
+            peripheral.registers = peripherals[peripheral.derived].registers
 
 def generate_peripheral(peripherals, root, p_name, gen_empty):
     peripheral = peripherals[p_name]
@@ -524,6 +528,130 @@ def generate_svd(peripherals, filename, gen_empty):
     f.write(b'\n')
     xml_tree.write(f)
 
+def calculate_max_indent(peripheral):
+    max_length = 29 # REG_ENUM_BITS_WM
+
+    p_length = len(peripheral.name)
+    # peripheral_BASE
+    if 5 + p_length > max_length:
+        max_length = 5 + p_length
+
+    for register in peripheral.registers.values():
+        # peripheral_register
+        r_length = 1 + p_length + len(register.name)
+        # peripheral_register_ADDR
+        if 5 + r_length > max_length:
+            max_length = 5 + r_length
+
+        for bitfield in register.bitfields.values():
+            # peripheral_register_bitfield
+            b_length = 1 + r_length + len(bitfield.name)
+            # peripheral_register_GET_bitfield(v)
+
+            if 7 + b_length > max_length:
+                max_length = 7 + b_length
+
+            for enum in bitfield.enums.values():
+                # peripheral_register_bitfield_enum
+                e_length = 1 + b_length + len(enum.name)
+                # peripheral_register_bitfield_VALUE_enum
+                if 6 + e_length > max_length:
+                    max_length = 6 + e_length
+
+    # add in space taken by #define etc
+    return max_length + 9
+
+def insert_indent(a, b, indent):
+    return a + (' ' * (indent - len(a))) + b
+
+def generate_headers(peripherals, path):
+    if path:
+        try:
+            os.mkdir(path, mode = 0o755)
+        except FileExistsError:
+            pass
+        except Exception as e:
+            print('Cannot create output folder!: %s' % e)
+            return
+    else:
+        path = ''
+
+    for peripheral in peripherals.values():
+        if peripheral.group:
+            group = peripheral.group.lower() + os.sep
+        else:
+            group = ''
+
+        fullpath = path + os.sep + group + peripheral.name.lower() + '.h'
+        i = fullpath.rfind('/')
+        if i > 0:
+            try:
+                os.makedirs(fullpath[:i], mode=0o755, exist_ok=True)
+            except Exception as e:
+                print('Cannot create output folder!: %s' % e)
+                continue
+
+        f = open(fullpath, 'w')
+
+        indent = calculate_max_indent(peripheral)
+
+        f.write('#ifndef RK3588_%s_H\n' % peripheral.name)
+        f.write('#define RK3588_%s_H\n' % peripheral.name)
+        f.write('\n')
+        f.write('#ifndef REQ_ENUM_EQUALS\n')
+        f.write(insert_indent('#define REG_ENUM_EQUALS(p, r, b, e)', '(p##_##r##_GET_##b(p##_##r) == p##_##r##_##b##_VALUE_##e)\n', indent))
+        f.write('#endif\n\n')
+        f.write('#ifndef REQ_ENUM_BITS\n')
+        f.write(insert_indent('#define REG_ENUM_BITS(p, r, b, e)', '(p##_##r##_SET_##b(p##_##r##_##b##_VALUE_##e))\n', indent))
+        f.write('#endif\n\n')
+        f.write('#ifndef REQ_ENUM_BITS_WM\n')
+        f.write(insert_indent('#define REG_ENUM_BITS_WM(p, r, b, e)', '(p##_##r##_SET_##b(p##_##r##_##b##_VALUE_##e) | (p##_##r##_##b##_MASK << 16))\n', indent))
+        f.write('#endif\n\n')
+        f.write('#ifndef REQ_ENUM_GET\n')
+        f.write(insert_indent('#define REG_ENUM_GET(p, r, b, e)', '(p##_##r##_GET_##b(p##_##r))\n', indent))
+        f.write('#endif\n\n')
+        f.write(insert_indent('#define %s_BASE' % peripheral.name, '0x%09X\n' % peripheral.address, indent))
+        f.write(insert_indent('#define %s_SIZE' % peripheral.name, '0x%09X\n' % peripheral.size, indent))
+        f.write('\n')
+
+        no_regs = False
+        for register in peripheral.registers.values():
+            if no_regs and len(register.bitfields) > 0:
+                f.write('\n')
+                no_regs = False
+            elif len(register.bitfields) == 0:
+                no_regs = True
+
+            prefix = '%s_%s' % (peripheral.name, register.name)
+            f.write(insert_indent('#define %s_ADDR' % prefix, '(%s_BASE + 0x%04X)\n' % (peripheral.name, register.offset), indent))
+            f.write(insert_indent('#define %s' % prefix, '(*(volatile uint%d_t *)%s_ADDR)\n' % (register.size, prefix), indent))
+
+            skipped = 0
+            for bitfield in register.bitfields.values():
+                if not bitfield.start and bitfield.width == register.size and not len(bitfield.enums):
+                    skipped += 1
+                    continue
+
+                shift = '%s_%s_SHIFT' % (prefix, bitfield.name)
+                width = '%s_%s_WIDTH' % (prefix, bitfield.name)
+                mask = '%s_%s_MASK' % (prefix, bitfield.name)
+                f.write(insert_indent('#define %s' % shift, '%dU\n' % bitfield.start, indent))
+                f.write(insert_indent('#define %s' % width, '%dU\n' % bitfield.width, indent))
+                f.write(insert_indent('#define %s' % mask, '(((1U << %s) - 1U) << %s)\n' % (width, shift), indent))
+                f.write(insert_indent('#define %s_GET_%s(v)' % (prefix, bitfield.name), '(((v) & %s) >> %s)\n' % (mask, shift), indent))
+                f.write(insert_indent('#define %s_SET_%s(v)' % (prefix, bitfield.name), '(((v) << %s) & %s)\n' % (shift, mask), indent))
+
+                for enum in bitfield.enums.values():
+                    f.write(insert_indent('#define %s_%s_VALUE_%s' % (prefix, bitfield.name, enum.name), '0x%XU\n' % enum.value, indent))
+
+                f.write('\n')
+
+            if skipped == len(register.bitfields):
+                no_regs = True
+
+        f.write('#endif\n\n')
+        f.close()
+
 def load_definition(peripherals, filename):
     lines = open(filename, 'r').readlines()
     lines = [line.strip() for line in lines]
@@ -602,12 +730,17 @@ def load_definition(peripherals, filename):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument('--svd', help='Generate a .svd file', action='store_true')
+    group.add_argument('--headers', help='Generate header files', action='store_true')
+
     parser.add_argument('--empty', help='Emit peripherals with no registers', action='store_true')
-    parser.add_argument('-o', help='output file', type=str)
+    parser.add_argument('-o', help='output path', type=str)
     parser.add_argument('-i', help='input files', type=str, nargs='+')
     args = parser.parse_args()
 
-    if not args.o:
+    if args.svd and not args.o:
         print('Output file not specified!')
         sys.exit(1)
     if not args.i:
@@ -621,10 +754,13 @@ if __name__ == "__main__":
             load_definition(peripherals, filename)
         filename = 'consistency check'
         check_for_overlaps(peripherals)
-        resolve_derived(peripherals)
+        resolve_derived(peripherals, args.headers)
     except Exception as e:
         print('Error in %s: %s' % (filename, e.args))
         sys.exit(1)
     else:
-        generate_svd(peripherals, args.o, args.empty)
+        if args.svd:
+            generate_svd(peripherals, args.o, args.empty)
+        if args.headers:
+            generate_headers(peripherals, args.o)
 
