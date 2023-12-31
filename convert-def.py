@@ -94,7 +94,7 @@ class Enum:
         self.value = None
         self.description = None
 
-def parse_peripheral_name(line, original):
+def parse_peripheral(line, original):
     if line[-1] != ']':
         raise Exception('Invalid peripheral name: %s' % original)
 
@@ -279,20 +279,23 @@ def strip_comment(line):
     return line
 
 def check_for_overlaps(peripherals):
-    addresses = []
+    blocks = []
 
     for _, peripheral in sorted(peripherals.items()):
         if peripheral.address is None or peripheral.size is None:
             raise Exception('Peripheral %s does not have an address block!' % peripheral.name)
 
-        for addr in addresses:
+        for block in blocks:
             tail = peripheral.address + peripheral.size - 1
-            if tail < addr[0]:
+            if tail < block.address:
                 continue
-            if peripheral.address < addr[0] + addr[1]:
+            if peripheral.address < block.address + block.size:
                 raise Exception('Peripheral %s overlaps with another!' % peripheral.name)
 
-        addresses.append((peripheral.address, peripheral.size))
+        block = AddressBlock()
+        block.address = peripheral.address
+        block.size = peripheral.size
+        blocks.append(block)
 
         reg_names = []
         reg_offsets = []
@@ -330,188 +333,189 @@ def resolve_derived(peripherals):
         if not peripheral.derived in peripherals:
             raise Exception('Peripheral %s requires %s but does not exist!' % (peripheral.name, peripheral.derived))
 
-def generate_peripheral(all_peripherals, root, p_name, gen_empty):
-    periph = all_peripherals[p_name]
+def generate_peripheral(peripherals, root, p_name, gen_empty):
+    peripheral = peripherals[p_name]
 
-    peripheral = xml.Element('peripheral')
-    if periph.derived:
-        peripheral.attrib['derivedFrom'] = periph.derived
+    xml_peripheral = xml.Element('peripheral')
+    if peripheral.derived:
+        xml_peripheral.attrib['derivedFrom'] = peripheral.derived
 
-    name = xml.Element('name')
-    name.text = periph.name
-    peripheral.append(name)
+    xml_name = xml.Element('name')
+    xml_name.text = peripheral.name
+    xml_peripheral.append(xml_name)
 
-    if periph.group:
-        group = xml.Element('groupName')
-        group.text = periph.group
-        peripheral.append(group)
+    if peripheral.group:
+        xml_group = xml.Element('groupName')
+        xml_group.text = peripheral.group
+        xml_peripheral.append(xml_group)
 
-    baseAddress = xml.Element('baseAddress')
-    baseAddress.text = '0x%09X' % periph.address
-    peripheral.append(baseAddress)
+    xml_baseAddress = xml.Element('baseAddress')
+    xml_baseAddress.text = '0x%09X' % peripheral.address
+    xml_peripheral.append(xml_baseAddress)
 
-    addressBlock = xml.Element('addressBlock')
+    xml_addressBlock = xml.Element('addressBlock')
 
-    offset = xml.Element('offset')
-    offset.text = '0x0'
-    addressBlock.append(offset)
+    xml_offset = xml.Element('offset')
+    xml_offset.text = '0x0'
+    xml_addressBlock.append(xml_offset)
 
-    size = xml.Element('size')
-    size.text = '0x%X' % periph.size
-    addressBlock.append(size)
+    xml_size = xml.Element('size')
+    xml_size.text = '0x%X' % peripheral.size
+    xml_addressBlock.append(xml_size)
 
-    usage = xml.Element('usage')
-    usage.text = 'registers'
-    addressBlock.append(usage)
+    xml_usage = xml.Element('usage')
+    xml_usage.text = 'registers'
+    xml_addressBlock.append(xml_usage)
 
-    peripheral.append(addressBlock)
+    xml_peripheral.append(xml_addressBlock)
 
-    registers = xml.Element('registers')
+    xml_registers = xml.Element('registers')
 
-    for _, reg in periph.registers.items():
-        register = xml.Element('register')
+    for reg in peripheral.registers.values():
+        xml_register = xml.Element('register')
 
-        name = xml.Element('name')
-        name.text = reg.name
-        register.append(name)
+        xml_name = xml.Element('name')
+        xml_name.text = reg.name
+        xml_register.append(xml_name)
 
         if reg.description is not None:
-            description = xml.Element('description')
-            description.text = reg.description
-            register.append(description)
+            xml_description = xml.Element('description')
+            xml_description.text = reg.description
+            xml_register.append(xml_description)
 
         for modifier in reg.modifiers:
             if modifier[0] == '(':
-                alternate = xml.Element('alternateRegister')
-                alternate.text = modifier[1:-1]
-                register.append(alternate)
+                xml_alternate = xml.Element('alternateRegister')
+                xml_alternate.text = modifier[1:-1]
+                xml_register.append(xml_alternate)
 
-        addressOffset = xml.Element('addressOffset')
-        addressOffset.text = '0x%04X' % reg.offset
-        register.append(addressOffset)
+        xml_addressOffset = xml.Element('addressOffset')
+        xml_addressOffset.text = '0x%04X' % reg.offset
+        xml_register.append(xml_addressOffset)
 
         for modifier in reg.modifiers:
             if modifier in ACCESS_TAGS:
-                access = xml.Element('access')
-                access.text = ACCESS_TAGS[modifier]
-                register.append(access)
+                xml_access = xml.Element('access')
+                xml_access.text = ACCESS_TAGS[modifier]
+                xml_register.append(xml_access)
             elif modifier in MODIFIED_TAGS:
-                modified = xml.Element('modifiedWriteValues')
-                modified.text = MODIFIED_TAGS[modifier]
-                register.append(modified)
+                xml_modified = xml.Element('modifiedWriteValues')
+                xml_modified.text = MODIFIED_TAGS[modifier]
+                xml_register.append(xml_modified)
             elif modifier in READ_TAGS:
-                read = xml.Element('readAction')
-                read.text = READ_TAGS[modifier]
-                register.append(read)
+                xml_read = xml.Element('readAction')
+                xml_read.text = READ_TAGS[modifier]
+                xml_register.append(xml_read)
             elif modifier in SIZE_TAGS:
-                size = xml.Element('size')
-                size.text = str(SIZE_TAGS[modifier])
-                register.append(size)
+                xml_size = xml.Element('size')
+                xml_size.text = str(SIZE_TAGS[modifier])
+                xml_register.append(xml_size)
 
         if len(reg.bitfields):
-            fields = xml.Element('fields')
+            xml_fields = xml.Element('fields')
             for _, bitf in reg.bitfields.items():
-                field = xml.Element('field')
+                xml_field = xml.Element('field')
 
-                name = xml.Element('name')
-                name.text = bitf.name
-                field.append(name)
+                xml_name = xml.Element('name')
+                xml_name.text = bitf.name
+                xml_field.append(xml_name)
 
                 if bitf.description is not None:
-                    description = xml.Element('description')
-                    description.text = bitf.description
-                    field.append(description)
+                    xml_description = xml.Element('description')
+                    xml_description.text = bitf.description
+                    xml_field.append(xml_description)
 
-                bitOffset = xml.Element('bitOffset')
-                bitOffset.text = str(bitf.start)
-                field.append(bitOffset)
+                xml_bitOffset = xml.Element('bitOffset')
+                xml_bitOffset.text = str(bitf.start)
+                xml_field.append(xml_bitOffset)
 
-                bitWidth = xml.Element('bitWidth')
-                bitWidth.text = str(bitf.width)
-                field.append(bitWidth)
+                xml_bitWidth = xml.Element('bitWidth')
+                xml_bitWidth.text = str(bitf.width)
+                xml_field.append(xml_bitWidth)
 
                 if bitf.modifier in ACCESS_TAGS:
-                    access = xml.Element('access')
-                    access.text = ACCESS_TAGS[bitf.modifier]
-                    field.append(access)
+                    xml_access = xml.Element('access')
+                    xml_access.text = ACCESS_TAGS[bitf.modifier]
+                    xml_field.append(xml_access)
 
                 if bitf.modifier in MODIFIED_TAGS:
-                    modified = xml.Element('modifiedWriteValues')
-                    modified.text = MODIFIED_TAGS[bitf.modifier]
-                    field.append(modified)
+                    xml_modified = xml.Element('modifiedWriteValues')
+                    xml_modified.text = MODIFIED_TAGS[bitf.modifier]
+                    xml_field.append(xml_modified)
 
                 if bitf.modifier in READ_TAGS:
-                    read = xml.Element('readAction')
-                    read.text = READ_TAGS[bitf.modifier]
-                    field.append(read)
+                    xml_read = xml.Element('readAction')
+                    xml_read.text = READ_TAGS[bitf.modifier]
+                    xml_field.append(xml_read)
 
                 if len(bitf.enums):
-                    enumeratedValues = xml.Element('enumeratedValues')
+                    xml_enumeratedValues = xml.Element('enumeratedValues')
                     for _, e in bitf.enums.items():
-                        enumeratedValue = xml.Element('enumeratedValue')
+                        xml_enumeratedValue = xml.Element('enumeratedValue')
 
-                        name = xml.Element('name')
-                        name.text = e.name if e.name != '_' else ''
-                        enumeratedValue.append(name)
+                        xml_name = xml.Element('name')
+                        xml_name.text = e.name if e.name != '_' else ''
+                        xml_enumeratedValue.append(xml_name)
 
                         if e.description is not None:
-                            description = xml.Element('description')
-                            description.text = e.description
-                            enumeratedValue.append(description)
+                            xml_description = xml.Element('description')
+                            xml_description.text = e.description
+                            xml_enumeratedValue.append(xml_description)
 
-                        value = xml.Element('value')
-                        value.text = str(e.value)
-                        enumeratedValue.append(value)
+                        xml_value = xml.Element('value')
+                        xml_value.text = str(e.value)
+                        xml_enumeratedValue.append(xml_value)
 
-                        enumeratedValues.append(enumeratedValue)
+                        xml_enumeratedValues.append(xml_enumeratedValue)
 
-                    field.append(enumeratedValues)
+                    xml_field.append(xml_enumeratedValues)
 
-                fields.append(field)
-            register.append(fields)
-        registers.append(register)
-    if len(periph.registers) > 0:
-        peripheral.append(registers)
-    if len(periph.registers) > 0 or gen_empty or periph.derived:
-        root.append(peripheral)
-    elif not periph.derived:
-        print('Peripheral %s has no registers!' % periph.name)
+                xml_fields.append(xml_field)
+            xml_register.append(xml_fields)
+        xml_registers.append(xml_register)
+    if len(peripheral.registers) > 0:
+        xml_peripheral.append(xml_registers)
+    if len(peripheral.registers) > 0 or gen_empty or peripheral.derived:
+        root.append(xml_peripheral)
+    elif not peripheral.derived:
+        print('Peripheral %s has no registers!' % peripheral.name)
 
-def generate_svd(all_peripherals, filename, gen_empty):
-    device = xml.Element('device')
-    device.attrib['schemaVersion'] = "1.3"
-    device.attrib['xmlns:xs'] = "http://www.w3.org/2001/XMLSchema-instance"
-    device.attrib['xs:noNamespaceSchemaLocation'] = "CMSIS-SVD.xsd"
+def generate_svd(peripherals, filename, gen_empty):
+    xml_device = xml.Element('device')
+    xml_device.attrib['schemaVersion'] = "1.3"
+    xml_device.attrib['xmlns:xs'] = "http://www.w3.org/2001/XMLSchema-instance"
+    xml_device.attrib['xs:noNamespaceSchemaLocation'] = "CMSIS-SVD.xsd"
     for tag in DEVICE_TAGS:
-        element = xml.Element(tag[0])
-        element.text = tag[1]
-        device.append(element)
+        xml_element = xml.Element(tag[0])
+        xml_element.text = tag[1]
+        xml_device.append(xml_element)
 
     derived = []
     processed = []
 
-    peripherals = xml.Element('peripherals')
-    for _, periph in sorted(all_peripherals.items()):
-        if periph.derived:
-            if not periph.derived in processed:
-                derived.append(periph.name)
+    xml_peripherals = xml.Element('peripherals')
+    for _, peripheral in sorted(peripherals.items()):
+        if peripheral.derived:
+            if not peripheral.derived in processed:
+                derived.append(peripheral.name)
                 continue
-            if periph.name in derived:
-                derived.remove(periph.name)
+            if peripheral.name in derived:
+                derived.remove(peripheral.name)
 
-        generate_peripheral(all_peripherals, peripherals, periph.name, gen_empty)
-        processed.append(periph.name)
-        for d in derived:
-            if all_peripherals[d].derived in processed:
-                generate_peripheral(all_peripherals, peripherals, d, gen_empty)
+        generate_peripheral(peripherals, xml_peripherals, peripheral.name, gen_empty)
+        processed.append(peripheral.name)
+        for name in derived:
+            if peripherals[name].derived in processed:
+                generate_peripheral(peripherals, xml_peripherals, name, gen_empty)
 
-    device.append(peripherals)
-    tree = xml.ElementTree(device)
-    xml.indent(tree, space = '\t', level = 0)
+    xml_device.append(xml_peripherals)
+    xml_tree = xml.ElementTree(xml_device)
+    xml.indent(xml_tree, space = '\t', level = 0)
+
     f = open(filename, 'wb')
     f.write(b'<?xml version="1.0" encoding="utf-8"?>\n')
     f.write(b'\n')
-    tree.write(f)
+    xml_tree.write(f)
 
 def load_definition(peripherals, filename):
     lines = open(filename, 'r').readlines()
@@ -529,7 +533,7 @@ def load_definition(peripherals, filename):
             continue
 
         if line[0] == '[':
-            peripheral = parse_peripheral_name(line[1:], original)
+            peripheral = parse_peripheral(line[1:], original)
             if peripheral.name in peripherals:
                 raise Exception('Duplicate peripheral name at line %d: %s' % (line_num, peripheral.name))
             current_peripheral = peripheral
