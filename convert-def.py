@@ -74,6 +74,7 @@ class Register:
     def __init__(self):
         self.name = None
         self.offset = None
+        self.size = None
         self.modifiers = None
         self.description = None
         self.bitfields = {}
@@ -168,6 +169,7 @@ def parse_register(line, original):
         modifiers = []
 
     register.name = tokens[0].strip()
+    register.size = 32
 
     if not register.name.isidentifier():
         raise Exception('Invalid register definition: %s' % original)
@@ -190,6 +192,7 @@ def parse_register(line, original):
         elif modifier in SIZE_TAGS:
             if size_flag:
                 raise Exception('Unexpected bitfield modifier (%s): %s' % (modifier, original))
+            register.size = int(modifier[1:], 0)
             size_flag = True
         elif modifier[0] == '(' and modifier[-1] == ')':
             if alternate_flag or not modifier[1:-1].isidentifier:
@@ -393,6 +396,11 @@ def generate_peripheral(peripherals, root, p_name, gen_empty):
         xml_addressOffset.text = '0x%04X' % reg.offset
         xml_register.append(xml_addressOffset)
 
+        if reg.size != 32:
+            xml_size = xml.Element('size')
+            xml_size.text = str(reg.size)
+            xml_register.append(xml_size)
+
         for modifier in reg.modifiers:
             if modifier in ACCESS_TAGS:
                 xml_access = xml.Element('access')
@@ -406,10 +414,6 @@ def generate_peripheral(peripherals, root, p_name, gen_empty):
                 xml_read = xml.Element('readAction')
                 xml_read.text = READ_TAGS[modifier]
                 xml_register.append(xml_read)
-            elif modifier in SIZE_TAGS:
-                xml_size = xml.Element('size')
-                xml_size.text = str(SIZE_TAGS[modifier])
-                xml_register.append(xml_size)
 
         if len(reg.bitfields):
             xml_fields = xml.Element('fields')
