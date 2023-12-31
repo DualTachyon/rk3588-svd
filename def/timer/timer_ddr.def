@@ -1,4 +1,4 @@
-[TIMER_DDR]
+[TIMER_DDR, TIMER]
 @ = 0x0FE118000, 0x00008000
 
 TIMER0_LOAD_COUNT0 = 0x0000 ; Timer0 Load Count Register 0. Lower 32 bits Value to be loaded into Timer 0

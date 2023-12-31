@@ -1,4 +1,4 @@
-[KEYLADDER_S]
+[KEYLADDER_S, CRYPTO]
 @ = 0x0FE380000, 0x00010000
 
 CLK_CTL = 0x0000 ; Clock Control Register

@@ -1,4 +1,4 @@
-[GPIO0]
+[GPIO0, GPIO]
 @ = 0x0FD8A0000, 0x00010000
 
 SWPORT_DR_L = 0x0000 ; Port Data Register (Low)

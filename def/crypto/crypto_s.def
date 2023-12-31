@@ -1,4 +1,4 @@
-[CRYPTO_S]
+[CRYPTO_S, CRYPTO]
 @ = 0x0FE390000, 0x00008000
 
 CLK_CTL = 0x0000 ; Clock Control Register
@@ -560,7 +560,7 @@ AES_VERSION = 0x0680, RO ; AES_VERSION code is 0x0007_07ff
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
-> 10, 1, CBC ;-mac_flag Whether the AES supports CBC-MAC
+> 10, 1, CBC_MAC_FLAG ; Whether the AES supports CBC-MAC
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
@@ -683,11 +683,11 @@ HASH_VERSION = 0x068C, RO ; HASH_VERSION code is 0x0000_01ff
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
-> 6, 1, SHA512 ;-256_flag Whether the HASH supports SHA-512/256
+> 6, 1, SHA512_256_FLAG ; Whether the HASH supports SHA-512/256
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
-> 5, 1, SHA512 ;-224_flag Whether the HASH supports SHA-512/224
+> 5, 1, SHA512_224_FLAG ; Whether the HASH supports SHA-512/224
 = 0, NO_SUPPORT
 = 1, SUPPORT
 

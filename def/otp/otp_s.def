@@ -1,3 +1,3 @@
-[OTP_S]
+[OTP_S, OTP]
 @ = 0x0FE3A0000, 0x00010000, OTP_NS
 

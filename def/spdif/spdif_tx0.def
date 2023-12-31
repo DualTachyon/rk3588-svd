@@ -1,4 +1,4 @@
-[SPDIF_TX0]
+[SPDIF_TX0, SPDIF]
 @ = 0x0FE4E0000, 0x00010000
 
 CFGR = 0x0000 ; Transfer Configuration Register

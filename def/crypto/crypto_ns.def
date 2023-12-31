@@ -1,4 +1,4 @@
-[CRYPTO_NS]
+[CRYPTO_NS, CRYPTO]
 @ = 0x0FE370000, 0x00008000
 
 CLK_CTL = 0x0000 ; Clock Control Register

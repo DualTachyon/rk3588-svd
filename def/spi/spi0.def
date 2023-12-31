@@ -1,4 +1,4 @@
-[SPI0]
+[SPI0, SPI]
 @ = 0x0FEB00000, 0x00010000
 
 CTRLR0 = 0x0000 ; Control Register 0

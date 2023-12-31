@@ -1,4 +1,4 @@
-[SPDIF_RX0]
+[SPDIF_RX0, SPDIF]
 @ = 0x0FDE08000, 0x00008000
 
 VERSION = 0x0000 ; Version Register

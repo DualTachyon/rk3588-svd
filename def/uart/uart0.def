@@ -1,4 +1,4 @@
-[UART0]
+[UART0, UART]
 @ = 0x0FD890000, 0x00010000
 
 RBR = 0x0000, RO ; Receive Buffer Register

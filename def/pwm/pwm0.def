@@ -1,4 +1,4 @@
-[PWM0]
+[PWM0, PWM]
 @ = 0x0FD8B0000, 0x00010000
 
 CH0_CNT = 0x0000 ; PWM Channel 0 Counter Register

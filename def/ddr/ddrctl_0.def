@@ -1,4 +1,4 @@
-[DDRCTL_0]
+[DDRCTL_0, DDR]
 @ = 0x0F7000000, 0x01000000
 
 DRAMSET1TMG0_FREQ0 = 0x0000 ; SDRAM Timing Register 0 belonging to Timing Set 1

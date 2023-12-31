@@ -1,4 +1,4 @@
-[WDT_DDR]
+[WDT_DDR, WDT]
 @ = 0x0FE110000, 0x00008000
 
 CR = 0x0000 ; Control Register

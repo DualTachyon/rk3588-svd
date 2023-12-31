@@ -1,4 +1,4 @@
-[MCU_CACHE]
+[MCU_CACHE, MCU]
 @ = 0x0F6F10000, 0x00010000
 
 CACHE_CTRL = 0x0000 ; Cache Control Register

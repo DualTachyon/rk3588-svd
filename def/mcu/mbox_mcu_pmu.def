@@ -1,4 +1,4 @@
-[MBOX_MCU_PMU]
+[MBOX_MCU_PMU, MCU]
 @ = 0x0FEC60000, 0x00010000
 
 A2B_INTEN = 0x0000 ; AP to BB Interrupt Enable Register
