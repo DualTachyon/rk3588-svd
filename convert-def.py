@@ -284,7 +284,7 @@ def strip_comment(line):
 def check_for_overlaps(peripherals):
     blocks = []
 
-    for _, peripheral in sorted(peripherals.items()):
+    for peripheral in peripherals.values():
         if peripheral.address is None or peripheral.size is None:
             raise Exception('Peripheral %s does not have an address block!' % peripheral.name)
 
@@ -303,7 +303,7 @@ def check_for_overlaps(peripherals):
         reg_names = []
         reg_offsets = []
 
-        for _, register in peripheral.registers.items():
+        for register in peripheral.registers.values():
             if register.name in reg_names or register.offset in reg_offsets:
                 if register.name in reg_names and not 'ALT' in modifiers:
                     raise Exception('Register %s.%s (0x%04X) conflicts with another!' % (peripheral.name, register.name, register.offset))
@@ -312,7 +312,7 @@ def check_for_overlaps(peripherals):
             reg_offsets.append(register.offset)
 
             bitset = set()
-            for _, bitfield in register.bitfields.items():
+            for bitfield in register.bitfields.values():
                 for i in range(bitfield.width):
                     bit = bitfield.start + i
                     if bit in bitset:
@@ -321,7 +321,7 @@ def check_for_overlaps(peripherals):
 
                 enumset = set()
                 enum_names = []
-                for _, enum in bitfield.enums.items():
+                for enum in bitfield.enums.values():
                     if enum.value in enumset:
                         raise Exception('Enum %d for bitfield %s at %s.%s (0x%04X)!' % (enum.value, bitfield.name, peripheral.name, register.name, register.offset))
                     if enum.name in enum_names:
@@ -330,7 +330,7 @@ def check_for_overlaps(peripherals):
                     enum_names.append(enum.name)
 
 def resolve_derived(peripherals):
-    for _, peripheral in peripherals.items():
+    for peripheral in peripherals.values():
         if not peripheral.derived:
             continue
         if not peripheral.derived in peripherals:
@@ -417,7 +417,7 @@ def generate_peripheral(peripherals, root, p_name, gen_empty):
 
         if len(reg.bitfields):
             xml_fields = xml.Element('fields')
-            for _, bitf in reg.bitfields.items():
+            for bitf in reg.bitfields.values():
                 xml_field = xml.Element('field')
 
                 xml_name = xml.Element('name')
@@ -454,7 +454,7 @@ def generate_peripheral(peripherals, root, p_name, gen_empty):
 
                 if len(bitf.enums):
                     xml_enumeratedValues = xml.Element('enumeratedValues')
-                    for _, e in bitf.enums.items():
+                    for e in bitf.enums.values():
                         xml_enumeratedValue = xml.Element('enumeratedValue')
 
                         xml_name = xml.Element('name')
@@ -497,8 +497,11 @@ def generate_svd(peripherals, filename, gen_empty):
     derived = []
     processed = []
 
+    p_sorted = sorted([name for name in peripherals.keys()])
+
     xml_peripherals = xml.Element('peripherals')
-    for _, peripheral in sorted(peripherals.items()):
+    for p_name in p_sorted:
+        peripheral = peripherals[p_name]
         if peripheral.derived:
             if not peripheral.derived in processed:
                 derived.append(peripheral.name)
