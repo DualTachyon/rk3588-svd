@@ -40,8 +40,8 @@ CHA_CON1 = 0x0004 ; DDR CHA Control Register 1
 = 3, TPHYUPD_TYPE3
 
 > 7, 1, CG_EN_DDRPHY_MODE ; DDRPHY ctrl_phy_cg_en gate control mode
-= 1, _ ; Ctrl_phy_cg_en is set to 1'b1 to gate DDRPHY internal clock according to the status of DDRPHY dfi_phyupd_req or dfi_phymstr_active or when DDRCTL AXI aclk and core clk are both gated.
-= 0, _ ; Ctrl_phy_cg_en is set to 1'b1 to gate DDRPHY internal clock according to the status of DDRPHY dfi_phyupd_req or dfi_phymstr_active.
+= 1, ENABLE ; Ctrl_phy_cg_en is set to 1'b1 to gate DDRPHY internal clock according to the status of DDRPHY dfi_phyupd_req or dfi_phymstr_active or when DDRCTL AXI aclk and core clk are both gated.
+= 0, DISABLE ; Ctrl_phy_cg_en is set to 1'b1 to gate DDRPHY internal clock according to the status of DDRPHY dfi_phyupd_req or dfi_phymstr_active.
 
 > 6, 1, PMU_DDRPHY_GATE_EN ; Enable PMU auto gate DDRPHY clock function If it is set 1'b1, ctrl_phy_cg_en of DDRPHY will be controlled by PMU.
 = 1, ENABLE
@@ -199,8 +199,8 @@ CHB_CON1 = 0x0034 ; DDR CHB Control Register 1
 = 3, TPHYUPD_TYPE3
 
 > 7, 1, CG_EN_DDRPHY_MODE ; DDRPHY ctrl_phy_cg_en gate control mode
-= 1, _ ; Ctrl_phy_cg_en is set to 1'b1 to gate DDRPHY internal clock according to the status of DDRPHY dfi_phyupd_req or dfi_phymstr_active or when DDRCTL AXI aclk and core clk are both gated.
-= 0, _ ; Ctrl_phy_cg_en is set to 1'b1 to gate DDRPHY internal clock according to the status of DDRPHY dfi_phyupd_req or dfi_phymstr_active.
+= 1, ENABLE ; Ctrl_phy_cg_en is set to 1'b1 to gate DDRPHY internal clock according to the status of DDRPHY dfi_phyupd_req or dfi_phymstr_active or when DDRCTL AXI aclk and core clk are both gated.
+= 0, DISABLE ; Ctrl_phy_cg_en is set to 1'b1 to gate DDRPHY internal clock according to the status of DDRPHY dfi_phyupd_req or dfi_phymstr_active.
 
 > 6, 1, PMU_DDRPHY_GATE_EN ; Enable PMU auto gate DDRPHY clock function If it is set 1'b1, ctrl_phy_cg_en of DDRPHY will be controlled by PMU.
 = 1, ENABLE

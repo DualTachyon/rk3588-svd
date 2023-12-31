@@ -651,16 +651,16 @@ PMU_DDR_CH3_PWR_SFTCON = 0x403C ; DDR channel 3 software power control register
 
 PMU_DDR_POWER_STS = 0x4040 ; DDR power state register
 > 0, 4, DDR_POWER_STATE, RO ; DDR power state.
-= 0, _ ; Normal state
-= 1, _ ; Enter self-refresh mode for AXI-clock state
-= 2, _ ; Enter self-refresh mode core-clock state
-= 3, _ ; Enter retention mode through RETON/RETOFF state
-= 4, _ ; Enter retention mode through RST_IOV state
-= 5, _ ; Sleep state
-= 6, _ ; Exit retention mode through RST_IOV state
-= 7, _ ; Exit retention mode through RETON/RETOFF state
-= 8, _ ; Exit self-refresh mode for core-clock state
-= 9, _ ; Exit self-refresh mode for AXI-clock state
+= 0, NORMAL ; Normal state
+= 1, ENTER_SR_AXI_CLK ; Enter self-refresh mode for AXI-clock state
+= 2, ENTER_SR_CORE_CLK ; Enter self-refresh mode core-clock state
+= 3, ENTER_RET ; Enter retention mode through RETON/RETOFF state
+= 4, ENTER_RET_RST ; Enter retention mode through RST_IOV state
+= 5, SLEEP ; Sleep state
+= 6, EXIT_RET_RST ; Exit retention mode through RST_IOV state
+= 7, EXIT_RET ; Exit retention mode through RETON/RETOFF state
+= 8, EXIT_SR_CORE_CLK ; Exit self-refresh mode for core-clock state
+= 9, EXIT_SR_AXI_CLK ; Exit self-refresh mode for AXI-clock state
 
 PMU_DDR_STS = 0x4044 ; DDR state register
 > 29, 1, DDR_CH3_IO_RSTIOV, RO ; DDR RST_IOV state for channel 3.
@@ -835,18 +835,18 @@ PMU_CRU_PWR_SFTCON = 0x4054 ; Clock and reset software power control register
 
 PMU_CRU_POWER_STS = 0x4058 ; Clock and reset power state register
 > 0, 4, CRU_POWER_STATE, RO ; Clock and reset power state.
-= 0, _ ; Normal state
-= 1, _ ; Clock low frequency state
-= 2, _ ; PLL power down state
-= 3, _ ; Input clamp state
-= 4, _ ; Oscillator disable state
-= 5, _ ; Sleep state
-= 6, _ ; Wake up state
-= 7, _ ; Input clamp release state
-= 8, _ ; Oscillator enable state
-= 9, _ ; Clock high frequency state
-= 10, _ ; Wake up reset clear state
-= 12, _ ; PLL power up state
+= 0, NORMAL ; Normal state
+= 1, CLK_LOW_FREQ ; Clock low frequency state
+= 2, PLL_PWR_DN ; PLL power down state
+= 3, INPUT_CLAMP ; Input clamp state
+= 4, OSC_DISABLE ; Oscillator disable state
+= 5, SLEEP ; Sleep state
+= 6, WAKE_UP ; Wake up state
+= 7, INPUT_CLAMP_RELEASE ; Input clamp release state
+= 8, OSC_ENABLE ; Oscillator enable state
+= 9, CLK_HIGH_FREQ ; Clock high frequency state
+= 10, WAKE_UP_RESET_CLEAR ; Wake up reset clear state
+= 12, PLL_PWR_UP ; PLL power up state
 
 PMU_PLLPD_CON0 = 0x4060 ; PLL hardware power control register 0
 > 15, 1, NPLL_PD_ENA ; Enable power down NPLL by hardware.
@@ -2085,101 +2085,101 @@ PMU_CLUSTER_STS = 0x8080 ; Cluster status register
 
 PMU_CLUSTER_POWER_STS0 = 0x8084 ; Cluster power status register 0
 > 28, 3, CPU7_POWER_STATE ; CPU7 power state.
-= 0, _ ; Normal state
-= 1, _ ; Off state
-= 2, _ ; Emulated off state
-= 3, _ ; Retention state
-= 4, _ ; Debug recovery state
+= 0, NORMAL ; Normal state
+= 1, OFF ; Off state
+= 2, EMULATED ; Emulated off state
+= 3, RETENTION ; Retention state
+= 4, DEBUG_RECOVERY ; Debug recovery state
 
 > 24, 3, CPU6_POWER_STATE, RO ; CPU6 power state.
-= 0, _ ; Normal state
-= 1, _ ; Off state
-= 2, _ ; Emulated off state
-= 3, _ ; Retention state
-= 4, _ ; Debug recovery state
+= 0, NORMAL ; Normal state
+= 1, OFF ; Off state
+= 2, EMULATED ; Emulated off state
+= 3, RETENTION ; Retention state
+= 4, DEBUG_RECOVERY ; Debug recovery state
 
 > 20, 3, CPU5_POWER_STATE, RO ; CPU5 power state.
-= 0, _ ; Normal state
-= 1, _ ; Off state
-= 2, _ ; Emulated off state
-= 3, _ ; Retention state
-= 4, _ ; Debug recovery state
+= 0, NORMAL ; Normal state
+= 1, OFF ; Off state
+= 2, EMULATED ; Emulated off state
+= 3, RETENTION ; Retention state
+= 4, DEBUG_RECOVERY ; Debug recovery state
 
 > 16, 3, CPU4_POWER_STATE, RO ; CPU4 power state.
-= 0, _ ; Normal state
-= 1, _ ; Off state
-= 2, _ ; Emulated off state
-= 3, _ ; Retention state
-= 4, _ ; Debug recovery state
+= 0, NORMAL ; Normal state
+= 1, OFF ; Off state
+= 2, EMULATED ; Emulated off state
+= 3, RETENTION ; Retention state
+= 4, DEBUG_RECOVERY ; Debug recovery state
 
 > 12, 3, CPU3_POWER_STATE, RO ; CPU3 power state.
-= 0, _ ; Normal state
-= 1, _ ; Off state
-= 2, _ ; Emulated off state
-= 3, _ ; Retention state
-= 4, _ ; Debug recovery state
+= 0, NORMAL ; Normal state
+= 1, OFF ; Off state
+= 2, EMULATED ; Emulated off state
+= 3, RETENTION ; Retention state
+= 4, DEBUG_RECOVERY ; Debug recovery state
 
 > 8, 3, CPU2_POWER_STATE, RO ; CPU2 power state.
-= 0, _ ; Normal state
-= 1, _ ; Off state
-= 2, _ ; Emulated off state
-= 3, _ ; Retention state
-= 4, _ ; Debug recovery state
+= 0, NORMAL ; Normal state
+= 1, OFF ; Off state
+= 2, EMULATED ; Emulated off state
+= 3, RETENTION ; Retention state
+= 4, DEBUG_RECOVERY ; Debug recovery state
 
 > 4, 3, CPU1_POWER_STATE, RO ; CPU1 power state.
-= 0, _ ; Normal state
-= 1, _ ; Off state
-= 2, _ ; Emulated off state
-= 3, _ ; Retention state
-= 4, _ ; Debug recovery state
+= 0, NORMAL ; Normal state
+= 1, OFF ; Off state
+= 2, EMULATED ; Emulated off state
+= 3, RETENTION ; Retention state
+= 4, DEBUG_RECOVERY ; Debug recovery state
 
 > 0, 3, CPU0_POWER_STATE, RO ; CPU0 power state.
-= 0, _ ; Normal state
-= 1, _ ; Off state
-= 2, _ ; Emulated off state
-= 3, _ ; Retention state
-= 4, _ ; Debug recovery state
+= 0, NORMAL ; Normal state
+= 1, OFF ; Off state
+= 2, EMULATED ; Emulated off state
+= 3, RETENTION ; Retention state
+= 4, DEBUG_RECOVERY ; Debug recovery state
 
 PMU_CLUSTER_POWER_STS1 = 0x8088 ; Cluster power status register 1
 > 8, 4, DSU_POWER_STATE, RO ; DSU power state.
-= 0, _ ; Normal state
-= 1, _ ; DSU transfer idle state
-= 2, _ ; DSU power down state
-= 3, _ ; DSU sleep state
-= 4, _ ; DSU wake up state
-= 5, _ ; DSU power up state
-= 6, _ ; DSU transfer resume state
-= 7, _ ; DSU FUNC_RET state
-= 8, _ ; DSU 3/4 ON state
-= 9, _ ; DSU 1/2 ON state
-= 10, _ ; DSU 1/4 ON state
-= 11, _ ; DSU SFONLY ON state
-= 12, _ ; DSU 3/4 FUNC_RET state
-= 13, _ ; DSU 1/2 FUNC_RET state
-= 14, _ ; DSU 1/4 FUNC_RET state
-= 15, _ ; DSU SFONLY FUNC_RET state
+= 0, NORMAL ; Normal state
+= 1, XFER_IDLE ; DSU transfer idle state
+= 2, PWR_DOWN ; DSU power down state
+= 3, SLEEP ; DSU sleep state
+= 4, WAKE_UP ; DSU wake up state
+= 5, PWR_UP ; DSU power up state
+= 6, XFER_RESUME ; DSU transfer resume state
+= 7, FUNC_RET ; DSU FUNC_RET state
+= 8, 3QUARTER_ON ; DSU 3/4 ON state
+= 9, HALF_ON ; DSU 1/2 ON state
+= 10, 1QUARTER_ON ; DSU 1/4 ON state
+= 11, SFONLY_ON ; DSU SFONLY ON state
+= 12, 3QUARTER_FUNC_RET ; DSU 3/4 FUNC_RET state
+= 13, HALF_FUNC_RET ; DSU 1/2 FUNC_RET state
+= 14, 1QUARTER_FUNC_RET ; DSU 1/4 FUNC_RET state
+= 15, SFONLY_FUNC_RET ; DSU SFONLY FUNC_RET state
 
 > 4, 4, CORE1_POWER_STATE, RO ; BIGCORE1 power state.
-= 0, _ ; Normal state
-= 1, _ ; CPU power down state
-= 2, _ ; Core transfer idle state
-= 3, _ ; Core power down state
-= 4, _ ; Core sleep state
-= 5, _ ; Core wake up state
-= 6, _ ; Core power up state
-= 7, _ ; Core transfer resume state
-= 8, _ ; CPU power up state
+= 0, NORMAL ; Normal state
+= 1, CPU_PWR_DOWN ; CPU power down state
+= 2, CORE_XFER_IDLE ; Core transfer idle state
+= 3, CORE_PWR_DOWN ; Core power down state
+= 4, CORE_SLEEP ; Core sleep state
+= 5, CORE_WAKE_UP ; Core wake up state
+= 6, CORE_PWR_UP ; Core power up state
+= 7, CORE_XFER_RESUME ; Core transfer resume state
+= 8, CPU_PWR_UP ; CPU power up state
 
 > 0, 4, CORE0_POWER_STATE, RO ; BIGCORE0 power state.
-= 0, _ ; Normal state
-= 1, _ ; CPU power down state
-= 2, _ ; Core transfer idle state
-= 3, _ ; Core power down state
-= 4, _ ; Core sleep state
-= 5, _ ; Core wake up state
-= 6, _ ; Core power up state
-= 7, _ ; Core transfer resume state
-= 8, _ ; CPU power up state
+= 0, NORMAL ; Normal state
+= 1, CPU_PWR_DOWN ; CPU power down state
+= 2, CORE_XFER_IDLE ; Core transfer idle state
+= 3, CORE_PWR_DOWN ; Core power down state
+= 4, CORE_SLEEP ; Core sleep state
+= 5, CORE_WAKE_UP ; Core wake up state
+= 6, CORE_PWR_UP ; Core power up state
+= 7, CORE_XFER_RESUME ; Core transfer resume state
+= 8, CPU_PWR_UP ; CPU power up state
 
 PMU_CLUSTER_PCHANNEL_STS0 = 0x808C ; Cluster P-Channel status register 0
 > 29, 1, CPU3_PDENY, RO ; CPU3 P-Channel status.
@@ -3933,12 +3933,12 @@ PMU_PWR_GATE_STS1 = 0x8184 ; Power domain power status register 1
 
 PMU_PWR_GATE_POWER_STS = 0x8188 ; Power gating status register
 > 0, 3, POWER_GATE_STATE, RO ; Power gating state.
-= 0, _ ; Normal state
-= 1, _ ; Power down start state
-= 2, _ ; Power down running state
-= 3, _ ; Wait for power up state
-= 4, _ ; Power up start state
-= 5, _ ; Power up running state
+= 0, NORMAL ; Normal state
+= 1, PWR_DOWN_START ; Power down start state
+= 2, PWR_DOWN_RUNNING ; Power down running state
+= 3, WAIT_PWR_UP ; Wait for power up state
+= 4, PWR_UP_START ; Power up start state
+= 5, PWR_UP_RUNNING ; Power up running state
 
 PMU_VOL_GATE_FAST_CON = 0x818C ; Voltage domain fast power control register
 > 1, 1, VD_NPU_FAST_ENA ; Enable VD_NPU fast power control. When asserted, it means that VD_NPU will power up completely if VD_NPU power up count from npu_pwrup_cnt (defined in PMU_NPU_PWRUP_CNT) to zero when VD_NPU power up request active, or VD_NPU will power down completely if VD_NPU power down count from npu_pwrdn_cnt (defined in PMU_NPU_PWRDN_CNT) to zero when VD_NPU power down request active. Otherwise, it means that VD_NPU will power up completely as soon as VD_NPU power up request active, or power down completely as soon as VD_NPU power down request active.
