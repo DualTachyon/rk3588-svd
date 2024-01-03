@@ -509,14 +509,24 @@ SOC_STATUS3 = 0x038C ; System Status Register 3
 > 8, 8, CPU_WFI, RO ; CPU WFI status
 > 0, 8, CPU_WFE, RO ; CPU WFE status
 
-OTP_KEY08 = 0x0500 ; OTP Status Register 8
-> 0, 1, KEY08 ; The value of OTP address 0x8
+OTP_KEY08 = 0x0500, RO ; OTP Status Register 8
+> 10, 2, RSA_BOOTKEY_SIZE
+= 3, RSA4096
+= 0, RSA2048
 
-OTP_KEY0D = 0x0504 ; OTP Status Register 13
-> 0, 1, KEY0D ; The value of OTP address 0xd
+> 8, 2, CERT_CHAIN ;  Whether to load a new certificate at boot
+= 3, ENABLED
+= 0, DISABLED
 
-OTP_KEY0E = 0x0508 ; OTP Status Register 14
-> 0, 1, KEY0E ; The value of OTP address 0xe
+> 0, 8, SECURE_BOOT ; Secure Boot enablement
+= 0xFF, ENABLED
+= 0x00, DISABLED
+
+OTP_KEY0D = 0x0504, RO ; OTP Status Register 13
+> 0, 32, KEY0D ; The value of OTP address 0xd
+
+OTP_KEY0E = 0x0508, RO ; OTP Status Register 14
+> 0, 32, KEY0E ; The value of OTP address 0xe
 
 CHIP_ID = 0x0600 ; Chip ID Register
 
