@@ -1,3 +1,479 @@
 [SARADC]
 @ = 0x0FEC10000, 0x00010000
 
+CONV_CON = 0x0000 ; Conversion control
+> 9, 1, INT_LOCK ; This is used to lock the sample data when interrupt happened.
+= 1, ENABLE
+= 0, DISABLE
+
+> 8, 1, AS_PD_MODE ; If this bit is set to 1'b1, each time conversion ends, PD will be asserted. Then next time conversion starts, PD will be set to low auto automaticly. This is not used in single mode.
+
+> 7, 1, END_CONV, W1C ; End conversion, this is not used when CONV_CON[5] is set to 1'b1. If this bit set to 1'b1, PD will set to 1'b1 after the last conversion and this bit will be cleared to 1'b0.
+
+> 6, 1, AUTO_CHANNEL_MODE ; Auto channel mode. If this is enable, channel will be round auto according which is set in AUTO_CH_EN.
+
+> 5, 1, SINGLE_PD_MODE ; Single conversion mode. If this bit is set to 1, conversion only operate once, then PD single will be set to 1.
+
+> 4, 1, START_ADC, W1C ; Enable ADC, if this bit set to one, conversion will start. Then this bit will be clear to 0.
+
+> 0, 4, CHANNEL_SEL ; Channel for SARADC, 8 channels are supported. This fileld is not used when CONV_CON[6] is set to 1.
+= 0, CH0
+= 1, CH1
+= 2, CH2
+= 3, CH3
+= 4, CH4
+= 5, CH5
+= 6, CH6
+= 7, CH7
+
+T_PD_SOC = 0x0004 ; Timing control for PD to SOC
+> 0, 8, T_PD_SOC ; Timing control between power up to start-of-conversion.
+
+T_AS_SOC = 0x0008 ; Timing control for assert SOC
+> 0, 32, T_AS_SOC ; Timing control for assert SOC signal.
+
+T_DAS_SOC = 0x000C ; Timing control from dis-assert SOC to change channel
+> 0, 32, T_DAS_SOC ; Timing from dis-assret SOC to channel sel change.
+
+T_SEL_SOC = 0x0010 ; Timimg control from change channel sel to assert SOC
+> 0, 16, T_SEL_SOC ; Timing from channel load to SOC assert.
+
+HIGH_COMP0 = 0x0014 ; High threshold for ADC output data
+> 0, 12, HIGH_COMP0 ; High threshold for ADC output data for channel 0.
+
+HIGH_COMP1 = 0x0018 ; High threshold for ADC output data
+> 0, 12, HIGH_COMP1 ; High threshold for ADC output data for channel 1.
+
+HIGH_COMP2 = 0x001C ; High threshold for ADC output data
+> 0, 12, HIGH_COMP2 ; High threshold for ADC output data for channel 2.
+
+HIGH_COMP3 = 0x0020 ; High threshold for ADC output data
+> 0, 12, HIGH_COMP3 ; High threshold for ADC output data for channel 3.
+
+HIGH_COMP4 = 0x0024 ; High threshold for ADC output data
+> 0, 12, HIGH_COMP4 ; High threshold for ADC output data for channel 4.
+
+HIGH_COMP5 = 0x0028 ; High threshold for ADC output data
+> 0, 12, HIGH_COMP5 ; High threshold for ADC output data for channel 5.
+
+HIGH_COMP7 = 0x0030 ; High threshold for ADC output data
+> 0, 12, HIGH_COMP7 ; High threshold for ADC output data for channel 7.
+
+HIGH_COMP8 = 0x0034 ; High threshold for ADC output data
+> 0, 12, HIGH_COMP8 ; Not used in this application.
+
+HIGH_COMP9 = 0x0038 ; High threshold for ADC output data
+> 0, 12, HIGH_COMP9 ; Not used in this application.
+
+HIGH_COMP10 = 0x003C ; High threshold for ADC output data
+> 0, 12, HIGH_COMP10 ; Not used in this application.
+
+HIGH_COMP11 = 0x0040 ; High threshold for ADC output data
+> 0, 12, HIGH_COMP11 ; Not used in this application.
+
+HIGH_COMP12 = 0x0044 ; High threshold for ADC output data
+> 0, 12, HIGH_COMP12 ; Not used in this application.
+
+HIGH_COMP13 = 0x0048 ; High threshold for ADC output data
+> 0, 12, HIGH_COMP13 ; Not used in this application.
+
+HIGH_COMP14 = 0x004C ; High threshold for ADC output data
+> 0, 12, HIGH_COMP14 ; Not used in this application.
+
+HIGH_COMP15 = 0x0050 ; High threshold for ADC output data
+> 0, 12, HIGH_COMP15 ; Not used in this application.
+
+LOW_COMP0 = 0x0054 ; Low threshold for ADC output data
+> 0, 12, LOW_COMP0 ; Low threshold for ADC output data for channel 0.
+
+LOW_COMP1 = 0x0058 ; Low threshold for ADC output data
+> 0, 12, LOW_COMP1 ; Low threshold for ADC output data for channel 1.
+
+LOW_COMP2 = 0x005C ; Low threshold for ADC output data
+> 0, 12, LOW_COMP2 ; Low threshold for ADC output data for channel 2.
+
+LOW_COMP3 = 0x0060 ; Low threshold for ADC output data
+> 0, 12, LOW_COMP3 ; Low threshold for ADC output data for channel 3.
+
+LOW_COMP4 = 0x0064 ; Low threshold for ADC output data
+> 0, 12, LOW_COMP4 ; Low threshold for ADC output data for channel 4.
+
+LOW_COMP5 = 0x0068 ; Low threshold for ADC output data
+> 0, 12, LOW_COMP5 ; Low threshold for ADC output data for channel 5.
+
+LOW_COMP6 = 0x006C ; Low threshold for ADC output data
+> 0, 12, LOW_COMP6 ; Low threshold for ADC output data for channel 6.
+
+LOW_COMP7 = 0x0070 ; Low threshold for ADC output data
+> 0, 12, LOW_COMP7 ; Low threshold for ADC output data for channel 7.
+
+LOW_COMP8 = 0x0074 ; Low threshold for ADC output data
+> 0, 12, LOW_COMP8 ; Not used in this application.
+
+LOW_COMP9 = 0x0078 ; Low threshold for ADC output data
+> 0, 12, LOW_COMP9 ; Not used in this application.
+
+LOW_COMP10 = 0x007C ; Low threshold for ADC output data
+> 0, 1, LOW_COMP10 ; Not used in this application.
+
+LOW_COMP11 = 0x0080 ; Low threshold for ADC output data
+> 0, 12, LOW_COMP11 ; Not used in this application.
+
+LOW_COMP12 = 0x0084 ; Low threshold for ADC output data
+> 0, 12, LOW_COMP12 ; Not used in this application.
+
+LOW_COMP13 = 0x0088 ; Low threshold for ADC output data
+> 0, 1, LOW_COMP13 ; Not used in this application.
+
+LOW_COMP14 = 0x008C ; Low threshold for ADC output data
+> 0, 12, LOW_COMP14 ; Not used in this application.
+
+LOW_COMP15 = 0x0090 ; Low threshold for ADC output data
+> 0, 12, LOW_COMP15 ; Not used in this application.
+
+DEBOUNCE = 0x0094 ; Threshold debounce
+> 0, 8, DEBOUNCE ; ADC controller will only generate interrupt data is higher/lower/between setting threshold for "debounce" times.
+
+HT_INT_EN = 0x0098 ; High threshold int enable
+> 15, 1, HT_INT_EN15 ; Not used in this application.
+> 14, 1, HT_INT_EN14 ; Not used in this application.
+> 13, 1, HT_INT_EN13 ; Not used in this application.
+> 12, 1, HT_INT_EN12 ; Not used in this application.
+> 11, 1, HT_INT_EN11 ; Not used in this application.
+> 10, 1, HT_INT_EN10 ; Not used in this application.
+> 9, 1, HT_INT_EN9 ; Not used in this application.
+> 8, 1, HT_INT_EN8 ; Not used in this application.
+
+> 7, 1, HT_INT_EN7 ; High threshold interrupt for channel7.
+= 1, ENABLE
+= 0, DISABLE
+
+> 6, 1, HT_INT_EN6 ; High threshold interrupt for channel6.
+= 1, ENABLE
+= 0, DISABLE
+
+> 5, 1, HT_INT_EN5 ; High threshold interrupt for channel5.
+= 1, ENABLE
+= 0, DISABLE
+
+> 4, 1, HT_INT_EN4 ; High threshold interrupt for channel4.
+= 1, ENABLE
+= 0, DISABLE
+
+> 3, 1, HT_INT_EN3 ; High threshold interrupt for channel3.
+= 1, ENABLE
+= 0, DISABLE
+
+> 2, 1, HT_INT_EN2 ; High threshold interrupt for channel2.
+= 1, ENABLE
+= 0, DISABLE
+
+> 1, 1, HT_INT_EN1 ; High threshold interrupt for channel1.
+= 1, ENABLE
+= 0, DISABLE
+
+> 0, 1, HT_INT_EN0 ; High threshold interrupt for channel0.
+= 1, ENABLE
+= 0,
+
+LT_INT_EN = 0x009C ; Low threshold int enable
+> 15, 1, LT_INT_EN15 ; Not used in this application.
+> 14, 1, LT_INT_EN14 ; Not used in this application.
+> 13, 1, LT_INT_EN13 ; Not used in this application.
+> 12, 1, LT_INT_EN12 ; Not used in this application.
+> 11, 1, LT_INT_EN11 ; Not used in this application.
+> 10, 1, LT_INT_EN10 ; Not used in this application.
+> 9, 1, LT_INT_EN9 ; Not used in this application.
+> 8, 1, LT_INT_EN8 ; Not used in this application.
+
+> 7, 1, LT_INT_EN7 ; Low threshold interrupt for channel7.
+= 1, ENABLE
+= 0, DISABLE
+
+> 6, 1, LT_INT_EN6 ; Low threshold interrupt for channel6.
+= 1, ENABLE
+= 0, DISABLE
+
+> 5, 1, LT_INT_EN5 ; Low threshold interrupt for channel5.
+= 1, ENABLE
+= 0, DISABLE
+
+> 4, 1, LT_INT_EN4 ; Low threshold interrupt for channel4.
+= 1, ENABLE
+= 0, DISABLE
+
+> 3, 1, LT_INT_EN3 ; Low threshold interrupt for channel3.
+= 1, ENABLE
+= 0, DISABLE
+
+> 2, 1, LT_INT_EN2 ; Low threshold interrupt for channel2.
+= 1, ENABLE
+= 0, DISABLE
+
+> 1, 1, LT_INT_EN1 ; Low threshold interrupt for channel1.
+= 1, ENABLE
+= 0, DISABLE
+
+> 0, 1, LT_INT_EN0 ; Low threshold interrupt for channel0.
+= 1, ENABLE
+= 0, DISABLE
+
+MT_INT_EN = 0x0100 ; Middle threshold int enable
+> 15, 1, MT_INT_EN15 ; Not used in this application.
+> 14, 1, MT_INT_EN14 ; Not used in this application.
+> 13, 1, MT_INT_EN13 ; Not used in this application.
+> 12, 1, MT_INT_EN12 ; Not used in this application.
+> 11, 1, MT_INT_EN11 ; Not used in this application.
+> 10, 1, MT_INT_EN10 ; Not used in this application.
+> 9, 1, MT_INT_EN9 ; Not used in this application.
+> 8, 1, MT_INT_EN8 ; Not used in this application.
+
+> 7, 1, MT_INT_EN7 ; Middle threshold interrupt for channel7.
+= 1, ENABLE
+= 0, DISABLE
+
+> 6, 1, MT_INT_EN6 ; Middle threshold interrupt for channel6.
+= 1, ENABLE
+= 0, DISABLE
+
+> 5, 1, MT_INT_EN5 ; Middle threshold interrupt for channel5.
+= 1, ENABLE
+= 0, DISABLE
+
+> 4, 1, MT_INT_EN4 ; Middle threshold interrupt for channel4.
+= 1, ENABLE
+= 0, DISABLE
+
+> 3, 1, MT_INT_EN3 ; Middle threshold interrupt for channel3.
+= 1, ENABLE
+= 0, DISABLE
+
+> 2, 1, MT_INT_EN2 ; Middle threshold interrupt for channel2.
+= 1, ENABLE
+= 0, DISABLE
+
+> 1, 1, MT_INT_EN1 ; Middle threshold interrupt for channel1.
+= 1, ENABLE
+= 0, DISABLE
+
+> 0, 1, MT_INT_EN0 ; Middle threshold interrupt for channel0.
+= 1, ENABLE
+= 0, DISABLE
+
+END_INT_EN = 0x0104 ; End conversion int enable
+> 0, 1, END_INT_EN
+= 1, ENABLE
+= 0, DISABLE
+
+ST_CON = 0x0108 ; ADC static control
+> 3, 3, ICTRL ; Control the bias current of the preamplifier in the SAR-ADC
+> 0, 3, CCTRL ; Control the capacitance of the capacitor DAC array, which is related to the linearity of the SAR-ADC.
+
+STATUS = 0x010C, RO ; ADC status
+> 2, 4, SEL ; Adc channel sel.
+
+> 1, 1, PD
+= 1, DOWN ; ADC is power down.
+= 0, UP ; ADC is power up and in conversion.
+
+> 0, 1, CONV_ST ; Conversion status
+= 1, BUSY ; ADC controller fsm is busy.
+= 0, IDLE ; ADC controller fsm is idle.
+
+END_INT_ST = 0x0110, W1C ; End conversion int state
+> 0, 1, END_INT_ST ; ADC end conversion interrupt status.
+= 1, HAPPENED ; Interrupt happened.
+= 0, NOT_HAPPENED ; Interrupt not happened.
+
+HT_INT_ST = 0x0114 ; High threshold int state
+> 15, 1, HT_INT_ST15 ; Not used in this application.
+> 14, 1, HT_INT_ST14 ; Not used in this application.
+> 13, 1, HT_INT_ST13 ; Not used in this application.
+> 12, 1, HT_INT_ST12 ; Not used in this application.
+> 11, 1, HT_INT_ST11 ; Not used in this application.
+> 10, 1, HT_INT_ST10 ; Not used in this application.
+> 9, 1, HT_INT_ST9 ; Not used in this application.
+> 8, 1, HT_INT_ST8 ; Not used in this application.
+
+> 7, 1, HT_INT_ST7 ; High threshold interrupt state for channel7.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 6, 1, HT_INT_ST6 ; High threshold interrupt state for channel6.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 5, 1, HT_INT_ST5 ; High threshold interrupt state for channel5.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 4, 1, HT_INT_ST4 ; High threshold interrupt state for channel4.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 3, 1, HT_INT_ST3 ; High threshold interrupt state for channel3.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 2, 1, HT_INT_ST2 ; High threshold interrupt state for channel2.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 1, 1, HT_INT_ST1 ; High threshold interrupt state for channel1.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 0, 1, HT_INT_ST0 ; High threshold interrupt state for channel0.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+LT_INT_ST = 0x0118 ; Low threshold int state
+> 15, 1, LT_INT_ST15, W1C ; Not used in this application.
+> 14, 1, LT_INT_ST14, W1C ; Not used in this application.
+> 13, 1, LT_INT_ST13, W1C ; Not used in this application.
+> 12, 1, LT_INT_ST12, W1C ; Not used in this application.
+> 11, 1, LT_INT_ST11, W1C ; Not used in this application.
+> 10, 1, LT_INT_ST10, W1C ; Not used in this application.
+> 9, 1, LT_INT_ST9, W1C ; Not used in this application.
+> 8, 1, LT_INT_ST8, W1C ; Not used in this application.
+
+> 7, 1, LT_INT_ST7, W1C ; Low threshold interrupt state for channel7.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 6, 1, LT_INT_ST6, W1C ; Low threshold interrupt state for channel6.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 5, 1, LT_INT_ST5, W1C ; Low threshold interrupt state for channel5.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 4, 1, LT_INT_ST4, W1C ; Low threshold interrupt state for channel4.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 3, 1, LT_INT_ST3, W1C ; Low threshold interrupt state for channel3.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 2, 1, LT_INT_ST2, W1C ; Low threshold interrupt state for channel2.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 1, 1, LT_INT_ST1, W1C ; Low threshold interrupt state for channel1.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 0, 1, LT_INT_ST0, W1C ; Low threshold interrupt state for channel0.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+MT_INT_ST = 0x011C ; Middle threshold int state
+> 15, 1, MT_INT_ST15, W1C ; Not used in this application.
+> 14, 1, MT_INT_ST14, W1C ; Not used in this application.
+> 13, 1, MT_INT_ST13, W1C ; Not used in this application.
+> 12, 1, MT_INT_ST12, W1C ; Not used in this application.
+> 11, 1, MT_INT_ST11, W1C ; Not used in this application.
+> 10, 1, MT_INT_ST10, W1C ; Not used in this application.
+> 9, 1, MT_INT_ST9, W1C ; Not used in this application.
+> 8, 1, MT_INT_ST8, W1C ; Not used in this application.
+
+> 7, 1, MT_INT_ST7, W1C ; Between high and low threshold interrupt state for channel7.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 6, 1, MT_INT_ST6, W1C ; Between high and low threshold interrupt state for channel6.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 5, 1, MT_INT_ST5, W1C ; Between high and low threshold interrupt state for channel5.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 4, 1, MT_INT_ST4, W1C ; Between high and low threshold interrupt state for channel4.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 3, 1, MT_INT_ST3, W1C ; Between high and low threshold interrupt state for channel3.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 2, 1, MT_INT_ST2, W1C ; Between high and low threshold interrupt state for channel2.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 1, 1, MT_INT_ST1, W1C ; Between high and low threshold interrupt state for channel1.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+> 0, 1, MT_INT_ST0, W1C ; Between high and low threshold interrupt state for channel0.
+= 1, HAPPENED
+= 0, NOT_HAPPENED
+
+DATA0 = 0x0120, RO ; ADC output data
+> 0, 12, DATA0 ; ADC channel 0 data.
+
+DATA1 = 0x0124, RO ; ADC output data
+> 0, 12, DATA1 ; ADC channel 1 data.
+
+DATA2 = 0x0128, RO ; ADC output data
+> 0, 12, DATA2 ; ADC channel 2 data.
+
+DATA3 = 0x012C, RO ; ADC output data
+> 0, 12, DATA3 ; ADC channel 3 data.
+
+DATA4 = 0x0130, RO ; ADC output data
+> 0, 12, DATA4 ; ADC channel 4 data.
+
+DATA5 = 0x0134, RO ; ADC output data
+> 0, 12, DATA5 ; ADC channel 5 data.
+
+DATA6 = 0x0138, RO ; ADC output data
+> 0, 12, DATA6 ; ADC channel 6 data.
+
+DATA7 = 0x013C, RO ; ADC output data
+> 0, 12, DATA7 ; ADC channel 7 data.
+
+DATA8 = 0x0140, RO ; ADC output data
+> 0, 12, DATA8 ; Not used in this application.
+
+DATA9 = 0x0144, RO ; ADC output data
+> 0, 12, DATA9 ; Not used in this application.
+
+DATA10 = 0x0148, RO ; ADC output data
+> 0, 12, DATA10 ; Not used in this application.
+
+DATA11 = 0x014C, RO ; ADC output data
+> 0, 12, DATA11 ; Not used in this application.
+
+DATA12 = 0x0150, RO ; ADC output data
+> 0, 12, DATA12 ; Not used in this application.
+
+DATA13 = 0x0154, RO ; ADC output data
+> 0, 12, DATA13 ; Not used in this application.
+
+DATA14 = 0x0158, RO ; ADC output data
+> 0, 12, DATA14 ; Not used in this application.
+
+DATA15 = 0x015C, RO ; ADC output data
+> 0, 12, DATA15 ; Not used in this application.
+
+AUTO_CH_EN = 0x0160 ; Channel enable in auto channel mode
+> 15, 1, AUTO_CH15_EN ; Not used in this application.
+> 14, 1, AUTO_CH14_EN ; Not used in this application.
+> 13, 1, AUTO_CH13_EN ; Not used in this application.
+> 12, 1, AUTO_CH12_EN ; Not used in this application.
+> 11, 1, AUTO_CH11_EN ; Not used in this application.
+> 10, 1, AUTO_CH10_EN ; Not used in this application.
+> 9, 1, AUTO_CH9_EN ; Not used in this application.
+> 8, 1, AUTO_CH8_EN ; Not used in this application.
+> 7, 1, AUTO_CH7_EN ; Enable channel 7 in auto channel mode.
+> 6, 1, AUTO_CH6_EN ; Enable channel 6 in auto channel mode.
+> 5, 1, AUTO_CH5_EN ; Enable channel 5 in auto channel mode.
+> 4, 1, AUTO_CH4_EN ; Enable channel 4 in auto channel mode.
+> 3, 1, AUTO_CH3_EN ; Enable channel 3 in auto channel mode.
+> 2, 1, AUTO_CH2_EN ; Enable channel 2 in auto channel mode.
+> 1, 1, AUTO_CH1_EN ; Enable channel 1 in auto channel mode.
+> 0, 1, AUTO_CH0_EN ; Enable channel 0 in auto channel mode.
+
