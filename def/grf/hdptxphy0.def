@@ -1,3 +1,70 @@
 [GRF_HDPTXPHY0, GRF]
 @ = 0x0FD5E0000, 0x00004000
 
+CON0 = 0x0000 ; HDPTXPHY Control Register 0
+> 10, 2, RO_REF_CLK_SEL ; Input Reference Clock source selector This pin controls reference clock source
+= 0, REFCLK_XTAL ; Input reference clock from refclk_xtal
+= 1, SIDEBAND_IO ; Input reference clock from sideband IO.
+= 2, LC_PLL ; Input reference clock from LC PLL (cascade mode).
+= 3, REFCLK_SOC_PLL ; Input reference clock from refclk_soc_pll (System PLL).
+
+> 8, 2, LC_REF_CLK_SEL ; Input Reference Clock source selector This pin controls reference clock source
+= 0, REFCLK_XTAL ; Input reference clock from refclk_xtal
+= 1, SIDEBAND_IO ; Input reference clock from sideband IO.
+= 2, RO_PLL ; Input reference clock from RO PLL.
+= 3, REFCLK_SOC_PLL ; Input reference clock from refclk_soc_pll (System PLL).
+
+> 7, 1, PLL_EN ; PLL Block Enable Signal.
+= 0, DISABLE
+= 1, ENABLE
+
+> 6, 1, BIAS_EN ; Bias Block Enable Signal
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, BGR_EN ; Band Gap Reference Block Enable Signal.
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 1, TX_AUX_TX_MODE ; When hdptx_mode_sel is 1'b0, this bit controls the i_aux_tx_mode of PHY. Enables transmission in AUX mode.
+
+> 3, 1, EARC_RX_MODE ; When hdptx_mode_sel is 1'b1, this bit controls the i_earc_rx_mode of PHY. Enables CMDC receiver in eARC mode.
+
+> 2, 1, EARC_TX_MODE ; When hdptx_mode_sel is 1'b1, this bit controls the i_earc_tx_mode of PHY. Enables CMDC transmission in eARC mode. 1 RO 0x0 reserved
+
+> 0, 1, HDPTX_MODE_SEL ;
+= 0, BY_HDMITX ; earc_tx_mode/earc_rx_mode/aux_tx_mode is controlled by HDMITX controller
+= 1, BY_EDP_OR_GRF ; earc_tx_mode/earc_rx_mode/aux_tx_mode is controlled by EDP controller or GRF.
+
+CON1 = 0x0004 ; HDPTXPHY Control Register 1
+> 7, 1, DBGCLK_GATE ;
+= 0, ENABLE ; Gate debug clock.
+= 1, DISABLE ; Do not gate debug clock.
+
+> 0, 4, DBGCLK_SEL ; Debug clock select:
+= 0, HDPTX_O_DIG_REFCLK
+= 1, HDPTX_O_MON_CLK
+= 2, HDPTX_O_EARC_DMAC_RXCLK
+= 3, HDPTX_O_TX_LINK_SYM_CLK
+= 4, HDPTX_O_TX_HS_CLK
+= 5, HDPTX_I_TX_DATA_CLK
+= 6, HDPTX_O_HDMI_PIXEL_CLK
+= 7, HDPTX_O_AUX_ARC_RXDATA
+= 8, HDPTX_I_AUX_EARC_TXDATA_I
+= 9, HDPTX_I_AUX_TX_MODE
+
+STATUS0 = 0x0080, RO ; HDPTXPHY Status Register
+> 3, 1, O_PLL_LOCK_DONE ; PLL Lock Indication The pin is high when PLL locking is completed. This means that all the output clocks are at the correct frequency.
+
+> 2, 1, O_PHY_CLK_RDY ; Indicates PHY data path clock outputs are stable
+= 1, READY ; Clocks are ready
+= 0, NOT_READY ; Clocks are not ready
+
+> 1, 1, O_PHY_RDY ; Indicates PHY lanes are ready for data transmission
+= 1, READY ; PHY lanes are ready
+= 0, NOT_READY ; PHY lanes are not ready
+
+> 0, 1, O_SB_RDY ; Indicates sideband calibrations are complete and ready for sideband transceiver operations
+= 1, READY ; Sideband block ready
+= 0, NOT_READY ; Sideband block not ready
+
