@@ -1,3 +1,54 @@
 [GRF_USBDPPHY0, GRF]
 @ = 0x0FD5C8000, 0x00004000
 
+CON1 = 0x0004 ; USBDPPHY Control Register 1
+> 14, 1, RX_LFPS_EN ; Enable RX LFPS Detector Block.
+= 1, ENABLE ; RX SQ enable
+= 0, DISABLE ; RX SQ disable
+
+> 13, 1, USBDP_LOW_PWRN ; Used for the PMA power off function.
+= 0, OFF ; PMA block power off
+= 1, ON ; PMA block power on
+
+CON2 = 0x0008 ; USBDPPHY Control Register 2
+> 15, 1, PHY_CLAMP ;
+= 0, NORMAL ; Normal mode
+= 1, CLAMP ; Clamp PHY output to special value
+
+> 13, 2, DEBUG_CLOCK_SEL ; select phy debug clock output
+= 0, O_VCOCLK_DIV40_MON_0
+= 1, O_DBG_CLK
+= 2, O_DP_TXCLK
+= 3, O_VCOCLK_DIV40_MON_1
+
+> 12, 1, DEBUG_CLK_GATE_DISABLE
+= 0, ENABLE ; Gate phy debug clock output
+= 1, DISABLE ; Do not gate phy debug clock output
+
+CON3 = 0x000C ; USBDPPHY Control Register 3
+> 5, 1, SOFT_PIPE3_TXDETECTRXLOOPBK ; When USBDPPHY_GRF_CON3[0] is 1'b1, tx_detectrx_loopback is controlled by this bit.
+> 3, 2, SOFT_PIPE3_POWERDOWN ; When USBDPPHY_GRF_CON3[0] is 1'b1, powerdown is controlled by this bit.
+> 2, 1, SOFT_PIPE3_TXELECIDLE ; When USBDPPHY_GRF_CON3[0] is 1'b1, tx_elecidle is controlled by this bit.
+> 1, 1, SOFT_PIPE3_RXTERMINATION ; When USBDPPHY_GRF_CON3[0] is 1'b1, rx_termination is controlled by this bit.
+
+> 0, 1, GRF_CONTROL_SEL
+= 0, NORMAL ; Normal mode
+= 1, BY_GRF ; rx_termination , tx_elecidle, powerdown, tx_detectrx_loopback are controlled by GRF
+
+STATUS1 = 0x0084, RO ; USBDPPHY Status Register
+> 22, 3, PIPE_RXSTATUS ; Encodes receiver status and error codes for the received data stream when receiving data.
+> 21, 1, PIPE_RXELECIDLE ; Indicates receiver detection of an electrical idle. While deasserted with the PHY in P2, indicates detection of a beacon.
+> 20, 1, PIPE_PHY_STATUS ; Used to communicate completion of several PHY functions including power management state transitions, rate change, and receiver detection.
+> 19, 1, PLL_LOCK_DONE ; PLL Lock Indication This bit is high when PLL Locking is complete.
+
+LFPS_DET_CON = 0x00C0 ; LFPS Detect Control
+> 0, 8, LFPS_DETECT_CON ; LFPS filter counter control
+
+INT_EN = 0x00C4 ; Interrupt Enable Register
+> 0, 1, LFPS_L0_BEACON_INT_EN ; beacon interrupt enable
+= 0, DISABLE ; Interrupt disable
+= 1, ENABLE ; Interrupt enable
+
+INT_STATUS = 0x00C8 ; Interrupt Status Register
+> 0, 1, LFPS_L0_BEACON_INT_STATUS, W1C ; beacon interrupt status Write 1 to this bit will clear the interrupt
+

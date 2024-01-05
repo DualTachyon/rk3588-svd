@@ -1,3 +1,331 @@
 [GRF_USB2PHY0, GRF]
 @ = 0x0FD5D0000, 0x00004000
 
+CON0 = 0x0000 ; USB2PHY Control Register 0
+> 15, 1, PORT_RESET ; Per-Port Reset When asserted, this signal resets the corresponding port's transmit and receive logic without disabling the clocks within the USB 2.0 PHY.
+= 1, ASSERT ; The transmit and receive finite state machines (FSMs) are reset, and the line_state logic combinatorially reflects the state of the single-ended receivers.
+= 0, NORMAL ; The transmit and receive FSMs are operational, and the line_state logic becomes sequential after 11 PHYCLOCK0 cycles.
+
+> 14, 1, PLLBTUNE ; PLL Bandwidth adjustment This adjustment doubles the bandwidth of the PLL as needed for some input reference clock frequencies.
+
+> 10, 4, PLLPTUNE ; PLL Proportional Path Tune This signal should be set to the Design default.
+= 15, 4_75X
+= 14, 4_50X
+= 13, 4_25X
+= 12, 4_00X ; Design default
+= 11, 3_75X
+= 10, 3_50X
+= 9, 3_25X
+= 8, 3_00X
+= 7, 2_75X
+= 6, 2_50X
+= 5, 2_25X
+= 4, 2_00X
+= 3, 1_75X
+= 2, 1_50X
+= 1, 1_25X
+= 0, 1_00X
+
+> 8, 2, PLLITUNE ; PLL Integral Path Tune This signal should be set to the Design default.
+= 3, 2_0X
+= 2, 1_5X
+= 1, 1_0X
+= 0, 0_5X ; Design default
+
+> 5, 3, TUNE ; VBUS Valid Threshold Adjustment This bus adjusts the voltage level for the VBUS Valid threshold.
+= 7, P_12_59
+= 6, P_9_63
+= 5, P_6_42
+= 4, P_3_21
+= 3, 0 ; Design default
+= 2, M_2_96
+= 1, M_6_17
+= 0, M_9_38
+
+> 4, 1, DISABLE ; OTG Block Disable This signal powers down the VBUS Valid comparator, but not the Session Valid comparator, nor the ID detection circuitry. To save power, if the application does not use the OTG function, this input can be set high.
+= 1, DOWN ; The OTG block is powered down.
+= 0, UP ; The OTG block is powered up.
+
+> 1, 3, COMPDISTUNE ; Disconnect Threshold Adjustment This bus adjusts the voltage level for the threshold used to detect a disconnect event at the host.
+= 7, P_15_20
+= 6, P_11_15
+= 5, P_7_05
+= 4, P_3_59
+= 3, 0
+= 2, M_2_94
+= 1, M_5_96
+= 0, M_8_58
+
+> 0, 1, COMMON_ON_N ; Common Block Power-Down Control This signal controls the power-down signals in the REFCLK_LOGIC, Bias, and PLL blocks when the USB 2.0 PHY is in Suspend, or Sleep mode.
+= 1, DOWN ; In Suspend mode, the REFCLK_LOGIC, Bias, and PLL blocks are powered down. In Sleep mode, the Bias and PLL blocks are powered down.
+= 0, POWERED ; In Suspend or Sleep modes, the REFCLK_LOGIC, Bias, and PLL blocks remain powered. With this setting, the input reference clock must remain on and valid during suspend or sleep.
+
+CON1 = 0x0004 ; USB2PHY Control Register 1
+> 14, 2, TXRISETUNE ; HS Transmitter Rise/Fall Time Adjustment This bus adjusts the rise/fall times of the high-speed waveform.
+= 3, M_3_24
+= 2, M_1_33
+= 1, 0 ; Design default
+= 0, P_2_19
+
+> 12, 2, TXHSXVTUNE ; Transmitter High-Speed Crossover Adjustment This bus adjusts the voltage at which the DP0 and DM0 signals cross while transmitting in HS mode.
+= 3, 0 ; Default setting
+= 2, P_11_05MV
+= 1, M_9_2MV
+= 0, P_0_67MV
+
+> 8, 4, TXVREFTUNE ; HS DC Voltage Level Adjustment This bus adjusts the high-speed DC level voltage.
+= 15, P_21_58
+= 14, P_17_66
+= 13, P_13_74
+= 12, P_11_78
+= 11, P_9_81
+= 10, P_7_85
+= 9, P_5_89
+= 8, P_3_92
+= 7, P_1_96
+= 6, 0 ; Design default
+= 5, M_1_96
+= 4, M_3_92
+= 3, M_5_89
+= 2, M_7_85
+= 1, M_9_81
+= 0, M_13_73
+
+> 4, 4, TXFSLSTUNE ; This bus adjusts the low- and full-speed single-ended source impedance while driving high. The following adjustment values are based on nominal process, voltage, and temperature.
+= 15, M_10_33
+= 7, M_5_49
+= 3, 0 ; Design default
+= 1, P_6_34
+= 0, P_13_63
+
+> 3, 1, TXPREEMPPULSETUNE ; This signal controls the duration for which the HS pre-emphasis current is sourced onto DP0 or DM0. The HS Transmitter preemphasis duration is defined in terms of unit amounts. One unit of pre- emphasis duration is approximately 580 ps and is defined as 1X pre- emphasis duration.
+= 1, 1X ; short pre-emphasis current duration
+= 0, 2X ; design default, long pre-emphasis current duration
+
+> 0, 3, SQRXTUNE ; Squelch Threshold Adjustment This bus adjusts the voltage level for the threshold used to detect valid high-speed data.
+= 7, M_21_12
+= 6, M_15_93
+= 5, M_10_53
+= 4, M_5_41
+= 3, 0 ; Design default
+= 2, P_5_14
+= 1, P_10_51
+= 0, P_15_68
+
+CON2 = 0x0008 ; USB2PHY Control Register 2
+> 14, 1, DCDENB ; Enhanced Data Contact Detection Enable Enables current sourcing on the D+ line. For special applications, the IDP_SRC control and the RDM_DWN control are separated. For standard DCD operation in accordance with the Battery Charger v1.2 specification, simultaneously set DCDENB0=1'b1 (to enable IDP_SRC) and set DMPULLDOWN0=1'b1 (to enable RDM_DWN). Set both signals to 1'b0 when DCD is completed.
+= 1, DP0 ; IDP_SRC current is sourced onto DP0
+= 0, DISABLED ; IDP_SRC current is disabled
+
+> 13, 1, SIDDQ ; IDDQ Test Enable This test signal enables you to perform IDDQ testing by powering down all analog blocks. Before asserting SIDDQ, ensure that TESTBURNIN is set to 1'b0, and RETENABLEN is set to 1'b1.
+= 1, DOWN ; The analog blocks are powered down.
+= 0, UP ; The analog blocks are powered up.
+
+> 11, 2, TXRESTUNE ; USB Source Impedance Adjustment In some applications, there can be significant series resistance on the D+ and D- paths between the transceiver and cable. This bus adjusts the driver source impedance to compensate for added series resistance on the USB. Note: Any setting other than the default can result in source impedance variation across process, voltage, and temperature conditions that does not meet USB 2.0 specification limits. If this bus is not used, leave it at the default setting.
+= 3, 4_74OHM ; Source impedance is decreased by approximately 4.74 ohm
+= 2, 2_5OHM ; Source impedance is decreased by approximately 2.5 ohm
+= 1, 0 ; Design default
+= 0, 3_23OHM ; Source impedance is increased by approximately 3.23 ohm
+
+> 10, 1, SLEEMPM ; Sleep Assertion Asserting this signal places the USB 2.0 PHY in Sleep mode according to the USB 2.0 Link Power Management (LPM) addendum to the USB 2.0 specification. In Sleep mode, the transmitter is tristated and the USB 2.0 PHY circuits are powered down except for the REFCLK_LOGIC block. The REFCLK_LOGIC block remains powered when the USB 2.0 PHY is placed in Sleep mode.
+= 1, NORMAL ; Normal operating mode
+= 0, SLEEP ; Sleep mode
+
+> 8, 1, RETENABLE_N ; Retention Mode Enable Retention mode allows the USB 2.0 PHY to retain internal digital core signal states when the PHY DVDD supply is lowered to a process specific retention voltage level. Retention mode also forces all internal DVDD-to-VDD18 level translators into a predefined state based on the PHY operating mode. 7 RW 0x0 vdatsrcenb Battery Charging Sourcing Select Enables or disables sourcing for battery charging.
+= 1, ENABLED ; Data source voltage (VDAT_SRC) is enabled.
+= 0, DISABLED ; Data source voltage (VDAT_SRC) is disabled.
+
+> 6, 1, VDATDETENB ; Battery Charging Attach/Connect Detection Enable Enables or disables attach/connect detection.
+= 1, ENABLED ; Data detect voltage (CHG_DET) is enabled.
+= 0, DISABLED ; Data detect voltage (CHG_DET) is disabled.
+
+> 5, 1, CHRGSEL ; Determines whether current is sourced onto or sunk from DP0 or DM0. The definitions shown below apply when CHRGSRCPUENB0[1:0]=2'b00. See CHRGSRCPUENB0[1:0] for other modes.
+= 1, DM0 ; Data source voltage (VDAT_SRC) is sourced onto DM0 and sunk from DP0.
+= 0, DP0 ; Data source voltage (VDAT_SRC) is sourced onto DP0 and sunk from DM0.
+
+> 3, 2, TXPREEMPAMPTUNE ; HS Transmitter Pre-Emphasis Current Control This signal controls the amount of current sourced to DP0 and DM0 after a J-to-K or K-to-J transition. The HS Transmitter pre- emphasis current is defined in terms of unit amounts. One unit amount is approximately 2 mA and is defined as 1X pre-emphasis current.
+= 3, 3X ; HS Transmitter pre-emphasis circuit sources 3x pre- emphasis current.
+= 2, 2X ; HS Transmitter pre-emphasis circuit sources 2x pre- emphasis current.
+= 1, 1X ; HS Transmitter pre-emphasis circuit sources 1x pre- emphasis current.
+= 0, DISABLED ; design default. HS Transmitter pre-emphasis is disabled.
+
+> 2, 1, SOFT_CON_SEL ; Soft control select Bit.
+
+> 1, 1, VBUSVLDEXTSEL ; External VBUS Valid Select This signal selects either the VBUSVLDEXT0 input or the internal Session Valid comparator to detect whether the VBUS signal on the USB cable is valid and to assert the DP0 pull-up resistor. The activation of the DP0 pull-up resistor also depends on the state of XCVRSEL0[1:0], OPMODE0[1:0], TERMSEL0, DPPULLDOWN0, and DMPULLDOWN0.
+= 1, VBUSVLDEXT0 ; The VBUSVLDEXT0 input is used to assert the DP0 pull-up resistor.
+= 0, INTERNAL ; The internal Session Valid comparator is used to assert the DP0 pull-up resistor.
+
+> 0, 1, VBUSVLDEXT ; External VBUS Valid Indicator This signal is valid in Device mode and only when the VBUSVLDEXTSEL0 signal is set to 1'b1. VBUSVLDEXT0 indicates whether the VBUS signal on the USB cable is valid. In addition, VBUSVLDEXT0 enables the pull-up resistor on the D+ line. VBUSVLDEXT0 does not change the OTGSESSVLD0 output.
+= 1, VALID ; The VBUS signal is valid, and the pull-up resistor on D+ is enabled.
+= 0, NOT_VALID ; The VBUS signal is not valid, and the pull-up resistor on D+ is disabled. In Host mode, this input is not used and can be tied to 1'b0.
+
+CON3 = 0x000C ; USB2PHY Control Register 3
+> 11, 5, SUSPEND_CON ; Only exsit in GRF for USB2PHY of U3 port. usbphy suspend control signal. If USB2PHY_GRF_CON3[11] is 1, USB2PHY.SUSPENDM0 is controlled by USB2PHY_GRF_CON3[12]; If USB2PHY_GRF_CON3[11] is 0 and USB2PHY_GRF_CON3[14:13] is 0x3, USB2PHY.SUSPENDM0 is controlled by usbotg_utmi_suspend_n & usbotg_utmi_l1_suspend_n; If USB2PHY_GRF_CON3[11] is 0 and USB2PHY_GRF_CON3[14:13] is 0x1, USB2PHY.SUSPENDM0 is controlled by USB2PHY_GRF_CON3[15]; If USB2PHY_GRF_CON3[11] is 0 and USB2PHY_GRF_CON3[13] is 0x0, USB2PHY.SUSPENDM0 is controlled by ~usbotg_utmi_suspend_com_n & ~usbotg_utmi_l1_suspend_com_n.
+
+> 9, 2, VDATREFTUNE0 ; Data Detect Voltage Adjustment This bus adjusts the threshold voltage level (Vdat_ref) used to detect data during charger type detection.
+= 3, M_19_8
+= 2, M_9_84
+= 1, 0 ; Design default
+= 0, P_9_93
+
+> 8, 1, HSXCVREXTCTL0 ; HS Transceiver Asynchronous Control This signal asynchronously selects the HS transceiver Tx/Rx path. This signal can be used with the bypass signals in "UART/Autoresume Signals" on page 50 to perform proprietary tests on the HS Tx / Rx paths. The PHY must be in an HS state with XCVRSEL0[1:0] == 00,and TERMSEL0 = 1'b0.
+= 1, HS ; HS Tx/Rx path is selected
+= 0, FS ; FS Tx/Rx path is selected
+
+> 7, 1, AUTORSMENB0 ; Autoresume Mode Enable Autoresume mode can be used when the USB 2.0 PHY is operating in a host role. This mode enables the autoresume logic in the PHY, so that the PHY will automatically respond to a remote wake-up resume-k from a peripheral, without initial involvement from the host controller. The PHY will respond to a remote wake- up resume-k by driving out its own resume-k. The PHY resume-k will be held until the host controller takes over and configures the PHY to continue driving the resume-k. 6 RW 0x0 bypasssel Transmitter Digital Bypass Select Enables/disables Transmitter Digital Bypass mode. The standard FS UART mode is selected by setting HSXCVREXTCTL0 = 1'b0, and a proprietary HS test mode is selected by setting HSXCVREXTCTL0 = 1'b1.
+= 1, ENABLED ; Transmitter Digital Bypass mode is enabled.
+= 0, DISABLED ; Transmitter Digital Bypass mode is disabled
+
+> 5, 1, BYPASSDMEN ; DM0 Transmitter Digital Bypass Enable Enables/disables the DM0 FS/LS driver (if HSXCVREXTCTL0 = 1'b0) in Transmitter Digital Bypass mode. FS mode is the standard UART mode. To use this mode,BYPASSSEL0 must be 1'b1.
+= 1, ENABLED ; DM0 FS/LS driver (if HSXCVREXTCTL0 = 1'b0) is enabled and driven with the BYPASSDPDATA0 signal.
+= 0, DISABLED ; DM0 FS/LS driver (if HSXCVREXTCTL0 = 1'b0) is disabled in Transmitter Digital Bypass mode.
+
+> 4, 1, SFT_UTMI_TERMSELECT ; When soft_con_sel is 1'b1, termselect is controlled by sft_utmi_termselect.
+
+> 2, 2, SFT_UTMI_XCVRSELECT ; When soft_con_sel is 1'b1, xcvrselect is controlled by sft_utmi_xcvrselect.
+
+> 0, 2, SFT_UTMI_OPMODE ; When soft_con_sel is 1'b1, opmode is controlled by sft_utmi_opmode.
+
+CON4 = 0x0010 ; USB2PHY Control Register 4
+> 8, 1, SFT_SUSPEND_N ; Only exsit in GRF for USB2PHY of U2 port. When soft_con_sel is 1'b1, suspend is controlled by sft_suspend_n register. 7:4 RO 0x0 reserved
+
+> 3, 1, SFT_VBUS_SEL ; VBUS software control select.
+
+> 2, 1, SFT_VBUS ; When sft_vbus_sel is 1'b1, vbusvalid and bvalid is controlled by sft_vbus.
+
+> 0, 1, IDPULLUP ; Only exsit in GRF for USB2PHY of U3 port. Pull-up enable control for IDDIG pin. High valid.
+
+LS_CON = 0x0040 ; USB2PHY Linestate Filter Control
+> 0, 20, LINESTATE_FILTER_CON ; host/otg port linestate filter time control register. Unit:PCLK
+
+DIS_CON = 0x0044 ; USB2PHY Disconnect Filter Control
+> 0, 20, DISCONNECT_FILTER_CON ; host/otg port hostdisconnect filter time control register. Unit:PCLK
+
+BVALID_CON = 0x0048 ; USB2PHY BValid Filter Control
+> 0, 20, BVALID_FILTER_CON ; otg port bvalid filter time control register. Unit:PCLK
+
+ID_CON = 0x004C ; USB2PHY ID Filter Control
+> 0, 28, ID_FILTER_CON ; otg ID port filter time control register. Unit:PCLK
+
+INT_MASK = 0x0080 ; Interrupt Mask Register
+> 6, 1, FALLING_OTG0_DISCONNECT_IRQ_EN ; otg0_disconnect_irq edge status enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, RISING_OTG0_DISCONNECT_IRQ_EN ; otg0_disconnect_irq edge status enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 1, FALLING_OTG0_ID_IRQ_EN ; otg0_id edge status enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 3, 1, RISING_OTG0_ID_IRQ_EN ; otg0_id edge status enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, FALLING_OTG0_BVALID_IRQ_EN ; otg0_bvalid edge status irq enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, RISING_OTG0_BVALID_IRQ_EN ; otg0_bvalid edge status irq enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, OTG0_LINESTATE_IRQ_EN ; otg0_linestate change status irq enable High valid.
+
+INT_STATUS = 0x0084, RO ; Interrupt Status Register
+> 6, 1, FALLING_OTG0_DISCONNECT_IRQ ; otg0_disconnect_irq edge status
+= 0, DEASSERTED
+= 1, ASSERTED
+
+> 5, 1, RISING_OTG0_DISCONNECT_IRQ ; otg0_disconnect_irq edge status
+= 0, DEASSERTED
+= 1, ASSERTED
+
+> 4, 1, FALLING_OTG0_ID_IRQ ; otg0_id edge status
+= 0, DEASSERTED
+= 1, ASSERTED
+
+> 3, 1, RISING_OTG0_ID_IRQ ; otg0_id edge status
+= 0, DEASSERTED
+= 1, ASSERTED
+
+> 2, 1, FALLING_OTG0_BVALID_IRQ ; otg0_bvalid edge status irq status
+= 0, DEASSERTED
+= 1, ASSERTED
+
+> 1, 1, RISING_OTG0_BVALID_IRQ ; otg0_bvalid edge status irq status
+= 0, NOTHING
+= 1, RISING
+
+> 0, 1, OTG0_LINESTATE_IRQ ; otg0_linestate change status irq status
+
+INT_STATUS_CLR = 0x0088, W1C ; Interrupt Clear Register
+> 6, 1, FALLING_OTG0_DISCONNECT_IRQ_CLR ; otg0_disconnect_irq edge status clear
+= 1, CLEAR
+= 0, CLEARED
+
+> 5, 1, RISING_OTG0_DISCONNECT_IRQ_CLR ; otg0_disconnect_irq edge status clear
+= 1, CLEAR
+= 0, CLEARED
+
+> 4, 1, FALLING_OTG0_ID_IRQ_CLR ; otg0_id edge status clear
+= 1, CLEAR
+= 0, CLEARED
+
+> 3, 1, RISING_OTG0_ID_IRQ_CLR ; otg0_id edge status clear
+= 1, CLEAR
+= 0, CLEARED
+
+> 2, 1, FALLING_OTG0_BVALID_IRQ_CLR ; otg0_bvalid edge status irq status clear
+= 1, CLEAR
+= 0, CLEARED
+
+> 1, 1, RISING_OTG0_BVALID_IRQ_CLR ; otg0_bvalid edge status irq status clear
+= 1, CLEAR
+= 0, CLEARED
+
+> 0, 1, OTG0_LINESTATE_IRQ_CLR ; otg0_linestate change status irq status clear
+
+STATUS0 = 0x00C0, RO ; USB2PHY Status Register
+> 11, 1, OTGSESSVLD ; OTG Device Session Valid Indicator (Low Voltage) This controller signal is output from the USB 2.0 PHY's Session Valid comparator and indicates whether the voltage on VBUS is below the OTG Device Session Valid threshold.
+= 1, ABOVE ; The voltage on VBUS is above the OTG Device Session Valid threshold.
+= 0, BELOW ; The voltage on VBUS is below the OTG Device Session Valid threshold.
+
+> 9, 2, UTMI_LINESTATE ; Line State Indicator This controller bus reflects the state of the single-ended receivers. In Suspend or Sleep mode, this bus is a combinatorial output (directly reflecting the current state of D- and D+, respectively).
+= 3, SE1 ; (D+ high, D- high)
+= 2, K_J ; K state for high-speed and full-speed USB traffic; J state for low-speed USB traffic (D+ low, D- high)
+= 1, J_K ; J state for high-speed and full-speed USB traffic; K state for low-speed USB traffic (D+ high, D- low)
+= 0, SE0 ; (D+ low, D- low)
+
+> 8, 1, UTMI_VBUSVALID ; VBUS valid status.
+
+> 7, 1, UTMI_AVALID ; VBUS avalid status.
+
+> 6, 1, UTMI_BVALID ; VBUS bvalid status.
+
+> 5, 1, UTMI_IDDIG ; IDDIG status.
+= 0, HOST
+= 1, DEVICE
+
+> 4, 1, HSRXDAT0 ; This signal asynchronously outputs the state of the HS receiver. This signal can be used with the bypass signals in "UART/Autoresume Signals" on page 50 to perform proprietary tests on the HS Rx block. The PHY must be in an HS state with XCVRSEL0[1:0] == 00,and TERMSEL0 = 1'b0. HSXCVREXTCTL0 must be set to 1'b1 to use this mode. HSRXDAT0 is gated to 1'b0 if HSXCVREXTCTL0 = 1'b0.
+= 1, HS_J ; If HSXCVREXTCTL0 = 1'b1 and HSSQUELCH0 = 1'b0, the HS differential receiver has detected an HS J.
+= 0, HS_K ; If HSXCVREXTCTL0 = 1'b1 and HSSQUELCH0 = 1'b0, the HS differential receiver has detected an HS K.
+
+> 3, 1, HSSQUELCH0 ; HS Squelch Detector Asynchronous Output This signal asynchronously outputs the state of the HS squelch detector. This signal can be used with the bypass signals in "UART/ Autoresume Signals" on page 50 to perform proprietary tests on the HS Rx block. The PHY must be in an HS state with XCVRSEL[1:0] == 00,and TERMSEL = 1'b0. HSXCVREXTCTL must be set to 1'b1 to use this mode. HSSQUELCH is gated to 1'b0 if HSXCVREXTCTL = 1'b0.
+= 1, SQUELCHED ; If HSXCVREXTCTL = 1'b1, the HS squelch detector has not detected a valid HS VIL level. The line is squelched.
+= 0, NOT_SQUELCHED ; If HSXCVREXTCTL = 1'b1, the HS squelch detector has detected a valid HS VIL level. The line is not squelched. The HSRXDAT signal indicates whether the detected signal is a J or a K.
+
+> 2, 1, FSVMINUS ; Single-Ended D- Indicator This controller signal indicates the state of the D- line in normal operation.
+= 1, HIGH ; The voltage on D- is high.
+= 0, LOW ; The voltage on D- is low
+
+> 1, 1, FSVPLUS ; Single-Ended D+ Indicator This controller signal indicates the state of the D+ line during normal operation or UART data reception.
+= 1, HIGH ; The voltage on D+ is high.
+= 0, LOW ; The voltage on D+ is low
+
+> 0, 1, CHGDET ; Battery Charger Detection Output Indicates whether the voltage level on DP0 or DM0 is greater than VDAT_REF as defined in the Battery Charger specification.
+= 1, GREATER ; VDP > VDAT_REF (for CHRGSEL0 = 1'b1) or VDM > VDAT_REF (for CHRGSEL0 = 1'b0)
+= 0, LESS ; VDP < VDAT_REF (for CHRGSEL0 = 1'b1) or VDM < VDAT_REF (for CHRGSEL0 = 1'b0)
+
