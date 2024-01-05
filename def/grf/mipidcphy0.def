@@ -1,3 +1,47 @@
 [GRF_MIPIDCPHY0, GRF]
 @ = 0x0FD5E8000, 0x00004000
 
+CON0 = 0x0000 ; MIPICDPHY Control Register 0
+> 15, 1, DCPHY_CLAMP_EN ; DCPHY output clamp enable
+= 0, NORMAL ; Normal mode
+= 1, CLAMP ; Clamp phy output to special value
+
+> 3, 1, S_CPHY_MODE ; C-PHY mode select signal of slave data lane.
+
+> 0, 1, M_CPHY_MODE ; C-PHY mode select signal of master data lane.
+
+CON1 = 0x0004 ; MIPICDPHY Control Register 1
+> 15, 1, DCPHY_HSCLK_INV_SEL ;
+= 0, NORMAL ; Normal mode
+= 1, INVERT ; Invert M_TXWORDCLKHSCLK to controller.
+
+> 14, 1, PPI_IF_MAN_EN ; If ppi_if_man_en is 1, M_TXREQUESTESC0, M_TXTRIGGERESC0, M_TXCLKESCCLK and M_TXCLKESC0 are controlled by GRF.
+
+> 10, 4, M_TXTRIGGERESC ; Escape mode transmit trigger 0. If ppi_if_man_en is 1, M_TXTRIGGERESC0 is controlled by this bit.
+
+> 9, 1, M_TXREQUESTESC ; Escape mode transmit request, high active. If ppi_if_man_en is 1, M_TXREQUESTESC0 is controlled by this bit.
+
+> 8, 1, TXCLKESC ; Escape mode clock. If ppi_if_man_en is 1, M_TXCLKESCCLK and M_TXCLKESC0 is controlled by this bit.
+
+> 4, 4, S_FORCERXMODE ; Force lane into receive mode/wait for stop state. Active high.
+
+> 0, 4, M_FORCETXSTOPMODE ; Force lane into transmit mode generate stop state. Active high.
+
+STATUS0 = 0x0080, RO ; MIPICDPHY Status Register 0
+> 9, 1, PLL_CNT_DONE ; When PLL_EN is set to high , PLL lock counter is started to generate a delay to get a stabilized clock. The lock counter expires when the count value reaches the value set as REG_PLL_LOCK_CNT(pll_con7[15:0]). Then, the interface signal PLL_CNT_DONE is asserted.
+
+> 8, 1, M_STOPSTATECLK ; Lane is in stop state. Active high.
+
+> 4, 4, S_STOP_STATE ; Lane is in stop state. Active high.
+
+> 0, 4, M_STOPSTATE ; Data lane is in stop state. Active high.
+
+STATUS1 = 0x0084, RO ; MIPICDPHY Status Register 1
+> 0, 5, M_PHYERR0LANE ; Master lane error status.
+
+STATUS2 = 0x0088, RO ; MIPICDPHY Status Register 2
+> 12, 4, S_PHYERR3 ; Slave lane error status.
+> 8, 4, S_PHYERR2 ; Slave lane error status.
+> 4, 4, S_PHYERR1 ; Slave lane error status.
+> 0, 4, S_PHYERR0 ; Slave lane error status.
+
