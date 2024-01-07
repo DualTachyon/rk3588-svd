@@ -598,6 +598,8 @@ def generate_headers(peripherals, path):
         f.write('#ifndef RK3588_%s_H\n' % peripheral.name)
         f.write('#define RK3588_%s_H\n' % peripheral.name)
         f.write('\n')
+        f.write('#include <stdint.h>\n')
+        f.write('\n')
         f.write('#ifndef REQ_ENUM_EQUALS\n')
         f.write(insert_indent('#define REG_ENUM_EQUALS(p, r, b, e)', '(p##_##r##_GET_##b(p##_##r) == p##_##r##_##b##_VALUE_##e)\n', indent))
         f.write('#endif\n\n')
@@ -609,6 +611,9 @@ def generate_headers(peripherals, path):
         f.write('#endif\n\n')
         f.write('#ifndef REQ_ENUM_GET\n')
         f.write(insert_indent('#define REG_ENUM_GET(p, r, b, e)', '(p##_##r##_GET_##b(p##_##r))\n', indent))
+        f.write('#endif\n\n')
+        f.write('#ifndef REQ_ENUM_VALUE\n')
+        f.write(insert_indent('#define REG_ENUM_VALUE(p, r, b, e)', '(p##_##r##_##b##_VALUE_##e)\n', indent))
         f.write('#endif\n\n')
         f.write(insert_indent('#define %s_BASE' % peripheral.name, '0x%09X\n' % peripheral.address, indent))
         f.write(insert_indent('#define %s_SIZE' % peripheral.name, '0x%09X\n' % peripheral.size, indent))
@@ -736,8 +741,8 @@ if __name__ == "__main__":
     group.add_argument('--headers', help='Generate header files', action='store_true')
 
     parser.add_argument('--empty', help='Emit peripherals with no registers', action='store_true')
-    parser.add_argument('-o', help='output path', type=str)
-    parser.add_argument('-i', help='input files', type=str, nargs='+')
+    parser.add_argument('-o', help='output path', type=str, required=True)
+    parser.add_argument('-i', help='input files', type=str, required=True, nargs='+')
     args = parser.parse_args()
 
     if args.svd and not args.o:

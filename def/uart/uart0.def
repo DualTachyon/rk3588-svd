@@ -73,6 +73,8 @@ IIR = 0x0008, (FCR), RO ; Interrupt Identity Register
 
 LCR = 0x000C ; Line Control Register
 > 7, 1, DIV_LAT_ACCESS ; Divisor Latch Access Bit. Writable only when UART is not busy (USR[0] is zero), always readable. This bit is used to enable reading and writing of the Divisor Latch register (DLL and DLH) to set the baud rate of the UART. This bit must be cleared after initial baud rate setup in order to access other registers.
+= 1, ENABLE
+= 0, DISABLE
 
 > 6, 1, BREAK_CTRL ; Break Control Bit. This is used to cause a break condition to be transmitted to the receiving device. If set to one the serial output is forced to the spacing (logic 0) state. When not in Loopback Mode, as determined by MCR[4], the sout line is forced low until the Break bit is cleared. If SIR_MODE == Enabled and active (MCR[6] set to one) the sir_out_n line is continuously pulsed. When in Loopback Mode, the break condition is internally looped back to the receiver and the sir_out_n line is forced low.
 
@@ -245,6 +247,8 @@ SDMAM = 0x0094 ; Shadow DMA Mode
 
 SFE = 0x0098 ; Shadow FIFO enable
 > 0, 1, SHADOW_FIFO_EN ; Shadow FIFO Enable. This is a shadow register for the FIFO enable bit (FCR[0]). This can be used to remove the burden of having to store the previously written value to the FCR in memory and having to mask this value so that only the FIFO enable bit gets updated. This enables/disables the transmit (XMIT) and receive (RCVR) FIFOs. If this bit is set to zero (disabled) after being enabled then both the XMIT and RCVR controller portion of FIFOs are reset.
+= 1, ENABLE
+= 0, DISABLE
 
 SRT = 0x009C ; Shadow RCVR Trigger
 > 0, 2, SHADOW_RCVR_TRIGGER ; Shadow RCVR Trigger. This is a shadow register for the RCVR trigger bits (FCR[7:6]). This can be used to remove the burden of having to store the previously written value to the FCR in memory and having to mask this value so that only the RCVR trigger bit gets updated. This is used to select the trigger level in the receiver FIFO at which the Received Data Available Interrupt is generated. It also determines when the dma_rx_req_n signal is asserted when DMA Mode (FCR[3]) = 1. The following trigger levels are supported:
