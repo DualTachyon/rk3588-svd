@@ -508,7 +508,7 @@ def generate_svd(peripherals, filename, gen_empty):
         peripheral = peripherals[p_name]
         if peripheral.derived:
             if not peripheral.derived in processed:
-                derived.append(peripheral.name)
+                derived.append(peripheral.derived)
                 continue
             if peripheral.name in derived:
                 derived.remove(peripheral.name)
