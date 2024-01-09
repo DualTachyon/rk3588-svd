@@ -1,7 +1,7 @@
 [PMU]
 @ = 0x0FD8D0000, 0x00010000
 
-PMU_PWR_CON0 = 0x0000 ; PMU power control 0 register
+PWR_CON0 = 0x0000 ; PMU power control 0 register
 > 14, 1, POWER_OFF_IO_ENA ; Enable VCCIO enter low power mode by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -62,26 +62,26 @@ PMU_PWR_CON0 = 0x0000 ; PMU power control 0 register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_WAKEUP_INT_CON_P0 = 0x0008 ; PMU wake up interrupt control register for power mode 0
+WAKEUP_INT_CON_P0 = 0x0008 ; PMU wake up interrupt control register for power mode 0
 > 0, 1, WAKEUP_INT_EN ; Enable GPIO interrupt as wake up source to exit power mode 0 procedure.
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_WAKEUP_INT_STS_P0 = 0x000C ; PMU wake up interrupt status register for power mode 0
+WAKEUP_INT_STS_P0 = 0x000C ; PMU wake up interrupt status register for power mode 0
 > 0, 1, WAKEUP_INT_ST, RO ; Power mode 0 wake up source status.
 = 0, INACTIVE
 = 1, ACTIVE
 
-PMU_PMIC_STABLE_CNT_P0 = 0x0010 ; PMIC stable count register for power mode 0
+PMIC_STABLE_CNT_P0 = 0x0010 ; PMIC stable count register for power mode 0
 > 0, 20, PMIC_STABLE_CNT ; PMIC stable count for power mode 0 procedure. Number of clk_pmu used by counter logic.
 
-PMU_WAKEUP_RST_CLR_CNT_P0 = 0x0014 ; Wake up reset clear count register for power mode 0
+WAKEUP_RST_CLR_CNT_P0 = 0x0014 ; Wake up reset clear count register for power mode 0
 > 0, 20, WAKEUP_RST_CLR_CNT ; Wake up reset clear count for power mode 0 procedure. Number of clk_pmu used by counter logic.
 
-PMU_OSC_STABLE_CNT_P0 = 0x0018 ; Oscillator stable count register for power mode 0
+OSC_STABLE_CNT_P0 = 0x0018 ; Oscillator stable count register for power mode 0
 > 0, 20, OSC_STABLE_CNT ; Oscillator stable count for power mode 0 procedure. Number of clk_pmu used by counter logic.
 
-PMU_PMU1_PWR_CHAIN_STABLE_CON = 0x001C ; PD_PMU1 power chain stable control register
+PMU1_PWR_CHAIN_STABLE_CON = 0x001C ; PD_PMU1 power chain stable control register
 > 9, 5, PMU1_PWR_DWN_STABLE_CNT ; Stable count for PD_PMU1 power down flow. Number of clk_pmu used by counter logic.
 
 > 8, 1, PMU1_PWR_DWN_STABLE_EN ; Enable stable counter between power chains for PD_PMU1 power down flow.
@@ -94,7 +94,7 @@ PMU_PMU1_PWR_CHAIN_STABLE_CON = 0x001C ; PD_PMU1 power chain stable control regi
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_DDR_RET_CON0_P0 = 0x0020 ; DDR retention control register 0 for power mode 0
+DDR_RET_CON0_P0 = 0x0020 ; DDR retention control register 0 for power mode 0
 > 12, 4, DDRIO_RSTIOV_EXIT_ENA ; Enable DDR exits retention mode through RST_IOV by hardware in power mode 0 procedure. Bit[12] used for DDR channel 0. Bit[13] used for DDR channel 1. Bit[14] used for DDR channel 2. Bit[15] used for DDR channel 3.
 = 0, DISABLE
 = 1, ENABLE
@@ -111,7 +111,7 @@ PMU_DDR_RET_CON0_P0 = 0x0020 ; DDR retention control register 0 for power mode 0
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_DDR_RET_CON1_P0 = 0x0024 ; DDR retention control register 1 for power mode 0
+DDR_RET_CON1_P0 = 0x0024 ; DDR retention control register 1 for power mode 0
 > 12, 4, DDRIO_RSTIOV_EXIT_SFTENA ; Enable DDR exits retention mode through RST_IOV by software. Bit[12] used for DDR channel 0. Bit[13] used for DDR channel 1. Bit[14] used for DDR channel 2. Bit[15] used for DDR channel 3.
 = 0, DISABLE
 = 1, ENABLE
@@ -128,17 +128,17 @@ PMU_DDR_RET_CON1_P0 = 0x0024 ; DDR retention control register 1 for power mode 0
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_INFO_TX_CON = 0x0030 ; PMU debug information transmit control register
+INFO_TX_CON = 0x0030 ; PMU debug information transmit control register
 > 8, 1, INFO_TX_EN ; Enable PMU debug information transition.
 = 0, DISABLE
 = 1, ENABLE
 
 > 0, 8, INFO_TX_INTV_TIME ; The interval time between the bytes of PMU debug information.
 
-PMU_VERSION = 0x4000 ; PMU version register
+VERSION = 0x4000 ; PMU version register
 > 0, 32, VERSION, RO
 
-PMU_PWR_CON1 = 0x4004 ; PMU power control 1 register
+PWR_CON1 = 0x4004 ; PMU power control 1 register
 > 12, 1, WFI_BYPASS ; Bypass WFI in power mode 1 procedure. If asserted, PMU FSM does not need to wait for CPU standbywfi state before entering low power flow.
 = 0, DISABLE
 = 1, ENABLE
@@ -175,7 +175,7 @@ PMU_PWR_CON1 = 0x4004 ; PMU power control 1 register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_GLB_POWER_STS = 0x4008 ; PMU global power status register
+GLB_POWER_STS = 0x4008 ; PMU global power status register
 > 0, 4, POWER_STATE, RO ; PMU1 global power state.
 = 0, NORMAL ; Normal state
 = 1, CORE_LP ; Core low power state
@@ -194,12 +194,12 @@ PMU_GLB_POWER_STS = 0x4008 ; PMU global power status register
 = 14, CLUSTER_ACTIVE ; Cluster active state
 = 15, CORE_ACTIVE ; Core active state
 
-PMU_INT_MASK_CON = 0x400C ; PMU interrupt mask control register
+INT_MASK_CON = 0x400C ; PMU interrupt mask control register
 > 0, 1, GLB_INT_MASK ; Global interrupt mask during DSU sleep state.
 = 0, UNMASKED ; Interrupt is not mask
 = 1, MASKED ; Interrupt is mask
 
-PMU_WAKEUP_INT_CON = 0x4010 ; PMU wake up interrupt control register
+WAKEUP_INT_CON = 0x4010 ; PMU wake up interrupt control register
 > 16, 1, WAKEUP_TIMEOUT_EN ; Enable PMU wake up timeout as wake up source to exit power mode 1 procedure.
 = 0, DISABLE
 = 1, ENABLE
@@ -268,7 +268,7 @@ PMU_WAKEUP_INT_CON = 0x4010 ; PMU wake up interrupt control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_WAKEUP_INT_STS = 0x4014 ; PMU wake up interrupt status register
+WAKEUP_INT_STS = 0x4014 ; PMU wake up interrupt status register
 > 16, 1, WAKEUP_TIMEOUT_ST, RO ; Wake up timeout as wake up source status.
 = 0, INACTIVE
 = 1, ACTIVE
@@ -337,7 +337,7 @@ PMU_WAKEUP_INT_STS = 0x4014 ; PMU wake up interrupt status register
 = 0, INACTIVE
 = 1, ACTIVE
 
-PMU_DDR_CH0_PWR_CON = 0x4020 ; DDR channel 0 hardware power control register
+DDR_CH0_PWR_CON = 0x4020 ; DDR channel 0 hardware power control register
 > 10, 1, DDRPHY_AUTO_GATING_ENA ; Enable DDRPHY auto clock gating. DDRPHY's clock can be gated when in sleep mode.
 = 0, DISABLE
 = 1, ENABLE
@@ -374,7 +374,7 @@ PMU_DDR_CH0_PWR_CON = 0x4020 ; DDR channel 0 hardware power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_DDR_CH1_PWR_CON = 0x4024 ; DDR channel 1 hardware power control register
+DDR_CH1_PWR_CON = 0x4024 ; DDR channel 1 hardware power control register
 > 10, 1, DDRPHY_AUTO_GATING_ENA ; Enable DDRPHY auto clock gating. DDRPHY's clock can be gated when in sleep mode.
 = 0, DISABLE
 = 1, ENABLE
@@ -411,7 +411,7 @@ PMU_DDR_CH1_PWR_CON = 0x4024 ; DDR channel 1 hardware power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_DDR_CH2_PWR_CON = 0x4028 ; DDR channel 2 hardware power control register
+DDR_CH2_PWR_CON = 0x4028 ; DDR channel 2 hardware power control register
 > 10, 1, DDRPHY_AUTO_GATING_ENA ; Enable DDRPHY auto clock gating. DDRPHY's clock can be gated when in sleep mode.
 = 0, DISABLE
 = 1, ENABLE
@@ -448,7 +448,7 @@ PMU_DDR_CH2_PWR_CON = 0x4028 ; DDR channel 2 hardware power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_DDR_CH3_PWR_CON = 0x402C ; DDR channel 3 hardware power control register
+DDR_CH3_PWR_CON = 0x402C ; DDR channel 3 hardware power control register
 > 10, 1, DDRPHY_AUTO_GATING_ENA ; Enable DDRPHY auto clock gating. DDRPHY's clock can be gated when in sleep mode.
 = 0, DISABLE
 = 1, ENABLE
@@ -485,7 +485,7 @@ PMU_DDR_CH3_PWR_CON = 0x402C ; DDR channel 3 hardware power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_DDR_CH0_PWR_SFTCON = 0x4030 ; DDR channel 0 software power control register
+DDR_CH0_PWR_SFTCON = 0x4030 ; DDR channel 0 software power control register
 > 11, 1, DDRCTL_C_ACTIVE_WAIT_ENTER ;
 = 0, NOT_NEED ; Not need to wait for ddrctl_c_active low before FSM enter self-refresh state
 = 1, NEED ; Need to wait for ddrctl_c_active low before FSM enter self- refresh state
@@ -526,7 +526,7 @@ PMU_DDR_CH0_PWR_SFTCON = 0x4030 ; DDR channel 0 software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_DDR_CH1_PWR_SFTCON = 0x4034 ; DDR channel 1 software power control register
+DDR_CH1_PWR_SFTCON = 0x4034 ; DDR channel 1 software power control register
 > 11, 1, DDRCTL_C_ACTIVE_WAIT_ENTER ;
 = 0, NOT_NEED ; Not need to wait for ddrctl_c_active low before FSM enter self-refresh state
 = 1, NEED ; Need to wait for ddrctl_c_active low before FSM enter self- refresh state
@@ -567,7 +567,7 @@ PMU_DDR_CH1_PWR_SFTCON = 0x4034 ; DDR channel 1 software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_DDR_CH2_PWR_SFTCON = 0x4038 ; DDR channel 2 software power control register
+DDR_CH2_PWR_SFTCON = 0x4038 ; DDR channel 2 software power control register
 > 11, 1, DDRCTL_C_ACTIVE_WAIT_ENTER ;
 = 0, NOT_NEED ; Not need to wait for ddrctl_c_active low before FSM enter self-refresh state
 = 1, NEED ; Need to wait for ddrctl_c_active low before FSM enter self- refresh state
@@ -608,7 +608,7 @@ PMU_DDR_CH2_PWR_SFTCON = 0x4038 ; DDR channel 2 software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_DDR_CH3_PWR_SFTCON = 0x403C ; DDR channel 3 software power control register
+DDR_CH3_PWR_SFTCON = 0x403C ; DDR channel 3 software power control register
 > 11, 1, DDRCTL_C_ACTIVE_WAIT_ENTER ;
 = 0, NOT_NEED ; Not need to wait for ddrctl_c_active low before FSM enter self-refresh state
 = 1, NEED ; Need to wait for ddrctl_c_active low before FSM enter self- refresh state
@@ -649,7 +649,7 @@ PMU_DDR_CH3_PWR_SFTCON = 0x403C ; DDR channel 3 software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_DDR_POWER_STS = 0x4040 ; DDR power state register
+DDR_POWER_STS = 0x4040 ; DDR power state register
 > 0, 4, DDR_POWER_STATE, RO ; DDR power state.
 = 0, NORMAL ; Normal state
 = 1, ENTER_SR_AXI_CLK ; Enter self-refresh mode for AXI-clock state
@@ -662,7 +662,7 @@ PMU_DDR_POWER_STS = 0x4040 ; DDR power state register
 = 8, EXIT_SR_CORE_CLK ; Exit self-refresh mode for core-clock state
 = 9, EXIT_SR_AXI_CLK ; Exit self-refresh mode for AXI-clock state
 
-PMU_DDR_STS = 0x4044 ; DDR state register
+DDR_STS = 0x4044 ; DDR state register
 > 29, 1, DDR_CH3_IO_RSTIOV, RO ; DDR RST_IOV state for channel 3.
 = 0, INACTIVE
 = 1, ACTIVE
@@ -759,7 +759,7 @@ PMU_DDR_STS = 0x4044 ; DDR state register
 = 0, INACTIVE
 = 1, ACTIVE
 
-PMU_CRU_PWR_CON = 0x4050 ; Clock and reset hardware power control register
+CRU_PWR_CON = 0x4050 ; Clock and reset hardware power control register
 > 10, 1, POWER_OFF_IO_ENA ; Enable VCCIO enter low power mode by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -804,7 +804,7 @@ PMU_CRU_PWR_CON = 0x4050 ; Clock and reset hardware power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CRU_PWR_SFTCON = 0x4054 ; Clock and reset software power control register
+CRU_PWR_SFTCON = 0x4054 ; Clock and reset software power control register
 > 6, 1, POWER_OFF_IO_SFTENA ; Enable VCCIO enter low power mode by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -833,7 +833,7 @@ PMU_CRU_PWR_SFTCON = 0x4054 ; Clock and reset software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CRU_POWER_STS = 0x4058 ; Clock and reset power state register
+CRU_POWER_STS = 0x4058 ; Clock and reset power state register
 > 0, 4, CRU_POWER_STATE, RO ; Clock and reset power state.
 = 0, NORMAL ; Normal state
 = 1, CLK_LOW_FREQ ; Clock low frequency state
@@ -848,7 +848,7 @@ PMU_CRU_POWER_STS = 0x4058 ; Clock and reset power state register
 = 10, WAKE_UP_RESET_CLEAR ; Wake up reset clear state
 = 12, PLL_PWR_UP ; PLL power up state
 
-PMU_PLLPD_CON0 = 0x4060 ; PLL hardware power control register 0
+PLLPD_CON0 = 0x4060 ; PLL hardware power control register 0
 > 15, 1, NPLL_PD_ENA ; Enable power down NPLL by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -913,7 +913,7 @@ PMU_PLLPD_CON0 = 0x4060 ; PLL hardware power control register 0
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_PLLPD_CON1 = 0x4064 ; PLL hardware power control register 1
+PLLPD_CON1 = 0x4064 ; PLL hardware power control register 1
 > 1, 1, SPLL_PD_ENA ; Enable power down SPLL by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -922,7 +922,7 @@ PMU_PLLPD_CON1 = 0x4064 ; PLL hardware power control register 1
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_PLLPD_SFTCON0 = 0x4068 ; PLL software power control register 0
+PLLPD_SFTCON0 = 0x4068 ; PLL software power control register 0
 > 15, 1, NPLL_PD_SFTENA ; Enable power down NPLL by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -987,7 +987,7 @@ PMU_PLLPD_SFTCON0 = 0x4068 ; PLL software power control register 0
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_PLLPD_SFTCON1 = 0x406C ; PLL software power control register 1
+PLLPD_SFTCON1 = 0x406C ; PLL software power control register 1
 > 1, 1, SPLL_PD_SFTENA ; Enable power down SPLL by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -996,34 +996,34 @@ PMU_PLLPD_SFTCON1 = 0x406C ; PLL software power control register 1
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_PMIC_STABLE_CNT = 0x4080 ; PMIC stable count register
+PMIC_STABLE_CNT = 0x4080 ; PMIC stable count register
 > 0, 20, PMIC_STABLE_CNT ; PMIC stable count for mode 1 procedure. Number of clk_pmu used by counter logic.
 
-PMU_OSC_STABLE_CNT = 0x4084 ; Oscillator stable count register
+OSC_STABLE_CNT = 0x4084 ; Oscillator stable count register
 > 0, 20, OSC_STABLE_CNT ; Oscillator stable count for mode 1 procedure. Number of clk_pmu used by counter logic.
 
-PMU_WAKEUP_RST_CLR_CNT = 0x4088 ; Wake up reset clear count register
+WAKEUP_RST_CLR_CNT = 0x4088 ; Wake up reset clear count register
 > 0, 20, WAKEUP_RST_CLR_CNT ; Wake up reset clear count for mode 1 procedure. Number of clk_pmu used by counter logic.
 
-PMU_PLL_LOCK_CNT = 0x408C ; PLL lock count register
+PLL_LOCK_CNT = 0x408C ; PLL lock count register
 > 0, 20, PLL_LOCK_CNT ; Count for PLL from power up to lock. Number of clk_pmu used by counter logic.
 
-PMU_WAKEUP_TIMEOUT_CNT = 0x4094 ; PMU wake up timeout count register
+WAKEUP_TIMEOUT_CNT = 0x4094 ; PMU wake up timeout count register
 > 0, 20, WAKEUP_TIMEOUT_CNT ; Wake up timeout count. Number of clk_pmu used by counter logic.
 
-PMU_PWM_SWITCH_CNT = 0x4098 ; PWM switch stable count register
+PWM_SWITCH_CNT = 0x4098 ; PWM switch stable count register
 > 0, 20, PWM_SWITCH_CNT ; PWM switch count. Number of clk_pmu used by counter logic.
 
-PMU_SYS_REG0 = 0x4100 ; PMU system register 0. It cannot be reset by software.
-PMU_SYS_REG1 = 0x4104 ; PMU system register 1. It cannot be reset by software.
-PMU_SYS_REG2 = 0x4108 ; PMU system register 2. It cannot be reset by software.
-PMU_SYS_REG3 = 0x410C ; PMU system register 3. It cannot be reset by software.
-PMU_SYS_REG4 = 0x4110 ; PMU system register 4. It cannot be reset by software.
-PMU_SYS_REG5 = 0x4114 ; PMU system register 5. It cannot be reset by software.
-PMU_SYS_REG6 = 0x4118 ; PMU system register 6. It cannot be reset by software.
-PMU_SYS_REG7 = 0x411C ; PMU system register 7. It cannot be reset by software.
+SYS_REG0 = 0x4100 ; PMU system register 0. It cannot be reset by software.
+SYS_REG1 = 0x4104 ; PMU system register 1. It cannot be reset by software.
+SYS_REG2 = 0x4108 ; PMU system register 2. It cannot be reset by software.
+SYS_REG3 = 0x410C ; PMU system register 3. It cannot be reset by software.
+SYS_REG4 = 0x4110 ; PMU system register 4. It cannot be reset by software.
+SYS_REG5 = 0x4114 ; PMU system register 5. It cannot be reset by software.
+SYS_REG6 = 0x4118 ; PMU system register 6. It cannot be reset by software.
+SYS_REG7 = 0x411C ; PMU system register 7. It cannot be reset by software.
 
-PMU_PWR_CON2 = 0x8000 ; PMU hardware power control 2 register
+PWR_CON2 = 0x8000 ; PMU hardware power control 2 register
 > 7, 1, CPU7_LP_BYPASS ; Bypass CPU7 low power flow.
 = 0, DISABLE
 = 1, ENABLE
@@ -1056,7 +1056,7 @@ PMU_PWR_CON2 = 0x8000 ; PMU hardware power control 2 register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_DSU_PWR_CON = 0x8004 ; DSU hardware power control register
+DSU_PWR_CON = 0x8004 ; DSU hardware power control register
 > 10, 1, DSU_MEM_DWN_ACK_CLAMP_ENA ; Enable clamp for VD_DSU memory power down acknowledge. This bit should be set to 1 if dsu_pwroff_ena=1 and VD_DSU will be power off.
 = 0, DISABLE
 = 1, ENABLE
@@ -1096,7 +1096,7 @@ PMU_DSU_PWR_CON = 0x8004 ; DSU hardware power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_DSU_PWR_SFTCON = 0x8008 ; DSU software power control register
+DSU_PWR_SFTCON = 0x8008 ; DSU software power control register
 > 12, 1, DSU_SFT_CLUSTERPACTIVE_RETSF ; CLUSTERPACTIVE bit generated by software when requested mode is SFONLY FUNC_RET mode. High active. It is auto cleared when CLUSTERPREQ is active. It is used when DSU power mode transition is controlled by software.
 = 1, ACTIVE
 
@@ -1138,7 +1138,7 @@ PMU_DSU_PWR_SFTCON = 0x8008 ; DSU software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_DSU_AUTO_PWR_CON = 0x800C ; DSU automatic power control register
+DSU_AUTO_PWR_CON = 0x800C ; DSU automatic power control register
 > 13, 1, DSU_AUTO_RETSF_ENA ; Enable DSU enters SFONLY FUNC_RET mode automatically.
 = 0, DISABLE
 = 1, ENABLE
@@ -1191,7 +1191,7 @@ PMU_DSU_AUTO_PWR_CON = 0x800C ; DSU automatic power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CPU0_AUTO_PWR_CON = 0x8010 ; CPU0 automatic power control register
+CPU0_AUTO_PWR_CON = 0x8010 ; CPU0 automatic power control register
 > 11, 1, CPU_DBGRCV_NCPUPORESET_ENA ; Enable CPU enters cold reset by assert ncpureset when CPU in debug recovery mode by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -1232,7 +1232,7 @@ PMU_CPU0_AUTO_PWR_CON = 0x8010 ; CPU0 automatic power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CPU1_AUTO_PWR_CON = 0x8014 ; CPU1 automatic power control register
+CPU1_AUTO_PWR_CON = 0x8014 ; CPU1 automatic power control register
 > 11, 1, CPU_DBGRCV_NCPUPORESET_ENA ; Enable CPU enters cold reset by assert ncpureset when CPU in debug recovery mode by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -1273,7 +1273,7 @@ PMU_CPU1_AUTO_PWR_CON = 0x8014 ; CPU1 automatic power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CPU2_AUTO_PWR_CON = 0x8018 ; CPU2 automatic power control register
+CPU2_AUTO_PWR_CON = 0x8018 ; CPU2 automatic power control register
 > 11, 1, CPU_DBGRCV_NCPUPORESET_ENA ; Enable CPU enters cold reset by assert ncpureset when CPU in debug recovery mode by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -1314,7 +1314,7 @@ PMU_CPU2_AUTO_PWR_CON = 0x8018 ; CPU2 automatic power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CPU3_AUTO_PWR_CON = 0x801C ; CPU3 automatic power control register
+CPU3_AUTO_PWR_CON = 0x801C ; CPU3 automatic power control register
 > 11, 1, CPU_DBGRCV_NCPUPORESET_ENA ; Enable CPU enters cold reset by assert ncpureset when CPU in debug recovery mode by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -1355,7 +1355,7 @@ PMU_CPU3_AUTO_PWR_CON = 0x801C ; CPU3 automatic power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CPU4_AUTO_PWR_CON = 0x8020 ; CPU4 automatic power control register
+CPU4_AUTO_PWR_CON = 0x8020 ; CPU4 automatic power control register
 > 11, 1, CPU_DBGRCV_NCPUPORESET_ENA ; Enable CPU enters cold reset by assert ncpureset when CPU in debug recovery mode by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -1396,7 +1396,7 @@ PMU_CPU4_AUTO_PWR_CON = 0x8020 ; CPU4 automatic power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CPU5_AUTO_PWR_CON = 0x8024 ; CPU5 automatic power control register
+CPU5_AUTO_PWR_CON = 0x8024 ; CPU5 automatic power control register
 > 11, 1, CPU_DBGRCV_NCPUPORESET_ENA ; Enable CPU enters cold reset by assert ncpureset when CPU in debug recovery mode by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -1437,7 +1437,7 @@ PMU_CPU5_AUTO_PWR_CON = 0x8024 ; CPU5 automatic power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CPU6_AUTO_PWR_CON = 0x8028 ; CPU6 automatic power control register
+CPU6_AUTO_PWR_CON = 0x8028 ; CPU6 automatic power control register
 > 11, 1, CPU_DBGRCV_NCPUPORESET_ENA ; Enable CPU enters cold reset by assert ncpureset when CPU in debug recovery mode by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -1478,7 +1478,7 @@ PMU_CPU6_AUTO_PWR_CON = 0x8028 ; CPU6 automatic power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CPU7_AUTO_PWR_CON = 0x802C ; CPU7 automatic power control register
+CPU7_AUTO_PWR_CON = 0x802C ; CPU7 automatic power control register
 > 11, 1, CPU_DBGRCV_NCPUPORESET_ENA ; Enable CPU enters cold reset by assert ncpureset when CPU in debug recovery mode by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -1519,7 +1519,7 @@ PMU_CPU7_AUTO_PWR_CON = 0x802C ; CPU7 automatic power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CPU0_PWR_SFTCON = 0x8030 ; CPU0 software power control register
+CPU0_PWR_SFTCON = 0x8030 ; CPU0 software power control register
 > 8, 1, CPU_MEM_LS_SFTENA ; Enable CPU memory light sleep mode by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -1551,7 +1551,7 @@ PMU_CPU0_PWR_SFTCON = 0x8030 ; CPU0 software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CPU1_PWR_SFTCON = 0x8034 ; CPU1 software power control register
+CPU1_PWR_SFTCON = 0x8034 ; CPU1 software power control register
 > 8, 1, CPU_MEM_LS_SFTENA ; Enable CPU memory light sleep mode by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -1583,7 +1583,7 @@ PMU_CPU1_PWR_SFTCON = 0x8034 ; CPU1 software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CPU2_PWR_SFTCON = 0x8038 ; CPU2 software power control register
+CPU2_PWR_SFTCON = 0x8038 ; CPU2 software power control register
 > 8, 1, CPU_MEM_LS_SFTENA ; Enable CPU memory light sleep mode by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -1615,7 +1615,7 @@ PMU_CPU2_PWR_SFTCON = 0x8038 ; CPU2 software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CPU3_PWR_SFTCON = 0x803C ; CPU3 software power control register
+CPU3_PWR_SFTCON = 0x803C ; CPU3 software power control register
 > 8, 1, CPU_MEM_LS_SFTENA ; Enable CPU memory light sleep mode by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -1647,7 +1647,7 @@ PMU_CPU3_PWR_SFTCON = 0x803C ; CPU3 software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CPU4_PWR_SFTCON = 0x8040 ; CPU4 software power control register
+CPU4_PWR_SFTCON = 0x8040 ; CPU4 software power control register
 > 8, 1, CPU_MEM_LS_SFTENA ; Enable CPU memory light sleep mode by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -1679,7 +1679,7 @@ PMU_CPU4_PWR_SFTCON = 0x8040 ; CPU4 software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CPU5_PWR_SFTCON = 0x8044 ; CPU5 software power control register
+CPU5_PWR_SFTCON = 0x8044 ; CPU5 software power control register
 > 8, 1, CPU_MEM_LS_SFTENA ; Enable CPU memory light sleep mode by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -1711,7 +1711,7 @@ PMU_CPU5_PWR_SFTCON = 0x8044 ; CPU5 software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CPU6_PWR_SFTCON = 0x8048 ; CPU6 software power control register
+CPU6_PWR_SFTCON = 0x8048 ; CPU6 software power control register
 > 8, 1, CPU_MEM_LS_SFTENA ; Enable CPU memory light sleep mode by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -1743,7 +1743,7 @@ PMU_CPU6_PWR_SFTCON = 0x8048 ; CPU6 software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CPU7_PWR_SFTCON = 0x804C ; CPU7 software power control register
+CPU7_PWR_SFTCON = 0x804C ; CPU7 software power control register
 > 8, 1, CPU_MEM_LS_SFTENA ; Enable CPU memory light sleep mode by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -1775,7 +1775,7 @@ PMU_CPU7_PWR_SFTCON = 0x804C ; CPU7 software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CORE0_PWR_CON = 0x8050 ; BIGCORE0 hardware power control register
+CORE0_PWR_CON = 0x8050 ; BIGCORE0 hardware power control register
 > 3, 1, CORE_PWR_CNT_ENA ; Enable counter to wait for VD_BIGCORE0 power on or power off stability.
 = 0, DISABLE
 = 1, ENABLE
@@ -1792,7 +1792,7 @@ PMU_CORE0_PWR_CON = 0x8050 ; BIGCORE0 hardware power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CORE1_PWR_CON = 0x8054 ; BIGCORE1 hardware power control register
+CORE1_PWR_CON = 0x8054 ; BIGCORE1 hardware power control register
 > 3, 1, CORE_PWR_CNT_ENA ; Enable counter to wait for VD_BIGCORE1 power on or power off stability.
 = 0, DISABLE
 = 1, ENABLE
@@ -1809,7 +1809,7 @@ PMU_CORE1_PWR_CON = 0x8054 ; BIGCORE1 hardware power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CORE0_PWR_SFTCON = 0x8058 ; BIGCORE0 software power control register
+CORE0_PWR_SFTCON = 0x8058 ; BIGCORE0 software power control register
 > 3, 1, CORE_DWN_ACK_CLAMP_ENA ; Enable clamp for VD_BIGCORE0 power down acknowledge. This bit should be set to 1 if VD_BIGCORE0 power off.
 = 0, DISABLE
 = 1, ENABLE
@@ -1826,7 +1826,7 @@ PMU_CORE0_PWR_SFTCON = 0x8058 ; BIGCORE0 software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CORE1_PWR_SFTCON = 0x805C ; BIGCORE1 software power control register
+CORE1_PWR_SFTCON = 0x805C ; BIGCORE1 software power control register
 > 3, 1, CORE_DWN_ACK_CLAMP_ENA ; Enable clamp for VD_BIGCORE1 power down acknowledge. This bit should be set to 1 if VD_BIGCORE1 power off.
 = 0, DISABLE
 = 1, ENABLE
@@ -1843,7 +1843,7 @@ PMU_CORE1_PWR_SFTCON = 0x805C ; BIGCORE1 software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CORE0_AUTO_PWR_CON = 0x8060 ; BIGCORE0 automatic power control register
+CORE0_AUTO_PWR_CON = 0x8060 ; BIGCORE0 automatic power control register
 > 3, 1, CORE_INT_WAKEUP_SFTENA ; Enable VD_BIGCORE0 wake up by software.
 = 0, INACTIVE ; Wake up source inactive
 = 1, ACTIVE ; Wake up source active
@@ -1856,7 +1856,7 @@ PMU_CORE0_AUTO_PWR_CON = 0x8060 ; BIGCORE0 automatic power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CORE1_AUTO_PWR_CON = 0x8064 ; BIGCORE1 automatic power control register
+CORE1_AUTO_PWR_CON = 0x8064 ; BIGCORE1 automatic power control register
 > 3, 1, CORE_INT_WAKEUP_SFTENA ; Enable VD_BIGCORE1 wake up by software.
 = 0, INACTIVE ; Wake up source inactive
 = 1, ACTIVE ; Wake up source active
@@ -1869,7 +1869,7 @@ PMU_CORE1_AUTO_PWR_CON = 0x8064 ; BIGCORE1 automatic power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CLUSTER_BIU_AUTO_CON = 0x8068 ; Cluster BIU automatic power control register
+CLUSTER_BIU_AUTO_CON = 0x8068 ; Cluster BIU automatic power control register
 > 3, 1, BIU_AUTO_LITDSU_ENA ; If enable, BIU_LITDSU corresponding clock can be opened or gated automatically when idle operation.
 = 0, DISABLE
 = 1, ENABLE
@@ -1886,7 +1886,7 @@ PMU_CLUSTER_BIU_AUTO_CON = 0x8068 ; Cluster BIU automatic power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CLUSTER_BIU_IDLE_CON = 0x8070 ; Cluster BIU idle request hardware control register
+CLUSTER_BIU_IDLE_CON = 0x8070 ; Cluster BIU idle request hardware control register
 > 6, 1, ADB400_CORE_QCH_ENA ; Enable core ADB400 Q-Channel power control by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -1907,7 +1907,7 @@ PMU_CLUSTER_BIU_IDLE_CON = 0x8070 ; Cluster BIU idle request hardware control re
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CLUSTER_BIU_IDLE_SFTCON = 0x8074 ; Cluster BIU idle request software control register
+CLUSTER_BIU_IDLE_SFTCON = 0x8074 ; Cluster BIU idle request software control register
 > 6, 1, ADB400_CORE_QCH_SFTENA ; Enable core ADB400 Q-Channel power control by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -1928,7 +1928,7 @@ PMU_CLUSTER_BIU_IDLE_SFTCON = 0x8074 ; Cluster BIU idle request software control
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_CLUSTER_BIU_IDLE_ACK_STS = 0x8078 ; Cluster BIU idle acknowledge status register
+CLUSTER_BIU_IDLE_ACK_STS = 0x8078 ; Cluster BIU idle acknowledge status register
 > 4, 1, ADB400_CORE_PACCEPT, RO ; PACCEPT state from core ADB400.
 = 0, INACTIVE
 = 1, ACTIVE
@@ -1949,7 +1949,7 @@ PMU_CLUSTER_BIU_IDLE_ACK_STS = 0x8078 ; Cluster BIU idle acknowledge status regi
 = 0, NAK
 = 1, ACK
 
-PMU_CLUSTER_BIU_IDLE_STS = 0x807C ; Cluster BIU idle status register
+CLUSTER_BIU_IDLE_STS = 0x807C ; Cluster BIU idle status register
 > 4, 1, ADB400_CORE_PACTIVE, RO ; PACTIVE state from core ADB400.
 = 0, INACTIVE
 = 1, ACTIVE
@@ -1970,7 +1970,7 @@ PMU_CLUSTER_BIU_IDLE_STS = 0x807C ; Cluster BIU idle status register
 = 0, NOT_IDLE
 = 1, IDLE
 
-PMU_CLUSTER_STS = 0x8080 ; Cluster status register
+CLUSTER_STS = 0x8080 ; Cluster status register
 > 27, 1, CPU7_STANDBYWFI, RO ; CPU7 standbywfi state.
 = 0, NOT ; Not standbywfi
 = 1, STANDBY ; Standbywfi
@@ -2083,7 +2083,7 @@ PMU_CLUSTER_STS = 0x8080 ; Cluster status register
 = 0, POWER_UP
 = 1, POWER_DOWN
 
-PMU_CLUSTER_POWER_STS0 = 0x8084 ; Cluster power status register 0
+CLUSTER_POWER_STS0 = 0x8084 ; Cluster power status register 0
 > 28, 3, CPU7_POWER_STATE ; CPU7 power state.
 = 0, NORMAL ; Normal state
 = 1, OFF ; Off state
@@ -2140,7 +2140,7 @@ PMU_CLUSTER_POWER_STS0 = 0x8084 ; Cluster power status register 0
 = 3, RETENTION ; Retention state
 = 4, DEBUG_RECOVERY ; Debug recovery state
 
-PMU_CLUSTER_POWER_STS1 = 0x8088 ; Cluster power status register 1
+CLUSTER_POWER_STS1 = 0x8088 ; Cluster power status register 1
 > 8, 4, DSU_POWER_STATE, RO ; DSU power state.
 = 0, NORMAL ; Normal state
 = 1, XFER_IDLE ; DSU transfer idle state
@@ -2181,7 +2181,7 @@ PMU_CLUSTER_POWER_STS1 = 0x8088 ; Cluster power status register 1
 = 7, CORE_XFER_RESUME ; Core transfer resume state
 = 8, CPU_PWR_UP ; CPU power up state
 
-PMU_CLUSTER_PCHANNEL_STS0 = 0x808C ; Cluster P-Channel status register 0
+CLUSTER_PCHANNEL_STS0 = 0x808C ; Cluster P-Channel status register 0
 > 29, 1, CPU3_PDENY, RO ; CPU3 P-Channel status.
 = 1, ACTIVE
 
@@ -2254,7 +2254,7 @@ PMU_CLUSTER_PCHANNEL_STS0 = 0x808C ; Cluster P-Channel status register 0
 > 0, 1, CPU0_PACTIVE1, RO ; CPU0 P-Channel status.
 = 1, ACTIVE
 
-PMU_CLUSTER_PCHANNEL_STS1 = 0x8090 ; Cluster P-Channel status register 1
+CLUSTER_PCHANNEL_STS1 = 0x8090 ; Cluster P-Channel status register 1
 > 29, 1, CPU7_PDENY, RO ; CPU7 P-Channel status.
 = 1, ACTIVE
 
@@ -2327,7 +2327,7 @@ PMU_CLUSTER_PCHANNEL_STS1 = 0x8090 ; Cluster P-Channel status register 1
 > 0, 1, CPU4_PACTIVE1, RO ; CPU4 P-Channel status.
 = 1, ACTIVE
 
-PMU_CLUSTER_PCHANNEL_STS2 = 0x8094 ; Cluster P-Channel status register 2
+CLUSTER_PCHANNEL_STS2 = 0x8094 ; Cluster P-Channel status register 2
 > 8, 1, CLUSTERPDENY, RO ; DSU P-Channel status.
 = 1, ACTIVE
 
@@ -2355,7 +2355,7 @@ PMU_CLUSTER_PCHANNEL_STS2 = 0x8094 ; Cluster P-Channel status register 2
 > 0, 1, CLUSTERPACTIVE2, RO ; DSU P-Channel status.
 = 1, ACTIVE
 
-PMU_CPU_PWR_CHAIN_STABLE_CON = 0x8098 ; CPU power chain stable control register
+CPU_PWR_CHAIN_STABLE_CON = 0x8098 ; CPU power chain stable control register
 > 15, 1, CPU7_PWRDN_STABLE_ENA ; Enable stable counter between power chains for PD_CPU7 power down flow.
 = 0, DISABLE
 = 1, ENABLE
@@ -2420,7 +2420,7 @@ PMU_CPU_PWR_CHAIN_STABLE_CON = 0x8098 ; CPU power chain stable control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_DSU_MEM_PWR_CON = 0x809C ; DSU memory power control register
+DSU_MEM_PWR_CON = 0x809C ; DSU memory power control register
 # 12, 4, DSU_MEM_LS_SFTENA ; Enable DSU memory enters light sleep mode by software.
 > 15, 1, DSU_MEM_LS_SFTENA3 ; used to light sleep "L3 Tag ways 8~11, L3 Data portion 1 RAMs".
 = 0, DISABLE
@@ -2489,58 +2489,58 @@ PMU_DSU_MEM_PWR_CON = 0x809C ; DSU memory power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_DSU_STABLE_CNT = 0x80B0 ; DSU power stable count register
+DSU_STABLE_CNT = 0x80B0 ; DSU power stable count register
 > 0, 20, DSU_STABLE_CNT ; VD_DSU power stable count. Number of clk_pmu used by counter logic.
 
-PMU_DSU_PWRUP_CNT = 0x80B4 ; DSU power up count register
+DSU_PWRUP_CNT = 0x80B4 ; DSU power up count register
 > 0, 20, DSU_PWRUP_CNT ; VD_DSU power up count. Number of clk_pmu used by counter logic.
 
-PMU_DSU_PWRDN_CNT = 0x80B8 ; DSU power down count register
+DSU_PWRDN_CNT = 0x80B8 ; DSU power down count register
 > 0, 20, DSU_PWRDN_CNT ; VD_DSU power down count. Number of clk_pmu used by counter logic.
 
-PMU_CORE0_STABLE_CNT = 0x80BC ; BIGCORE0 power stable count register
+CORE0_STABLE_CNT = 0x80BC ; BIGCORE0 power stable count register
 > 0, 20, CORE0_STABLE_CNT ; VD_BIGCORE0 power stable count. Number of clk_pmu used by counter logic.
 
-PMU_CORE0_PWRUP_CNT = 0x80C0 ; BIGCORE0 power up count register
+CORE0_PWRUP_CNT = 0x80C0 ; BIGCORE0 power up count register
 > 0, 20, CORE0_PWRUP_CNT ; VD_BIGCORE0 power up count. Number of clk_pmu used by counter logic.
 
-PMU_CORE0_PWRDN_CNT = 0x80C4 ; BIGCORE0 power down count register
+CORE0_PWRDN_CNT = 0x80C4 ; BIGCORE0 power down count register
 > 0, 20, CORE0_PWRDN_CNT ; VD_BIGCORE0 power down count. Number of clk_pmu used by counter logic.
 
-PMU_CORE1_STABLE_CNT = 0x80C8 ; BIGCORE1 power stable count register
+CORE1_STABLE_CNT = 0x80C8 ; BIGCORE1 power stable count register
 > 0, 20, CORE1_STABLE_CNT ; VD_BIGCORE1 power stable count. Number of clk_pmu used by counter logic.
 
-PMU_CORE1_PWRUP_CNT = 0x80CC ; BIGCORE1 power up count register
+CORE1_PWRUP_CNT = 0x80CC ; BIGCORE1 power up count register
 > 0, 20, CORE1_PWRUP_CNT ; VD_BIGCORE1 power up count. Number of clk_pmu used by counter logic.
 
-PMU_CORE1_PWRDN_CNT = 0x80D0 ; BIGCORE1 power down count register
+CORE1_PWRDN_CNT = 0x80D0 ; BIGCORE1 power down count register
 > 0, 20, CORE1_PWRDN_CNT ; VD_BIGCORE1 power down count. Number of clk_pmu used by counter logic.
 
-PMU_CPU0_DBG_RST_CNT = 0x80D4 ; CPU0 debug reset count register
+CPU0_DBG_RST_CNT = 0x80D4 ; CPU0 debug reset count register
 > 0, 20, CPU0_DBG_RST_CNT ; CPU0 debug reset count. Number of clk_pmu used by counter logic. The CPU reset holds low until counter to zero in debug recovery mode.
 
-PMU_CPU1_DBG_RST_CNT = 0x80D8 ; CPU1 debug reset count register
+CPU1_DBG_RST_CNT = 0x80D8 ; CPU1 debug reset count register
 > 0, 20, CPU1_DBG_RST_CNT ; CPU1 debug reset count. Number of clk_pmu used by counter logic. The CPU reset holds low until counter to zero in debug recovery mode.
 
-PMU_CPU2_DBG_RST_CNT = 0x80DC ; CPU2 debug reset count register
+CPU2_DBG_RST_CNT = 0x80DC ; CPU2 debug reset count register
 > 0, 20, CPU2_DBG_RST_CNT ; CPU2 debug reset count. Number of clk_pmu used by counter logic. The CPU reset holds low until counter to zero in debug recovery mode.
 
-PMU_CPU3_DBG_RST_CNT = 0x80E0 ; CPU3 debug reset count register
+CPU3_DBG_RST_CNT = 0x80E0 ; CPU3 debug reset count register
 > 0, 20, CPU3_DBG_RST_CNT ; CPU3 debug reset count. Number of clk_pmu used by counter logic. The CPU reset holds low until counter to zero in debug recovery mode.
 
-PMU_CPU4_DBG_RST_CNT = 0x80E4 ; CPU4 debug reset count register
+CPU4_DBG_RST_CNT = 0x80E4 ; CPU4 debug reset count register
 > 0, 20, CPU4_DBG_RST_CNT ; CPU4 debug reset count. Number of clk_pmu used by counter logic. The CPU reset holds low until counter to zero in debug recovery mode.
 
-PMU_CPU5_DBG_RST_CNT = 0x80E8 ; CPU5 debug reset count register
+CPU5_DBG_RST_CNT = 0x80E8 ; CPU5 debug reset count register
 > 0, 20, CPU5_DBG_RST_CNT ; CPU5 debug reset count. Number of clk_pmu used by counter logic. The CPU reset holds low until counter to zero in debug recovery mode.
 
-PMU_CPU6_DBG_RST_CNT = 0x80EC ; CPU6 debug reset count register
+CPU6_DBG_RST_CNT = 0x80EC ; CPU6 debug reset count register
 > 0, 20, CPU6_DBG_RST_CNT ; CPU6 debug reset count. Number of clk_pmu used by counter logic. The CPU reset holds low until counter to zero in debug recovery mode.
 
-PMU_CPU7_DBG_RST_CNT = 0x80F0 ; CPU7 debug reset count register
+CPU7_DBG_RST_CNT = 0x80F0 ; CPU7 debug reset count register
 > 0, 20, CPU7_DBG_RST_CNT ; CPU7 debug reset count. Number of clk_pmu used by counter logic. The CPU reset holds low until counter to zero in debug recovery mode.
 
-PMU_BIU_IDLE_CON0 = 0x8100 ; BIU idle request hardware control register 0
+BIU_IDLE_CON0 = 0x8100 ; BIU idle request hardware control register 0
 > 15, 1, IDLE_REQ_VO0_ENA ; Enable sending idle request to BIU_VO0 by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -2605,7 +2605,7 @@ PMU_BIU_IDLE_CON0 = 0x8100 ; BIU idle request hardware control register 0
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_BIU_IDLE_CON1 = 0x8104 ; BIU idle request hardware control register 1
+BIU_IDLE_CON1 = 0x8104 ; BIU idle request hardware control register 1
 > 15, 1, IDLE_REQ_DDRSCH3_ENA ; Enable sending idle request to BIU_DDRSCH3 by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -2670,7 +2670,7 @@ PMU_BIU_IDLE_CON1 = 0x8104 ; BIU idle request hardware control register 1
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_BIU_IDLE_CON2 = 0x8108 ; BIU idle request hardware control register 2
+BIU_IDLE_CON2 = 0x8108 ; BIU idle request hardware control register 2
 > 2, 1, IDLE_REQ_TOP_ENA ; Enable sending idle request to BIU_TOP by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -2683,7 +2683,7 @@ PMU_BIU_IDLE_CON2 = 0x8108 ; BIU idle request hardware control register 2
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_BIU_IDLE_SFTCON0 = 0x810C ; BIU idle request software control register 0
+BIU_IDLE_SFTCON0 = 0x810C ; BIU idle request software control register 0
 > 15, 1, IDLE_REQ_VO0_SFTENA ; Enable sending idle request to BIU_VO0 by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -2748,7 +2748,7 @@ PMU_BIU_IDLE_SFTCON0 = 0x810C ; BIU idle request software control register 0
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_BIU_IDLE_SFTCON1 = 0x8110 ; BIU idle request software control register 1
+BIU_IDLE_SFTCON1 = 0x8110 ; BIU idle request software control register 1
 > 15, 1, IDLE_REQ_DDRSCH3_SFTENA ; Enable sending idle request to BIU_DDRSCH3 by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -2813,7 +2813,7 @@ PMU_BIU_IDLE_SFTCON1 = 0x8110 ; BIU idle request software control register 1
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_BIU_IDLE_SFTCON2 = 0x8114 ; BIU idle request software control register 2
+BIU_IDLE_SFTCON2 = 0x8114 ; BIU idle request software control register 2
 > 2, 1, IDLE_REQ_TOP_SFTENA ; Enable sending idle request to BIU_TOP by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -2826,7 +2826,7 @@ PMU_BIU_IDLE_SFTCON2 = 0x8114 ; BIU idle request software control register 2
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_BIU_IDLE_ACK_STS0 = 0x8118 ; BIU idle acknowledge status register 0
+BIU_IDLE_ACK_STS0 = 0x8118 ; BIU idle acknowledge status register 0
 > 31, 1, IDLE_ACK_DDRSCH3, RO ; BIU_DDRSCH3 idle acknowledge state.
 = 0, NAK
 = 1, ACK
@@ -2955,7 +2955,7 @@ PMU_BIU_IDLE_ACK_STS0 = 0x8118 ; BIU idle acknowledge status register 0
 = 0, NAK
 = 1, ACK
 
-PMU_BIU_IDLE_ACK_STS1 = 0x811C ; BIU idle acknowledge status register 1
+BIU_IDLE_ACK_STS1 = 0x811C ; BIU idle acknowledge status register 1
 > 2, 1, IDLE_ACK_TOP, RO ; BIU_TOP idle acknowledge state.
 = 0, NAK
 = 1, ACK
@@ -2968,7 +2968,7 @@ PMU_BIU_IDLE_ACK_STS1 = 0x811C ; BIU idle acknowledge status register 1
 = 0, NAK
 = 1, ACK
 
-PMU_BIU_IDLE_STS0 = 0x8120 ; BIU idle status register 0
+BIU_IDLE_STS0 = 0x8120 ; BIU idle status register 0
 > 31, 1, IDLE_DDRSCH3, RO ; BIU_DDRSCH3 idle state.
 = 0, NOT_IDLE
 = 1, IDLE
@@ -3097,7 +3097,7 @@ PMU_BIU_IDLE_STS0 = 0x8120 ; BIU idle status register 0
 = 0, NOT_IDLE
 = 1, IDLE
 
-PMU_BIU_IDLE_STS1 = 0x8124 ; BIU idle status register 1
+BIU_IDLE_STS1 = 0x8124 ; BIU idle status register 1
 > 2, 1, IDLE_TOP, RO ; BIU_TOP idle state.
 = 0, NOT_IDLE
 = 1, IDLE
@@ -3110,7 +3110,7 @@ PMU_BIU_IDLE_STS1 = 0x8124 ; BIU idle status register 1
 = 0, NOT_IDLE
 = 1, IDLE
 
-PMU_BIU_AUTO_CON0 = 0x8128 ; BIU automatic power control register 0
+BIU_AUTO_CON0 = 0x8128 ; BIU automatic power control register 0
 > 15, 1, IDLE_AUTO_VO0_ENA ; If enable, BIU_VO0 corresponding clock can be opened or gated automatically when idle operation.
 = 0, DISABLE
 = 1, ENABLE
@@ -3175,7 +3175,7 @@ PMU_BIU_AUTO_CON0 = 0x8128 ; BIU automatic power control register 0
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_BIU_AUTO_CON1 = 0x812C ; BIU automatic power control register 1
+BIU_AUTO_CON1 = 0x812C ; BIU automatic power control register 1
 > 15, 1, IDLE_AUTO_DDRSCH3_ENA ; If enable, BIU_DDRSCH3 corresponding clock can be opened or gated automatically when idle operation.
 = 0, DISABLE
 = 1, ENABLE
@@ -3240,7 +3240,7 @@ PMU_BIU_AUTO_CON1 = 0x812C ; BIU automatic power control register 1
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_BIU_AUTO_CON2 = 0x8130 ; BIU automatic power control register 2
+BIU_AUTO_CON2 = 0x8130 ; BIU automatic power control register 2
 > 2, 1, IDLE_AUTO_TOP_ENA ; If enable, BIU_TOP corresponding clock can be opened or gated automatically when idle operation.
 = 0, DISABLE
 = 1, ENABLE
@@ -3253,7 +3253,7 @@ PMU_BIU_AUTO_CON2 = 0x8130 ; BIU automatic power control register 2
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_PWR_GATE_CON0 = 0x8140 ; Power domain hardware power control register 0
+PWR_GATE_CON0 = 0x8140 ; Power domain hardware power control register 0
 > 15, 1, PD_ISP1_DWN_ENA ; Enable power down PD_ISP1 by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -3318,7 +3318,7 @@ PMU_PWR_GATE_CON0 = 0x8140 ; Power domain hardware power control register 0
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_PWR_GATE_CON1 = 0x8144 ; Power domain hardware power control register 1
+PWR_GATE_CON1 = 0x8144 ; Power domain hardware power control register 1
 > 15, 1, PD_CENTER_DWN_ENA ; Enable power down PD_CENTER by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -3383,7 +3383,7 @@ PMU_PWR_GATE_CON1 = 0x8144 ; Power domain hardware power control register 1
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_PWR_GATE_CON2 = 0x8148 ; Power domain hardware power control register 2
+PWR_GATE_CON2 = 0x8148 ; Power domain hardware power control register 2
 > 1, 1, PD_DDR23_DWN_ENA ; Enable power down VD_DDR23 by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -3392,7 +3392,7 @@ PMU_PWR_GATE_CON2 = 0x8148 ; Power domain hardware power control register 2
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_PWR_GATE_SFTCON0 = 0x814C ; Power domain software power control register 0
+PWR_GATE_SFTCON0 = 0x814C ; Power domain software power control register 0
 > 15, 1, PD_ISP1_DWN_SFTENA ; Enable power down PD_ISP1 by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -3457,7 +3457,7 @@ PMU_PWR_GATE_SFTCON0 = 0x814C ; Power domain software power control register 0
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_PWR_GATE_SFTCON1 = 0x8150 ; Power domain software power control register 1
+PWR_GATE_SFTCON1 = 0x8150 ; Power domain software power control register 1
 > 15, 1, PD_CENTER_DWN_SFTENA ; Enable power down PD_CENTER by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -3522,7 +3522,7 @@ PMU_PWR_GATE_SFTCON1 = 0x8150 ; Power domain software power control register 1
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_PWR_GATE_SFTCON2 = 0x8154 ; Power domain software power control register 2
+PWR_GATE_SFTCON2 = 0x8154 ; Power domain software power control register 2
 > 1, 1, PD_DDR23_DWN_SFTENA ; Enable power down VD_DDR23 by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -3531,7 +3531,7 @@ PMU_PWR_GATE_SFTCON2 = 0x8154 ; Power domain software power control register 2
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_VOL_GATE_CON0 = 0x8158 ; Voltage domain power control register 0
+VOL_GATE_CON0 = 0x8158 ; Voltage domain power control register 0
 > 2, 1, VD_VCODEC_OFF_ENA ; Enable power off VD_VCODEC.
 = 0, DISABLE
 = 1, ENABLE
@@ -3544,7 +3544,7 @@ PMU_VOL_GATE_CON0 = 0x8158 ; Voltage domain power control register 0
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_VOL_GATE_CON1 = 0x8160 ; Voltage domain power control register 1
+VOL_GATE_CON1 = 0x8160 ; Voltage domain power control register 1
 > 1, 1, VD_DDR23_OFF_ENA ; Enable power off VD_DDR23.
 = 0, DISABLE
 = 1, ENABLE
@@ -3553,7 +3553,7 @@ PMU_VOL_GATE_CON1 = 0x8160 ; Voltage domain power control register 1
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_PWR_CHAIN_PWRUP_CON0 = 0x8164 ; Power chain stable control register 0 for power up
+PWR_CHAIN_PWRUP_CON0 = 0x8164 ; Power chain stable control register 0 for power up
 > 15, 1, PD_ISP1_PWRUP_STABLE_ENA ; Enable stable counter between power chains for PD_ISP1 power up flow.
 = 0, DISABLE
 = 1, ENABLE
@@ -3606,7 +3606,7 @@ PMU_PWR_CHAIN_PWRUP_CON0 = 0x8164 ; Power chain stable control register 0 for po
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_PWR_CHAIN_PWRUP_CON1 = 0x8168 ; Power chain stable control register 1 for power up
+PWR_CHAIN_PWRUP_CON1 = 0x8168 ; Power chain stable control register 1 for power up
 > 15, 1, PD_CENTER_PWRUP_STABLE_ENA ; Enable stable counter between power chains for PD_CENTER power up flow.
 = 0, DISABLE
 = 1, ENABLE
@@ -3671,7 +3671,7 @@ PMU_PWR_CHAIN_PWRUP_CON1 = 0x8168 ; Power chain stable control register 1 for po
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_PWR_CHAIN_PWRDN_CON0 = 0x8170 ; Power chain stable control register 0 for power down
+PWR_CHAIN_PWRDN_CON0 = 0x8170 ; Power chain stable control register 0 for power down
 > 15, 1, PD_ISP1_PWRDN_STABLE_ENA ; Enable stable counter between power chains for PD_ISP1 power down flow.
 = 0, DISABLE
 = 1, ENABLE
@@ -3724,7 +3724,7 @@ PMU_PWR_CHAIN_PWRDN_CON0 = 0x8170 ; Power chain stable control register 0 for po
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_PWR_CHAIN_PWRDN_CON1 = 0x8174 ; Power chain stable control register 1 for power down
+PWR_CHAIN_PWRDN_CON1 = 0x8174 ; Power chain stable control register 1 for power down
 > 15, 1, PD_CENTER_PWRDN_STABLE_ENA ; Enable stable counter between power chains for PD_CENTER power down flow.
 = 0, DISABLE
 = 1, ENABLE
@@ -3789,11 +3789,11 @@ PMU_PWR_CHAIN_PWRDN_CON1 = 0x8174 ; Power chain stable control register 1 for po
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_PWR_STABLE_CNT = 0x817C ; Power chain stable count register
+PWR_STABLE_CNT = 0x817C ; Power chain stable count register
 > 16, 5, PWRDN_STABLE_CNT ; Count for power chain power down stability. Number of clk_pmu used by counter logic.
 > 0, 5, PWRUP_STABLE_CNT ; Count for power chain power up stability. Number of clk_pmu used by counter logic.
 
-PMU_PWR_GATE_STS0 = 0x8180 ; Power domain power status register 0
+PWR_GATE_STS0 = 0x8180 ; Power domain power status register 0
 > 31, 1, PD_CENTER_DWN_STAT, RO ; The power state of PD_CENTER.
 = 0, POWER_UP
 = 1, POWER_DOWN
@@ -3922,7 +3922,7 @@ PMU_PWR_GATE_STS0 = 0x8180 ; Power domain power status register 0
 = 0, POWER_UP
 = 1, POWER_DOWN
 
-PMU_PWR_GATE_STS1 = 0x8184 ; Power domain power status register 1
+PWR_GATE_STS1 = 0x8184 ; Power domain power status register 1
 > 1, 1, PD_DDR23_DWN_STAT, RO ; The power state of VD_DDR23.
 = 0, POWER_UP
 = 1, POWER_DOWN
@@ -3931,7 +3931,7 @@ PMU_PWR_GATE_STS1 = 0x8184 ; Power domain power status register 1
 = 0, POWER_UP
 = 1, POWER_DOWN
 
-PMU_PWR_GATE_POWER_STS = 0x8188 ; Power gating status register
+PWR_GATE_POWER_STS = 0x8188 ; Power gating status register
 > 0, 3, POWER_GATE_STATE, RO ; Power gating state.
 = 0, NORMAL ; Normal state
 = 1, PWR_DOWN_START ; Power down start state
@@ -3940,7 +3940,7 @@ PMU_PWR_GATE_POWER_STS = 0x8188 ; Power gating status register
 = 4, PWR_UP_START ; Power up start state
 = 5, PWR_UP_RUNNING ; Power up running state
 
-PMU_VOL_GATE_FAST_CON = 0x818C ; Voltage domain fast power control register
+VOL_GATE_FAST_CON = 0x818C ; Voltage domain fast power control register
 > 1, 1, VD_NPU_FAST_ENA ; Enable VD_NPU fast power control. When asserted, it means that VD_NPU will power up completely if VD_NPU power up count from npu_pwrup_cnt (defined in PMU_NPU_PWRUP_CNT) to zero when VD_NPU power up request active, or VD_NPU will power down completely if VD_NPU power down count from npu_pwrdn_cnt (defined in PMU_NPU_PWRDN_CNT) to zero when VD_NPU power down request active. Otherwise, it means that VD_NPU will power up completely as soon as VD_NPU power up request active, or power down completely as soon as VD_NPU power down request active.
 = 0, DISABLE
 = 1, ENABLE
@@ -3949,19 +3949,19 @@ PMU_VOL_GATE_FAST_CON = 0x818C ; Voltage domain fast power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_GPU_PWRUP_CNT = 0x8190 ; VD_GPU power up count register
+GPU_PWRUP_CNT = 0x8190 ; VD_GPU power up count register
 > 0, 20, GPU_PWRUP_CNT ; VD_GPU power up count. Number of clk_pmu used by counter logic.
 
-PMU_GPU_PWRDN_CNT = 0x8194 ; VD_GPU power down count register
+GPU_PWRDN_CNT = 0x8194 ; VD_GPU power down count register
 > 0, 20, GPU_PWRDN_CNT ; VD_GPU power down count. Number of clk_pmu used by counter logic.
 
-PMU_NPU_PWRUP_CNT = 0x8198 ; VD_NPU power up count register
+NPU_PWRUP_CNT = 0x8198 ; VD_NPU power up count register
 > 0, 20, NPU_PWRUP_CNT ; VD_NPU power up count. Number of clk_pmu used by counter logic.
 
-PMU_NPU_PWRDN_CNT = 0x819C ; VD_NPU power down count register
+NPU_PWRDN_CNT = 0x819C ; VD_NPU power down count register
 > 0, 20, NPU_PWRDN_CNT ; VD_NPU power down count. Number of clk_pmu used by counter logic.
 
-PMU_MEM_PWR_GATE_SFTCON0 = 0x81A0 ; Memory software power control register 0
+MEM_PWR_GATE_SFTCON0 = 0x81A0 ; Memory software power control register 0
 > 15, 1, PD_ISP1_MEM_DWN_SFTENA ; Enable power down PD_ISP1's memory by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -4010,7 +4010,7 @@ PMU_MEM_PWR_GATE_SFTCON0 = 0x81A0 ; Memory software power control register 0
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_MEM_PWR_GATE_SFTCON1 = 0x81A4 ; Memory software power control register 1
+MEM_PWR_GATE_SFTCON1 = 0x81A4 ; Memory software power control register 1
 > 15, 1, PD_CENTER_MEM_DWN_SFTENA ; Enable power down PD_CENTER's memory by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -4067,7 +4067,7 @@ PMU_MEM_PWR_GATE_SFTCON1 = 0x81A4 ; Memory software power control register 1
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_MEM_PWR_GATE_SFTCON2 = 0x81A8 ; Memory software power control register 2
+MEM_PWR_GATE_SFTCON2 = 0x81A8 ; Memory software power control register 2
 > 1, 1, PD_DDR23_MEM_DWN_SFTENA ; Enable power down VD_DDR23's memory by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -4076,7 +4076,7 @@ PMU_MEM_PWR_GATE_SFTCON2 = 0x81A8 ; Memory software power control register 2
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_SUBMEM_PWR_GATE_SFTCON0 = 0x81B0 ; Submodule memory software power control register 0
+SUBMEM_PWR_GATE_SFTCON0 = 0x81B0 ; Submodule memory software power control register 0
 > 15, 1, SHRM_BLK3_DS_CTRL ; Control share memory block 3 deep sleep mode by software.
 = 0, INVALID
 = 1, VALID
@@ -4141,7 +4141,7 @@ PMU_SUBMEM_PWR_GATE_SFTCON0 = 0x81B0 ; Submodule memory software power control r
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_SUBMEM_PWR_GATE_SFTCON1 = 0x81B4 ; Submodule memory software power control register 1
+SUBMEM_PWR_GATE_SFTCON1 = 0x81B4 ; Submodule memory software power control register 1
 > 15, 1, VOPPOST0_MEM_DWN_SFTENA ; Enable shutdown VOPPOST0 memory by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -4206,7 +4206,7 @@ PMU_SUBMEM_PWR_GATE_SFTCON1 = 0x81B4 ; Submodule memory software power control r
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_SUBMEM_PWR_GATE_SFTCON2 = 0x81B8 ; Submodule memory software power control register 2
+SUBMEM_PWR_GATE_SFTCON2 = 0x81B8 ; Submodule memory software power control register 2
 > 8, 1, DSIHOST1_MEM_DWN_SFTENA ; Enable shutdown DSIHOST1 memory by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -4243,7 +4243,7 @@ PMU_SUBMEM_PWR_GATE_SFTCON2 = 0x81B8 ; Submodule memory software power control r
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_SUBMEM_PWR_GATE_STS = 0x81BC ; Submodule memory power status register
+SUBMEM_PWR_GATE_STS = 0x81BC ; Submodule memory power status register
 > 28, 1, DSIHOST1_MEM_DWN_STAT, RO ; DSIHOST1 memory power status.
 = 0, POWER_UP
 = 1, POWER_DOWN
@@ -4360,7 +4360,7 @@ PMU_SUBMEM_PWR_GATE_STS = 0x81BC ; Submodule memory power status register
 = 0, POWER_UP
 = 1, POWER_DOWN
 
-PMU_SUBMEM_PWR_ACK_BYPASS_CON0 = 0x81C0 ; Submodule memory power acknowledge bypass control register 0
+SUBMEM_PWR_ACK_BYPASS_CON0 = 0x81C0 ; Submodule memory power acknowledge bypass control register 0
 > 15, 1, VOPPOST0_MEM_PWR_ACK_BYPASS_ENA ; Enable bypass VOPPOST0 memory power up or power down acknowledge. If asserted, it does not need to wait for VOPPOST0 memory power up or power down acknowledge for PD_VOP power up or power down flow.
 = 0, DISABLE
 = 1, ENABLE
@@ -4425,7 +4425,7 @@ PMU_SUBMEM_PWR_ACK_BYPASS_CON0 = 0x81C0 ; Submodule memory power acknowledge byp
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_SUBMEM_PWR_ACK_BYPASS_CON1 = 0x81C4 ; Submodule memory power acknowledge bypass control register 1
+SUBMEM_PWR_ACK_BYPASS_CON1 = 0x81C4 ; Submodule memory power acknowledge bypass control register 1
 > 12, 1, SHRM_BLK3_DWN_ACK_BYPASS_ENA ; Enable bypass share memory block3 memory power up or power down acknowledge. If asserted, it does not need to wait for share memory block3 memory power up or power down acknowledge for PD_CENTER power up or power down flow.
 = 0, DISABLE
 = 1, ENABLE
@@ -4478,7 +4478,7 @@ PMU_SUBMEM_PWR_ACK_BYPASS_CON1 = 0x81C4 ; Submodule memory power acknowledge byp
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_QCHANNEL_PWR_CON = 0x81D0 ; Q-Channel hardware power control register
+QCHANNEL_PWR_CON = 0x81D0 ; Q-Channel hardware power control register
 > 6, 1, BUSGIC_ITS1_QCH_ENA ; Enable BUSGIC-ITS1 Q-Channel power control by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -4507,7 +4507,7 @@ PMU_QCHANNEL_PWR_CON = 0x81D0 ; Q-Channel hardware power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_QCHANNEL_PWR_SFTCON = 0x81D4 ; Q-Channel software power control register
+QCHANNEL_PWR_SFTCON = 0x81D4 ; Q-Channel software power control register
 > 6, 1, BUSGIC_ITS1_QCH_SFTENA ; Enable BUSGIC-ITS1 Q-Channel power control by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -4536,7 +4536,7 @@ PMU_QCHANNEL_PWR_SFTCON = 0x81D4 ; Q-Channel software power control register
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_QCHANNEL_PWR_STS = 0x81D8 ; Q-Channel power status register
+QCHANNEL_PWR_STS = 0x81D8 ; Q-Channel power status register
 > 27, 1, BUSGIC_ITS1_QCH_REQ, RO ; Request status for BUSGIC-ITS1 Q-Channel power control.
 = 0, NOT_VALID
 = 1, VALID
@@ -4649,7 +4649,7 @@ PMU_QCHANNEL_PWR_STS = 0x81D8 ; Q-Channel power status register
 = 0, NOT_ACCEPT
 = 1, ACCEPT
 
-PMU_DEBUG_INFO_CON = 0x81E0 ; PMU debug information control register
+DEBUG_INFO_CON = 0x81E0 ; PMU debug information control register
 > 10, 1, CPU_POWER_STATE_SEL ; Select CPU power state as debug information output to IO.
 = 0, NOT_SELECT
 = 1, SELECT
@@ -4694,7 +4694,7 @@ PMU_DEBUG_INFO_CON = 0x81E0 ; PMU debug information control register
 = 0, NOT_SELECT
 = 1, SELECT
 
-PMU_VOP_SUBPD_PWR_CHAIN_STS = 0x81E4 ; VOP sub-domain power chain status register
+VOP_SUBPD_PWR_CHAIN_STS = 0x81E4 ; VOP sub-domain power chain status register
 > 20, 1, VOP_DSC8K_C0_PWR_STAT, RO ; PD_VOPDSC8K power chain 0 power state.
 = 0, POWER_DOWN
 = 1, POWER_UP
@@ -4779,7 +4779,7 @@ PMU_VOP_SUBPD_PWR_CHAIN_STS = 0x81E4 ; VOP sub-domain power chain status registe
 = 0, POWER_UP
 = 1, POWER_DOWN
 
-PMU_PWR_CHAIN0_STS0 = 0x81E8 ; Power domain power chain 0 status register 0
+PWR_CHAIN0_STS0 = 0x81E8 ; Power domain power chain 0 status register 0
 > 31, 1, PD_PCIE_C0_PWR_STAT, RO ; The power state of PD_PCIE power chain 0.
 = 0, POWER_DOWN
 = 1, POWER_UP
@@ -4896,7 +4896,7 @@ PMU_PWR_CHAIN0_STS0 = 0x81E8 ; Power domain power chain 0 status register 0
 = 0, POWER_DOWN
 = 1, POWER_UP
 
-PMU_PWR_CHAIN0_STS1 = 0x81EC ; Power domain power chain 0 status register 1
+PWR_CHAIN0_STS1 = 0x81EC ; Power domain power chain 0 status register 1
 > 7, 1, PD_CENTER_C0_PWR_STAT, RO ; The power state of PD_CENTER power chain 0.
 = 0, POWER_DOWN
 = 1, POWER_UP
@@ -4929,7 +4929,7 @@ PMU_PWR_CHAIN0_STS1 = 0x81EC ; Power domain power chain 0 status register 1
 = 0, POWER_DOWN
 = 1, POWER_UP
 
-PMU_PWR_CHAIN1_STS0 = 0x81F0 ; Power domain power chain 1 status register 0
+PWR_CHAIN1_STS0 = 0x81F0 ; Power domain power chain 1 status register 0
 > 31, 1, PD_PCIE_C1_PWR_STAT, RO ; The power state of PD_PCIE power chain 1.
 = 0, POWER_DOWN
 = 1, POWER_UP
@@ -5046,7 +5046,7 @@ PMU_PWR_CHAIN1_STS0 = 0x81F0 ; Power domain power chain 1 status register 0
 = 0, POWER_DOWN
 = 1, POWER_UP
 
-PMU_PWR_CHAIN1_STS1 = 0x81F4 ; Power domain power chain 1 status register 1
+PWR_CHAIN1_STS1 = 0x81F4 ; Power domain power chain 1 status register 1
 > 7, 1, PD_CENTER_C1_PWR_STAT, RO ; The power state of PD_CENTER power chain 1.
 = 0, POWER_DOWN
 = 1, POWER_UP
@@ -5079,7 +5079,7 @@ PMU_PWR_CHAIN1_STS1 = 0x81F4 ; Power domain power chain 1 status register 1
 = 0, POWER_DOWN
 = 1, POWER_UP
 
-PMU_PWR_MEM_STS0 = 0x81F8 ; Power domain memory power status register 0
+PWR_MEM_STS0 = 0x81F8 ; Power domain memory power status register 0
 > 31, 1, PD_PCIE_MEM_PWR_STAT, RO ; The power state of PD_PCIE memory.
 = 0, POWER_UP
 = 1, POWER_DOWN
@@ -5192,7 +5192,7 @@ PMU_PWR_MEM_STS0 = 0x81F8 ; Power domain memory power status register 0
 = 0, POWER_UP
 = 1, POWER_DOWN
 
-PMU_PWR_MEM_STS1 = 0x81FC ; Power domain memory power status register 1
+PWR_MEM_STS1 = 0x81FC ; Power domain memory power status register 1
 > 14, 1, PD_DSU_MEM_PWR_STAT4, RO ; used to indicate other memory power state.
 = 0, POWER_UP
 = 1, POWER_DOWN
@@ -5245,7 +5245,7 @@ PMU_PWR_MEM_STS1 = 0x81FC ; Power domain memory power status register 1
 = 0, POWER_UP
 = 1, POWER_DOWN
 
-PMU_BISR_CON0 = 0x8200 ; Memory repair control register 0
+BISR_CON0 = 0x8200 ; Memory repair control register 0
 > 11, 1, BISR_INITRSTN_DIS ; Disable initial reset for memory repair logic.
 = 0, ENABLE
 = 1, DISABLE
@@ -5281,7 +5281,7 @@ PMU_BISR_CON0 = 0x8200 ; Memory repair control register 0
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_BISR_CON1 = 0x8204 ; Memory repair control register 1
+BISR_CON1 = 0x8204 ; Memory repair control register 1
 > 15, 1, PD_RGA31_REPAIR_ENA ; Enable memory repair for PD_RGA31 by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -5342,7 +5342,7 @@ PMU_BISR_CON1 = 0x8204 ; Memory repair control register 1
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_BISR_CON2 = 0x8208 ; Memory repair control register 2
+BISR_CON2 = 0x8208 ; Memory repair control register 2
 > 15, 1, PD_BUS_REPAIR_ENA ; Enable memory repair for PD_BUS by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -5407,7 +5407,7 @@ PMU_BISR_CON2 = 0x8208 ; Memory repair control register 2
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_BISR_CON3 = 0x820C ; Memory repair control register 3
+BISR_CON3 = 0x820C ; Memory repair control register 3
 > 15, 1, PD_VOPESMART_REPAIR_ENA ; Enable memory repair for PD_VOPESMART by hardware.
 = 0, DISABLE
 = 1, ENABLE
@@ -5472,7 +5472,7 @@ PMU_BISR_CON3 = 0x820C ; Memory repair control register 3
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_BISR_CON4 = 0x8210 ; Memory repair control register 4
+BISR_CON4 = 0x8210 ; Memory repair control register 4
 > 15, 1, PD_RGA31_REPAIR_SFTENA ; Enable memory repair for PD_RGA31 by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -5537,7 +5537,7 @@ PMU_BISR_CON4 = 0x8210 ; Memory repair control register 4
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_BISR_CON5 = 0x8214 ; Memory repair control register 5
+BISR_CON5 = 0x8214 ; Memory repair control register 5
 > 15, 1, PD_BUS_REPAIR_SFTENA ; Enable memory repair for PD_BUS by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -5602,7 +5602,7 @@ PMU_BISR_CON5 = 0x8214 ; Memory repair control register 5
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_BISR_CON6 = 0x8218 ; Memory repair control register 6
+BISR_CON6 = 0x8218 ; Memory repair control register 6
 > 15, 1, PD_VOPESMART_REPAIR_SFTENA ; Enable memory repair for PD_VOPESMART by software.
 = 0, DISABLE
 = 1, ENABLE
@@ -5667,7 +5667,7 @@ PMU_BISR_CON6 = 0x8218 ; Memory repair control register 6
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_BISR_CON7 = 0x821C ; Memory repair control register 7
+BISR_CON7 = 0x821C ; Memory repair control register 7
 > 15, 1, PD_RGA31_PDGDONE_SFTENA ; Configure repair done for PD_RGA31 by software.
 = 0, INACTIVE
 = 1, ACTIVE
@@ -5732,7 +5732,7 @@ PMU_BISR_CON7 = 0x821C ; Memory repair control register 7
 = 0, INACTIVE
 = 1, ACTIVE
 
-PMU_BISR_CON8 = 0x8220 ; Memory repair control register 8
+BISR_CON8 = 0x8220 ; Memory repair control register 8
 > 15, 1, PD_BUS_PDGDONE_SFTENA ; Configure repair done for PD_BUS by software.
 = 0, INACTIVE
 = 1, ACTIVE
@@ -5797,7 +5797,7 @@ PMU_BISR_CON8 = 0x8220 ; Memory repair control register 8
 = 0, INACTIVE
 = 1, ACTIVE
 
-PMU_BISR_CON9 = 0x8224 ; Memory repair control register 9
+BISR_CON9 = 0x8224 ; Memory repair control register 9
 > 15, 1, PD_VOPESMART_PDGDONE_SFTENA ; Configure repair done for PD_VOPESMART by software.
 = 0, INACTIVE
 = 1, ACTIVE
@@ -5862,7 +5862,7 @@ PMU_BISR_CON9 = 0x8224 ; Memory repair control register 9
 = 0, INACTIVE
 = 1, ACTIVE
 
-PMU_BISR_CON10 = 0x8228 ; Memory repair control register 10
+BISR_CON10 = 0x8228 ; Memory repair control register 10
 > 16, 16, WRITE_ENABLE, WO ; Write Inactive for lower 16 bits, each bit is individual.
 = 0, ACTIVE ; Write access Active
 = 1, INACTIVE ; Write access Inactive
@@ -5931,7 +5931,7 @@ PMU_BISR_CON10 = 0x8228 ; Memory repair control register 10
 = 0, ACTIVE
 = 1, INACTIVE
 
-PMU_BISR_CON11 = 0x822C ; Memory repair control register 11
+BISR_CON11 = 0x822C ; Memory repair control register 11
 > 16, 16, WRITE_ENABLE, WO ; Write Inactive for lower 16 bits, each bit is individual.
 = 0, ACTIVE ; Write access Active
 = 1, INACTIVE ; Write access Inactive
@@ -6000,7 +6000,7 @@ PMU_BISR_CON11 = 0x822C ; Memory repair control register 11
 = 0, ACTIVE
 = 1, INACTIVE
 
-PMU_BISR_CON12 = 0x8230 ; Memory repair control register 12
+BISR_CON12 = 0x8230 ; Memory repair control register 12
 > 15, 1, PD_VOPESMART_INITRSTN_SFTENA ; Configure initial reset for PD_VOPESMART by software.
 = 0, ACTIVE
 = 1, INACTIVE
@@ -6065,7 +6065,7 @@ PMU_BISR_CON12 = 0x8230 ; Memory repair control register 12
 = 0, ACTIVE
 = 1, INACTIVE
 
-PMU_BISR_CON13 = 0x8234 ; Memory repair control register 13
+BISR_CON13 = 0x8234 ; Memory repair control register 13
 > 13, 1, PCIEPHY_INITRSTN_SFTENA ; Configure repair initial reset for PCIEPHY by software.
 = 0, ACTIVE
 = 1, INACTIVE
@@ -6098,10 +6098,10 @@ PMU_BISR_CON13 = 0x8234 ; Memory repair control register 13
 = 0, DISABLE
 = 1, ENABLE
 
-PMU_BISR_CON14 = 0x8238 ; Memory repair control register 14
+BISR_CON14 = 0x8238 ; Memory repair control register 14
 > 0, 32, BISR_TIMEOUT_CNT ; BISR timeout count for PDGDone. Number of repair clock used by counter logic.
 
-PMU_BISR_STS0 = 0x8280 ; Memory repair status register 0
+BISR_STS0 = 0x8280 ; Memory repair status register 0
 > 31, 1, PD_BUS_DWN_PDGDONE, RO ; PDGDone status for PD_BUS repair.
 = 0, NOT_COMPLETE ; Repair not complete
 = 1, COMPLETE ; Repair complete
@@ -6230,7 +6230,7 @@ PMU_BISR_STS0 = 0x8280 ; Memory repair status register 0
 = 0, NOT_COMPLETE ; Repair not complete
 = 1, COMPLETE ; Repair complete
 
-PMU_BISR_STS1 = 0x8284 ; Memory repair status register 1
+BISR_STS1 = 0x8284 ; Memory repair status register 1
 > 17, 1, PCIEPHY_REPAIR_PDGDONE, RO ; PDGDone status for PCIEPHY repair.
 = 0, NOT_COMPLETE ; Repair not complete
 = 1, COMPLETE ; Repair complete
@@ -6303,7 +6303,7 @@ PMU_BISR_STS1 = 0x8284 ; Memory repair status register 1
 = 0, NOT_COMPLETE ; Repair not complete
 = 1, COMPLETE ; Repair complete
 
-PMU_BISR_STS2 = 0x8288 ; Memory repair status register 2
+BISR_STS2 = 0x8288 ; Memory repair status register 2
 > 31, 1, PD_BUS_REPAIR_CEDIS, RO ; CEDis status for PD_BUS repair.
 = 0, READY ; Repair ready
 = 1, BUSY ; Repair busy
@@ -6432,7 +6432,7 @@ PMU_BISR_STS2 = 0x8288 ; Memory repair status register 2
 = 0, READY ; Repair ready
 = 1, BUSY ; Repair busy
 
-PMU_BISR_STS3 = 0x828C ; Memory repair status register 3
+BISR_STS3 = 0x828C ; Memory repair status register 3
 > 17, 1, PCIEPHY_REPAIR_CEDIS, RO ; CEDis status for PCIEPHY repair.
 = 0, READY ; Repair ready
 = 1, BUSY ; Repair busy
@@ -6505,7 +6505,7 @@ PMU_BISR_STS3 = 0x828C ; Memory repair status register 3
 = 0, READY ; Repair ready
 = 1, BUSY ; Repair busy
 
-PMU_BISR_STS4 = 0x8290 ; Memory repair status register 4
+BISR_STS4 = 0x8290 ; Memory repair status register 4
 > 31, 1, PD_BUS_DWN_PWR_REPAIR_STAT, RO ; Power and repair status for PD_BUS repair.
 = 0, DOWN_OR_INCOMPLETE ; Power down or repair not complete
 = 1, UP_AND_COMPLETE ; Power up and repair complete
@@ -6634,7 +6634,7 @@ PMU_BISR_STS4 = 0x8290 ; Memory repair status register 4
 = 0, DOWN_OR_INCOMPLETE ; Power down or repair not complete
 = 1, UP_AND_COMPLETE ; Power up and repair complete
 
-PMU_BISR_STS5 = 0x8294 ; Memory repair status register 5
+BISR_STS5 = 0x8294 ; Memory repair status register 5
 > 17, 1, PCIEPHY_REPAIR_PWR_REPAIR_STAT, RO ; Power and repair status for PCIEPHY repair.
 = 0, DOWN_OR_INCOMPLETE ; Power down or repair not complete
 = 1, UP_AND_COMPLETE ; Power up and repair complete
