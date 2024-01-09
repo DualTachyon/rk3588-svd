@@ -264,7 +264,7 @@ def parse_enum(line, original):
     enum.description = description
 
     tokens = line.split(',')
-    if len(tokens) != 2:
+    if len(tokens) != 2 or ' ' in tokens[1].strip():
         raise Exception('Invalid bitfield enum: %s' % original)
 
     try:
