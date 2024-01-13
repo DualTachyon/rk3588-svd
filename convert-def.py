@@ -313,7 +313,12 @@ def check_for_overlaps(peripherals):
             reg_offsets.append(register.offset)
 
             bitset = set()
+            bf_names = []
             for bitfield in register.bitfields.values():
+                if bitfield.name in bf_names:
+                        raise Exception('Bitfield %s for %s.%s (0x%04X) overlaps with another!' % (bitfield.name, peripheral.name, register.name, register.offset))
+                bf_names.append(bitfield.name)
+
                 for i in range(bitfield.width):
                     bit = bitfield.start + i
                     if bit in bitset:

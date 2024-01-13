@@ -349,11 +349,11 @@ P0TFD = 0x0120 ; Port Task File Data Register. This register contains Error and 
 > 8, 8, ERR ; This field contains the latest copy of the task file error register.
 
 #> 0, 8, STS ; This field contains the latest copy of the task file status register.
-> 7, 1, BSY ; Indicates the interface is busy;
-> 4, 3, CS1 ; Command specific
-> 3, 1, DRQ ; Indicates a data transfer is requested
-> 1, 2, CS0 ; Command specific
-> 0, 1, ERR ; Indicates an error during the transfer.
+> 7, 1, STS_BSY ; Indicates the interface is busy;
+> 4, 3, STS_CS1 ; Command specific
+> 3, 1, STS_DRQ ; Indicates a data transfer is requested
+> 1, 2, STS_CS0 ; Command specific
+> 0, 1, STS_ERR ; Indicates an error during the transfer.
 
 P0SIG = 0x0124, RO ; Port Signature Register
 > 24, 8, LBA_HIGH ; (Cylinder High) Register
