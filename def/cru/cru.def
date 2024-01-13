@@ -6651,13 +6651,13 @@ SOFTRST_CON59 = 0x0AEC ; Internal clock reset register 59
 > 12, 1, PRESETN_VO1GRF ; When high, reset relative logic
 = 1, ASSERT
 
-> 11, 1, HRESETN_VO1_BIU ; When high, reset relative logic
+> 11, 1, DOC_BUG1_HRESETN_VO1_BIU ; When high, reset relative logic
 = 1, ASSERT
 
 > 10, 1, HRESETN_VO1_S_BIU ; When high, reset relative logic
 = 1, ASSERT
 
-> 9, 1, HRESETN_VO1_BIU ; When high, reset relative logic
+> 9, 1, DOC_BUG0_HRESETN_VO1_BIU ; When high, reset relative logic
 = 1, ASSERT
 
 > 8, 1, ARESETN_VO1_BIU ; When high, reset relative logic
