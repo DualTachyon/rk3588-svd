@@ -643,11 +643,11 @@ HASH_VERSION = 0x068C, RO ; HASH_VERSION code is 0x0000_01ff
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
-> 6, 1, SHA512 ;-256_flag Whether the HASH supports SHA-512/256
+> 6, 1, SHA512_256_FLAG ; Whether the HASH supports SHA-512/256
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
-> 5, 1, SHA512 ;-224_flag Whether the HASH supports SHA-512/224
+> 5, 1, SHA512_224_FLAG ; Whether the HASH supports SHA-512/224
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
