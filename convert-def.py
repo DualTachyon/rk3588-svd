@@ -345,6 +345,124 @@ def resolve_derived(peripherals, duplicate=False):
         if duplicate:
             peripheral.registers = peripherals[peripheral.derived].registers
 
+def generate_enum(parent, enum):
+    xml_enumeratedValue = xml.Element('enumeratedValue')
+
+    xml_name = xml.Element('name')
+    xml_name.text = enum.name
+    xml_enumeratedValue.append(xml_name)
+
+    if enum.description is not None:
+        xml_description = xml.Element('description')
+        xml_description.text = enum.description
+        xml_enumeratedValue.append(xml_description)
+
+    xml_value = xml.Element('value')
+    xml_value.text = str(enum.value)
+    xml_enumeratedValue.append(xml_value)
+
+    parent.append(xml_enumeratedValue)
+
+def generate_enums(parent, enums):
+    xml_enumeratedValues = xml.Element('enumeratedValues')
+    for enum in enums:
+        generate_enum(xml_enumeratedValues, enum)
+
+    parent.append(xml_enumeratedValues)
+
+def generate_bitfield(parent, bitfield):
+    xml_field = xml.Element('field')
+
+    xml_name = xml.Element('name')
+    xml_name.text = bitfield.name
+    xml_field.append(xml_name)
+
+    if bitfield.description is not None:
+        xml_description = xml.Element('description')
+        xml_description.text = bitfield.description
+        xml_field.append(xml_description)
+
+    xml_bitOffset = xml.Element('bitOffset')
+    xml_bitOffset.text = str(bitfield.start)
+    xml_field.append(xml_bitOffset)
+
+    xml_bitWidth = xml.Element('bitWidth')
+    xml_bitWidth.text = str(bitfield.width)
+    xml_field.append(xml_bitWidth)
+
+    if bitfield.modifier in ACCESS_TAGS:
+        xml_access = xml.Element('access')
+        xml_access.text = ACCESS_TAGS[bitfield.modifier]
+        xml_field.append(xml_access)
+
+    if bitfield.modifier in MODIFIED_TAGS:
+        xml_modified = xml.Element('modifiedWriteValues')
+        xml_modified.text = MODIFIED_TAGS[bitfield.modifier]
+        xml_field.append(xml_modified)
+
+    if bitfield.modifier in READ_TAGS:
+        xml_read = xml.Element('readAction')
+        xml_read.text = READ_TAGS[bitfield.modifier]
+        xml_field.append(xml_read)
+
+    if len(bitfield.enums):
+        generate_enums(xml_field, bitfield.enums.values())
+
+    parent.append(xml_field)
+
+def generate_bitfields(parent, bitfields):
+    xml_fields = xml.Element('fields')
+    for bitfield in bitfields:
+        generate_bitfield(xml_fields, bitfield)
+
+    parent.append(xml_fields)
+
+def generate_register(parent, register):
+    xml_register = xml.Element('register')
+
+    xml_name = xml.Element('name')
+    xml_name.text = register.name
+    xml_register.append(xml_name)
+
+    if register.description is not None:
+        xml_description = xml.Element('description')
+        xml_description.text = register.description
+        xml_register.append(xml_description)
+
+    for modifier in register.modifiers:
+        if modifier[0] == '(':
+            xml_alternate = xml.Element('alternateRegister')
+            xml_alternate.text = modifier[1:-1]
+            xml_register.append(xml_alternate)
+
+    xml_addressOffset = xml.Element('addressOffset')
+    xml_addressOffset.text = '0x%04X' % register.offset
+    xml_register.append(xml_addressOffset)
+
+    if register.size != 32:
+        xml_size = xml.Element('size')
+        xml_size.text = str(register.size)
+        xml_register.append(xml_size)
+
+    for modifier in register.modifiers:
+        if modifier in ACCESS_TAGS:
+            xml_access = xml.Element('access')
+            xml_access.text = ACCESS_TAGS[modifier]
+            xml_register.append(xml_access)
+        elif modifier in MODIFIED_TAGS:
+            xml_modified = xml.Element('modifiedWriteValues')
+            xml_modified.text = MODIFIED_TAGS[modifier]
+            xml_register.append(xml_modified)
+        elif modifier in READ_TAGS:
+            xml_read = xml.Element('readAction')
+            xml_read.text = READ_TAGS[modifier]
+            xml_register.append(xml_read)
+
+    if len(register.bitfields):
+        generate_bitfields(xml_register, register.bitfields.values())
+
+    parent.append(xml_register)
+
 def generate_peripheral(peripherals, root, p_name, gen_empty):
     peripheral = peripherals[p_name]
 
@@ -383,109 +501,9 @@ def generate_peripheral(peripherals, root, p_name, gen_empty):
 
     xml_registers = xml.Element('registers')
 
-    for reg in peripheral.registers.values():
-        xml_register = xml.Element('register')
+    for register in peripheral.registers.values():
+        generate_register(xml_registers, register)
 
-        xml_name = xml.Element('name')
-        xml_name.text = reg.name
-        xml_register.append(xml_name)
-
-        if reg.description is not None:
-            xml_description = xml.Element('description')
-            xml_description.text = reg.description
-            xml_register.append(xml_description)
-
-        for modifier in reg.modifiers:
-            if modifier[0] == '(':
-                xml_alternate = xml.Element('alternateRegister')
-                xml_alternate.text = modifier[1:-1]
-                xml_register.append(xml_alternate)
-
-        xml_addressOffset = xml.Element('addressOffset')
-        xml_addressOffset.text = '0x%04X' % reg.offset
-        xml_register.append(xml_addressOffset)
-
-        if reg.size != 32:
-            xml_size = xml.Element('size')
-            xml_size.text = str(reg.size)
-            xml_register.append(xml_size)
-
-        for modifier in reg.modifiers:
-            if modifier in ACCESS_TAGS:
-                xml_access = xml.Element('access')
-                xml_access.text = ACCESS_TAGS[modifier]
-                xml_register.append(xml_access)
-            elif modifier in MODIFIED_TAGS:
-                xml_modified = xml.Element('modifiedWriteValues')
-                xml_modified.text = MODIFIED_TAGS[modifier]
-                xml_register.append(xml_modified)
-            elif modifier in READ_TAGS:
-                xml_read = xml.Element('readAction')
-                xml_read.text = READ_TAGS[modifier]
-                xml_register.append(xml_read)
-
-        if len(reg.bitfields):
-            xml_fields = xml.Element('fields')
-            for bitf in reg.bitfields.values():
-                xml_field = xml.Element('field')
-
-                xml_name = xml.Element('name')
-                xml_name.text = bitf.name
-                xml_field.append(xml_name)
-
-                if bitf.description is not None:
-                    xml_description = xml.Element('description')
-                    xml_description.text = bitf.description
-                    xml_field.append(xml_description)
-
-                xml_bitOffset = xml.Element('bitOffset')
-                xml_bitOffset.text = str(bitf.start)
-                xml_field.append(xml_bitOffset)
-
-                xml_bitWidth = xml.Element('bitWidth')
-                xml_bitWidth.text = str(bitf.width)
-                xml_field.append(xml_bitWidth)
-
-                if bitf.modifier in ACCESS_TAGS:
-                    xml_access = xml.Element('access')
-                    xml_access.text = ACCESS_TAGS[bitf.modifier]
-                    xml_field.append(xml_access)
-
-                if bitf.modifier in MODIFIED_TAGS:
-                    xml_modified = xml.Element('modifiedWriteValues')
-                    xml_modified.text = MODIFIED_TAGS[bitf.modifier]
-                    xml_field.append(xml_modified)
-
-                if bitf.modifier in READ_TAGS:
-                    xml_read = xml.Element('readAction')
-                    xml_read.text = READ_TAGS[bitf.modifier]
-                    xml_field.append(xml_read)
-
-                if len(bitf.enums):
-                    xml_enumeratedValues = xml.Element('enumeratedValues')
-                    for e in bitf.enums.values():
-                        xml_enumeratedValue = xml.Element('enumeratedValue')
-
-                        xml_name = xml.Element('name')
-                        xml_name.text = e.name if e.name != '_' else ''
-                        xml_enumeratedValue.append(xml_name)
-
-                        if e.description is not None:
-                            xml_description = xml.Element('description')
-                            xml_description.text = e.description
-                            xml_enumeratedValue.append(xml_description)
-
-                        xml_value = xml.Element('value')
-                        xml_value.text = str(e.value)
-                        xml_enumeratedValue.append(xml_value)
-
-                        xml_enumeratedValues.append(xml_enumeratedValue)
-
-                    xml_field.append(xml_enumeratedValues)
-
-                xml_fields.append(xml_field)
-            xml_register.append(xml_fields)
-        xml_registers.append(xml_register)
     if len(peripheral.registers) > 0:
         xml_peripheral.append(xml_registers)
     if len(peripheral.registers) > 0 or gen_empty or peripheral.derived:
