@@ -630,7 +630,7 @@ DES_VERSION = 0x0684, RO ; DES_VERSION code is 0x0003_0033
 = 1, SUPPORT
 
 SM4_VERSION = 0x0688, RO ; SM4_VERSION code is 0x0000_07ff
-> 10, 1, CBC ; mac_flag Whether the SM4 supports CBC-MAC
+> 10, 1, CBC_MAC_FLAG ; Whether the SM4 supports CBC-MAC
 = 0, NO_SUPPORT
 = 1, SUPPORT
 
@@ -874,6 +874,26 @@ N_NP_T0_T1_ADDR = 0x0884 ; N_NP_T0_T1_ADDR Register
 PKA_STATUS = 0x0888, RO ; PKA Status Register
 > 14, 6, TAG ; Tag of the Last Operation
 > 9, 5, OPCODE ; 5 The last OPCODE
+= 0, TERMINATE
+= 4, ADD_INC
+= 5, SUB_DEC_NEG
+= 6, MODADD_MODINC
+= 7, MODSUB_MODDEC_MODNEG
+= 8, AND_TST0_CLR0
+= 9, OR_COPY_SET0
+= 10, XOR_FLIP0_INVERT_COMPARE
+= 11, SHR0
+= 13, SHR1
+= 14, SHL0
+= 15, SHL1
+= 16, MULLOW
+= 17, MODMUL
+= 18, MODMULN
+= 19, MODEXP
+= 20, DIVISION
+= 21, DIV
+= 22, MODDIV
+
 > 8, 1, PKA_CPU_BUSY ; PKA is busy memory control is by PKA
 > 7, 1, MODINV_OF_ZERO ; Modular inverse of zero flag
 > 6, 1, ALU_SIGN_OUT ; Sign of the last operation(MSB)
@@ -915,9 +935,13 @@ PKA_L7 = 0x08AC ; PKA Length 7 Register
 
 PKA_PIPE_RDY = 0x08B0 ; PKA pipe is ready for new opcode
 > 0, 1, PKA_PIPE_RDY, RO ; PKA pipe is ready for new opcode.
+= 1, READY
+= 0, NOT_READY
 
 PKA_DONE = 0x08B4 ; PKA Done Register
 > 0, 1, PKA_DONE, RO ; PKA operation is completed and pipe is empty.
+= 1, DONE
+= 0, NOT_DONE
 
 PKA_MON_SELECT = 0x08B8 ; PKA Monitor Select Register
 > 0, 4, PKA_MON_SELECT ; PKA monitor select which PKA FSM monitor is being output.
