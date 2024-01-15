@@ -398,16 +398,7 @@ PWRMATCH_HD_ONE = 0x0094 ; Power Key Match Of High Data For One Register
 > 16, 16, CNT_MAX ; The maximum counter value.
 > 0, 16, CNT_MIN ; The minimum counter value.
 
-PWRMATCH_VALUE0 = 0x0098 ; Power Key Match Value 0 Register
-PWRMATCH_VALUE1 = 0x009C ; Power Key Match Value 1 Register
-PWRMATCH_VALUE2 = 0x00A0 ; Power Key Match Value 2 Register
-PWRMATCH_VALUE3 = 0x00A4 ; Power Key Match Value 3 Register
-PWRMATCH_VALUE4 = 0x00A8 ; Power Key Match Value 4 Register
-PWRMATCH_VALUE5 = 0x00AC ; Power Key Match Value 5 Register
-PWRMATCH_VALUE6 = 0x00B0 ; Power Key Match Value 6 Register
-PWRMATCH_VALUE7 = 0x00B4 ; Power Key Match Value 7 Register
-PWRMATCH_VALUE8 = 0x00B8 ; Power Key Match Value 8 Register
-PWRMATCH_VALUE9 = 0x00BC ; Power Key Match Value 9 Register
+PWRMATCH_VALUE$ = 0x0098, @10 ; Power Key Match Value $ Register
 
 CH3_PWRCAPTURE_VALUE = 0x00CC ; Channel 3 Power Key Capture Value Register
 

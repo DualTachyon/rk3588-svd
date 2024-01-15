@@ -247,164 +247,54 @@ CIPHER_STATE = 0x0050, RO ; Cipher Current State Register
 = 2, BULK
 = 3, RESERVED
 
-CH0_IV_0 = 0x0100 ; Channel 0 IV Register 0
-CH0_IV_1 = 0x0104 ; Channel 0 IV Register 1
-CH0_IV_2 = 0x0108 ; Channel 0 IV Register 2
-CH0_IV_3 = 0x010C ; Channel 0 IV Register 3
-CH1_IV_0 = 0x0110 ; Channel 1 IV Register 0
-CH1_IV_1 = 0x0114 ; Channel 1 IV Register 1
-CH1_IV_2 = 0x0118 ; Channel 1 IV Register 2
-CH1_IV_3 = 0x011C ; Channel 1 IV Register 3
-CH2_IV_0 = 0x0120 ; Channel 2 IV Register 0
-CH2_IV_1 = 0x0124 ; Channel 2 IV Register 1
-CH2_IV_2 = 0x0128 ; Channel 2 IV Register 2
-CH2_IV_3 = 0x012C ; Channel 2 IV Register 3
-CH3_IV_0 = 0x0130 ; Channel 3 IV Register 0
-CH3_IV_1 = 0x0134 ; Channel 3 IV Register 1
-CH3_IV_2 = 0x0138 ; Channel 3 IV Register 2
-CH3_IV_3 = 0x013C ; Channel 3 IV Register 3
-CH4_IV_0 = 0x0140 ; Channel 4 IV Register 0
-CH4_IV_1 = 0x0144 ; Channel 4 IV Register 1
-CH4_IV_2 = 0x0148 ; Channel 4 IV Register 2
-CH4_IV_3 = 0x014C ; Channel 4 IV Register 3
-CH5_IV_0 = 0x0150 ; Channel 5 IV Register 0
-CH5_IV_1 = 0x0154 ; Channel 5 IV Register 1
-CH5_IV_2 = 0x0158 ; Channel 5 IV Register 2
-CH5_IV_3 = 0x015C ; Channel 5 IV Register 3
-CH6_IV_0 = 0x0160 ; Channel 6 IV Register 0
-CH6_IV_1 = 0x0164 ; Channel 6 IV Register 1
-CH6_IV_2 = 0x0168 ; Channel 6 IV Register 2
-CH6_IV_3 = 0x016C ; Channel 6 IV Register 3
-CH7_IV_0 = 0x0170 ; Channel 7 IV Register 0
-CH7_IV_1 = 0x0174 ; Channel 7 IV Register 1
-CH7_IV_2 = 0x0178 ; Channel 7 IV Register 2
-CH7_IV_3 = 0x017C ; Channel 7 IV Register 3
+CH0_IV$ = 0x0100, @4 ; Channel 0 IV Register $
+CH1_IV$ = 0x0110, @4 ; Channel 1 IV Register $
+CH2_IV$ = 0x0120, @4 ; Channel 2 IV Register $
+CH3_IV$ = 0x0130, @4 ; Channel 3 IV Register $
+CH4_IV$ = 0x0140, @4 ; Channel 4 IV Register $
+CH5_IV$ = 0x0150, @4 ; Channel 5 IV Register $
+CH6_IV$ = 0x0160, @4 ; Channel 6 IV Register $
+CH7_IV$ = 0x0170, @4 ; Channel 7 IV Register $
 
-CH0_KEY_0 = 0x0180, WO ; Channel 0 KEY Register 0
-CH0_KEY_1 = 0x0184, WO ; Channel 0 KEY Register 1
-CH0_KEY_2 = 0x0188, WO ; Channel 0 KEY Register 2
-CH0_KEY_3 = 0x018C, WO ; Channel 0 KEY Register 3
-CH1_KEY_0 = 0x0190, WO ; Channel 1 KEY Register 0
-CH1_KEY_1 = 0x0194, WO ; Channel 1 KEY Register 1
-CH1_KEY_2 = 0x0198, WO ; Channel 1 KEY Register 2
-CH1_KEY_3 = 0x019C, WO ; Channel 1 KEY Register 3
-CH2_KEY_0 = 0x01A0, WO ; Channel 2 KEY Register 0
-CH2_KEY_1 = 0x01A4, WO ; Channel 2 KEY Register 1
-CH2_KEY_2 = 0x01A8, WO ; Channel 2 KEY Register 2
-CH2_KEY_3 = 0x01AC, WO ; Channel 2 KEY Register 3
-CH3_KEY_0 = 0x01B0, WO ; Channel 3 KEY Register 0
-CH3_KEY_1 = 0x01B4, WO ; Channel 3 KEY Register 1
-CH3_KEY_2 = 0x01B8, WO ; Channel 3 KEY Register 2
-CH3_KEY_3 = 0x01BC, WO ; Channel 3 KEY Register 3
-CH4_KEY_0 = 0x01C0, WO ; Channel 4 KEY Register 0
-CH4_KEY_1 = 0x01C4, WO ; Channel 4 KEY Register 1
-CH4_KEY_2 = 0x01C8, WO ; Channel 4 KEY Register 2
-CH4_KEY_3 = 0x01CC, WO ; Channel 4 KEY Register 3
-CH5_KEY_0 = 0x01D0, WO ; Channel 5 KEY Register 0
-CH5_KEY_1 = 0x01D4, WO ; Channel 5 KEY Register 1
-CH5_KEY_2 = 0x01D8, WO ; Channel 5 KEY Register 2
-CH5_KEY_3 = 0x01DC, WO ; Channel 5 KEY Register 3
-CH6_KEY_0 = 0x01E0, WO ; Channel 6 KEY Register 0
-CH6_KEY_1 = 0x01E4, WO ; Channel 6 KEY Register 1
-CH6_KEY_2 = 0x01E8, WO ; Channel 6 KEY Register 2
-CH6_KEY_3 = 0x01EC, WO ; Channel 6 KEY Register 3
-CH7_KEY_0 = 0x01F0, WO ; Channel 7 KEY Register 0
-CH7_KEY_1 = 0x01F4, WO ; Channel 7 KEY Register 1
-CH7_KEY_2 = 0x01F8, WO ; Channel 7 KEY Register 2
-CH7_KEY_3 = 0x01FC, WO ; Channel 7 KEY Register 3
+CH0_KEY$ = 0x0180, WO, @4 ; Channel 0 KEY Register $
+CH1_KEY$ = 0x0190, WO, @4 ; Channel 1 KEY Register $
+CH2_KEY$ = 0x01A0, WO, @4 ; Channel 2 KEY Register $
+CH3_KEY$ = 0x01B0, WO, @4 ; Channel 3 KEY Register $
+CH4_KEY$ = 0x01C0, WO, @4 ; Channel 4 KEY Register $
+CH5_KEY$ = 0x01D0, WO, @4 ; Channel 5 KEY Register $
+CH6_KEY$ = 0x01E0, WO, @4 ; Channel 6 KEY Register $
+CH7_KEY$ = 0x01F0, WO, @4 ; Channel 7 KEY Register $
 
-CH0_PC_LEN_0 = 0x0280 ; Channel 0 PC Length Register 0
-CH0_PC_LEN_1 = 0x0284 ; Channel 0 PC Length Register 1
-CH1_PC_LEN_0 = 0x0288 ; Channel 1 PC Length Register 0
-CH1_PC_LEN_1 = 0x028C ; Channel 1 PC Length Register 1
-CH2_PC_LEN_0 = 0x0290 ; Channel 2 PC Length Register 0
-CH2_PC_LEN_1 = 0x0294 ; Channel 2 PC Length Register 1
-CH3_PC_LEN_0 = 0x0298 ; Channel 3 PC Length Register 0
-CH3_PC_LEN_1 = 0x029C ; Channel 3 PC Length Register 1
-CH4_PC_LEN_0 = 0x02A0 ; Channel 4 PC Length Register 0
-CH4_PC_LEN_1 = 0x02A4 ; Channel 4 PC Length Register 1
-CH5_PC_LEN_0 = 0x02A8 ; Channel 5 PC Length Register 0
-CH5_PC_LEN_1 = 0x02AC ; Channel 5 PC Length Register 1
-CH6_PC_LEN_0 = 0x02B0 ; Channel 6 PC Length Register 0
-CH6_PC_LEN_1 = 0x02B4 ; Channel 6 PC Length Register 1
-CH7_PC_LEN_0 = 0x02B8 ; Channel 7 PC Length Register 0
-CH7_PC_LEN_1 = 0x02BC ; Channel 7 PC Length Register 1
+CH0_PC_LEN$ = 0x0280, @2 ; Channel 0 PC Length Register $
+CH1_PC_LEN$ = 0x0288, @2 ; Channel 1 PC Length Register $
+CH2_PC_LEN$ = 0x0290, @2 ; Channel 2 PC Length Register $
+CH3_PC_LEN$ = 0x0298, @2 ; Channel 3 PC Length Register $
+CH4_PC_LEN$ = 0x02A0, @2 ; Channel 4 PC Length Register $
+CH5_PC_LEN$ = 0x02A8, @2 ; Channel 5 PC Length Register $
+CH6_PC_LEN$ = 0x02B0, @2 ; Channel 6 PC Length Register $
+CH7_PC_LEN$ = 0x02B8, @2 ; Channel 7 PC Length Register $
 
-CH0_AAD_LEN_0 = 0x02C0 ; Channel 0 AAD Length Register 0
-CH0_AAD_LEN_1 = 0x02C4 ; Channel 0 AAD Length Register 1
-CH1_AAD_LEN_0 = 0x02C8 ; Channel 1 AAD Length Register 0
-CH1_AAD_LEN_1 = 0x02CC ; Channel 1 AAD Length Register 1
-CH2_AAD_LEN_0 = 0x02D0 ; Channel 2 AAD Length Register 0
-CH2_AAD_LEN_1 = 0x02D4 ; Channel 2 AAD Length Register 1
-CH3_AAD_LEN_0 = 0x02D8 ; Channel 3 AAD Length Register 0
-CH3_AAD_LEN_1 = 0x02DC ; Channel 3 AAD Length Register 1
-CH4_AAD_LEN_0 = 0x02E0 ; Channel 4 AAD Length Register 0
-CH4_AAD_LEN_1 = 0x02E4 ; Channel 4 AAD Length Register 1
-CH5_AAD_LEN_0 = 0x02E8 ; Channel 5 AAD Length Register 0
-CH5_AAD_LEN_1 = 0x02EC ; Channel 5 AAD Length Register 1
-CH6_AAD_LEN_0 = 0x02F0 ; Channel 6 AAD Length Register 0
-CH6_AAD_LEN_1 = 0x02F4 ; Channel 6 AAD Length Register 1
-CH7_AAD_LEN_0 = 0x02F8 ; Channel 7 AAD Length Register 0
-CH7_AAD_LEN_1 = 0x02FC ; Channel 7 AAD Length Register 1
+CH0_AAD_LEN$ = 0x02C0, @2 ; Channel 0 AAD Length Register $
+CH1_AAD_LEN$ = 0x02C8, @2 ; Channel 1 AAD Length Register $
+CH2_AAD_LEN$ = 0x02D0, @2 ; Channel 2 AAD Length Register $
+CH3_AAD_LEN$ = 0x02D8, @2 ; Channel 3 AAD Length Register $
+CH4_AAD_LEN$ = 0x02E0, @2 ; Channel 4 AAD Length Register $
+CH5_AAD_LEN$ = 0x02E8, @2 ; Channel 5 AAD Length Register $
+CH6_AAD_LEN$ = 0x02F0, @2 ; Channel 6 AAD Length Register $
+CH7_AAD_LEN$ = 0x02F8, @2 ; Channel 7 AAD Length Register $
 
-CH0_IV_LEN_0 = 0x0300 ; Channel 0 IV Length Register 0
-CH1_IV_LEN_0 = 0x0304 ; Channel 1 IV Length Register 0
-CH2_IV_LEN_0 = 0x0308 ; Channel 2 IV Length Register 0
-CH3_IV_LEN_0 = 0x030C ; Channel 3 IV Length Register 0
-CH4_IV_LEN_0 = 0x0310 ; Channel 4 IV Length Register 0
-CH5_IV_LEN_0 = 0x0314 ; Channel 5 IV Length Register 0
-CH6_IV_LEN_0 = 0x0318 ; Channel 6 IV Length Register 0
-CH7_IV_LEN_0 = 0x031C ; Channel 7 IV Length Register 0
+CH$_IV_LEN_0 = 0x0300, @8 ; Channel $ IV Length Register 0
 
-CH0_TAG_0 = 0x0320, RO ; Channel 0 Tag Register 0
-CH0_TAG_1 = 0x0324, RO ; Channel 0 Tag Register 1
-CH0_TAG_2 = 0x0328, RO ; Channel 0 Tag Register 2
-CH0_TAG_3 = 0x032C, RO ; Channel 0 Tag Register 3
-CH1_TAG_0 = 0x0330, RO ; Channel 1 Tag Register 0
-CH1_TAG_1 = 0x0334, RO ; Channel 1 Tag Register 1
-CH1_TAG_2 = 0x0338, RO ; Channel 1 Tag Register 2
-CH1_TAG_3 = 0x033C, RO ; Channel 1 Tag Register 3
-CH2_TAG_0 = 0x0340, RO ; Channel 2 Tag Register 0
-CH2_TAG_1 = 0x0344, RO ; Channel 2 Tag Register 1
-CH2_TAG_2 = 0x0348, RO ; Channel 2 Tag Register 2
-CH2_TAG_3 = 0x034C, RO ; Channel 2 Tag Register 3
-CH3_TAG_0 = 0x0350, RO ; Channel 3 Tag Register 0
-CH3_TAG_1 = 0x0354, RO ; Channel 3 Tag Register 1
-CH3_TAG_2 = 0x0358, RO ; Channel 3 Tag Register 2
-CH3_TAG_3 = 0x035C, RO ; Channel 3 Tag Register 3
-CH4_TAG_0 = 0x0360, RO ; Channel 4 Tag Register 0
-CH4_TAG_1 = 0x0364, RO ; Channel 4 Tag Register 1
-CH4_TAG_2 = 0x0368, RO ; Channel 4 Tag Register 2
-CH4_TAG_3 = 0x036C, RO ; Channel 4 Tag Register 3
-CH5_TAG_0 = 0x0370, RO ; Channel 5 Tag Register 0
-CH5_TAG_1 = 0x0374, RO ; Channel 5 Tag Register 1
-CH5_TAG_2 = 0x0378, RO ; Channel 5 Tag Register 2
-CH5_TAG_3 = 0x037C, RO ; Channel 5 Tag Register 3
-CH6_TAG_0 = 0x0380, RO ; Channel 6 Tag Register 0
-CH6_TAG_1 = 0x0384, RO ; Channel 6 Tag Register 1
-CH6_TAG_2 = 0x0388, RO ; Channel 6 Tag Register 2
-CH6_TAG_3 = 0x038C, RO ; Channel 6 Tag Register 3
-CH7_TAG_0 = 0x0390, RO ; Channel 7 Tag Register 0
-CH7_TAG_1 = 0x0394, RO ; Channel 7 Tag Register 1
-CH7_TAG_2 = 0x0398, RO ; Channel 7 Tag Register 2
-CH7_TAG_3 = 0x039C, RO ; Channel 7 Tag Register 3
+CH0_TAG$ = 0x0320, RO, @4 ; Channel 0 Tag Register $
+CH1_TAG$ = 0x0330, RO, @4 ; Channel 1 Tag Register $
+CH2_TAG$ = 0x0340, RO, @4 ; Channel 2 Tag Register $
+CH3_TAG$ = 0x0350, RO, @4 ; Channel 3 Tag Register $
+CH4_TAG$ = 0x0360, RO, @4 ; Channel 4 Tag Register $
+CH5_TAG$ = 0x0370, RO, @4 ; Channel 5 Tag Register $
+CH6_TAG$ = 0x0380, RO, @4 ; Channel 6 Tag Register $
+CH7_TAG$ = 0x0390, RO, @4 ; Channel 7 Tag Register $
 
-HASH_DOUT_0 = 0x03A0, RO ; HASH Data Output Register 0
-HASH_DOUT_1 = 0x03A4, RO ; HASH Data Output Register 1
-HASH_DOUT_2 = 0x03A8, RO ; HASH Data Output Register 2
-HASH_DOUT_3 = 0x03AC, RO ; HASH Data Output Register 3
-HASH_DOUT_4 = 0x03B0, RO ; HASH Data Output Register 4
-HASH_DOUT_5 = 0x03B4, RO ; HASH Data Output Register 5
-HASH_DOUT_6 = 0x03B8, RO ; HASH Data Output Register 6
-HASH_DOUT_7 = 0x03BC, RO ; HASH Data Output Register 7
-HASH_DOUT_8 = 0x03C0, RO ; HASH Data Output Register 8
-HASH_DOUT_9 = 0x03C4, RO ; HASH Data Output Register 9
-HASH_DOUT_10 = 0x03C8, RO ; HASH Data Output Register 10
-HASH_DOUT_11 = 0x03CC, RO ; HASH Data Output Register 11
-HASH_DOUT_12 = 0x03D0, RO ; HASH Data Output Register 12
-HASH_DOUT_13 = 0x03D4, RO ; HASH Data Output Register 13
-HASH_DOUT_14 = 0x03D8, RO ; HASH Data Output Register 14
-HASH_DOUT_15 = 0x03DC, RO ; HASH Data Output Register 15
+HASH_DOUT$ = 0x03A0, RO, @16 ; HASH Data Output Register $
 
 TAG_VALID = 0x03E0, W1C ; TAG Valid Register
 > 7, 1, CH7 ; When channel 7 tag calculation is finished, CRYPTO will set this bit. After the bit is read by application, it should be cleared by writing 1 to this bit
@@ -466,29 +356,8 @@ RNG_CTL = 0x0400 ; RNG Control Register
 RNG_SAMPLE_CNT = 0x0404 ; RNG Sample Counter Register
 > 0, 16, RNG_SAMPLE_CNT ; RNG collects OSC ring output bit every rng_sample_cnt time. The value of rng_sample_cnt affects RNG output data rate, the value more bigger, the rate more slower.
 
-RNG_DOUT_0 = 0x0410, RO ; RNG Data Output Register 0
-> 0, 32, RNG_DOUT_0 ; RNG dout 0 range from 0 to 7. The 32'th OSC ring bit is captured in RNG_DOUT_0.bit31
-
-RNG_DOUT_1 = 0x0414, RO ; RNG Data Output Register 1
-> 0, 32, RNG_DOUT_1 ; RNG dout 1 range from 0 to 7. The 32'th OSC ring bit is captured in RNG_DOUT_0.bit31
-
-RNG_DOUT_2 = 0x0418, RO ; RNG Data Output Register 2
-> 0, 32, RNG_DOUT_2 ; RNG dout 2 range from 0 to 7. The 32'th OSC ring bit is captured in RNG_DOUT_0.bit31
-
-RNG_DOUT_3 = 0x041C, RO ; RNG Data Output Register 3
-> 0, 32, RNG_DOUT_3 ; RNG dout 3 range from 0 to 7. The 32'th OSC ring bit is captured in RNG_DOUT_0.bit31
-
-RNG_DOUT_4 = 0x0420, RO ; RNG Data Output Register 4
-> 0, 32, RNG_DOUT_4 ; RNG dout 4 range from 0 to 7. The 32'th OSC ring bit is captured in RNG_DOUT_0.bit31
-
-RNG_DOUT_5 = 0x0424, RO ; RNG Data Output Register 5
-> 0, 32, RNG_DOUT_5 ; RNG dout 5 range from 0 to 7. The 32'th OSC ring bit is captured in RNG_DOUT_0.bit31
-
-RNG_DOUT_6 = 0x0428, RO ; RNG Data Output Register 6
-> 0, 32, RNG_DOUT_6 ; RNG dout 6 range from 0 to 7. The 32'th OSC ring bit is captured in RNG_DOUT_0.bit31
-
-RNG_DOUT_7 = 0x042C, RO ; RNG Data Output Register 7
-> 0, 32, RNG_DOUT_7 ; RNG dout 7 range from 0 to 7. The 32'th OSC ring bit is captured in RNG_DOUT_0.bit31
+RNG_DOUT$ = 0x0410, RO, @8 ; RNG Data Output Register $. The 32'th OSC ring bit is captured in RNG_DOUT_0.bit31
+> 0, 32, RNG_DOUT_$ ; RNG dout $
 
 RAM_CTL = 0x0480 ; RAM Control Register
 > 0, 1, RAM_PKA_RDY ; Indicate whether ram is controlled by PKA engine
@@ -741,101 +610,8 @@ PKA_VERSION = 0x0698, RO ; PKA_VERSION code is 0x0100_0000
 CRYPTO_VERSION = 0x06F0, RO ; CRYPTO_VERSION code is 0x0200_0002
 > 0, 32, S ; crypto_version_code SCRYPTO version code is 0x0200_0002.
 
-PKA_MEM_MAP0 = 0x0800 ; PKA Memory Map 0 Register
-> 2, 10, MEMORY_MAP0 ; MAP 0 range from 0 to 31. Memory map 0 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP1 = 0x0804 ; PKA Memory Map 1 Register
-> 2, 10, MEMORY_MAP1 ; MAP 1 range from 0 to 31. Memory map 1 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP2 = 0x0808 ; PKA Memory Map 2 Register
-> 2, 10, MEMORY_MAP2 ; MAP 2 range from 0 to 31. Memory map 2 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP3 = 0x080C ; PKA Memory Map 3 Register
-> 2, 10, MEMORY_MAP3 ; MAP 3 range from 0 to 31. Memory map 3 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP4 = 0x0810 ; PKA Memory Map 4 Register
-> 2, 10, MEMORY_MAP4 ; MAP 4 range from 0 to 31. Memory map 4 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP5 = 0x0814 ; PKA Memory Map 5 Register
-> 2, 10, MEMORY_MAP5 ; MAP 5 range from 0 to 31. Memory map 5 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP6 = 0x0818 ; PKA Memory Map 6 Register
-> 2, 10, MEMORY_MAP6 ; MAP 6 range from 0 to 31. Memory map 6 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP7 = 0x081C ; PKA Memory Map 7 Register
-> 2, 10, MEMORY_MAP7 ; MAP 7 range from 0 to 31. Memory map 7 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP8 = 0x0820 ; PKA Memory Map 8 Register
-> 2, 10, MEMORY_MAP8 ; MAP 8 range from 0 to 31. Memory map 8 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP9 = 0x0824 ; PKA Memory Map 9 Register
-> 2, 10, MEMORY_MAP9 ; MAP 9 range from 0 to 31. Memory map 9 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP10 = 0x0828 ; PKA Memory Map 10 Register
-> 2, 10, MEMORY_MAP10 ; MAP 10 range from 0 to 31. Memory map 10 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP11 = 0x082C ; PKA Memory Map 11 Register
-> 2, 10, MEMORY_MAP11 ; MAP 11 range from 0 to 31. Memory map 11 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP12 = 0x0830 ; PKA Memory Map 12 Register
-> 2, 10, MEMORY_MAP12 ; MAP 12 range from 0 to 31. Memory map 12 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP13 = 0x0834 ; PKA Memory Map 13 Register
-> 2, 10, MEMORY_MAP13 ; MAP 13 range from 0 to 31. Memory map 13 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP14 = 0x0838 ; PKA Memory Map 14 Register
-> 2, 10, MEMORY_MAP14 ; MAP 14 range from 0 to 31. Memory map 14 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP15 = 0x083C ; PKA Memory Map 15 Register
-> 2, 10, MEMORY_MAP15 ; MAP 15 range from 0 to 31. Memory map 15 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP16 = 0x0840 ; PKA Memory Map 16 Register
-> 2, 10, MEMORY_MAP16 ; MAP 16 range from 0 to 31. Memory map 16 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP17 = 0x0844 ; PKA Memory Map 17 Register
-> 2, 10, MEMORY_MAP17 ; MAP 17 range from 0 to 31. Memory map 17 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP18 = 0x0848 ; PKA Memory Map 18 Register
-> 2, 10, MEMORY_MAP18 ; MAP 18 range from 0 to 31. Memory map 18 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP19 = 0x084C ; PKA Memory Map 19 Register
-> 2, 10, MEMORY_MAP19 ; MAP 19 range from 0 to 31. Memory map 19 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP20 = 0x0850 ; PKA Memory Map 20 Register
-> 2, 10, MEMORY_MAP20 ; MAP 20 range from 0 to 31. Memory map 20 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP21 = 0x0854 ; PKA Memory Map 21 Register
-> 2, 10, MEMORY_MAP21 ; MAP 21 range from 0 to 31. Memory map 21 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP22 = 0x0858 ; PKA Memory Map 22 Register
-> 2, 10, MEMORY_MAP22 ; MAP 22 range from 0 to 31. Memory map 22 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP23 = 0x085C ; PKA Memory Map 23 Register
-> 2, 10, MEMORY_MAP23 ; MAP 23 range from 0 to 31. Memory map 23 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP24 = 0x0860 ; PKA Memory Map 24 Register
-> 2, 10, MEMORY_MAP24 ; MAP 24 range from 0 to 31. Memory map 24 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP25 = 0x0864 ; PKA Memory Map 25 Register
-> 2, 10, MEMORY_MAP25 ; MAP 25 range from 0 to 31. Memory map 25 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP26 = 0x0868 ; PKA Memory Map 26 Register
-> 2, 10, MEMORY_MAP26 ; MAP 26 range from 0 to 31. Memory map 26 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP27 = 0x086C ; PKA Memory Map 27 Register
-> 2, 10, MEMORY_MAP27 ; MAP 27 range from 0 to 31. Memory map 27 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP28 = 0x0870 ; PKA Memory Map 28 Register
-> 2, 10, MEMORY_MAP28 ; MAP 28 range from 0 to 31. Memory map 28 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP29 = 0x0874 ; PKA Memory Map 29 Register
-> 2, 10, MEMORY_MAP29 ; MAP 29 range from 0 to 31. Memory map 29 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP30 = 0x0878 ; PKA Memory Map 30 Register
-> 2, 10, MEMORY_MAP30 ; MAP 30 range from 0 to 31. Memory map 30 [11:2], bit[1:0] is stuck to 0
-
-PKA_MEM_MAP31 = 0x087C ; PKA Memory Map 31 Register
-> 2, 10, MEMORY_MAP31 ; MAP 31 range from 0 to 31. Memory map 31 [11:2], bit[1:0] is stuck to 0
+PKA_MEM_MAP$ = 0x0800, @32 ; PKA Memory Map $ Register
+> 2, 10, MEMORY_MAP$ ; Memory map $ [11:2], bit[1:0] is stuck to 0
 
 PKA_OPCODE = 0x0880, WO ; PKA Operation Code Register
 > 27, 5, OPCODE ; Defines the PKA operation
@@ -909,29 +685,8 @@ PKA_STATUS = 0x0888, RO ; PKA Status Register
 PKA_SW_RESET = 0x088C ; software reset of PKA
 > 0, 1, PKA_SW_RESET ; PKA software reset the reset mechanism will take about four PKA clocks until the reset line is de-asserted.
 
-PKA_L0 = 0x0890 ; PKA Length 0 Register
-> 0, 13, PKA_LN ; PKA length n, in bit unit
-
-PKA_L1 = 0x0894 ; PKA Length 1 Register
-> 0, 13, PKA_LN ; PKA length n, in bit unit
-
-PKA_L2 = 0x0898 ; PKA Length 2 Register
-> 0, 13, PKA_LN ; PKA length n, in bit unit
-
-PKA_L3 = 0x089C ; PKA Length 3 Register
-> 0, 13, PKA_LN ; PKA length n, in bit unit
-
-PKA_L4 = 0x08A0 ; PKA Length 4 Register
-> 0, 13, PKA_LN ; PKA length n, in bit unit
-
-PKA_L5 = 0x08A4 ; PKA Length 5 Register
-> 0, 13, PKA_LN ; PKA length n, in bit unit
-
-PKA_L6 = 0x08A8 ; PKA Length 6 Register
-> 0, 13, PKA_LN ; PKA length n, in bit unit
-
-PKA_L7 = 0x08AC ; PKA Length 7 Register
-> 0, 13, PKA_LN ; PKA length n, in bit unit
+PKA_L$ = 0x0890, @8 ; PKA Length $ Register
+> 0, 13, PKA_L$ ; PKA length $, in bit unit
 
 PKA_PIPE_RDY = 0x08B0 ; PKA pipe is ready for new opcode
 > 0, 1, PKA_PIPE_RDY, RO ; PKA pipe is ready for new opcode.
@@ -971,5 +726,5 @@ PKA_INT_ENA = 0x08D4 ; PKA Interrupt Enable Register
 PKA_INT_ST = 0x08D8 ; PKA Interrupt Status Register
 > 0, 1, PKA_INT_ST, W1C ; Indicate that PKA operation completes. After the bit is read, the application should write 1 to clear this bit for next time use.
 
-# SRAM_ADDR = 0x1000 ; SRAM Base Address
+SRAM$ = 0x1000, @0x400 ; SRAM Base Address
 

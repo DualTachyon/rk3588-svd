@@ -96,6 +96,12 @@ class Enum:
         self.value = None
         self.description = None
 
+def replace_index(string, index):
+    return string.replace('$', '%d' % index)
+
+def remove_index(string):
+    return string.replace('$', '')
+
 def parse_peripheral(line, original):
     if line[-1] != ']':
         raise Exception('Invalid peripheral name: %s' % original)
@@ -172,7 +178,7 @@ def parse_register(line, original):
     register.name = tokens[0].strip()
     register.size = 32
 
-    if not register.name.isidentifier():
+    if not remove_index(register.name).isidentifier():
         raise Exception('Invalid register definition: %s' % original)
 
     modifiers = [modifier.strip().upper() for modifier in modifiers]
@@ -181,6 +187,7 @@ def parse_register(line, original):
     size_flag = False
     alternate_flag = False
     read_flag = False
+    array_flag = False
     for modifier in modifiers:
         if modifier in ACCESS_TAGS:
             if access_flag:
@@ -203,6 +210,13 @@ def parse_register(line, original):
             if read_flag:
                 raise Exception('Unexpected bitfield modifier (%s): %s' % (modifier, original))
             read_flag = True
+        elif modifier.startswith('@'):
+            if array_flag:
+                raise Exception('Unexpected bitfield modifier (%s): %s' % (modifier, original))
+            if not '$' in register.name:
+                raise Exception('Array modifier without $ in register name: %s' % original)
+
+            array_flag = True
         else:
             raise Exception('Invalid bitfield modifier (%s): %s' % (modifier, original))
 
@@ -238,7 +252,7 @@ def parse_bitfield(line, original):
         raise Exception('Invalid bitfield definition: %s' % original)
 
     bitfield.name = tokens[2].strip()
-    if not bitfield.name.isidentifier():
+    if not remove_index(bitfield.name).isidentifier():
         raise Exception('Invalid bitfield definition: %s' % original)
 
     if len(tokens) == 3:
@@ -345,16 +359,16 @@ def resolve_derived(peripherals, duplicate=False):
         if duplicate:
             peripheral.registers = peripherals[peripheral.derived].registers
 
-def generate_enum(parent, enum):
+def generate_enum(parent, enum, index):
     xml_enumeratedValue = xml.Element('enumeratedValue')
 
     xml_name = xml.Element('name')
-    xml_name.text = enum.name
+    xml_name.text = replace_index(enum.name, index)
     xml_enumeratedValue.append(xml_name)
 
     if enum.description is not None:
         xml_description = xml.Element('description')
-        xml_description.text = enum.description
+        xml_description.text = replace_index(enum.description, index)
         xml_enumeratedValue.append(xml_description)
 
     xml_value = xml.Element('value')
@@ -363,23 +377,23 @@ def generate_enum(parent, enum):
 
     parent.append(xml_enumeratedValue)
 
-def generate_enums(parent, enums):
+def generate_enums(parent, enums, index):
     xml_enumeratedValues = xml.Element('enumeratedValues')
     for enum in enums:
-        generate_enum(xml_enumeratedValues, enum)
+        generate_enum(xml_enumeratedValues, enum, index)
 
     parent.append(xml_enumeratedValues)
 
-def generate_bitfield(parent, bitfield):
+def generate_bitfield(parent, bitfield, index):
     xml_field = xml.Element('field')
 
     xml_name = xml.Element('name')
-    xml_name.text = bitfield.name
+    xml_name.text = replace_index(bitfield.name, index)
     xml_field.append(xml_name)
 
     if bitfield.description is not None:
         xml_description = xml.Element('description')
-        xml_description.text = bitfield.description
+        xml_description.text = replace_index(bitfield.description, index)
         xml_field.append(xml_description)
 
     xml_bitOffset = xml.Element('bitOffset')
@@ -406,27 +420,27 @@ def generate_bitfield(parent, bitfield):
         xml_field.append(xml_read)
 
     if len(bitfield.enums):
-        generate_enums(xml_field, bitfield.enums.values())
+        generate_enums(xml_field, bitfield.enums.values(), index)
 
     parent.append(xml_field)
 
-def generate_bitfields(parent, bitfields):
+def generate_bitfields(parent, bitfields, index):
     xml_fields = xml.Element('fields')
     for bitfield in bitfields:
-        generate_bitfield(xml_fields, bitfield)
+        generate_bitfield(xml_fields, bitfield, index)
 
     parent.append(xml_fields)
 
-def generate_register(parent, register):
+def generate_register(parent, register, index):
     xml_register = xml.Element('register')
 
     xml_name = xml.Element('name')
-    xml_name.text = register.name
+    xml_name.text = replace_index(register.name, index)
     xml_register.append(xml_name)
 
     if register.description is not None:
         xml_description = xml.Element('description')
-        xml_description.text = register.description
+        xml_description.text = replace_index(register.description, index)
         xml_register.append(xml_description)
 
     for modifier in register.modifiers:
@@ -434,9 +448,10 @@ def generate_register(parent, register):
             xml_alternate = xml.Element('alternateRegister')
             xml_alternate.text = modifier[1:-1]
             xml_register.append(xml_alternate)
+            break
 
     xml_addressOffset = xml.Element('addressOffset')
-    xml_addressOffset.text = '0x%04X' % register.offset
+    xml_addressOffset.text = '0x%04X' % (register.offset + (index * (register.size // 8)))
     xml_register.append(xml_addressOffset)
 
     if register.size != 32:
@@ -459,7 +474,7 @@ def generate_register(parent, register):
             xml_register.append(xml_read)
 
     if len(register.bitfields):
-        generate_bitfields(xml_register, register.bitfields.values())
+        generate_bitfields(xml_register, register.bitfields.values(), index)
 
     parent.append(xml_register)
 
@@ -502,7 +517,20 @@ def generate_peripheral(peripherals, root, p_name, gen_empty):
     xml_registers = xml.Element('registers')
 
     for register in peripheral.registers.values():
-        generate_register(xml_registers, register)
+        # Expand arrays manually because ADS doesn't display items in proper order
+        count = 1
+        for modifier in register.modifiers:
+            if modifier.startswith('@'):
+                count = int(modifier[1:], 0)
+                break
+
+        if count > 1:
+            # Skip SRAM blocks due to too many entries
+            if register.name == 'SRAM$':
+                continue
+
+        for i in range(count):
+            generate_register(xml_registers, register, i)
 
     if len(peripheral.registers) > 0:
         xml_peripheral.append(xml_registers)

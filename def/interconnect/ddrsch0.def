@@ -1,16 +1,16 @@
 [DDRSCH0, INTERCONNECT]
 @ = 0xFE000000, 0x2000
 
-ID_COREID = 0x0000, RO ; Core id 
+ID_COREID = 0x0000, RO ; Core id
 > 8, 24, CORECHECKSUM ; Field containing a checksum of the parameters of the IP.
-> 0, 8, CORETYPEID ; Field identifying the type of IP. 
+> 0, 8, CORETYPEID ; Field identifying the type of IP.
 
-ID_REVISIONID = 0x0004, RO ; Revision id 
+ID_REVISIONID = 0x0004, RO ; Revision id
 > 8, 24, BUILDID ; Field containing the build revision of the software used to generate the IP HDL code.
-> 0, 8, USERID ; Field containing a user defined value, not used anywhere inside the IP itself. 
+> 0, 8, USERID ; Field containing a user defined value, not used anywhere inside the IP itself.
 
-DEVICECONF = 0x0008 ; Register DeviceConf stores selectors to the predefined list of DDR configuration to be programmed at initialization phase. 
-> 0, 6, DEVICECONF ; Selector of predefined ddrConf configuration. R: Indicates Row bits B: Indicates Bank bits C: Indicates Column bits G: Indicates Bank Group bits 
+DEVICECONF = 0x0008 ; Register DeviceConf stores selectors to the predefined list of DDR configuration to be programmed at initialization phase.
+> 0, 6, DEVICECONF ; Selector of predefined ddrConf configuration. R: Indicates Row bits B: Indicates Bank bits C: Indicates Column bits G: Indicates Bank Group bits
 = 0, D_RRRR_RRRR_RRRR_RRRR_RRBB_BCCC_CCCC_____
 = 1, D_RRRR_RRRR_RRRR_RRRR_RBBB_BCCC_CCCC_____
 = 2, D_RRRR_RRRR_RRRR_RRRR_RBBG_CCCC_CCGC_____
@@ -20,38 +20,38 @@ DEVICECONF = 0x0008 ; Register DeviceConf stores selectors to the predefined lis
 = 6, R_RRRR_RRRR_RRRR_RRRR_DBBG_CCCC_CCGC_____
 = 7, R_RRRR_RRRR_RRRR_RRRR_DBBG_GCCC_CCCC_____
 
-DEVICESIZE = 0x000C ; Register DeviceSize is used to set the size of DDR ranks. 
+DEVICESIZE = 0x000C ; Register DeviceSize is used to set the size of DDR ranks.
 > 8, 8, RANK1 ; Rank1 size. The granule size is 64MB.
-> 0, 8, RANK0 ; Rank0 size. The granule size is 64MB. 
+> 0, 8, RANK0 ; Rank0 size. The granule size is 64MB.
 
-DDRTIMINGA = 0x0010 ; Register DdrTimingA of timing register bank n stores timing settings used by DDR schedulers to compute bank and page states. 
+DDRTIMINGA = 0x0010 ; Register DdrTimingA of timing register bank n stores timing settings used by DDR schedulers to compute bank and page states.
 > 24, 8, READLATENCY ; Maximum delay between a read request and the first data response. 0 delay disable the Read Latency control.
 > 16, 8, WRTOMISS ; Minimum number of scheduler clock cycles between the last DRAM Write command and a new Read or Write command in another page of the same bank. The field must be set to the following value, rounded to an integer number of scheduler clock cycles: (WL*tCkD + tWR + tRP + tRCD) / tCkG
 > 8, 6, RDTOMISS ; Minimum number of scheduler clock cycles between the last DRAM Read command and a new Read or Write command in another page of the same bank. The field must be set to the following value, round to an integer number of scheduler clock cycles: (tRTP + tRP + tRCD - BL*tCkD/2) / tCkG
-> 0, 7, ACTTOACT ; Minimum number of scheduler clock cycles between two consecutive DRAM Activate commands on the same bank. The field must be set to the following value, rounded to an integer number of scheduler clock cycles: tRC / tCkG 
+> 0, 7, ACTTOACT ; Minimum number of scheduler clock cycles between two consecutive DRAM Activate commands on the same bank. The field must be set to the following value, rounded to an integer number of scheduler clock cycles: tRC / tCkG
 
-DDRTIMINGB = 0x0014 ; Register DdrTimingB of timing register bank n stores timing settings used by DDR schedulers to compute penalties pertaining to bank and page states. 
+DDRTIMINGB = 0x0014 ; Register DdrTimingB of timing register bank n stores timing settings used by DDR schedulers to compute penalties pertaining to bank and page states.
 > 24, 6, FAW ; Number of cycle of the FAW period. The field must be set to the following value, rounded to an integer number of scheduler clock cycles: tFAW / tCkG
 > 16, 4, RRD ; Number of cycle between two consecutive Activate commands on different Banks of the same device. The field must be set to the following value, rounded to an integer number of scheduler clock cycles: tRRD / tCkG
 > 8, 5, WRTORD ; Minimum number of scheduler clock cycles between the last DRAM Write command and a Read command. The field must be set to the following value, rounded to an integer of scheduler clock cycles: ((WL + 1)*tCkD + tWTR) / tCkG, for LPDDR4 memories.
-> 0, 5, RDTOWR ; Minimum number of scheduler clock cycles between the last DRAM Read command and a Write command. The field must be set to the following value, rounded to an integer number of scheduler clock cycles: (RL + RoundUp(tDQSCK(max) / tCKD) + tRPST - WL + tWPRE) tCkD / tCKG, for LPDDR4 memories. 
+> 0, 5, RDTOWR ; Minimum number of scheduler clock cycles between the last DRAM Read command and a Write command. The field must be set to the following value, rounded to an integer number of scheduler clock cycles: (RL + RoundUp(tDQSCK(max) / tCKD) + tRPST - WL + tWPRE) tCkD / tCKG, for LPDDR4 memories.
 
-DDRTIMINGC = 0x0018 ; Register DdrTimingC of timing register bank n stores timing settings used by DDR schedulers to compute penalties pertaining to DRAM commands. It is used to configure the clock of the register bank. 
+DDRTIMINGC = 0x0018 ; Register DdrTimingC of timing register bank n stores timing settings used by DDR schedulers to compute penalties pertaining to DRAM commands. It is used to configure the clock of the register bank.
 > 8, 6, WRTOMWR ; Number of scheduler clock cycles between the last write data to the first data of a masked write command on the same bank. This field must be set to 3xBurstPenalty for LPDDR4, and must be set to zero for the other DRAM.
-> 0, 4, BURSTPENALTY ; DRAM burst duration on the DRAM data bus in scheduler clock cycles. The field must be set to Nd /Ns, where: Nd is the number of DRAM cycles needed to process a DRAM burst of determined size, expressed in bytes. Ns is the minimum number of scheduler cycles to process a DRAM burst of the same size. 
+> 0, 4, BURSTPENALTY ; DRAM burst duration on the DRAM data bus in scheduler clock cycles. The field must be set to Nd /Ns, where: Nd is the number of DRAM cycles needed to process a DRAM burst of determined size, expressed in bytes. Ns is the minimum number of scheduler cycles to process a DRAM burst of the same size.
 
-DDRTIMINGL = 0x001C ; Long timing for DDR4 Bank Group support 
+DDRTIMINGL = 0x001C ; Long timing for DDR4 Bank Group support
 > 8, 4, RRDL ; Register field RrdL sets the minimum time, expressed in scheduler clock cycles of the tRRD timing for LPDDR4 devices. This is the timing of access to the same bank group for RD after RD.
 > 3, 5, WRTORDL ; Register field WrToRdL sets the minimum time, expressed in scheduler clock cycles, of the tWrToRd timing for LPDDR4 devices. This is the timing of access to the same bank group, WR to RD.
-> 0, 3, CCDL ; Register field CcdL sets the minimum time, expressed in scheduler clock cycles of the tCCD LPDDR4 devices. This is the timing of access to the same bank group. 
+> 0, 3, CCDL ; Register field CcdL sets the minimum time, expressed in scheduler clock cycles of the tCCD LPDDR4 devices. This is the timing of access to the same bank group.
 
-DEVTODEV = 0x0020 ; Register DevToDev of timing register bank n contains supplementary timing penalties that are incurred when changing data-bus ownership of up to four devices. The penalties are expressed in scheduler clock cycles. 
+DEVTODEV = 0x0020 ; Register DevToDev of timing register bank n contains supplementary timing penalties that are incurred when changing data-bus ownership of up to four devices. The penalties are expressed in scheduler clock cycles.
 > 12, 3, BUSWRTOWR ; Number of cycle between the last write data to a device and the first write data of another device.
 > 8, 4, BUSWRTORD ; Number of cycle between the last write data to a device and the first read data of another device.
 > 4, 4, BUSRDTOWR ; Number of cycle between the last read data of a device and the first write data to another device.
-> 0, 3, BUSRDTORD ; Number of cycle between the last read data of a device and the first read data of another device. 
+> 0, 3, BUSRDTORD ; Number of cycle between the last read data of a device and the first read data of another device.
 
-DDRMODE = 0x0024 ; Register DdrMode stores the controller behaviour description. 
+DDRMODE = 0x0024 ; Register DdrMode stores the controller behaviour description.
 > 16, 8, FORCEORDERSTATE ; Force execution order internal state.
 > 8, 8, FORCEORDER ; When bit n of register field ForceOrder is set to 1, DRAM commands are executed in the order they arrive at scheduler port n. When field bits are set to 1, and BypassFiltering is also set to 1, command execution order is guaranteed for the corresponding scheduler port.
 > 5, 2, MWRSIZE ; Register MwrSize sets LPDDR4 and LPDDR5 data width, which is used for masked-write split control. The following table shows the field values according to DDR type.
@@ -68,23 +68,11 @@ DDRMODE = 0x0024 ; Register DdrMode stores the controller behaviour description.
 
 > 2, 1, FAWBANK ; Register field FawBank indicates the number of banks of a given device involved in the FAW period during which four banks can be active. It must be set to 0 for 2-bank memories, and 1 for memories with four banks or more.
 > 1, 1, BYPASSFILTERING ; When register field BypassFiltering is set to 1, arbiter filters are bypassed and timing register outputs are internally set to an idle value. The field can be useful during DRAM initialization, when training or calibration sequences are performed, and scheduler arbitration is not needed. When the field is set to 0, scheduler arbitration is fully functional, this is the functional usage mode. NOTE: When the field is set to 1, the final arbitration level continues to elect transactions among those presented to the arbiter. Set field ForceOrder to ensure that transactions are executed in order, for instance during DRAM initialization.
-> 0, 1, AUTOPRECHARGE ; When set to one, pages are automatically closed after each access, when set to zero, pages are left opened until an access in a different page occurs. 
+> 0, 1, AUTOPRECHARGE ; When set to one, pages are automatically closed after each access, when set to zero, pages are left opened until an access in a different page occurs.
 
-AGINGX = 0x002C ; Aging threshold multiplicator 
-> 0, 3, AGINGX ; Aging threshold multiplicator. 
+AGINGX = 0x002C ; Aging threshold multiplicator
+> 0, 3, AGINGX ; Aging threshold multiplicator.
 
-AGING0 = 0x0030 ; AGING slice threshold for port0 
-> 0, 8, Aging0 ; Aging slice threshold for port 0.
-
-AGING1 = 0x0034 ; AGING slice threshold for port1 
-> 0, 8, Aging1 ; Aging slice threshold for port 1.
-
-AGING2 = 0x0038 ; AGING slice threshold for port2
-> 0, 8, Aging2 ; Aging slice threshold for port 2.
-
-AGING3 = 0x003C ; AGING slice threshold for port3 
-> 0, 8, Aging3 ; Aging slice threshold for port 3.
-
-AGING4 = 0x0040 ; AGING slice threshold for port4
-> 0, 8, Aging4 ; Aging slice threshold for port 4.
+AGING$ = 0x0030, @5 ; AGING slice threshold for port$
+> 0, 8, AGING$ ; Aging slice threshold for port $.
 

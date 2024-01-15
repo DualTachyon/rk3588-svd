@@ -17,14 +17,11 @@ FIFO_CTL = 0x0040 ; FIFO Control Register
 BC_CTL = 0x0044 ; Block Cipher Control Register
 CIPHER_ST = 0x004C ; Cipher Status Register
 CIPHER_STATE = 0x0050 ; Cipher Current State Register
-CH0_IV_0 = 0x0100 ; iv 0
-CH0_IV_1 = 0x0104 ; iv 1
-CH0_IV_2 = 0x0108 ; iv 2
-CH0_IV_3 = 0x010C ; iv 3
-CH0_KEY_0 = 0x0180 ; key 0
-CH0_KEY_1 = 0x0184 ; key 1
-CH0_KEY_2 = 0x0188 ; key 2
-CH0_KEY_3 = 0x018C ; key 3
+
+CH0_IV$ = 0x0100, @4 ; iv $
+
+CH0_KEY$ = 0x0180, @4 ; key $
+
 APB_CMD = 0x0450 ; apb master command enable
 APB_PADDR = 0x0454 ; apb paddr
 APB_PWDATA = 0x0458 ; apb pwdata

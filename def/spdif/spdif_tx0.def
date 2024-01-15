@@ -88,147 +88,15 @@ XFER = 0x0018 ; Transfer Start Register
 SMPDR = 0x0020, WO ; Sample Data Register
 > 0, 32, SMPDR ; Sample data written to this register will be pushed into internal transfer buffer.
 
-VLDFR0 = 0x0060 ; Validity Flag Register 0
+VLDFR$ = 0x0060, @12 ; Validity Flag Register $
 > 16, 16, VLDFR_SUB_1 ; Validity flag for subframe 1
 > 0, 16, VLDFR_SUB_0 ; Validity flag for subframe 0
 
-VLDFR1 = 0x0064 ; Validity Flag Register 1
-> 16, 16, VLDFR_SUB_1 ; Validity flag for subframe 1
-> 0, 16, VLDFR_SUB_0 ; Validity flag for subframe 0
-
-VLDFR2 = 0x0068 ; Validity Flag Register 2
-> 16, 16, VLDFR_SUB_1 ; Validity flag for subframe 1
-> 0, 16, VLDFR_SUB_0 ; Validity flag for subframe 0
-
-VLDFR3 = 0x006C ; Validity Flag Register 3
-> 16, 16, VLDFR_SUB_1 ; Validity flag for subframe 1
-> 0, 16, VLDFR_SUB_0 ; Validity flag for subframe 0
-
-VLDFR4 = 0x0070 ; Validity Flag Register 4
-> 16, 16, VLDFR_SUB_1 ; Validity flag for subframe 1
-> 0, 16, VLDFR_SUB_0 ; Validity flag for subframe 0
-
-VLDFR5 = 0x0074 ; Validity Flag Register 5
-> 16, 16, VLDFR_SUB_1 ; Validity flag for subframe 1
-> 0, 16, VLDFR_SUB_0 ; Validity flag for subframe 0
-
-VLDFR6 = 0x0078 ; Validity Flag Register 6
-> 16, 16, VLDFR_SUB_1 ; Validity flag for subframe 1
-> 0, 16, VLDFR_SUB_0 ; Validity flag for subframe 0
-
-VLDFR7 = 0x007C ; Validity Flag Register 7
-> 16, 16, VLDFR_SUB_1 ; Validity flag for subframe 1
-> 0, 16, VLDFR_SUB_0 ; Validity flag for subframe 0
-
-VLDFR8 = 0x0080 ; Validity Flag Register 8
-> 16, 16, VLDFR_SUB_1 ; Validity flag for subframe 1
-> 0, 16, VLDFR_SUB_0 ; Validity flag for subframe 0
-
-VLDFR9 = 0x0084 ; Validity Flag Register 9
-> 16, 16, VLDFR_SUB_1 ; Validity flag for subframe 1
-> 0, 16, VLDFR_SUB_0 ; Validity flag for subframe 0
-
-VLDFR10 = 0x0088 ; Validity Flag Register 10
-> 16, 16, VLDFR_SUB_1 ; Validity flag for subframe 1
-> 0, 16, VLDFR_SUB_0 ; Validity flag for subframe 0
-
-VLDFR11 = 0x008C ; Validity Flag Register 11
-> 16, 16, VLDFR_SUB_1 ; Validity flag for subframe 1
-> 0, 16, VLDFR_SUB_0 ; Validity flag for subframe 0
-
-USRDR0 = 0x0090 ; User Data Register 0
+USRDR$ = 0x0090, @12 ; User Data Register $
 > 16, 16, USR_SUB_1 ; User data bit for subframe 1
 > 0, 16, USR_SUB_0 ; User data bit for subframe 0
 
-USRDR1 = 0x0094 ; User Data Register 1
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR2 = 0x0098 ; User Data Register 2
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR3 = 0x009C ; User Data Register 3
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR4 = 0x00A0 ; User Data Register 4
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR5 = 0x00A4 ; User Data Register 5
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR6 = 0x00A8 ; User Data Register 6
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR7 = 0x00AC ; User Data Register 7
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR8 = 0x00B0 ; User Data Register 8
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR9 = 0x00B4 ; User Data Register 9
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR10 = 0x00B8 ; User Data Register 10
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR11 = 0x00BC ; User Data Register 11
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-CHNSR0 = 0x00C0 ; Channel Status Register 0
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR1 = 0x00C4 ; Channel Status Register 1
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR2 = 0x00C8 ; Channel Status Register 2
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR3 = 0x00CC ; Channel Status Register 3
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR4 = 0x00D0 ; Channel Status Register 4
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR5 = 0x00D4 ; Channel Status Register 5
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR6 = 0x00D8 ; Channel Status Register 6
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR7 = 0x00DC ; Channel Status Register 7
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR8 = 0x00E0 ; Channel Status Register 8
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR9 = 0x00E4 ; Channel Status Register 9
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR10 = 0x00E8 ; Channel Status Register 10
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR11 = 0x00EC ; Channel Status Register 11
+CHNSR$ = 0x00C0, @12 ; Channel Status Register $
 > 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
 > 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
 
@@ -326,51 +194,7 @@ BURTSINFO_SHD = 0x0108, RO ; Shadow Channel Burst Info Register
 REPETTION_SHD = 0x010C ; Shadow Channel Repetition Register
 > 0, 16, REPETTION ; This register provides the repetition of the bitstream when channel conveys non-linear PCM. It defines the length between Pa of the two consecutive data-burst. For the same audio format, the definition is different. Please convert the actual repetition in order to comply with the design.
 
-USRDR_SHD0 = 0x0190, RO ; Shadow User Data Register 0
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR_SHD1 = 0x0194, RO ; Shadow User Data Register 1
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR_SHD2 = 0x0198, RO ; Shadow User Data Register 2
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR_SHD3 = 0x019C, RO ; Shadow User Data Register 3
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR_SHD4 = 0x01A0, RO ; Shadow User Data Register 4
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR_SHD5 = 0x01A4, RO ; Shadow User Data Register 5
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR_SHD6 = 0x01A8, RO ; Shadow User Data Register 6
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR_SHD7 = 0x01AC, RO ; Shadow User Data Register 7
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR_SHD8 = 0x01B0, RO ; Shadow User Data Register 8
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR_SHD9 = 0x01B4, RO ; Shadow User Data Register 9
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR_SHD10 = 0x01B8, RO ; Shadow User Data Register 10
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR_SHD11 = 0x01BC, RO ; Shadow User Data Register 11
+USRDR_SHD$ = 0x0190, RO, @12 ; Shadow User Data Register $
 > 16, 16, USR_SUB_1 ; User data bit for subframe 1
 > 0, 16, USR_SUB_0 ; User data bit for subframe 0
 

@@ -38,98 +38,11 @@ T_DAS_SOC = 0x000C ; Timing control from dis-assert SOC to change channel
 T_SEL_SOC = 0x0010 ; Timimg control from change channel sel to assert SOC
 > 0, 16, T_SEL_SOC ; Timing from channel load to SOC assert.
 
-HIGH_COMP0 = 0x0014 ; High threshold for ADC output data
-> 0, 12, HIGH_COMP0 ; High threshold for ADC output data for channel 0.
+HIGH_COMP$ = 0x0014, @16 ; High threshold for ADC output data
+> 0, 12, HIGH_COMP$ ; High threshold for ADC output data for channel $.
 
-HIGH_COMP1 = 0x0018 ; High threshold for ADC output data
-> 0, 12, HIGH_COMP1 ; High threshold for ADC output data for channel 1.
-
-HIGH_COMP2 = 0x001C ; High threshold for ADC output data
-> 0, 12, HIGH_COMP2 ; High threshold for ADC output data for channel 2.
-
-HIGH_COMP3 = 0x0020 ; High threshold for ADC output data
-> 0, 12, HIGH_COMP3 ; High threshold for ADC output data for channel 3.
-
-HIGH_COMP4 = 0x0024 ; High threshold for ADC output data
-> 0, 12, HIGH_COMP4 ; High threshold for ADC output data for channel 4.
-
-HIGH_COMP5 = 0x0028 ; High threshold for ADC output data
-> 0, 12, HIGH_COMP5 ; High threshold for ADC output data for channel 5.
-
-HIGH_COMP7 = 0x0030 ; High threshold for ADC output data
-> 0, 12, HIGH_COMP7 ; High threshold for ADC output data for channel 7.
-
-HIGH_COMP8 = 0x0034 ; High threshold for ADC output data
-> 0, 12, HIGH_COMP8 ; Not used in this application.
-
-HIGH_COMP9 = 0x0038 ; High threshold for ADC output data
-> 0, 12, HIGH_COMP9 ; Not used in this application.
-
-HIGH_COMP10 = 0x003C ; High threshold for ADC output data
-> 0, 12, HIGH_COMP10 ; Not used in this application.
-
-HIGH_COMP11 = 0x0040 ; High threshold for ADC output data
-> 0, 12, HIGH_COMP11 ; Not used in this application.
-
-HIGH_COMP12 = 0x0044 ; High threshold for ADC output data
-> 0, 12, HIGH_COMP12 ; Not used in this application.
-
-HIGH_COMP13 = 0x0048 ; High threshold for ADC output data
-> 0, 12, HIGH_COMP13 ; Not used in this application.
-
-HIGH_COMP14 = 0x004C ; High threshold for ADC output data
-> 0, 12, HIGH_COMP14 ; Not used in this application.
-
-HIGH_COMP15 = 0x0050 ; High threshold for ADC output data
-> 0, 12, HIGH_COMP15 ; Not used in this application.
-
-LOW_COMP0 = 0x0054 ; Low threshold for ADC output data
-> 0, 12, LOW_COMP0 ; Low threshold for ADC output data for channel 0.
-
-LOW_COMP1 = 0x0058 ; Low threshold for ADC output data
-> 0, 12, LOW_COMP1 ; Low threshold for ADC output data for channel 1.
-
-LOW_COMP2 = 0x005C ; Low threshold for ADC output data
-> 0, 12, LOW_COMP2 ; Low threshold for ADC output data for channel 2.
-
-LOW_COMP3 = 0x0060 ; Low threshold for ADC output data
-> 0, 12, LOW_COMP3 ; Low threshold for ADC output data for channel 3.
-
-LOW_COMP4 = 0x0064 ; Low threshold for ADC output data
-> 0, 12, LOW_COMP4 ; Low threshold for ADC output data for channel 4.
-
-LOW_COMP5 = 0x0068 ; Low threshold for ADC output data
-> 0, 12, LOW_COMP5 ; Low threshold for ADC output data for channel 5.
-
-LOW_COMP6 = 0x006C ; Low threshold for ADC output data
-> 0, 12, LOW_COMP6 ; Low threshold for ADC output data for channel 6.
-
-LOW_COMP7 = 0x0070 ; Low threshold for ADC output data
-> 0, 12, LOW_COMP7 ; Low threshold for ADC output data for channel 7.
-
-LOW_COMP8 = 0x0074 ; Low threshold for ADC output data
-> 0, 12, LOW_COMP8 ; Not used in this application.
-
-LOW_COMP9 = 0x0078 ; Low threshold for ADC output data
-> 0, 12, LOW_COMP9 ; Not used in this application.
-
-LOW_COMP10 = 0x007C ; Low threshold for ADC output data
-> 0, 1, LOW_COMP10 ; Not used in this application.
-
-LOW_COMP11 = 0x0080 ; Low threshold for ADC output data
-> 0, 12, LOW_COMP11 ; Not used in this application.
-
-LOW_COMP12 = 0x0084 ; Low threshold for ADC output data
-> 0, 12, LOW_COMP12 ; Not used in this application.
-
-LOW_COMP13 = 0x0088 ; Low threshold for ADC output data
-> 0, 1, LOW_COMP13 ; Not used in this application.
-
-LOW_COMP14 = 0x008C ; Low threshold for ADC output data
-> 0, 12, LOW_COMP14 ; Not used in this application.
-
-LOW_COMP15 = 0x0090 ; Low threshold for ADC output data
-> 0, 12, LOW_COMP15 ; Not used in this application.
+LOW_COMP$ = 0x0054, @16 ; Low threshold for ADC output data
+> 0, 12, LOW_COMP$ ; Low threshold for ADC output data for channel $.
 
 DEBOUNCE = 0x0094 ; Threshold debounce
 > 0, 8, DEBOUNCE ; ADC controller will only generate interrupt data is higher/lower/between setting threshold for "debounce" times.
@@ -411,53 +324,8 @@ MT_INT_ST = 0x011C ; Middle threshold int state
 = 1, HAPPENED
 = 0, NOT_HAPPENED
 
-DATA0 = 0x0120, RO ; ADC output data
-> 0, 12, DATA0 ; ADC channel 0 data.
-
-DATA1 = 0x0124, RO ; ADC output data
-> 0, 12, DATA1 ; ADC channel 1 data.
-
-DATA2 = 0x0128, RO ; ADC output data
-> 0, 12, DATA2 ; ADC channel 2 data.
-
-DATA3 = 0x012C, RO ; ADC output data
-> 0, 12, DATA3 ; ADC channel 3 data.
-
-DATA4 = 0x0130, RO ; ADC output data
-> 0, 12, DATA4 ; ADC channel 4 data.
-
-DATA5 = 0x0134, RO ; ADC output data
-> 0, 12, DATA5 ; ADC channel 5 data.
-
-DATA6 = 0x0138, RO ; ADC output data
-> 0, 12, DATA6 ; ADC channel 6 data.
-
-DATA7 = 0x013C, RO ; ADC output data
-> 0, 12, DATA7 ; ADC channel 7 data.
-
-DATA8 = 0x0140, RO ; ADC output data
-> 0, 12, DATA8 ; Not used in this application.
-
-DATA9 = 0x0144, RO ; ADC output data
-> 0, 12, DATA9 ; Not used in this application.
-
-DATA10 = 0x0148, RO ; ADC output data
-> 0, 12, DATA10 ; Not used in this application.
-
-DATA11 = 0x014C, RO ; ADC output data
-> 0, 12, DATA11 ; Not used in this application.
-
-DATA12 = 0x0150, RO ; ADC output data
-> 0, 12, DATA12 ; Not used in this application.
-
-DATA13 = 0x0154, RO ; ADC output data
-> 0, 12, DATA13 ; Not used in this application.
-
-DATA14 = 0x0158, RO ; ADC output data
-> 0, 12, DATA14 ; Not used in this application.
-
-DATA15 = 0x015C, RO ; ADC output data
-> 0, 12, DATA15 ; Not used in this application.
+DATA$ = 0x0120, RO, @16 ; ADC output data
+> 0, 12, DATA$ ; ADC channel $ data.
 
 AUTO_CH_EN = 0x0160 ; Channel enable in auto channel mode
 > 15, 1, AUTO_CH15_EN ; Not used in this application.

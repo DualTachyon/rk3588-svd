@@ -1,15 +1,15 @@
 [PORT0_PROBE0, INTERCONNECT]
 @ = 0xFDF50000, 0x400
 
-ID_COREID = 0x0000, RO ; Stores the Core Id and core checksum. 
+ID_COREID = 0x0000, RO ; Stores the Core Id and core checksum.
 > 8, 24, CORECHECKSUM ; Field containing a checksum of the parameters of the IP. Reset value is different for each probe.
-> 0, 8, CORETYPEID ; Field identifying the type of IP. 
+> 0, 8, CORETYPEID ; Field identifying the type of IP.
 
-ID_REVISIONID = 0x0004, RO ; Revision ID 
+ID_REVISIONID = 0x0004, RO ; Revision ID
 > 8, 24, BUILDID ; Field containing the build revision of the software used to generate the IP HDL code.
-> 0, 8, USERID ; Field containing a user defined value, not used anywhere inside the IP itself. 
+> 0, 8, USERID ; Field containing a user defined value, not used anywhere inside the IP itself.
 
-MAINCTL = 0x0008 ; Register MainCtl contains probe global control bits. 
+MAINCTL = 0x0008 ; Register MainCtl contains probe global control bits.
 > 7, 1, FILTBYTEALWAYSCHAINABLEEN ; When set to 0, filters are mapped to all statistic counters when counting bytes or enabled bytes. Therefore, only filter events mapped to even counters can be counted using a pair of chained counters. When set to 1, filters are mapped only to even statistic counters when counting bytes or enabled bytes. Thus events from any filter can be counted using a pair of chained counters.
 > 6, 1, INTRUSIVEMODE ; When set to 1, register field IntrusiveMode enables trace operation in Intrusive flow-control mode. When set to 0, the register enables trace operation in Overflow flow-control mode.
 > 5, 1, STATCONDDUMP ; When set, register field StatCondDump enables the dump of a statistics frame to the range of counter values set for registers StatAlarmMin, StatAlarmMax, and AlarmMode. This field also renders register StatAlarmStatus inoperative. When parameter statisticsCounterAlarm is set to False, the StatCondDump register bit is reserved.
@@ -17,237 +17,237 @@ MAINCTL = 0x0008 ; Register MainCtl contains probe global control bits.
 > 3, 1, STATEN ; When set to 1, register field StatEn enables statistics profiling. The probe sends statistics results to the output for signal ObsTx. All statistics counters are cleared when the StatEn bit goes from 0 to 1. When set to 0, counters are disabled.
 > 2, 1, PAYLOADEN ; Register field PayloadEn, when set to 1, enables traces to contain headers and payload. When set to 0, only headers are reported.
 > 1, 1, TRACEEN ; Register field TraceEn enables the probe to send filtered packets (Trace) on the ObsTx observation output.
-> 0, 1, ERREN ; Register field ErrEn enables the probe to send on the ObsTx output any packet with Error status, independently of filtering mechanisms, thus constituting a simple supplementary global filter. 
+> 0, 1, ERREN ; Register field ErrEn enables the probe to send on the ObsTx output any packet with Error status, independently of filtering mechanisms, thus constituting a simple supplementary global filter.
 
-CFGCTL = 0x000C ; Stores global enable and active bits. 
+CFGCTL = 0x000C ; Stores global enable and active bits.
 > 1, 1, ACTIVE, RO ; Register field Active is used to inform software that the probe is active. Probe configuration is not allowed during the active state. This bit is raised when bit GlobalEn is set, and is cleared a few cycles after setting GlobalEn to zero (probe is Idle).
-> 0, 1, GLOBALEN ; Enables or disables the tracing and statistics collection subsystems of the packet probe. 
+> 0, 1, GLOBALEN ; Enables or disables the tracing and statistics collection subsystems of the packet probe.
 
-FILTERLUT = 0x0014 ; Controls the filter look-up table (LUT), which is used to select which filters are used and in what logical combination. 
-> 0, 16, FILTERLUT ; Register FilterLut contains a look-up table that is used to combine filter outputs in order to trace packets. Packet tracing is enabled when the FilterLut bit of index (FNout ... F0out) is equal to 1. The number of bits in register FilterLut is determined by the setting for parameter nFilter, calculated as 2**nFilter. When parameter nFilter is set to None, FilterLut is reserved. 
+FILTERLUT = 0x0014 ; Controls the filter look-up table (LUT), which is used to select which filters are used and in what logical combination.
+> 0, 16, FILTERLUT ; Register FilterLut contains a look-up table that is used to combine filter outputs in order to trace packets. Packet tracing is enabled when the FilterLut bit of index (FNout ... F0out) is equal to 1. The number of bits in register FilterLut is determined by the setting for parameter nFilter, calculated as 2**nFilter. When parameter nFilter is set to None, FilterLut is reserved.
 
-TRACEALARMEN = 0x0018 ; Enables hits from either trace filters or the LUT to be recorded in the trace alarm status register TraceAlarmStatus. 
-> 0, 5, TRACEALARMEN ; Register TraceAlarmEn controls which lookup table or filter can set the TraceAlarm signal output once the trace alarm status is set. The number of bits in register TraceAlarmEn is determined by the value set for parameter nFilter + 1. Bit nFilter controls the lookup table output, and bits (nFilter-1:0) control the corresponding filter output. When parameter nFilter is set to None, TraceAlarmEn is reserved. 
+TRACEALARMEN = 0x0018 ; Enables hits from either trace filters or the LUT to be recorded in the trace alarm status register TraceAlarmStatus.
+> 0, 5, TRACEALARMEN ; Register TraceAlarmEn controls which lookup table or filter can set the TraceAlarm signal output once the trace alarm status is set. The number of bits in register TraceAlarmEn is determined by the value set for parameter nFilter + 1. Bit nFilter controls the lookup table output, and bits (nFilter-1:0) control the corresponding filter output. When parameter nFilter is set to None, TraceAlarmEn is reserved.
 
-TRACEALARMSTATUS = 0x001C, RO ; Register TraceAlarmStatus is a read-only register that indicates which LUT or filter has been matched by a packet. 
-> 4, 1, TRACEALARMSTATUS4 ; Register TraceAlarmStatus is a read-only register that indicates which lookup table or filter has been matched by a packet, independently of register TraceAlarmEn bit configuration. The number of bits in TraceAlarmStatus is determined by the value set for parameter nFilter + 1. When nFilter is set to None, TraceAlarmStatus is reserved. 
+TRACEALARMSTATUS = 0x001C, RO ; Register TraceAlarmStatus is a read-only register that indicates which LUT or filter has been matched by a packet.
+> 4, 1, TRACEALARMSTATUS4 ; Register TraceAlarmStatus is a read-only register that indicates which lookup table or filter has been matched by a packet, independently of register TraceAlarmEn bit configuration. The number of bits in TraceAlarmStatus is determined by the value set for parameter nFilter + 1. When nFilter is set to None, TraceAlarmStatus is reserved.
 = 1, MATCHED
 
-> 3, 1, TRACEALARMSTATUS3 ; Register TraceAlarmStatus is a read-only register that indicates which lookup table or filter has been matched by a packet, independently of register TraceAlarmEn bit configuration. The number of bits in TraceAlarmStatus is determined by the value set for parameter nFilter + 1. When nFilter is set to None, TraceAlarmStatus is reserved. 
+> 3, 1, TRACEALARMSTATUS3 ; Register TraceAlarmStatus is a read-only register that indicates which lookup table or filter has been matched by a packet, independently of register TraceAlarmEn bit configuration. The number of bits in TraceAlarmStatus is determined by the value set for parameter nFilter + 1. When nFilter is set to None, TraceAlarmStatus is reserved.
 = 1, MATCHED
 
-> 2, 1, TRACEALARMSTATUS2 ; Register TraceAlarmStatus is a read-only register that indicates which lookup table or filter has been matched by a packet, independently of register TraceAlarmEn bit configuration. The number of bits in TraceAlarmStatus is determined by the value set for parameter nFilter + 1. When nFilter is set to None, TraceAlarmStatus is reserved. 
+> 2, 1, TRACEALARMSTATUS2 ; Register TraceAlarmStatus is a read-only register that indicates which lookup table or filter has been matched by a packet, independently of register TraceAlarmEn bit configuration. The number of bits in TraceAlarmStatus is determined by the value set for parameter nFilter + 1. When nFilter is set to None, TraceAlarmStatus is reserved.
 = 1, MATCHED
 
-> 1, 1, TRACEALARMSTATUS1 ; Register TraceAlarmStatus is a read-only register that indicates which lookup table or filter has been matched by a packet, independently of register TraceAlarmEn bit configuration. The number of bits in TraceAlarmStatus is determined by the value set for parameter nFilter + 1. When nFilter is set to None, TraceAlarmStatus is reserved. 
+> 1, 1, TRACEALARMSTATUS1 ; Register TraceAlarmStatus is a read-only register that indicates which lookup table or filter has been matched by a packet, independently of register TraceAlarmEn bit configuration. The number of bits in TraceAlarmStatus is determined by the value set for parameter nFilter + 1. When nFilter is set to None, TraceAlarmStatus is reserved.
 = 1, MATCHED
 
-> 0, 1, TRACEALARMSTATUS0 ; Register TraceAlarmStatus is a read-only register that indicates which lookup table or filter has been matched by a packet, independently of register TraceAlarmEn bit configuration. The number of bits in TraceAlarmStatus is determined by the value set for parameter nFilter + 1. When nFilter is set to None, TraceAlarmStatus is reserved. 
+> 0, 1, TRACEALARMSTATUS0 ; Register TraceAlarmStatus is a read-only register that indicates which lookup table or filter has been matched by a packet, independently of register TraceAlarmEn bit configuration. The number of bits in TraceAlarmStatus is determined by the value set for parameter nFilter + 1. When nFilter is set to None, TraceAlarmStatus is reserved.
 = 1, MATCHED
 
-TRACEALARMCLR = 0x0020, W1C ; Setting a bit to 1 in register TraceAlarmClr clears the corresponding bit in register TraceAlarmStatus. 
-> 4, 1, TRACEALARMCLR4 ; Setting a bit to 1 in register TraceAlarmClr clears the corresponding bit in register TraceAlarmStatus. The number of bits in register TraceAlarmClr is equal to (nFilter + 1). When nFilter is set to 0, TraceAlarmClr is reserved. NOTE: The written value is not stored in TraceAlarmClr. A read always returns 0. 
-> 3, 1, TRACEALARMCLR3 ; Setting a bit to 1 in register TraceAlarmClr clears the corresponding bit in register TraceAlarmStatus. The number of bits in register TraceAlarmClr is equal to (nFilter + 1). When nFilter is set to 0, TraceAlarmClr is reserved. NOTE: The written value is not stored in TraceAlarmClr. A read always returns 0. 
-> 2, 1, TRACEALARMCLR2 ; Setting a bit to 1 in register TraceAlarmClr clears the corresponding bit in register TraceAlarmStatus. The number of bits in register TraceAlarmClr is equal to (nFilter + 1). When nFilter is set to 0, TraceAlarmClr is reserved. NOTE: The written value is not stored in TraceAlarmClr. A read always returns 0. 
-> 1, 1, TRACEALARMCLR1 ; Setting a bit to 1 in register TraceAlarmClr clears the corresponding bit in register TraceAlarmStatus. The number of bits in register TraceAlarmClr is equal to (nFilter + 1). When nFilter is set to 0, TraceAlarmClr is reserved. NOTE: The written value is not stored in TraceAlarmClr. A read always returns 0. 
-> 0, 1, TRACEALARMCLR0 ; Setting a bit to 1 in register TraceAlarmClr clears the corresponding bit in register TraceAlarmStatus. The number of bits in register TraceAlarmClr is equal to (nFilter + 1). When nFilter is set to 0, TraceAlarmClr is reserved. NOTE: The written value is not stored in TraceAlarmClr. A read always returns 0. 
+TRACEALARMCLR = 0x0020, W1C ; Setting a bit to 1 in register TraceAlarmClr clears the corresponding bit in register TraceAlarmStatus.
+> 4, 1, TRACEALARMCLR4 ; Setting a bit to 1 in register TraceAlarmClr clears the corresponding bit in register TraceAlarmStatus. The number of bits in register TraceAlarmClr is equal to (nFilter + 1). When nFilter is set to 0, TraceAlarmClr is reserved. NOTE: The written value is not stored in TraceAlarmClr. A read always returns 0.
+> 3, 1, TRACEALARMCLR3 ; Setting a bit to 1 in register TraceAlarmClr clears the corresponding bit in register TraceAlarmStatus. The number of bits in register TraceAlarmClr is equal to (nFilter + 1). When nFilter is set to 0, TraceAlarmClr is reserved. NOTE: The written value is not stored in TraceAlarmClr. A read always returns 0.
+> 2, 1, TRACEALARMCLR2 ; Setting a bit to 1 in register TraceAlarmClr clears the corresponding bit in register TraceAlarmStatus. The number of bits in register TraceAlarmClr is equal to (nFilter + 1). When nFilter is set to 0, TraceAlarmClr is reserved. NOTE: The written value is not stored in TraceAlarmClr. A read always returns 0.
+> 1, 1, TRACEALARMCLR1 ; Setting a bit to 1 in register TraceAlarmClr clears the corresponding bit in register TraceAlarmStatus. The number of bits in register TraceAlarmClr is equal to (nFilter + 1). When nFilter is set to 0, TraceAlarmClr is reserved. NOTE: The written value is not stored in TraceAlarmClr. A read always returns 0.
+> 0, 1, TRACEALARMCLR0 ; Setting a bit to 1 in register TraceAlarmClr clears the corresponding bit in register TraceAlarmStatus. The number of bits in register TraceAlarmClr is equal to (nFilter + 1). When nFilter is set to 0, TraceAlarmClr is reserved. NOTE: The written value is not stored in TraceAlarmClr. A read always returns 0.
 
-STATPERIOD = 0x0024 ; Register StatPeriod is a 5-bit register that sets a period ranging from 2 cycles to 2 gigacycles of the probe clock, during which statistics are collected before being dumped automatically. 
-> 0, 5, STATPERIOD ; Register StatPeriod is a 5-bit register that sets a period, within a range of 2 cycles to 2 gigacycles, during which statistics are collected before being dumped automatically. Setting the register implicitly enables automatic mode operation for statistics collection. The period is calculated with the formula: N_Cycle = 2**StatPeriodWhen register StatPeriod is set to its default value 0, automatic dump mode is disabled, and register StatGo is activated for manual mode operation. Note: When parameter statisticsCollection is set to False, StatPeriod is reserved. 
+STATPERIOD = 0x0024 ; Register StatPeriod is a 5-bit register that sets a period ranging from 2 cycles to 2 gigacycles of the probe clock, during which statistics are collected before being dumped automatically.
+> 0, 5, STATPERIOD ; Register StatPeriod is a 5-bit register that sets a period, within a range of 2 cycles to 2 gigacycles, during which statistics are collected before being dumped automatically. Setting the register implicitly enables automatic mode operation for statistics collection. The period is calculated with the formula: N_Cycle = 2**StatPeriodWhen register StatPeriod is set to its default value 0, automatic dump mode is disabled, and register StatGo is activated for manual mode operation. Note: When parameter statisticsCollection is set to False, StatPeriod is reserved.
 
-STATGO = 0x0028 ; Writing to the 1-bit pulse register StatGo generates a statistics dump. 
-> 0, 1, STATGO ; Writing a 1 to the 1-bit pulse register StatGo generates a statistics dump. The register is active when statistics collection operates in manual mode, that is, when register StatPeriod is set to 0. The written value is not stored in StatGo. A read always returns 0. 
+STATGO = 0x0028 ; Writing to the 1-bit pulse register StatGo generates a statistics dump.
+> 0, 1, STATGO ; Writing a 1 to the 1-bit pulse register StatGo generates a statistics dump. The register is active when statistics collection operates in manual mode, that is, when register StatPeriod is set to 0. The written value is not stored in StatGo. A read always returns 0.
 
-STATALARMMIN = 0x002C ; Register StatAlarmMin specifies the lower threshold used to trigger the statistics alarm. 
-> 0, 32, STATALARMMIN ; Register StatAlarmMin contains the minimum count value used in statistics alarm comparisons. 
+STATALARMMIN = 0x002C ; Register StatAlarmMin specifies the lower threshold used to trigger the statistics alarm.
+> 0, 32, STATALARMMIN ; Register StatAlarmMin contains the minimum count value used in statistics alarm comparisons.
 
 STATALARMMAX = 0x0034 ; Register StatAlarmMax specifies the upper threshold used to trigger the statistics alarm.
-> 0, 32, STATALARMMAX ; Register StatAlarmMax contains the maximum count value used in statistics alarm comparisons. 
+> 0, 32, STATALARMMAX ; Register StatAlarmMax contains the maximum count value used in statistics alarm comparisons.
 
-STATALARMSTATUS = 0x003C, RO ; StatAlarmStatus is a 2-bit read- only register relative to statistics counter. 
-> 0, 1, STATALARMSTATUS ; Register StatAlarmStatus is a read-only 1-bit register indicating that at least one statistics counter has exceeded the programmed values for registers StatAlarmMin or StatAlarmMax. Output signal StatAlarm is equal to the values stored in register MainCtl fields StatAlarmStatus and AlarmEn. 
+STATALARMSTATUS = 0x003C, RO ; StatAlarmStatus is a 2-bit read- only register relative to statistics counter.
+> 0, 1, STATALARMSTATUS ; Register StatAlarmStatus is a read-only 1-bit register indicating that at least one statistics counter has exceeded the programmed values for registers StatAlarmMin or StatAlarmMax. Output signal StatAlarm is equal to the values stored in register MainCtl fields StatAlarmStatus and AlarmEn.
 
-STATALARMCLR = 0x0040, W1C ; State alarm clear register. 
-> 0, 1, STATALARMCLR ; Register StatAlarmClr is a 1-bit register. Writing a 1 to this register clears the StatAlarmStatus register bit. When parameter statisticsCounterAlarm is set to False, StatAlarmClr is reserved. NOTE The written value is not stored in StatAlarmClr. A read always returns 0. 
+STATALARMCLR = 0x0040, W1C ; State alarm clear register.
+> 0, 1, STATALARMCLR ; Register StatAlarmClr is a 1-bit register. Writing a 1 to this register clears the StatAlarmStatus register bit. When parameter statisticsCounterAlarm is set to False, StatAlarmClr is reserved. NOTE The written value is not stored in StatAlarmClr. A read always returns 0.
 
-STATALARMEN = 0x0044 ; StatAlarm output signals enable register. 
-> 0, 1, STATALARMEN ; Register StatAlarmEn is a 1-bit register. When set to 0 it masks StatAlarm and CtiTrigOut(1) signal interrupts. 
+STATALARMEN = 0x0044 ; StatAlarm output signals enable register.
+> 0, 1, STATALARMEN ; Register StatAlarmEn is a 1-bit register. When set to 0 it masks StatAlarm and CtiTrigOut(1) signal interrupts.
 = 1, ENABLE
 = 0, DISABLE
 
-FILTERS_0_ROUTEIDBASE = 0x0080 ; Specifies which value of RouteId should be used to filter packets. 
-> 0, 26, FILTERS_0_ROUTEIDBASE ; Register RouteIdBase contains the RouteId-lsbFilterRouteId bits base used to filter packets. 
+FILTERS_0_ROUTEIDBASE = 0x0080 ; Specifies which value of RouteId should be used to filter packets.
+> 0, 26, FILTERS_0_ROUTEIDBASE ; Register RouteIdBase contains the RouteId-lsbFilterRouteId bits base used to filter packets.
 
-FILTERS_0_ROUTEIDMASK = 0x0084 ; Specifies the mask used on RouteId to filter packets. 
-> 0, 26, FILTERS_0_ROUTEIDMASK ; Register RouteIdMask contains the RouteId-lsbFilterRouteId mask used to filter packets. A packet is a candidate when packet.RouteId>>lsbFilterRouteId & RouteIdMask = RouteIdBase & RouteIdMask. 
+FILTERS_0_ROUTEIDMASK = 0x0084 ; Specifies the mask used on RouteId to filter packets.
+> 0, 26, FILTERS_0_ROUTEIDMASK ; Register RouteIdMask contains the RouteId-lsbFilterRouteId mask used to filter packets. A packet is a candidate when packet.RouteId>>lsbFilterRouteId & RouteIdMask = RouteIdBase & RouteIdMask.
 
-FILTERS_0_ADDRBASE_LOW = 0x0088 ; Specifies the values of the lower transport address bits, used in conjunction with register Filters_N_WindowSize, to filter packets. 
-> 0, 32, FILTERS_0_ADDRBASE_LOW ; Address LSB register. 
+FILTERS_0_ADDRBASE_LOW = 0x0088 ; Specifies the values of the lower transport address bits, used in conjunction with register Filters_N_WindowSize, to filter packets.
+> 0, 32, FILTERS_0_ADDRBASE_LOW ; Address LSB register.
 
-FILTERS_0_ADDRBASE_HIGH = 0x008C ; Specifies the values of the upper transport address bits, used in conjunction with register Filters_N_WindowSize to filter packets. 
-> 0, 4, FILTERS_0_ADDRBASE_HIGH ; Address MSB register. 
+FILTERS_0_ADDRBASE_HIGH = 0x008C ; Specifies the values of the upper transport address bits, used in conjunction with register Filters_N_WindowSize to filter packets.
+> 0, 4, FILTERS_0_ADDRBASE_HIGH ; Address MSB register.
 
-FILTERS_0_WINDOWSIZE = 0x0090 ; Specifies the encoded address mask used to filter packets. 
-> 0, 6, FILTERS_0_WINDOWSIZE ; Register WindowSize contains the encoded address mask used to filter packets. The effective Mask value is equal to ~(2max(WindowSize, packet.Len) - 1). A packet is a candidate when packet.Addr & Mask = AddrBase & Mask. This allows filtering of packets having an intersection with the AddrBase/WindowSize burst aligned region, even if the region is smaller than the packet. 
+FILTERS_0_WINDOWSIZE = 0x0090 ; Specifies the encoded address mask used to filter packets.
+> 0, 6, FILTERS_0_WINDOWSIZE ; Register WindowSize contains the encoded address mask used to filter packets. The effective Mask value is equal to ~(2max(WindowSize, packet.Len) - 1). A packet is a candidate when packet.Addr & Mask = AddrBase & Mask. This allows filtering of packets having an intersection with the AddrBase/WindowSize burst aligned region, even if the region is smaller than the packet.
 
-FILTERS_0_SECURITYBASE = 0x0094 ; Specifies, for filter n, the values to be matched against bits in the packet header field Security of transport packets. 
-> 0, 1, FILTERS_0_SECURITYBASE ; Register SecurityBase contains the security base used to filter packets. 
+FILTERS_0_SECURITYBASE = 0x0094 ; Specifies, for filter n, the values to be matched against bits in the packet header field Security of transport packets.
+> 0, 1, FILTERS_0_SECURITYBASE ; Register SecurityBase contains the security base used to filter packets.
 
-FILTERS_0_SECURITYMASK = 0x0098 ; Specifies, for filter n, which bits of packet header field Security are used to filter transport packets. 
-> 0, 1, FILTERS_0_SECURITYMASK ; Register SecurityMask is contains the security mask used to filter packets. A packet is a candidate when: packet. Security & SecurityMask = SecurityBase & SecurityMasks. 
+FILTERS_0_SECURITYMASK = 0x0098 ; Specifies, for filter n, which bits of packet header field Security are used to filter transport packets.
+> 0, 1, FILTERS_0_SECURITYMASK ; Register SecurityMask is contains the security mask used to filter packets. A packet is a candidate when: packet. Security & SecurityMask = SecurityBase & SecurityMasks.
 
-FILTERS_0_OPCODE = 0x009C ; Contains four fields that control which packet opcodes are used to select packets by Filter N. 
+FILTERS_0_OPCODE = 0x009C ; Contains four fields that control which packet opcodes are used to select packets by Filter N.
 > 3, 1, URGEN ; Selects URG packets (urgency).
 > 2, 1, LOCKEN ; Selects RDX-WR, RDL, WRC and Linked sequence.
 > 1, 1, WREN ; Selects WR packets.
-> 0, 1, RDEN ; Selects RD packets. 
+> 0, 1, RDEN ; Selects RD packets.
 
-FILTERS_0_STATUS = 0x00A0 ; A 2-bit register that sets criteria for filter n based on packet status type. 
+FILTERS_0_STATUS = 0x00A0 ; A 2-bit register that sets criteria for filter n based on packet status type.
 > 1, 1, RSPEN ; Selects RSP and FAIL-CONT status packets.
-> 0, 1, REQEN ; Selects REQ status packets. 
+> 0, 1, REQEN ; Selects REQ status packets.
 
-FILTERS_0_LENGTH = 0x00A4 ; Register Filters_N_Length is 4-bit register that selects candidate packets if the number of bytes is less than or equal to 2*FILTERS_N_LENGTH. 
-> 0, 4, FILTERS_0_LENGTH ; Register Length is 4-bit register that selects candidate packets if their number of bytes is less than or equal to 2**Length. 
+FILTERS_0_LENGTH = 0x00A4 ; Register Filters_N_Length is 4-bit register that selects candidate packets if the number of bytes is less than or equal to 2*FILTERS_N_LENGTH.
+> 0, 4, FILTERS_0_LENGTH ; Register Length is 4-bit register that selects candidate packets if their number of bytes is less than or equal to 2**Length.
 
-FILTERS_0_URGENCY = 0x00A8 ; Specifies the minimum urgency level used to filter packets. 
-> 0, 3, FILTERS_0_URGENCY ; Register Urgency contains the minimum urgency level used to filter packets. A packet is a candidate when its socket urgency is greater than or equal to the urgency specified in the register. 
+FILTERS_0_URGENCY = 0x00A8 ; Specifies the minimum urgency level used to filter packets.
+> 0, 3, FILTERS_0_URGENCY ; Register Urgency contains the minimum urgency level used to filter packets. A packet is a candidate when its socket urgency is greater than or equal to the urgency specified in the register.
 
-FILTERS_0_USERBASE = 0x00AC ; Specifies, for filter n, the values to be matched against the lower bits in the packet header field User of transport packets. 
-> 0, 7, FILTERS_0_USERBASE ; Register UserBase is available when parameter useUserFilter is set to True. Register size is determined by parameter wUser. The register stores a user base value that is employed in filtering packets. 
+FILTERS_0_USERBASE = 0x00AC ; Specifies, for filter n, the values to be matched against the lower bits in the packet header field User of transport packets.
+> 0, 7, FILTERS_0_USERBASE ; Register UserBase is available when parameter useUserFilter is set to True. Register size is determined by parameter wUser. The register stores a user base value that is employed in filtering packets.
 
-FILTERS_0_USERMASK = 0x00B0 ; Specifies, for filter n, which lower bits of packet header field User are used to filter transport packets. 
-> 0, 7, FILTERS_0_USERMASK ; Register UserMask is available when parameter useUserFilter is set to True. Register size is determined by parameter wUser. The register stores a user mask that is employed in filtering packets. A packet is a candidate for trace or statistic collection when packet.User & UserMask = UserBase & UserMask. 
+FILTERS_0_USERMASK = 0x00B0 ; Specifies, for filter n, which lower bits of packet header field User are used to filter transport packets.
+> 0, 7, FILTERS_0_USERMASK ; Register UserMask is available when parameter useUserFilter is set to True. Register size is determined by parameter wUser. The register stores a user mask that is employed in filtering packets. A packet is a candidate for trace or statistic collection when packet.User & UserMask = UserBase & UserMask.
 
-FILTERS_1_ROUTEIDBASE = 0x00E0 ; Specifies which value of RouteId should be used to filter packets. 
-> 0, 26, FILTERS_1_ROUTEIDBASE ; Register RouteIdBase contains the RouteId-lsbFilterRouteId bits base used to filter packets. 
+FILTERS_1_ROUTEIDBASE = 0x00E0 ; Specifies which value of RouteId should be used to filter packets.
+> 0, 26, FILTERS_1_ROUTEIDBASE ; Register RouteIdBase contains the RouteId-lsbFilterRouteId bits base used to filter packets.
 
 FILTERS_1_ROUTEIDMASK = 0x00E4 ; Specifies the mask used on RouteId to filter packets.
-> 0, 26, FILTERS_1_ROUTEIDMASK ; Register RouteIdMask contains the RouteId-lsbFilterRouteId mask used to filter packets. A packet is a candidate when packet.RouteId>>lsbFilterRouteId & RouteIdMask = RouteIdBase & RouteIdMask. 
+> 0, 26, FILTERS_1_ROUTEIDMASK ; Register RouteIdMask contains the RouteId-lsbFilterRouteId mask used to filter packets. A packet is a candidate when packet.RouteId>>lsbFilterRouteId & RouteIdMask = RouteIdBase & RouteIdMask.
 
-FILTERS_1_ADDRBASE_LOW = 0x00E8 ; Specifies the values of the lower transport address bits, used in conjunction with register Filters_N_WindowSize, to filter packets. 
-> 0, 32, FILTERS_1_ADDRBASE_LOW ; Address LSB register. 
+FILTERS_1_ADDRBASE_LOW = 0x00E8 ; Specifies the values of the lower transport address bits, used in conjunction with register Filters_N_WindowSize, to filter packets.
+> 0, 32, FILTERS_1_ADDRBASE_LOW ; Address LSB register.
 
-FILTERS_1_ADDRBASE_HIGH = 0x00EC ; Specifies the values of the upper transport address bits, used in conjunction with register Filters_N_WindowSize to filter packets. 
-> 0, 4, FILTERS_1_ADDRBASE_HIGH ; Address MSB register. 
+FILTERS_1_ADDRBASE_HIGH = 0x00EC ; Specifies the values of the upper transport address bits, used in conjunction with register Filters_N_WindowSize to filter packets.
+> 0, 4, FILTERS_1_ADDRBASE_HIGH ; Address MSB register.
 
-FILTERS_1_WINDOWSIZE = 0x00F0 ; Specifies the encoded address mask used to filter packets. 
-> 0, 6, FILTERS_1_WINDOWSIZE ; Register WindowSize contains the encoded address mask used to filter packets. The effective Mask value is equal to ~(2max(WindowSize, packet.Len) - 1). A packet is a candidate when packet.Addr & Mask = AddrBase & Mask. This allows filtering of packets having an intersection with the AddrBase/WindowSize burst aligned region, even if the region is smaller than the packet. 
+FILTERS_1_WINDOWSIZE = 0x00F0 ; Specifies the encoded address mask used to filter packets.
+> 0, 6, FILTERS_1_WINDOWSIZE ; Register WindowSize contains the encoded address mask used to filter packets. The effective Mask value is equal to ~(2max(WindowSize, packet.Len) - 1). A packet is a candidate when packet.Addr & Mask = AddrBase & Mask. This allows filtering of packets having an intersection with the AddrBase/WindowSize burst aligned region, even if the region is smaller than the packet.
 
-FILTERS_1_SECURITYBASE = 0x00F4 ; Specifies, for filter n, the values to be matched against bits in the packet header field Security of transport packets. 
-> 0, 1, FILTERS_1_SECURITYBASE ; Register SecurityBase contains the security base used to filter packets. 
+FILTERS_1_SECURITYBASE = 0x00F4 ; Specifies, for filter n, the values to be matched against bits in the packet header field Security of transport packets.
+> 0, 1, FILTERS_1_SECURITYBASE ; Register SecurityBase contains the security base used to filter packets.
 
-FILTERS_1_SECURITYMASK = 0x00F8 ; Specifies, for filter n, which bits of packet header field Security are used to filter transport packets. 
-> 0, 1, FILTERS_1_SECURITYMASK ; Register SecurityMask is contains the security mask used to filter packets. A packet is a candidate when: packet.Security & SecurityMask = SecurityBase & SecurityMasks. 
+FILTERS_1_SECURITYMASK = 0x00F8 ; Specifies, for filter n, which bits of packet header field Security are used to filter transport packets.
+> 0, 1, FILTERS_1_SECURITYMASK ; Register SecurityMask is contains the security mask used to filter packets. A packet is a candidate when: packet.Security & SecurityMask = SecurityBase & SecurityMasks.
 
-FILTERS_1_OPCODE = 0x00FC ; Contains four fields that control which packet opcodes are used to select packets by Filter N. 
+FILTERS_1_OPCODE = 0x00FC ; Contains four fields that control which packet opcodes are used to select packets by Filter N.
 > 3, 1, URGEN ; Selects URG packets (urgency).
 > 2, 1, LOCKEN ; Selects RDX-WR, RDL, WRC and Linked sequence.
 > 1, 1, WREN ; Selects WR packets.
-> 0, 1, RDEN ; Selects RD packets. 
+> 0, 1, RDEN ; Selects RD packets.
 
-FILTERS_1_STATUS = 0x0100 ; A 2-bit register that sets criteria for filter n based on packet status type. 
+FILTERS_1_STATUS = 0x0100 ; A 2-bit register that sets criteria for filter n based on packet status type.
 > 1, 1, RSPEN ; Selects RSP and FAIL-CONT status packets.
-> 0, 1, REQEN ; Selects REQ status packets. 
+> 0, 1, REQEN ; Selects REQ status packets.
 
-FILTERS_1_LENGTH = 0x0104 ; Register Filters_N_Length is 4-bit register that selects candidate packets if the number of bytes is less than or equal to 2*FILTERS_N_LENGTH. 
-> 0, 4, FILTERS_1_LENGTH ; Register Length is 4-bit register that selects candidate packets if their number of bytes is less than or equal to 2**Length. 
+FILTERS_1_LENGTH = 0x0104 ; Register Filters_N_Length is 4-bit register that selects candidate packets if the number of bytes is less than or equal to 2*FILTERS_N_LENGTH.
+> 0, 4, FILTERS_1_LENGTH ; Register Length is 4-bit register that selects candidate packets if their number of bytes is less than or equal to 2**Length.
 
-FILTERS_1_URGENCY = 0x0108 ; Specifies the minimum urgency level used to filter packets. 
-> 0, 3, FILTERS_1_URGENCY ; Register Urgency contains the minimum urgency level used to filter packets. A packet is a candidate when its socket urgency is greater than or equal to the urgency specified in the register. 
+FILTERS_1_URGENCY = 0x0108 ; Specifies the minimum urgency level used to filter packets.
+> 0, 3, FILTERS_1_URGENCY ; Register Urgency contains the minimum urgency level used to filter packets. A packet is a candidate when its socket urgency is greater than or equal to the urgency specified in the register.
 
-FILTERS_1_USERBASE = 0x010C ; Specifies, for filter n, the values to be matched against the lower bits in the packet header field User of transport packets. 
-> 0, 7, FILTERS_1_USERBASE ; Register UserBase is available when parameter useUserFilter is set to True. Register size is determined by parameter wUser. The register stores a user base value that is employed in filtering packets. 
+FILTERS_1_USERBASE = 0x010C ; Specifies, for filter n, the values to be matched against the lower bits in the packet header field User of transport packets.
+> 0, 7, FILTERS_1_USERBASE ; Register UserBase is available when parameter useUserFilter is set to True. Register size is determined by parameter wUser. The register stores a user base value that is employed in filtering packets.
 
-FILTERS_1_USERMASK = 0x0110 ; Specifies, for filter n, which lower bits of packet header field User are used to filter transport packets. 
-> 0, 7, FILTERS_1_USERMASK ; Register UserMask is available when parameter useUserFilter is set to True. Register size is determined by parameter wUser. The register stores a user mask that is employed in filtering packets. A packet is a candidate for trace or statistic collection when packet.User & UserMask = UserBase & UserMask. 
+FILTERS_1_USERMASK = 0x0110 ; Specifies, for filter n, which lower bits of packet header field User are used to filter transport packets.
+> 0, 7, FILTERS_1_USERMASK ; Register UserMask is available when parameter useUserFilter is set to True. Register size is determined by parameter wUser. The register stores a user mask that is employed in filtering packets. A packet is a candidate for trace or statistic collection when packet.User & UserMask = UserBase & UserMask.
 
-FILTERS_2_ROUTEIDBASE = 0x0140 ; Specifies which value of RouteId should be used to filter packets. 
-> 0, 26, FILTERS_2_ROUTEIDBASE ; Register RouteIdBase contains the RouteId-lsbFilterRouteId bits base used to filter packets. 
+FILTERS_2_ROUTEIDBASE = 0x0140 ; Specifies which value of RouteId should be used to filter packets.
+> 0, 26, FILTERS_2_ROUTEIDBASE ; Register RouteIdBase contains the RouteId-lsbFilterRouteId bits base used to filter packets.
 
-FILTERS_2_ROUTEIDMASK = 0x0144 ; Specifies the mask used on RouteId to filter packets. 
-> 0, 26, FILTERS_2_ROUTEIDMASK ; Register RouteIdMask contains the RouteId-lsbFilterRouteId mask used to filter packets. A packet is a candidate when packet.RouteId>>lsbFilterRouteId & RouteIdMask = RouteIdBase & RouteIdMask. 
+FILTERS_2_ROUTEIDMASK = 0x0144 ; Specifies the mask used on RouteId to filter packets.
+> 0, 26, FILTERS_2_ROUTEIDMASK ; Register RouteIdMask contains the RouteId-lsbFilterRouteId mask used to filter packets. A packet is a candidate when packet.RouteId>>lsbFilterRouteId & RouteIdMask = RouteIdBase & RouteIdMask.
 
-FILTERS_2_ADDRBASE_LOW = 0x0148 ; Specifies the values of the lower transport address bits, used in conjunction with register Filters_N_WindowSize, to filter packets. 
-> 0, 32, FILTERS_2_ADDRBASE_LOW ; Address LSB register. 
+FILTERS_2_ADDRBASE_LOW = 0x0148 ; Specifies the values of the lower transport address bits, used in conjunction with register Filters_N_WindowSize, to filter packets.
+> 0, 32, FILTERS_2_ADDRBASE_LOW ; Address LSB register.
 
 FILTERS_2_ADDRBASE_HIGH = 0x014C ; Specifies the values of the upper transport address bits, used in conjunction with register Filters_N_WindowSize to filter packets.
-> 0, 1, FILTERS_2_ADDRBASE_HIGH ; Address MSB register. 
+> 0, 1, FILTERS_2_ADDRBASE_HIGH ; Address MSB register.
 
-FILTERS_2_WINDOWSIZE = 0x0150 ; Specifies the encoded address mask used to filter packets. 
-> 0, 1, FILTERS_2_WINDOWSIZE ; Register WindowSize contains the encoded address mask used to filter packets. The effective Mask value is equal to ~(2max(WindowSize, packet.Len) - 1). A packet is a candidate when packet.Addr & Mask = AddrBase & Mask. This allows filtering of packets having an intersection with the AddrBase/WindowSize burst aligned region, even if the region is smaller than the packet. 
+FILTERS_2_WINDOWSIZE = 0x0150 ; Specifies the encoded address mask used to filter packets.
+> 0, 1, FILTERS_2_WINDOWSIZE ; Register WindowSize contains the encoded address mask used to filter packets. The effective Mask value is equal to ~(2max(WindowSize, packet.Len) - 1). A packet is a candidate when packet.Addr & Mask = AddrBase & Mask. This allows filtering of packets having an intersection with the AddrBase/WindowSize burst aligned region, even if the region is smaller than the packet.
 
-FILTERS_2_SECURITYBASE = 0x0154 ; Specifies, for filter n, the values to be matched against bits in the packet header field Security of transport packets. 
-> 0, 1, FILTERS_2_SECURITYBASE ; Register SecurityBase contains the security base used to filter packets. 
+FILTERS_2_SECURITYBASE = 0x0154 ; Specifies, for filter n, the values to be matched against bits in the packet header field Security of transport packets.
+> 0, 1, FILTERS_2_SECURITYBASE ; Register SecurityBase contains the security base used to filter packets.
 
-FILTERS_2_SECURITYMASK = 0x0158 ; Specifies, for filter n, which bits of packet header field Security are used to filter transport packets. 
-> 0, 1, FILTERS_2_SECURITYMASK ; Register SecurityMask is contains the security mask used to filter packets. A packet is a candidate when: packet.Security & SecurityMask = SecurityBase & SecurityMasks. 
+FILTERS_2_SECURITYMASK = 0x0158 ; Specifies, for filter n, which bits of packet header field Security are used to filter transport packets.
+> 0, 1, FILTERS_2_SECURITYMASK ; Register SecurityMask is contains the security mask used to filter packets. A packet is a candidate when: packet.Security & SecurityMask = SecurityBase & SecurityMasks.
 
-FILTERS_2_OPCODE = 0x015C ; Contains four fields that control which packet opcodes are used to select packets by Filter N. 
+FILTERS_2_OPCODE = 0x015C ; Contains four fields that control which packet opcodes are used to select packets by Filter N.
 > 3, 1, URGEN ; Selects URG packets (urgency).
 > 2, 1, LOCKEN ; Selects RDX-WR, RDL, WRC and Linked sequence.
 > 1, 1, WREN ; Selects WR packets.
-> 0, 1, RDEN ; Selects RD packets. 
+> 0, 1, RDEN ; Selects RD packets.
 
-FILTERS_2_STATUS = 0x0160 ; A 2-bit register that sets criteria for filter n based on packet status type. 
+FILTERS_2_STATUS = 0x0160 ; A 2-bit register that sets criteria for filter n based on packet status type.
 > 1, 1, RSPEN ; Selects RSP and FAIL-CONT status packets.
-> 0, 1, REQEN ; Selects REQ status packets. 
+> 0, 1, REQEN ; Selects REQ status packets.
 
-FILTERS_2_LENGTH = 0x0164 ; Register Filters_N_Length is 4-bit register that selects candidate packets if the number of bytes is less than or equal to 2*FILTERS_N_LENGTH. 
-> 0, 4, FILTERS_2_LENGTH ; Register Length is 4-bit register that selects candidate packets if their number of bytes is less than or equal to 2**Length. 
+FILTERS_2_LENGTH = 0x0164 ; Register Filters_N_Length is 4-bit register that selects candidate packets if the number of bytes is less than or equal to 2*FILTERS_N_LENGTH.
+> 0, 4, FILTERS_2_LENGTH ; Register Length is 4-bit register that selects candidate packets if their number of bytes is less than or equal to 2**Length.
 
-FILTERS_2_URGENCY = 0x0168 ; Specifies the minimum urgency level used to filter packets. 
-> 0, 3, FILTERS_2_URGENCY ; Register Urgency contains the minimum urgency level used to filter packets. A packet is a candidate when its socket urgency is greater than or equal to the urgency specified in the register. 
+FILTERS_2_URGENCY = 0x0168 ; Specifies the minimum urgency level used to filter packets.
+> 0, 3, FILTERS_2_URGENCY ; Register Urgency contains the minimum urgency level used to filter packets. A packet is a candidate when its socket urgency is greater than or equal to the urgency specified in the register.
 
-FILTERS_2_USERBASE = 0x016C ; Specifies, for filter n, the values to be matched against the lower bits in the packet header field User of transport packets. 
-> 0, 7, FILTERS_2_USERBASE ; Register UserBase is available when parameter useUserFilter is set to True. Register size is determined by parameter wUser. The register stores a user base value that is employed in filtering packets. 
+FILTERS_2_USERBASE = 0x016C ; Specifies, for filter n, the values to be matched against the lower bits in the packet header field User of transport packets.
+> 0, 7, FILTERS_2_USERBASE ; Register UserBase is available when parameter useUserFilter is set to True. Register size is determined by parameter wUser. The register stores a user base value that is employed in filtering packets.
 
-FILTERS_2_USERMASK = 0x0170 ; Specifies, for filter n, which lower bits of packet header field User are used to filter transport packets. 
-> 0, 7, FILTERS_2_USERMASK ; Register UserMask is available when parameter useUserFilter is set to True. Register size is determined by parameter wUser. The register stores a user mask that is employed in filtering packets. A packet is a candidate for trace or statistic collection when packet.User & UserMask = UserBase & UserMask. 
+FILTERS_2_USERMASK = 0x0170 ; Specifies, for filter n, which lower bits of packet header field User are used to filter transport packets.
+> 0, 7, FILTERS_2_USERMASK ; Register UserMask is available when parameter useUserFilter is set to True. Register size is determined by parameter wUser. The register stores a user mask that is employed in filtering packets. A packet is a candidate for trace or statistic collection when packet.User & UserMask = UserBase & UserMask.
 
-FILTERS_3_ROUTEIDBASE = 0x01A0 ; Specifies which value of RouteId should be used to filter packets. 
-> 0, 26, FILTERS_3_ROUTEIDBASE ; Register RouteIdBase contains the RouteId-lsbFilterRouteId bits base used to filter packets. 
+FILTERS_3_ROUTEIDBASE = 0x01A0 ; Specifies which value of RouteId should be used to filter packets.
+> 0, 26, FILTERS_3_ROUTEIDBASE ; Register RouteIdBase contains the RouteId-lsbFilterRouteId bits base used to filter packets.
 
-FILTERS_3_ROUTEIDMASK = 0x01A4 ; Specifies the mask used on RouteId to filter packets. 
-> 0, 26, FILTERS_3_ROUTEIDMASK ; Register RouteIdMask contains the RouteId-lsbFilterRouteId mask used to filter packets. A packet is a candidate when packet.RouteId>>lsbFilterRouteId & RouteIdMask = RouteIdBase & RouteIdMask. 
+FILTERS_3_ROUTEIDMASK = 0x01A4 ; Specifies the mask used on RouteId to filter packets.
+> 0, 26, FILTERS_3_ROUTEIDMASK ; Register RouteIdMask contains the RouteId-lsbFilterRouteId mask used to filter packets. A packet is a candidate when packet.RouteId>>lsbFilterRouteId & RouteIdMask = RouteIdBase & RouteIdMask.
 
-FILTERS_3_ADDRBASE_LOW = 0x01A8 ; Specifies the values of the lower transport address bits, used in conjunction with register Filters_N_WindowSize, to filter packets. 
-> 0, 32, FILTERS_3_ADDRBASE_LOW ; Address LSB register. 
+FILTERS_3_ADDRBASE_LOW = 0x01A8 ; Specifies the values of the lower transport address bits, used in conjunction with register Filters_N_WindowSize, to filter packets.
+> 0, 32, FILTERS_3_ADDRBASE_LOW ; Address LSB register.
 
-FILTERS_3_ADDRBASE_HIGH = 0x01AC ; Specifies the values of the upper transport address bits, used in conjunction with register Filters_N_WindowSize to filter packets. 
-> 0, 4, FILTERS_3_ADDRBASE_HIGH ; Address MSB register. 
+FILTERS_3_ADDRBASE_HIGH = 0x01AC ; Specifies the values of the upper transport address bits, used in conjunction with register Filters_N_WindowSize to filter packets.
+> 0, 4, FILTERS_3_ADDRBASE_HIGH ; Address MSB register.
 
-FILTERS_3_WINDOWSIZE = 0x01B0 ; Specifies the encoded address mask used to filter packets. 
-> 0, 6, FILTERS_3_WINDOWSIZE ; Register WindowSize contains the encoded address mask used to filter packets. The effective Mask value is equal to ~(2max(WindowSize, packet.Len) - 1). A packet is a candidate when packet.Addr & Mask = AddrBase & Mask. This allows filtering of packets having an intersection with the AddrBase/WindowSize burst aligned region, even if the region is smaller than the packet. 
+FILTERS_3_WINDOWSIZE = 0x01B0 ; Specifies the encoded address mask used to filter packets.
+> 0, 6, FILTERS_3_WINDOWSIZE ; Register WindowSize contains the encoded address mask used to filter packets. The effective Mask value is equal to ~(2max(WindowSize, packet.Len) - 1). A packet is a candidate when packet.Addr & Mask = AddrBase & Mask. This allows filtering of packets having an intersection with the AddrBase/WindowSize burst aligned region, even if the region is smaller than the packet.
 
-FILTERS_3_SECURITYBASE = 0x01B4 ; Specifies, for filter n, the values to be matched against bits in the packet header field Security of transport packets. 
-> 0, 1, FILTERS_3_SECURITYBASE ; Register SecurityBase contains the security base used to filter packets. 
+FILTERS_3_SECURITYBASE = 0x01B4 ; Specifies, for filter n, the values to be matched against bits in the packet header field Security of transport packets.
+> 0, 1, FILTERS_3_SECURITYBASE ; Register SecurityBase contains the security base used to filter packets.
 
 FILTERS_3_SECURITYMASK = 0x01B8 ; Specifies, for filter n, which bits of packet header field Security are used to filter transport packets.
-> 0, 1, FILTERS_3_SECURITYMASK ; Register SecurityMask is contains the security mask used to filter packets. A packet is a candidate when: packet.Security & SecurityMask = SecurityBase & SecurityMasks. 
+> 0, 1, FILTERS_3_SECURITYMASK ; Register SecurityMask is contains the security mask used to filter packets. A packet is a candidate when: packet.Security & SecurityMask = SecurityBase & SecurityMasks.
 
-FILTERS_3_OPCODE = 0x01BC ; Contains four fields that control which packet opcodes are used to select packets by Filter N. 
+FILTERS_3_OPCODE = 0x01BC ; Contains four fields that control which packet opcodes are used to select packets by Filter N.
 > 3, 1, URGEN ; Selects URG packets (urgency).
 > 2, 1, LOCKEN ; Selects RDX-WR, RDL, WRC and Linked sequence.
 > 1, 1, WREN ; Selects WR packets.
-> 0, 1, RDEN ; Selects RD packets. 
+> 0, 1, RDEN ; Selects RD packets.
 
-FILTERS_3_STATUS = 0x01C0 ; A 2-bit register that sets criteria for filter n based on packet status type. 
+FILTERS_3_STATUS = 0x01C0 ; A 2-bit register that sets criteria for filter n based on packet status type.
 > 1, 1, RSPEN ; Selects RSP and FAIL-CONT status packets.
-> 0, 1, REQEN ; Selects REQ status packets. 
+> 0, 1, REQEN ; Selects REQ status packets.
 
-FILTERS_3_LENGTH = 0x01C4 ; Register Filters_N_Length is 4-bit register that selects candidate packets if the number of bytes is less than or equal to 2*FILTERS_N_LENGTH. 
-> 0, 4, FILTERS_3_LENGTH ; Register Length is 4-bit register that selects candidate packets if their number of bytes is less than or equal to 2**Length. 
+FILTERS_3_LENGTH = 0x01C4 ; Register Filters_N_Length is 4-bit register that selects candidate packets if the number of bytes is less than or equal to 2*FILTERS_N_LENGTH.
+> 0, 4, FILTERS_3_LENGTH ; Register Length is 4-bit register that selects candidate packets if their number of bytes is less than or equal to 2**Length.
 
-FILTERS_3_URGENCY = 0x01C8 ; Specifies the minimum urgency level used to filter packets. 
-> 0, 3, FILTERS_3_URGENCY ; Register Urgency contains the minimum urgency level used to filter packets. A packet is a candidate when its socket urgency is greater than or equal to the urgency specified in the register. 
+FILTERS_3_URGENCY = 0x01C8 ; Specifies the minimum urgency level used to filter packets.
+> 0, 3, FILTERS_3_URGENCY ; Register Urgency contains the minimum urgency level used to filter packets. A packet is a candidate when its socket urgency is greater than or equal to the urgency specified in the register.
 
-FILTERS_3_USERBASE = 0x01CC ; Specifies, for filter n, the values to be matched against the lower bits in the packet header field User of transport packets. 
-> 0, 7, FILTERS_3_USERBASE ; Register UserBase is available when parameter useUserFilter is set to True. Register size is determined by parameter wUser. The register stores a user base value that is employed in filtering packets. 
+FILTERS_3_USERBASE = 0x01CC ; Specifies, for filter n, the values to be matched against the lower bits in the packet header field User of transport packets.
+> 0, 7, FILTERS_3_USERBASE ; Register UserBase is available when parameter useUserFilter is set to True. Register size is determined by parameter wUser. The register stores a user base value that is employed in filtering packets.
 
-FILTERS_3_USERMASK = 0x01D0 ; Specifies, for filter n, which lower bits of packet header field User are used to filter transport packets. 
-> 0, 7, FILTERS_3_USERMASK ; Register UserMask is available when parameter useUserFilter is set to True. Register size is determined by parameter wUser. The register stores a user mask that is employed in filtering packets. A packet is a candidate for trace or statistic collection when packet.User & UserMask = UserBase & UserMask. 
+FILTERS_3_USERMASK = 0x01D0 ; Specifies, for filter n, which lower bits of packet header field User are used to filter transport packets.
+> 0, 7, FILTERS_3_USERMASK ; Register UserMask is available when parameter useUserFilter is set to True. Register size is determined by parameter wUser. The register stores a user mask that is employed in filtering packets. A packet is a candidate for trace or statistic collection when packet.User & UserMask = UserBase & UserMask.
 
-COUNTERS_0_SRC = 0x0204 ; Specifies, for counter m, the type of event source used to increment the counter. 
+COUNTERS_0_SRC = 0x0204 ; Specifies, for counter m, the type of event source used to increment the counter.
 > 0, 5, INTEVENT ; Internal packet event
 = 0x00, OFF ; counter disabled.
 = 0x01, CYCLE ; probe clock cycles.
@@ -271,17 +271,17 @@ COUNTERS_0_SRC = 0x0204 ; Specifies, for counter m, the type of event source use
 = 0x13, FILT_BYTE_EN ; enabled payload byte in packets selected by the associated filter.
 = 0x14, FILT_BYTE ; total number of payload bytes in packets selected by the associated filter.
 
-COUNTERS_0_ALARMMODE = 0x0208 ; Defines statistics alarm counter behavior. 
+COUNTERS_0_ALARMMODE = 0x0208 ; Defines statistics alarm counter behavior.
 > 0, 2, COUNTERS_0_ALARMMODE ; Register AlarmMode is a 2-bit register that defines the statistics- alarm behavior of the counter.
 = 0, OFF ; the comparison is disabled.
 = 1, MIN ; if the value of the counter is less than the StatAlarmMin register at the dump period, the StatAlarmStatus bit is set.
 = 2, MAX ; if the value of the counter is greater than the StatAlarmMax register at the dump period, the StatAlarmStatus bit is set.
-= 3, MIN_MAX ; if the value of the counter is less than the StatAlarmMin register or greater than the StatAlarmMax register at the dump period, the corresponding StatAlarmStatus bit is set. 
+= 3, MIN_MAX ; if the value of the counter is less than the StatAlarmMin register or greater than the StatAlarmMax register at the dump period, the corresponding StatAlarmStatus bit is set.
 
-COUNTERS_0_VAL = 0x020C, RO ; Contain the statistics counter values. 
-> 0, 16, COUNTERS_0_VAL ; Register Val contains the statistics counter value either pending StatAlarm output, or when statistics collection is suspended subsequent to triggers or signal statSuspend. 
+COUNTERS_0_VAL = 0x020C, RO ; Contain the statistics counter values.
+> 0, 16, COUNTERS_0_VAL ; Register Val contains the statistics counter value either pending StatAlarm output, or when statistics collection is suspended subsequent to triggers or signal statSuspend.
 
-COUNTERS_1_SRC = 0x0214 ; Specifies, for counter m, the type of event source used to increment the counter. 
+COUNTERS_1_SRC = 0x0214 ; Specifies, for counter m, the type of event source used to increment the counter.
 > 0, 5, INTEVENT ; Internal packet event
 = 0x00, OFF ; counter disabled.
 = 0x01, CYCLE ; probe clock cycles.
@@ -305,17 +305,17 @@ COUNTERS_1_SRC = 0x0214 ; Specifies, for counter m, the type of event source use
 = 0x13, FILT_BYTE_EN ; enabled payload byte in packets selected by the associated filter.
 = 0x14, FILT_BYTE ; total number of payload bytes in packets selected by the associated filter.
 
-COUNTERS_1_ALARMMODE = 0x0218 ; Defines statistics alarm counter behavior. 
+COUNTERS_1_ALARMMODE = 0x0218 ; Defines statistics alarm counter behavior.
 > 0, 2, COUNTERS_1_ALARMMODE ; Register AlarmMode is a 2-bit register that defines the statistics- alarm behavior of the counter.
 = 0, OFF ; the comparison is disabled.
 = 1, MIN ; if the value of the counter is less than the StatAlarmMin register at the dump period, the StatAlarmStatus bit is set.
 = 2, MAX ; if the value of the counter is greater than the StatAlarmMax register at the dump period, the StatAlarmStatus bit is set.
-= 3, MIN_MAX ; if the value of the counter is less than the StatAlarmMin register or greater than the StatAlarmMax register at the dump period, the corresponding StatAlarmStatus bit is set. 
+= 3, MIN_MAX ; if the value of the counter is less than the StatAlarmMin register or greater than the StatAlarmMax register at the dump period, the corresponding StatAlarmStatus bit is set.
 
-COUNTERS_1_VAL = 0x021C, RO ; Contain the statistics counter values. 
-> 0, 16, COUNTERS_1_VAL ; Register Val contains the statistics counter value either pending StatAlarm output, or when statistics collection is suspended subsequent to triggers or signal statSuspend. 
+COUNTERS_1_VAL = 0x021C, RO ; Contain the statistics counter values.
+> 0, 16, COUNTERS_1_VAL ; Register Val contains the statistics counter value either pending StatAlarm output, or when statistics collection is suspended subsequent to triggers or signal statSuspend.
 
-COUNTERS_2_SRC = 0x0224 ; Specifies, for counter m, the type of event source used to increment the counter. 
+COUNTERS_2_SRC = 0x0224 ; Specifies, for counter m, the type of event source used to increment the counter.
 > 0, 5, INTEVENT ; Internal packet event
 = 0x00, OFF ; counter disabled.
 = 0x01, CYCLE ; probe clock cycles.
@@ -339,17 +339,17 @@ COUNTERS_2_SRC = 0x0224 ; Specifies, for counter m, the type of event source use
 = 0x13, FILT_BYTE_EN ; enabled payload byte in packets selected by the associated filter.
 = 0x14, FILT_BYTE ; total number of payload bytes in packets selected by the associated filter.
 
-COUNTERS_2_ALARMMODE = 0x0228 ; Defines statistics alarm counter behavior. 
+COUNTERS_2_ALARMMODE = 0x0228 ; Defines statistics alarm counter behavior.
 > 0, 2, COUNTERS_2_ALARMMODE ; Register AlarmMode is a 2-bit register that defines the statistics- alarm behavior of the counter.
 = 0, OFF ; the comparison is disabled.
 = 1, MIN ; if the value of the counter is less than the StatAlarmMin register at the dump period, the StatAlarmStatus bit is set.
 = 2, MAX ; if the value of the counter is greater than the StatAlarmMax register at the dump period, the StatAlarmStatus bit is set.
-= 3, MIN_MAX ; if the value of the counter is less than the StatAlarmMin register or greater than the StatAlarmMax register at the dump period, the corresponding StatAlarmStatus bit is set. 
+= 3, MIN_MAX ; if the value of the counter is less than the StatAlarmMin register or greater than the StatAlarmMax register at the dump period, the corresponding StatAlarmStatus bit is set.
 
-COUNTERS_2_VAL = 0x022C, RO ; Contain the statistics counter values. 
-> 0, 16, COUNTERS_2_VAL ; Register Val contains the statistics counter value either pending StatAlarm output, or when statistics collection is suspended subsequent to triggers or signal statSuspend. 
+COUNTERS_2_VAL = 0x022C, RO ; Contain the statistics counter values.
+> 0, 16, COUNTERS_2_VAL ; Register Val contains the statistics counter value either pending StatAlarm output, or when statistics collection is suspended subsequent to triggers or signal statSuspend.
 
-COUNTERS_3_SRC = 0x0234 ; Specifies, for counter m, the type of event source used to increment the counter. 
+COUNTERS_3_SRC = 0x0234 ; Specifies, for counter m, the type of event source used to increment the counter.
 > 0, 5, INTEVENT ; Internal packet event
 = 0x00, OFF ; counter disabled.
 = 0x01, CYCLE ; probe clock cycles.
@@ -373,12 +373,12 @@ COUNTERS_3_SRC = 0x0234 ; Specifies, for counter m, the type of event source use
 = 0x13, FILT_BYTE_EN ; enabled payload byte in packets selected by the associated filter.
 = 0x14, FILT_BYTE ; total number of payload bytes in packets selected by the associated filter.
 
-COUNTERS_3_ALARMMODE = 0x0238 ; Defines statistics alarm counter behavior. 
+COUNTERS_3_ALARMMODE = 0x0238 ; Defines statistics alarm counter behavior.
 > 0, 2, COUNTERS_3_ALARMMODE ; Register AlarmMode is a 2-bit register that defines the statistics- alarm behavior of the counter.
 = 0, OFF ; the comparison is disabled.
 = 1, MIN ; if the value of the counter is less than the StatAlarmMin register at the dump period, the StatAlarmStatus bit is set.
 = 2, MAX ; if the value of the counter is greater than the StatAlarmMax register at the dump period, the StatAlarmStatus bit is set.
-= 3, MIN_MAX ; if the value of the counter is less than the StatAlarmMin register or greater than the StatAlarmMax register at the dump period, the corresponding StatAlarmStatus bit is set. 
+= 3, MIN_MAX ; if the value of the counter is less than the StatAlarmMin register or greater than the StatAlarmMax register at the dump period, the corresponding StatAlarmStatus bit is set.
 
 COUNTERS_3_VAL = 0x023C, RO ; Contain the statistics counter values.
 > 0, 16, COUNTERS_3_VAL ; Register Val is a read-only register that is always present. The register contains the statistics counter value either pending StatAlarm output, or when statistics collection is suspended subsequent to triggers or signal statSuspend.

@@ -1,31 +1,31 @@
 [QOSGEN_ISP0_MWO, INTERCONNECT]
 @ = 0xFDF40500, 0x80
 
-ID_COREID = 0x0000, RO ; Core ID and checksum 
+ID_COREID = 0x0000, RO ; Core ID and checksum
 > 8, 24, CORECHECKSUM ; Field containing a checksum of the parameters of the IP. Reset value is different for each QoS generator.
-> 0, 8, CORETYPEID ; Field identifying the type of IP. 
+> 0, 8, CORETYPEID ; Field identifying the type of IP.
 
-ID_REVISIONID = 0x0004, RO ; Revision ID 
+ID_REVISIONID = 0x0004, RO ; Revision ID
 > 8, 24, BUILDID ; Field containing the build revision of the software used to generate the IP HDL code.
-> 0, 8, USERID ; Field containing a user defined value, not used anywhere inside the IP itself. 
+> 0, 8, USERID ; Field containing a user defined value, not used anywhere inside the IP itself.
 
-PRIORITY = 0x0008 ; Priority register 
+PRIORITY = 0x0008 ; Priority register
 > 31, 1, MARK ; Backward compatibility marker when 0.
 > 8, 3, P1 ; In Regulator mode, defines the HIGH hurry level. In Fixed/Limiter mode, defines the Urgency level for READ transactions.
-> 0, 3, P0 ; In Regulator mode, defines the LOW hurry level. In Fixed/Limiter mode, defines the Urgency level for WRITE transactions. 
+> 0, 3, P0 ; In Regulator mode, defines the LOW hurry level. In Fixed/Limiter mode, defines the Urgency level for WRITE transactions.
 
-MODE = 0x000C ; QoS generate mode 
+MODE = 0x000C ; QoS generate mode
 > 0, 2, MODE ; Functional Mode
 = 0, FIXED
 = 1, LIMITER
 = 2, BYPASS
-= 3, REGULATOR 
+= 3, REGULATOR
 
-BANDWIDTH = 0x0010 ; bandwidth threshold 
-> 0, 13, BANDWIDTH ; Defines the bandwidth threshold in 1/256th-byte-per-cycle units. In other words, the desired rate in MBps is divided by frequency in MHz of the BIU, and then multiplied by 256. Reset value is different for each QoS generator. 
+BANDWIDTH = 0x0010 ; bandwidth threshold
+> 0, 13, BANDWIDTH ; Defines the bandwidth threshold in 1/256th-byte-per-cycle units. In other words, the desired rate in MBps is divided by frequency in MHz of the BIU, and then multiplied by 256. Reset value is different for each QoS generator.
 
-SATURATION = 0x0014 ; Saturation counter 
-> 0, 10, SATURATION ; Defines the size of the bandwidth counter, that is, the measurement window, in 16-byte units. In other words, the desired number of bytes divided by 16. 
+SATURATION = 0x0014 ; Saturation counter
+> 0, 10, SATURATION ; Defines the size of the bandwidth counter, that is, the measurement window, in 16-byte units. In other words, the desired number of bytes divided by 16.
 
 EXTCONTROL = 0x0018 ; External control register
 > 3, 1, EXTLIMITEN ; When register field ExtLimitEn is set, the bandwidth limiter is enabled when input signal ExtThr is asserted. When the signal is not asserted, the limiter is disabled: bandwidth is not limited, and the counter is stuck to 0. When the bit is cleared, the limiter operates normally and ignores ExtThr.

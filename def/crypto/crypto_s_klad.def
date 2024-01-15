@@ -1,35 +1,12 @@
 [CRYPTO_S_KLAD, CRYPTO]
 @ = 0x0FE420000, 0x00010000
 
-CH0_KEY_0 = 0x0180, WO ; Channel 0 KEY Register 0
-CH0_KEY_1 = 0x0184, WO ; Channel 0 KEY Register 1
-CH0_KEY_2 = 0x0188, WO ; Channel 0 KEY Register 2
-CH0_KEY_3 = 0x018C, WO ; Channel 0 KEY Register 3
-CH1_KEY_0 = 0x0190, WO ; Channel 1 KEY Register 0
-CH1_KEY_1 = 0x0194, WO ; Channel 1 KEY Register 1
-CH1_KEY_2 = 0x0198, WO ; Channel 1 KEY Register 2
-CH1_KEY_3 = 0x019C, WO ; Channel 1 KEY Register 3
-CH2_KEY_0 = 0x01A0, WO ; Channel 2 KEY Register 0
-CH2_KEY_1 = 0x01A4, WO ; Channel 2 KEY Register 1
-CH2_KEY_2 = 0x01A8, WO ; Channel 2 KEY Register 2
-CH2_KEY_3 = 0x01AC, WO ; Channel 2 KEY Register 3
-CH3_KEY_0 = 0x01B0, WO ; Channel 3 KEY Register 0
-CH3_KEY_1 = 0x01B4, WO ; Channel 3 KEY Register 1
-CH3_KEY_2 = 0x01B8, WO ; Channel 3 KEY Register 2
-CH3_KEY_3 = 0x01BC, WO ; Channel 3 KEY Register 3
-CH4_KEY_0 = 0x01C0, WO ; Channel 4 KEY Register 0
-CH4_KEY_1 = 0x01C4, WO ; Channel 4 KEY Register 1
-CH4_KEY_2 = 0x01C8, WO ; Channel 4 KEY Register 2
-CH4_KEY_3 = 0x01CC, WO ; Channel 4 KEY Register 3
-CH5_KEY_0 = 0x01D0, WO ; Channel 5 KEY Register 0
-CH5_KEY_1 = 0x01D4, WO ; Channel 5 KEY Register 1
-CH5_KEY_2 = 0x01D8, WO ; Channel 5 KEY Register 2
-CH5_KEY_3 = 0x01DC, WO ; Channel 5 KEY Register 3
-CH6_KEY_0 = 0x01E0, WO ; Channel 6 KEY Register 0
-CH6_KEY_1 = 0x01E4, WO ; Channel 6 KEY Register 1
-CH6_KEY_2 = 0x01E8, WO ; Channel 6 KEY Register 2
-CH6_KEY_3 = 0x01EC, WO ; Channel 6 KEY Register 3
-CH7_KEY_0 = 0x01F0, WO ; Channel 7 KEY Register 0
-CH7_KEY_1 = 0x01F4, WO ; Channel 7 KEY Register 1
-CH7_KEY_2 = 0x01F8, WO ; Channel 7 KEY Register 2
-CH7_KEY_3 = 0x01FC, WO ; Channel 7 KEY Register 3
+CH0_KEY$ = 0x0180, WO, @4 ; Channel 0 KEY Register $
+CH1_KEY$ = 0x0190, WO, @4 ; Channel 1 KEY Register $
+CH2_KEY$ = 0x01A0, WO, @4 ; Channel 2 KEY Register $
+CH3_KEY$ = 0x01B0, WO, @4 ; Channel 3 KEY Register $
+CH4_KEY$ = 0x01C0, WO, @4 ; Channel 4 KEY Register $
+CH5_KEY$ = 0x01D0, WO, @4 ; Channel 5 KEY Register $
+CH6_KEY$ = 0x01E0, WO, @4 ; Channel 6 KEY Register $
+CH7_KEY$ = 0x01F0, WO, @4 ; Channel 7 KEY Register $
+

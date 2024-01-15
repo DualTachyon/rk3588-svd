@@ -1,35 +1,7 @@
 [FIREWALL_SYSMEM, FIREWALL]
 @ = 0x0FE038000, 0x00008000
 
-RGN0 = 0x0000
-> 16, 8, TOP_4KB ; Last 4KB
-> 0, 8, BASE_4KB ; First 4KB
-
-RGN1 = 0x0004
-> 16, 8, TOP_4KB ; Last 4KB
-> 0, 8, BASE_4KB ; First 4KB
-
-RGN2 = 0x0008
-> 16, 8, TOP_4KB ; Last 4KB
-> 0, 8, BASE_4KB ; First 4KB
-
-RGN3 = 0x000C
-> 16, 8, TOP_4KB ; Last 4KB
-> 0, 8, BASE_4KB ; First 4KB
-
-RGN4 = 0x0010
-> 16, 8, TOP_4KB ; Last 4KB
-> 0, 8, BASE_4KB ; First 4KB
-
-RGN5 = 0x0014
-> 16, 8, TOP_4KB ; Last 4KB
-> 0, 8, BASE_4KB ; First 4KB
-
-RGN6 = 0x0018
-> 16, 8, TOP_4KB ; Last 4KB
-> 0, 8, BASE_4KB ; First 4KB
-
-RGN7 = 0x001C
+RGN$ = 0x0000, @8
 > 16, 8, TOP_4KB ; Last 4KB
 > 0, 8, BASE_4KB ; First 4KB
 

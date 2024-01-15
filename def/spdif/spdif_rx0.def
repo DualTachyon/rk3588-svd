@@ -235,99 +235,11 @@ INTCLR = 0x0028 ; Interrupt Clear Register
 
 SMPDR = 0x002C, RO ; Sample Data Register
 
-USRDR0 = 0x0030, RO ; User Data Register 0
+USRDR$ = 0x0030, RO, @12 ; User Data Register $
 > 16, 16, USR_SUB_1 ; User data bit for subframe 1
 > 0, 16, USR_SUB_0 ; User data bit for subframe 0
 
-USRDR1 = 0x0034, RO ; User Data Register 1
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR2 = 0x0038, RO ; User Data Register 2
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR3 = 0x003C, RO ; User Data Register 3
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR4 = 0x0040, RO ; User Data Register 4
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR5 = 0x0044, RO ; User Data Register 5
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR6 = 0x0048, RO ; User Data Register 6
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR7 = 0x004C, RO ; User Data Register 7
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR8 = 0x0050, RO ; User Data Register 8
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR9 = 0x0054, RO ; User Data Register 9
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR10 = 0x0058, RO ; User Data Register 10
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-USRDR11 = 0x005C, RO ; User Data Register 11
-> 16, 16, USR_SUB_1 ; User data bit for subframe 1
-> 0, 16, USR_SUB_0 ; User data bit for subframe 0
-
-CHNSR0 = 0x0060, RO ; Channel Status Register 0
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR1 = 0x0064, RO ; Channel Status Register 1
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR2 = 0x0068, RO ; Channel Status Register 2
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR3 = 0x006C, RO ; Channel Status Register 3
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR4 = 0x0070, RO ; Channel Status Register 4
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR5 = 0x0074, RO ; Channel Status Register 5
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR6 = 0x0078, RO ; Channel Status Register 6
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR7 = 0x007C, RO ; Channel Status Register 7
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR8 = 0x0080, RO ; Channel Status Register 8
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR9 = 0x0084, RO ; Channel Status Register 9
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR10 = 0x0088, RO ; Channel Status Register 10
-> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
-> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
-
-CHNSR11 = 0x008C, RO ; Channel Status Register 11
+CHNSR$ = 0x0060, RO, @12 ; Channel Status Register $
 > 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
 > 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
 
