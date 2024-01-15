@@ -1,6 +1,8 @@
 [SATA0, SATA]
 @ = 0x0FE210000, 0x00010000
 
++ = SATA
+
 CAP = 0x0000, RO ; This register indicates basic capabilities of the SATA Host to the software.
 > 31, 1, S64A ; Supports 64-bit addressable data structures by utilizing P0FBU and P0CLBU registers.
 > 30, 1, SNCQ ; Supports SATA native command queuing by handing DMA Setup FIS natively.

@@ -1,6 +1,8 @@
 [PORT0_PROBE0, INTERCONNECT]
 @ = 0xFDF50000, 0x400
 
++ = PORT_PROBE
+
 ID_COREID = 0x0000, RO ; Stores the Core Id and core checksum.
 > 8, 24, CORECHECKSUM ; Field containing a checksum of the parameters of the IP. Reset value is different for each probe.
 > 0, 8, CORETYPEID ; Field identifying the type of IP.

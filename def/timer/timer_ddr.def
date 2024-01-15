@@ -1,6 +1,8 @@
 [TIMER_DDR, TIMER]
 @ = 0x0FE118000, 0x00008000
 
++ = TIMER2CH
+
 TIMER0_LOAD_COUNT0 = 0x0000 ; Timer0 Load Count Register 0. Lower 32 bits Value to be loaded into Timer 0
 TIMER0_LOAD_COUNT1 = 0x0004 ; Timer0 Load Count Register 1. Higher 32 bits Value to be loaded into Timer 0. This is the value from which counting commences
 TIMER0_CURRENT_VALUE0 = 0x0008, RO ; Timer0 Current Value Register 0. Lower 32 bits of Current Value of Timer 0

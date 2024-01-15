@@ -1,6 +1,8 @@
 [GRF_HDPTXPHY0, GRF]
 @ = 0x0FD5E0000, 0x00004000
 
++ = GRF_HDPTXPHY
+
 CON0 = 0x0000 ; HDPTXPHY Control Register 0
 > 10, 2, RO_REF_CLK_SEL ; Input Reference Clock source selector This pin controls reference clock source
 = 0, REFCLK_XTAL ; Input reference clock from refclk_xtal

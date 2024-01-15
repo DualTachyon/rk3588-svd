@@ -1,6 +1,8 @@
 [OTP_NS, OTP]
 @ = 0x0FECC0000, 0x00010000
 
++ = OTP
+
 AUTO_CTRL = 0x0004
 > 16, 10, ADDR
 > 8, 8, BURST

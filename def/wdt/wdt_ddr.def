@@ -1,6 +1,8 @@
 [WDT_DDR, WDT]
 @ = 0x0FE110000, 0x00008000
 
++ = WDT
+
 CR = 0x0000 ; Control Register
 > 2, 3, RST_PLUSE_LENGTH ; This is used to select the number of pclk cycles for which the system reset stays asserted.
 = 0, 2_PCLK_CYCLES

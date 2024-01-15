@@ -1,6 +1,8 @@
 [GRF_USB2PHY0, GRF]
 @ = 0x0FD5D0000, 0x00004000
 
++ = GRF_USB2PHY
+
 CON0 = 0x0000 ; USB2PHY Control Register 0
 > 15, 1, PORT_RESET ; Per-Port Reset When asserted, this signal resets the corresponding port's transmit and receive logic without disabling the clocks within the USB 2.0 PHY.
 = 1, ASSERT ; The transmit and receive finite state machines (FSMs) are reset, and the line_state logic combinatorially reflects the state of the single-ended receivers.

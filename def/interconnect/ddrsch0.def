@@ -1,6 +1,8 @@
 [DDRSCH0, INTERCONNECT]
 @ = 0xFE000000, 0x2000
 
++ = DDRSCH
+
 ID_COREID = 0x0000, RO ; Core id
 > 8, 24, CORECHECKSUM ; Field containing a checksum of the parameters of the IP.
 > 0, 8, CORETYPEID ; Field identifying the type of IP.

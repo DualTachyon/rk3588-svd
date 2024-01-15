@@ -1,6 +1,8 @@
 [GRF_CSIDPHY0, GRF]
 @ = 0x0FD5B4000, 0x00001000
 
++ = GRF_CSIDPHY0
+
 CON0 = 0x0000 ; CSIDPHY Control Register
 > 11, 1, CSIDPHY_CLK_1_INV ; Invert CSIDPHY clock lane1 rxbyte clock
 = 1, INVERT ; Invert CSIDPHY clock lane 1 rxbyte_clk_hs

@@ -1,6 +1,8 @@
 [QOSGEN_ISP0_MWO, INTERCONNECT]
 @ = 0xFDF40500, 0x80
 
++ = QOSGEN
+
 ID_COREID = 0x0000, RO ; Core ID and checksum
 > 8, 24, CORECHECKSUM ; Field containing a checksum of the parameters of the IP. Reset value is different for each QoS generator.
 > 0, 8, CORETYPEID ; Field identifying the type of IP.

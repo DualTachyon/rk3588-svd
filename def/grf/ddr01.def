@@ -1,6 +1,8 @@
 [GRF_DDR01, GRF]
 @ = 0x0FD59C000, 0x00001000
 
++ = GRF_DDR
+
 CHA_CON0 = 0x0000 ; DDR CHA Control Register 0
 > 15, 1, AWPOISON_0 ; DDRCTL AXI write address poison
 = 1, ENABLE ; Enable poison on write command

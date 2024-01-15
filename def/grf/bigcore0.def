@@ -1,6 +1,8 @@
 [GRF_BIGCORE0, GRF]
 @ = 0x0FD590000, 0x00002000
 
++ = GRF_BIGCORE
+
 PVTPLL_CON0_L = 0x0000 ; PVTPLL Control Register 0 Low
 > 15, 1, BYPASS
 = 0, SUPPORT ; Support glitch-free frequency conversion.

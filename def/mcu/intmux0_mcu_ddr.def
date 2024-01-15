@@ -1,6 +1,8 @@
 [INTMUX0_MCU_DDR, MCU]
 @ = 0x0FECF8000, 0x00004000
 
++ = INTMUX_MCU
+
 INT_ENABLE_GROUP0 = 0x0000 ; Interrupt Group0 Enable Register
 > 7, 1, BIT7_ENABLE
 = 1, ENABLED

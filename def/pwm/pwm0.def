@@ -1,6 +1,8 @@
 [PWM0, PWM]
 @ = 0x0FD8B0000, 0x00010000
 
++ = PWM
+
 CH0_CNT = 0x0000 ; PWM Channel 0 Counter Register
 > 0, 32, CNT, RO ; The 32-bit indicates current value of PWM Channel 0 counter. The counter runs at the rate of PWM clock. The value ranges from 0 to (2^32-1).
 

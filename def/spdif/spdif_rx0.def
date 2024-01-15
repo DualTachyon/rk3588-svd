@@ -1,6 +1,8 @@
 [SPDIF_RX0, SPDIF]
 @ = 0x0FDE08000, 0x00008000
 
++ = SPDIF_RX
+
 VERSION = 0x0000 ; Version Register
 > 0, 32, VER ; Version of SPDIF_RX
 

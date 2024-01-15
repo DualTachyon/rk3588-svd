@@ -1,6 +1,8 @@
 [GRF_USBDPPHY0, GRF]
 @ = 0x0FD5C8000, 0x00004000
 
++ = GRF_USBDPPHY
+
 CON1 = 0x0004 ; USBDPPHY Control Register 1
 > 14, 1, RX_LFPS_EN ; Enable RX LFPS Detector Block.
 = 1, ENABLE ; RX SQ enable

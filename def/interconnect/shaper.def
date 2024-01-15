@@ -1,6 +1,8 @@
 [SHAPER_ISP0_MWO, INTERCONNECT]
 @ = 0xFDF40580, 0x80
 
++ = SHAPER
+
 NBPKTMAX0 = 0x0008 ; Max pending packet number register
 > 0, 8, NBPKTMAX0 ; Max transport packet pending for route to scheduler.
 

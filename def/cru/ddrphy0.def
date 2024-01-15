@@ -1,6 +1,8 @@
 [CRU_DDRPHY0, CRU]
 @ = 0x0FD800000, 0x00004000
 
++ = CRU_DDRPHY
+
 APLL_CON0 = 0x0000 ; APLL configuration register 0
 > 15, 1, APLL_BP ; BYPASS: Bypass mode control signal.
 = 1, BYPASS ; bypass mode is enabled. (FOUT = FIN).

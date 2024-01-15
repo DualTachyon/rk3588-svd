@@ -1,6 +1,8 @@
 [GRF_MIPIDCPHY0, GRF]
 @ = 0x0FD5E8000, 0x00004000
 
++ = GRF_MIPIDCPHY
+
 CON0 = 0x0000 ; MIPICDPHY Control Register 0
 > 15, 1, DCPHY_CLAMP_EN ; DCPHY output clamp enable
 = 0, NORMAL ; Normal mode

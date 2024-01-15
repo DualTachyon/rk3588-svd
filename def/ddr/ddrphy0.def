@@ -1,6 +1,8 @@
 [DDRPHY0, DDR]
 @ = 0x0FE0C0000, 0x00010000
 
++ = DDRPHY
+
 GNR_CON0 = 0x0000 ; GENERAL Control Register 0
 CAL_CON0 = 0x0004 ; CALIBRATION Control Register 0
 CAL_CON1 = 0x0008 ; CALIBRATION Control Register 1

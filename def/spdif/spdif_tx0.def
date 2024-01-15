@@ -1,6 +1,8 @@
 [SPDIF_TX0, SPDIF]
 @ = 0x0FE4E0000, 0x00010000
 
++ = SPDIF_TX
+
 CFGR = 0x0000 ; Transfer Configuration Register
 > 16, 8, MCD ; Mclk divider Mclk is the operation clock. This parameter can be calculated by (frequency of mclk)/(Fs*128). Fs=sample frequency
 
