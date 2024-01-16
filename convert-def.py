@@ -812,6 +812,9 @@ def generate_headers(peripherals, path):
             generate_access_macros(f, struct, peripheral.name, indent)
             generate_register_macros(f, peripheral, peripheral.name, indent)
             generate_structure(f, peripheral)
+        elif peripheral.derived:
+            generate_base(f, struct, peripheral, short_indent)
+            generate_access_macros(f, struct, peripheral.name, short_indent)
         elif peripheral.struct:
             generate_base(f, struct, peripheral, short_indent)
             generate_access_macros(f, struct, peripheral.name, short_indent)
