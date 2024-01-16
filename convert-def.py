@@ -669,9 +669,12 @@ def generate_boilerplate(f, peripheral):
     f.write('\n')
 
 def generate_base(f, struct, peripheral, indent):
-    f.write(insert_indent('#define %s_BASE' % peripheral.name, '0x%09X\n' % peripheral.address, indent))
-    f.write(insert_indent('#define %s_SIZE' % peripheral.name, '0x%09X\n' % peripheral.size, indent))
-    f.write(insert_indent('#define %s' % peripheral.name, '((volatile %s_t *)%s_BASE)\n' % (struct, peripheral.name), indent))
+    suffix = 'LL' if peripheral.address >= 0x100000000 else ''
+    f.write(insert_indent('#define %s_BASE' % peripheral.name, '0x%09XU%s\n' % (peripheral.address, suffix), indent))
+    suffix = 'LL' if peripheral.size >= 0x100000000 else ''
+    f.write(insert_indent('#define %s_SIZE' % peripheral.name, '0x%09XU%s\n' % (peripheral.size, suffix), indent))
+    if len(peripheral.registers) > 0:
+        f.write(insert_indent('#define %s' % peripheral.name, '((volatile %s_t *)%s_BASE)\n' % (struct, peripheral.name), indent))
     f.write('\n')
 
 def generate_access_macros(f, struct, name, indent):
@@ -804,19 +807,20 @@ def generate_headers(peripherals, path):
         else:
             struct = peripheral.name
 
-        f.write('#include "%s%s.h"\n' % (prefix, struct.lower()))
-        f.write('\n')
+        if peripheral.refcount or peripheral.derived:
+            f.write('#include "%s%s.h"\n' % (prefix, struct.lower()))
+            f.write('\n')
+            generate_base(f, struct, peripheral, short_indent)
+        else:
+            generate_base(f, struct, peripheral, indent)
 
         if len(peripheral.registers) > 0 and not peripheral.refcount and not peripheral.derived:
-            generate_base(f, struct, peripheral, indent)
             generate_access_macros(f, struct, peripheral.name, indent)
             generate_register_macros(f, peripheral, peripheral.name, indent)
             generate_structure(f, peripheral)
         elif peripheral.derived:
-            generate_base(f, struct, peripheral, short_indent)
             generate_access_macros(f, struct, peripheral.name, short_indent)
         elif peripheral.struct:
-            generate_base(f, struct, peripheral, short_indent)
             generate_access_macros(f, struct, peripheral.name, short_indent)
             f.write('#endif\n\n')
             f.close()
