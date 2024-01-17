@@ -819,7 +819,10 @@ def generate_headers(peripherals, path):
             generate_base(f, struct, peripheral, indent)
 
         if len(peripheral.registers) > 0 and not peripheral.refcount and not peripheral.derived:
-            generate_access_macros(f, struct, peripheral.name, indent)
+            for register in peripheral.registers.values():
+                if len(register.bitfields) > 0:
+                    generate_access_macros(f, struct, peripheral.name, indent)
+                    break
             generate_register_macros(f, peripheral, peripheral.name, indent)
             generate_structure(f, peripheral)
         elif peripheral.derived:
