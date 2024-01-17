@@ -608,7 +608,7 @@ PKA_VERSION = 0x0698, RO ; PKA_VERSION code is 0x0100_0000
 > 0, 32, PKA_VERSION_CODE ; PKA version code is 0x0100_0000.
 
 CRYPTO_VERSION = 0x06F0, RO ; CRYPTO_VERSION code is 0x0200_0002
-> 0, 32, S ; crypto_version_code SCRYPTO version code is 0x0200_0002.
+> 0, 32, SCRYPTO_VERSION_CODE ; SCRYPTO version code is 0x0200_0002.
 
 PKA_MEM_MAP$ = 0x0800, @32 ; PKA Memory Map $ Register
 > 2, 10, MEMORY_MAP$ ; Memory map $ [11:2], bit[1:0] is stuck to 0
