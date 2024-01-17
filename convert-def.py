@@ -604,6 +604,10 @@ def calculate_max_indent(peripheral):
     # #define peripheral_BASE
     max_length = max(max_length, 5 + p_length)
 
+    if len(peripheral.registers) > 0:
+        # #define peripheral_ENUM_BITS_VALUE_WM(r, b, v)
+        max_length = max(max_length, 28 + p_length)
+
     for register in peripheral.registers.values():
         # #define peripheral_register
         r_length = 1 + p_length + len(remove_index(register.name))
