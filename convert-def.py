@@ -682,16 +682,37 @@ def generate_base(f, struct, peripheral, indent):
     f.write('\n')
 
 def generate_access_macros(f, struct, name, indent):
-    get_prefix = '%s_##r##_GET_##b' % struct
-    set_prefix = '%s_##r##_SET_##b' % struct
+    get_macro = '%s_##r##_GET_##b' % struct
+    set_macro = '%s_##r##_SET_##b' % struct
+    mask_macro = '%s_##r##_##b##_MASK' % struct
 
-    f.write(insert_indent('#define %s_ENUM_EQUALS(r, b, e)' % name,        '(%s(%s->r) == %s_##r##_##b##_VALUE_##e)\n' % (get_prefix, name, struct), indent))
-    f.write(insert_indent('#define %s_ENUM_BITS(r, b, e)' % name,          '(%s(%s_##r##_##b##_VALUE_##e))\n' % (set_prefix, struct), indent))
-    f.write(insert_indent('#define %s_ENUM_BITS_WM(r, b, e)' % name,       '(%s(%s_##r##_##b##_VALUE_##e) | (%s_##r##_##b##_MASK << 16))\n' % (set_prefix, struct, struct), indent))
-    f.write(insert_indent('#define %s_ENUM_BITS_VALUE(r, b, v)' % name,    '(%s(v))\n' % set_prefix, indent))
-    f.write(insert_indent('#define %s_ENUM_BITS_VALUE_WM(r, b, v)' % name, '(%s(v) | (%s_##r##_##b##_MASK << 16))\n' % (set_prefix, struct), indent))
-    f.write(insert_indent('#define %s_ENUM_GET(r, b)' % name,              '(%s(%s->r))\n' % (get_prefix, name), indent))
-    f.write(insert_indent('#define %s_ENUM_VALUE(r, b, e)' % name,         '(%s_##r##_##b##_VALUE_##e)\n'% struct, indent))
+    f.write("// Reads register 'r' and checks if bitfield 'b' is equal to 'e'.\n")
+    f.write(insert_indent('#define %s_ENUM_EQUALS(r, b, e)' % name,           '(%s(%s->r) == %s_##r##_##b##_VALUE_##e)\n' % (get_macro, name, struct), indent))
+
+    f.write("// Returns the encoding of enum 'e' for bitfield 'b' of register 'r'.\n")
+    f.write(insert_indent('#define %s_ENUM_BITS(r, b, e)' % name,             '(%s(%s_##r##_##b##_VALUE_##e))\n' % (set_macro, struct), indent))
+
+    f.write("// Same as %s_ENUM_BITS but applies the corresponding RockChip write mask.\n" % name)
+    f.write(insert_indent('#define %s_ENUM_BITS_WM(r, b, e)' % name,          '(%s(%s_##r##_##b##_VALUE_##e) | (%s << 16))\n' % (set_macro, struct, mask_macro), indent))
+
+    f.write("// Returns the encoding of value 'v' for bitfield 'b' of register 'r'.\n")
+    f.write(insert_indent('#define %s_ENUM_BITS_VALUE(r, b, v)' % name,       '(%s(v))\n' % set_macro, indent))
+
+    f.write("// Same as %s_ENUM_BITS_VALUE but applies the corresponding RockChip write mask.\n" % name)
+    f.write(insert_indent('#define %s_ENUM_BITS_VALUE_WM(r, b, v)' % name,    '(%s(v) | (%s_##r##_##b##_MASK << 16))\n' % (set_macro, struct), indent))
+
+    f.write("// Reads register 'r' and returns the value of bitfield 'b'.\n")
+    f.write(insert_indent('#define %s_ENUM_GET(r, b)' % name,                 '(%s(%s->r))\n' % (get_macro, name), indent))
+
+    f.write("// Returns the integer value of the enum 'e' for bitfield 'b' of register 'r'.\n")
+    f.write(insert_indent('#define %s_ENUM_VALUE(r, b, e)' % name,            '(%s_##r##_##b##_VALUE_##e)\n'% struct, indent))
+
+    f.write("// Given an input 'i', returns it with bitfield 'b' of register 'r' replaced with enum 'e'.\n")
+    f.write(insert_indent('#define %s_ENUM_REPLACE(i, r, b, e)' % name,       '(((i) & ~%s) | %s(%s_##r##_##b##_VALUE_##e))\n'% (mask_macro, set_macro, struct), indent))
+
+    f.write("// Given an input 'i', returns it with bitfield 'b' of register 'r' replaced with value 'v'.\n")
+    f.write(insert_indent('#define %s_ENUM_REPLACE_VALUE(i, r, b, v)' % name, '(((i) & ~%s) | %s(v))\n'% (mask_macro, set_macro), indent))
+
     f.write('\n')
 
 def generate_register_macros(f, peripheral, p_prefix, indent):
