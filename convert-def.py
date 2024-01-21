@@ -730,8 +730,12 @@ def generate_register_macros(f, peripheral, p_prefix, indent):
             f.write(insert_indent('#define %s' % shift, '%dU\n' % bitfield.start, indent))
             f.write(insert_indent('#define %s' % width, '%dU\n' % bitfield.width, indent))
             f.write(insert_indent('#define %s' % mask, '(((1U << %s) - 1U) << %s)\n' % (width, shift), indent))
-            f.write(insert_indent('#define %s_GET_%s(v)' % (prefix, bf_name), '(((v) & %s) >> %s)\n' % (mask, shift), indent))
-            f.write(insert_indent('#define %s_SET_%s(v)' % (prefix, bf_name), '(((uint32_t)(v) << %s) & %s)\n' % (shift, mask), indent))
+            if bitfield.width == register.size:
+                f.write(insert_indent('#define %s_GET_%s(v)' % (prefix, bf_name), '((uint%d_t)(v))\n' % bitfield.width, indent))
+                f.write(insert_indent('#define %s_SET_%s(v)' % (prefix, bf_name), '((uint%d_t)(v))\n' % bitfield.width, indent))
+            else:
+                f.write(insert_indent('#define %s_GET_%s(v)' % (prefix, bf_name), '(((v) & %s) >> %s)\n' % (mask, shift), indent))
+                f.write(insert_indent('#define %s_SET_%s(v)' % (prefix, bf_name), '(((uint32_t)(v) << %s) & %s)\n' % (shift, mask), indent))
 
             for enum in bitfield.enums.values():
                 f.write(insert_indent('#define %s_%s_VALUE_%s' % (prefix, bf_name, remove_index(enum.name)), '0x%XU\n' % enum.value, indent))
