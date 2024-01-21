@@ -7024,9 +7024,11 @@ GLBRST_ST = 0x0C04 ; System control register
 
 GLB_SRST_FST_VALUE = 0x0C08 ; System control register
 > 0, 16, GLB_SRSC_FIRST_VALUE ; GLB_SRST_FST The first global software reset configuration value. Set 0xfdb9 enable.
+= 0xFDB9, ENABLE
 
 GLB_SRST_SND_VALUE = 0x0C0C ; System control register
 > 0, 16, GLB_SRSC_SECOND_VALUE ; GLB_SRST_SND The second global software reset configuration value. Set 0xeca8 enable.
+= 0xECA8, ENABLE
 
 GLB_RST_CON = 0x0C10 ; System control register
 > 15, 1, CRC_SGRF_CHK_TRIG_GLBRST_SEL ; crc_sgrf_chk_trig_glbrst_sel

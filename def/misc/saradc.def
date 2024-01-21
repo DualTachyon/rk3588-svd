@@ -13,8 +13,10 @@ CONV_CON = 0x0000 ; Conversion control
 > 6, 1, AUTO_CHANNEL_MODE ; Auto channel mode. If this is enable, channel will be round auto according which is set in AUTO_CH_EN.
 
 > 5, 1, SINGLE_PD_MODE ; Single conversion mode. If this bit is set to 1, conversion only operate once, then PD single will be set to 1.
+= 1, ENABLE
 
 > 4, 1, START_ADC, W1C ; Enable ADC, if this bit set to one, conversion will start. Then this bit will be clear to 0.
+= 1, START
 
 > 0, 4, CHANNEL_SEL ; Channel for SARADC, 8 channels are supported. This fileld is not used when CONV_CON[6] is set to 1.
 = 0, CH0
