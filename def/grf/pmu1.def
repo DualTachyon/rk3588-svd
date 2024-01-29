@@ -590,7 +590,6 @@ RST_CLR = 0x0234 ; System reset status clear register
 = 0, DISABLE
 = 1, ENABLE
 
-
 SD_DETECT_CON = 0x0380 ; SDMMC detect control register
 > 1, 1, SD_DETECT_FALL_EN ; Enable SDMMC detect pin falling edge interrupt.
 = 0, DISABLE
