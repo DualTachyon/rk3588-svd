@@ -1,3 +1,287 @@
-[FISHEYE0]
+[FISHEYE0, FEC]
 @ = 0x0FDCD0000, 0x00008000
+
++ = FEC
+
+ISPP_START = 0x0000 ; ISPP command start
+> 2, 1, SW_FEC_ST, W1C ; ISPP command start
+= 1, START
+
+ISPP_UPDATE = 0x0004 ; ISPP register force update
+> 2, 1, SW_CFG_FORCE_UPD, W1C ; ISPP register force update for FEC
+= 1, UPDATE
+
+ISPP_RESET = 0x000C ; ISPP soft reset
+> 16, 6, SW_GLB_INIT_DIS ; Hardware will reset automatically at frame start if the module Corresponding bit set to 0
+
+> 8, 4, SYS_REG_MSOFT_RST ; Scale hardware will reset automatically at frame start if the module Corresponding bit set to 0
+
+> 1, 1, SW_RST_PROTECT_DIS ; Safety reset select
+= 0, PROTECT
+= 1, DIRECT
+
+> 0, 1, SW_GLB_SOFT_RST_ALL, W1C ; FEC soft reset with self-clear
+
+ISPP_CLKGATE = 0x0010 ; FEC clock gating
+> 5, 1, SW_GLB_CKG_DIS ; Global clk gate_dis
+
+INT_MSK = 0x0020 ; Interrupt mask
+> 8, 1, BOUND_CROSS_P ; FEC bound cross buffer interrupt mask
+= 0, MASK
+= 1, NOT_MASK
+
+> 7, 1, SW_FEC_FRAME_END ; FEC frame end interrupt mask
+= 0, MASK
+= 1, NOT_MASK
+
+> 3, 1, ESP_FIFO_FULL_ERR ; FEC rdata fifo write error when full interrupt mask
+= 0, MASK
+= 1, NOT_MASK
+
+INT_RAW = 0x0024, RO ; Interrupt raw status
+> 8, 1, BOUND_CROSS_P ; FEC bound cross buffer interrupt raw status
+
+> 7, 1, SW_FEC_FRAME_END ; FEC frame end interrupt raw status
+
+> 3, 1, ESP_FIFO_FULL_ERR ; FEC rdata fifo write error when full raw status
+
+INT_STA = 0x0028 ; Interrupt status
+> 8, 1, BOUND_CROSS_P ; FEC bound cross buffer interrupt status
+
+> 7, 1, SW_FEC_FRAME_END ; FEC frame end interrupt status
+
+> 3, 1, ESP_FIFO_FULL_ERR ; FEC rdata fifo write error when full interrupt status
+
+INT_SET = 0x002C ; Interrupt enable
+> 8, 1, BOUND_CROSS_P, W1C ; FEC bound cross buffer interrupt set
+= 0, DISABLE
+= 1, ENABLE
+
+> 7, 1, SW_FEC_FRAME_END, W1C ; FEC frame end interrupt set
+= 0, DISABLE
+= 1, ENABLE
+
+> 3, 1, ESP_FIFO_FULL_ERR, W1C ; FEC rdata fifo write error when full interrupt set
+= 0, DISABLE
+= 1, ENABLE
+
+INT_CLR = 0x0030 ; Interrupt clear
+> 8, 1, BOUND_CROSS_P, W1C ; FEC bound cross buffer interrupt clear
+= 0, NOT_CLEAR
+= 1, CLEAR
+
+> 7, 1, SW_FEC_FRAME_END, W1C ; FEC frame end interrupt clear
+= 0, NOT_CLEAR
+= 1, CLEAR
+
+> 3, 1, ESP_FIFO_FULL_ERR, W1C ; FEC rdata fifo write error when full interrupt clear
+= 0, NOT_CLEAR
+= 1, CLEAR
+
+ISPP_STATUS = 0x0054, RO ; ISPP status register
+> 16, 7, FEC_TILE_LINT_CNT ; FEC tile line counter
+
+MI_CTRL = 0x0C00 ; Memory interface control
+> 14, 6, SW_FEC_RD_LEVEL_I ; FEC read level
+
+> 13, 1, SW_FEC_RD_OPT_DIS ; FEC read option disable
+
+> 12, 1, SW_FEC_FBCE_SPARSE_MODE ; FEC fbce mode sparse_en
+
+> 8, 1, SW_FEC_WR_YUV_LIMIT ; FEC write YUV limit
+
+> 7, 1, SW_FEC_WR_YUYV_YCSWAP ; FEC write to DDR y/c swap
+= 0, NO_SWAP ; Y/C do not swap
+= 1, SWAP ; Y/C swap
+
+> 6, 1, SW_FEC_WR_YUYV_FORMAT ; FEC write to DDR format
+= 0, YUV422_NOT_YUV ; YUV422 not YUYV format
+= 1, YUV422_YUV ; YUV422 YUYV forma
+
+> 5, 1, SW_FEC_WR_YUV_FORMT ; FEC write YUV format
+= 0, YUV420
+= 1, YUV422
+
+> 4, 1, SW_FEC_WR_FBCE_MODE ; FEC write to DDR mode
+= 0, RASTER
+= 1, FBCE
+
+> 3, 1, SW_FEC_RD_YUYV_YCSWAP ; FEC read y/c swap
+= 0, NO_SWAP ; Y/C do not swap
+= 1, SWAP ; Y/C swap
+
+> 2, 1, SW_FEC_RD_YUYV_FORMAT ; FEC read YUYV format
+= 0, 422_NOT_YUYV
+= 1, 422_YUYV
+
+> 1, 1, SW_FEC_RD_YUV_FORMAT ; FEC read YUV format
+= 0, YUV420
+= 1, YUV422
+
+RD_VIR_STRIDE = 0x0C04 ; FEC RD virtual stride, 16B aligned, word unit
+> 0, 13, SW_FEC_RD_VIR_STRIDE ; FEC RD virtual stride, 16B aligned, word unit
+
+RD_Y_BASE = 0x0C08 ; FEC DMA read y base address, 16B aligned
+RD_UV_BASE = 0x0C0C ; FEC DMA read uv base address, 16B aligned
+MESH_XINT_BASE = 0x0C10 ; FEC mesh x integer base address, 16B aligned
+MESH_XFRA_BASE = 0x0C14 ; FEC mesh x fraction base address, 16B aligned
+MESH_YINT_BASE = 0x0C18 ; FEC mesh y integer base address, 16B aligned
+MESH_YFRA_BASE = 0x0C1C ; FEC mesh y fraction base address, 16B aligned
+
+WR_VIR_STRIDE = 0x0C20 ; FEC write virtual stride,16B aligned, word unit
+> 0, 13, SW_FEC_WR_VIR_STRIDE ; FEC write virtual stride,16B aligned, word unit
+
+WR_Y_BASE = 0x0C24 ; FEC DMA write y base address, 16B aligned
+WR_UV_BASE = 0x0C28 ; FEC DMA write uv base address, 16B aligned
+RD_Y_BASE_SHD = 0x0C2C, RO ; FEC DMA read y base address shadow, 16B aligned
+RD_UV_BASE_SHD = 0x0C30, RO ; FEC DMA read uv base address shadow, 16B aligned
+
+MESH_XINT_BASE_SHD = 0x0C34, RO ; FEC DMA read x integer base address shadow, 16B aligned
+MESH_XFRA_BASE_SHD = 0x0C38, RO ; FEC DMA read x fraction base address shadow, 16B aligned
+MESH_YINT_BASE_SHD = 0x0C3C, RO ; FEC DMA read y integer base address shadow, 16B aligned
+MESH_YFRA_BASE_SHD = 0x0C40, RO ; FEC DMA read y fraction base address shadow, 16B aligned
+
+# TODO: This register was marked as RW!
+WR_Y_BASE_SHD = 0x0C44, RO ; FEC DMA write y base address shadow, 16B aligned
+WR_UV_BASE_SHD = 0x0C48, RO ; FEC DMA write uv base address shadow, 16B aligned
+
+AR_QOS_CTRL = 0x0C54 ; FEC read qos control
+> 8, 3, SW_NOC_HURRY_VALUE ; FEC AXI read hurry enable
+
+> 4, 3, SW_FEC_AR_MMU_QOS ; FEC AXI read qos value
+
+> 0, 1, SW_FEC_AR_QOS_EN ; FEC AXI read qos enable
+= 0, DISABLE
+= 1, ENABLE
+
+CORE_CTRL = 0x0C80 ; FEC core control
+> 31, 1, SW_FEC_EN_SHD, RO ; FEC enable shadow
+
+> 30, 1, SW_MINBUF_NON_UPDATE_SHD, RO ; Mesh inbuf no update shadow
+
+> 8, 1, SW_FEC_CROSS_DIS ; FEC cross buffer disable
+= 0, ENABLE
+= 1, DISABLE
+
+> 6, 1, SW_MINBUF_NON_UPDATE ; Mesh inbuf no update
+= 0, UPDATE ; Mesh update current frame
+= 1, NO_UPDATE ; Mesh no update current frame
+
+> 5, 1, SW_MESH_DENSITY ; Mesh density
+= 0, 16X8
+= 1, 32X16
+
+> 3, 2, SW_FEC_BIC_MODE ; Bicubic mode
+= 0, PRECISE
+= 1, SPLINE
+= 2, CATROM
+= 3, MITCHELL
+
+> 1, 1, SW_FEC2DDR_DIS ; FEC2DDR disable control bit
+= 0, ENABLE ; Data write to DDR
+= 1, DISABLE ; Data do not write to DDR
+
+> 0, 1, SW_FEC_EN ; FEC enable
+= 0, DISABLE
+= 1, ENABLE
+
+DST_SIZE = 0x0C88 ; FEC destination size
+> 16, 13, SW_FEC_DST_HEIGHT ; FEC destination height
+> 0, 13, SW_FEC_DST_WIDTH ; FEC destination width
+
+MESH_SIZE = 0x0C8C ; FEC mesh size
+> 0, 22, SW_MESH_SIZE ; FEC mesh size act_width_ex = 32*((sw_fec_act_width+31)/32) act_height_ex = 32*((sw_fec_act_height+31)/32) spb_num = (act_height_x+127)/128 left_height = ((act_height_ex % 128) == 0) ? 128 : (act_height_ex % 128) mesh_width = (sw_fec_mesh_density == 1) ? (act_width_ex/32+1) : (act_width_ex/16+1) mesh_height = (sw_fec_mesh_density == 1) ? (128/16+1) : (128/8+1) mesh_left_height = (sw_fec_mesh_density == 1) ? (left_height/16+1) : (left_height/8+1) spb_mesh_size = mesh_width * mesh_height mesh_size = (spb_num - 1) * mesh_width * mesh_height + mesh_width * mesh_left_height
+
+DMA_STATUS = 0x0C90, RO ; FEC DMA status
+> 13, 1, BOUND_V_ERR ; FEC bound vertical error
+> 12, 1, BOUND_H_ERR ; FEC bound horizontal error
+> 11, 1, BLKLINE_ERR_V ; FEC blockline vertical error
+> 10, 1, BLKLINE_ERR_H ; FEC blockline horizontal error
+> 9, 1, BLK_ERR_V ; FEC blockline vertical error
+> 8, 1, BLK_ERR_H ; FEC block horizontal error
+> 7, 1, PBUF_PP_FAIL ; FEC pixel buffer ping-pong switch fail
+> 6, 1, MINBUF_PP_FAIL ; FEC mesh buffer ping-pong switch fail
+
+> 4, 1, PIC_DMA_ACTIVE ; FEC Pixel DMA active
+= 0, NOT_ACTIVE ; DMA is not working
+= 1, ACTIVE ; DMA is working
+
+> 2, 1, MESH_Y_DMA_ACTIVE ; FEC MESH Y DMA active
+= 0, NOT_ACTIVE ; DMA is not working
+= 1, ACTIVE ; DMA is working
+
+> 0, 1, MESH_X_DMA_ACTIVE ; FEC MESH X DMA active
+= 0, NOT_ACTIVE ; DMA is not working
+= 1, ACTIVE ; DMA is working
+
+SRC_SIZE = 0x0C98 ; FEC source size
+> 16, 13, SW_FEC_SRC_HEIGHT ; FEC source height
+> 0, 13, SW_FEC_SRC_WIDTH ; FEC source width
+
+MMU_DTE_ADDR = 0x0F00 ; MMU current page Table address
+
+MMU_STATUS = 0x0F04, RO ; MMU status
+> 6, 5, PAGE_FAULT_BUS_ID ; Index of master responsible for last page fault
+
+> 5, 1, PAGE_FAULT_IS_WRITE ; The direction of access for last page fault:
+= 0, READ
+= 1, WRITE
+
+> 4, 1, REPLAY_BUFFER_EMPTY ; The MMU replay buffer is empty
+= 1, EMPTY
+= 0, NOT_EMPTY
+
+> 3, 1, MMU_IDLE ; The MMU is idle when accesses are being translated and there are no unfinished translated accesses
+= 1, IDLE
+= 0, NOT_IDLE
+
+> 2, 1, STALL_ACTIVE ; MMU stall mode currently enabled. The mode is enabled by command
+= 1, ACTIVE
+= 0, NOT_ACTIVE
+
+> 1, 1, PAGE_FAULT_ACTIVE ; MMU page fault mode currently enabled. The mode is enabled by command
+= 1, ACTIVE
+= 0, NOT_ACTIVE
+
+> 0, 1, PAGING_ENABLED ; Paging is enabled
+= 1, ENABLED
+= 0, DISABLED
+
+MMU_COMMAND = 0x0F08 ; MMU command
+> 0, 3, MMU_CMD, WO ; MMU_CMD
+= 0, MMU_ENABLE_PAGING
+= 1, MMU_DISABLE_PAGING
+= 2, MMU_ENABLE_STALL
+= 3, MMU_DISABLE_STALL
+= 4, MMU_ZAP_CACHE
+= 5, MMU_PAGE_FAULT_DONE
+= 6, MMU_FORCE_RESET
+
+MMU_PAGE_FAULT_ADDR = 0x0F0C ; MMU address of last page fault
+
+MMU_ZAP_ONE_LINE = 0x0F10, WO ; MMU address to be invalidated from the page table cache
+
+MMU_INT_RAWSTAT = 0x0F14 ; MMU raw interrupt
+> 1, 1, READ_BUS_ERROR, RO ; Read bus error 0 RO 0x0 PAGE_FAULT Page fault
+
+MMU_INT_CLEAR = 0x0F18 ; MMU interrupt clear
+> 1, 1, READ_BUS_ERROR, WO ; Read bus error 0 WO 0x0 PAGE_FAULT Page fault
+
+MMU_INT_MASK = 0x0F1C ; MMU interrupt mask
+> 1, 1, READ_BUS_ERROR ; Read bus error 0 RW 0x0 PAGE_FAULT Page fault
+
+MMU_INT_STATUS = 0x0F20 ; MMU interrupt status
+> 1, 1, READ_BUS_ERROR, RO ; Read bus error 0 RO 0x0 PAGE_FAULT Page fault
+
+MMU_AUTO_GATING = 0x0F24 ; MMU auto gating
+> 31, 1, MMU_BUG_FIXED_DISABLE ; MMU bug fixed disable, must be 1
+
+> 1, 1, MMU_CFG_MODE, RO ; MMU configuration mode
+
+> 0, 1, MMU_AUTO_GATING ; When it is 1'b1, the MMU will auto gate itself
+
+MMU_REG_LOAD_EN = 0x0F28 ; MMU register load enable
+> 0, 1, REG_LOAD_MMU_EN ; MMU register load enable
+= 1, ENABLE
+= 0, DISABLE
 
