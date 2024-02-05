@@ -1,6 +1,12 @@
 [SGRF_PMU0, GRF]
 @ = 0x0FD580000, 0x00002000
 
+# Present but unknown
+SOC_CON0 = 0x0000
+
+# Present but unknown
+SOC_CON1 = 0x0004
+
 SOC_CON2 = 0x0008
 > 15, 1, LOCK_REMAP
 = 1, LOCKED
