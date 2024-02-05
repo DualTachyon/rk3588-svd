@@ -1,3 +1,2297 @@
 [DMAC0_NS, DMA]
 @ = 0x0FEA10000, 0x00010000
 
++ = DMAC
+
+DSR = 0x0000, RO ; DMA Manager Status Register 
+> 9, 1, DNS
+= 0, SECURE 
+= 1, NON_SECURE
+
+> 4, 5, WAKEUP_EVENT
+
+> 0, 4, DMA_STATUS
+= 0, STOPPED
+= 1, EXECUTING
+= 2, CACHE_MISS
+= 3, UPDATING_PC
+= 4, WAITING_FOR_EVENT
+= 15, FAULTING
+
+DPC = 0x0004, RO ; DMA Program Counter Register 
+
+INTEN = 0x0020 ; Interrupt Enable Register 
+> 31, 1, EVENT_IRQ_SELECT31
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 30, 1, EVENT_IRQ_SELECT30
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 29, 1, EVENT_IRQ_SELECT29
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 28, 1, EVENT_IRQ_SELECT28
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 27, 1, EVENT_IRQ_SELECT27
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 26, 1, EVENT_IRQ_SELECT26
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 25, 1, EVENT_IRQ_SELECT25
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 24, 1, EVENT_IRQ_SELECT24
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 23, 1, EVENT_IRQ_SELECT23
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 22, 1, EVENT_IRQ_SELECT22
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 21, 1, EVENT_IRQ_SELECT21
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 20, 1, EVENT_IRQ_SELECT20
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 19, 1, EVENT_IRQ_SELECT19
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 18, 1, EVENT_IRQ_SELECT18
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 17, 1, EVENT_IRQ_SELECT17
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 16, 1, EVENT_IRQ_SELECT16
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 15, 1, EVENT_IRQ_SELECT15
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 14, 1, EVENT_IRQ_SELECT14
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 13, 1, EVENT_IRQ_SELECT13
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 12, 1, EVENT_IRQ_SELECT12
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 11, 1, EVENT_IRQ_SELECT11
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 10, 1, EVENT_IRQ_SELECT10
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 9, 1, EVENT_IRQ_SELECT9
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 8, 1, EVENT_IRQ_SELECT8
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 7, 1, EVENT_IRQ_SELECT7
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 6, 1, EVENT_IRQ_SELECT6
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 5, 1, EVENT_IRQ_SELECT5
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 4, 1, EVENT_IRQ_SELECT4
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 3, 1, EVENT_IRQ_SELECT3
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 2, 1, EVENT_IRQ_SELECT2
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 1, 1, EVENT_IRQ_SELECT1
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+> 0, 1, EVENT_IRQ_SELECT0
+= 0, ALL_THREADS ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC signals event N to all of the threads. Set bit [N] to 0 if your system design does not use irq[N] to signal an interrupt request.
+= 1, IRQ ; If the DMAC executes DMASEV for the event-interrupt resource N then the DMAC sets irq[N] HIGH. Set bit [N] to 1 if your system designer requires irq[N] to signal an interrupt request. 
+
+EVENT_RIS = 0x0024, RO ; Event-Interrupt Raw Status Register 
+> 31, 1, DMASEV_ACTIVE31
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 30, 1, DMASEV_ACTIVE30
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 29, 1, DMASEV_ACTIVE29
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 28, 1, DMASEV_ACTIVE28
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 27, 1, DMASEV_ACTIVE27
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 26, 1, DMASEV_ACTIVE26
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 25, 1, DMASEV_ACTIVE25
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 24, 1, DMASEV_ACTIVE24
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 23, 1, DMASEV_ACTIVE23
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 22, 1, DMASEV_ACTIVE22
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 21, 1, DMASEV_ACTIVE21
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 20, 1, DMASEV_ACTIVE20
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 19, 1, DMASEV_ACTIVE19
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 18, 1, DMASEV_ACTIVE18
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 17, 1, DMASEV_ACTIVE17
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 16, 1, DMASEV_ACTIVE16
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 15, 1, DMASEV_ACTIVE15
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 14, 1, DMASEV_ACTIVE14
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 13, 1, DMASEV_ACTIVE13
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 12, 1, DMASEV_ACTIVE12
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 11, 1, DMASEV_ACTIVE11
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 10, 1, DMASEV_ACTIVE10
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 9, 1, DMASEV_ACTIVE9
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 8, 1, DMASEV_ACTIVE8
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 7, 1, DMASEV_ACTIVE7
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 6, 1, DMASEV_ACTIVE6
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 5, 1, DMASEV_ACTIVE5
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 4, 1, DMASEV_ACTIVE4
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 3, 1, DMASEV_ACTIVE3
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 2, 1, DMASEV_ACTIVE2
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 1, 1, DMASEV_ACTIVE1
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+> 0, 1, DMASEV_ACTIVE0
+= 0, INACTIVE_OR_LOW
+= 1, ACTIVE_OR_HIGH 
+
+INTMIS = 0x0028, RO ; Interrupt Status Register 
+> 31, 1, IRQ_STATUS31
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 30, 1, IRQ_STATUS30
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 29, 1, IRQ_STATUS29
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 28, 1, IRQ_STATUS28
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 27, 1, IRQ_STATUS27
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 26, 1, IRQ_STATUS26
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 25, 1, IRQ_STATUS25
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 24, 1, IRQ_STATUS24
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 23, 1, IRQ_STATUS23
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 22, 1, IRQ_STATUS22
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 21, 1, IRQ_STATUS21
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 20, 1, IRQ_STATUS20
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 19, 1, IRQ_STATUS19
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 18, 1, IRQ_STATUS18
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 17, 1, IRQ_STATUS17
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 16, 1, IRQ_STATUS16
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 15, 1, IRQ_STATUS15
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 14, 1, IRQ_STATUS14
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 13, 1, IRQ_STATUS13
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 12, 1, IRQ_STATUS12
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 11, 1, IRQ_STATUS11
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 10, 1, IRQ_STATUS10
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 9, 1, IRQ_STATUS9
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 8, 1, IRQ_STATUS8
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 7, 1, IRQ_STATUS7
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 6, 1, IRQ_STATUS6
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 5, 1, IRQ_STATUS5
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 4, 1, IRQ_STATUS4
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 3, 1, IRQ_STATUS3
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 2, 1, IRQ_STATUS2
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 1, 1, IRQ_STATUS1
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+> 0, 1, IRQ_STATUS0
+= 0, INACTIVE_LOW
+= 1, ACTIVE_HIGH 
+
+INTCLR = 0x002C, WO ; Interrupt Clear Register 
+> 31, 1, IRQ_CLR31
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 30, 1, IRQ_CLR30
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 29, 1, IRQ_CLR29
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 28, 1, IRQ_CLR28
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 27, 1, IRQ_CLR27
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 26, 1, IRQ_CLR26
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 25, 1, IRQ_CLR25
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 24, 1, IRQ_CLR24
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 23, 1, IRQ_CLR23
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 22, 1, IRQ_CLR22
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 21, 1, IRQ_CLR21
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 20, 1, IRQ_CLR20
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 19, 1, IRQ_CLR19
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 18, 1, IRQ_CLR18
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 17, 1, IRQ_CLR17
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 16, 1, IRQ_CLR16
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 15, 1, IRQ_CLR15
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 14, 1, IRQ_CLR14
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 13, 1, IRQ_CLR13
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 12, 1, IRQ_CLR12
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 11, 1, IRQ_CLR11
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 10, 1, IRQ_CLR10
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 9, 1, IRQ_CLR9
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 8, 1, IRQ_CLR8
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 7, 1, IRQ_CLR7
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 6, 1, IRQ_CLR6
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 5, 1, IRQ_CLR5
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 4, 1, IRQ_CLR4
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 3, 1, IRQ_CLR3
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 2, 1, IRQ_CLR2
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 1, 1, IRQ_CLR1
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+> 0, 1, IRQ_CLR0
+= 0, NO_CHANGE
+= 1, SET_LOW
+
+FSRD = 0x0030, RO ; Fault Status DMA Manager Register 
+> 0, 1, FS_MGR
+= 0, NOT_FAULTING ; The DMA manager thread is not in the Faulting state
+= 1, FAULTING ; The DMA manager thread is in the Faulting state 
+
+FSRC = 0x0034, RO ; Fault Status DMA Channel Register 
+> 7, 1, FAULT_STATUS_CH7
+= 0, NO_FAULT
+= 1, FAULT
+
+> 6, 1, FAULT_STATUS_CH6
+= 0, NO_FAULT
+= 1, FAULT
+
+> 5, 1, FAULT_STATUS_CH5
+= 0, NO_FAULT
+= 1, FAULT
+
+> 4, 1, FAULT_STATUS_CH4
+= 0, NO_FAULT
+= 1, FAULT
+
+> 3, 1, FAULT_STATUS_CH3
+= 0, NO_FAULT
+= 1, FAULT
+
+> 2, 1, FAULT_STATUS_CH2
+= 0, NO_FAULT
+= 1, FAULT
+
+> 1, 1, FAULT_STATUS_CH1
+= 0, NO_FAULT
+= 1, FAULT
+
+> 0, 1, FAULT_STATUS_CH0
+= 0, NO_FAULT
+= 1, FAULT
+
+FTRD = 0x0038, RO ; Fault Type DMA Manager Register 
+> 30, 1, DBG_INSTR ; Memory or from the debug interface.
+= 0, SYSTEM_MEMORY ; Instruction that generated an abort was read from system memory
+= 1, DEBUG ; Instruction that generated an abort was read from the debug interface
+
+> 16, 1, INSTR_FETCH_ERR ; Performs an instruction fetch.
+= 0, OKAY
+= 1, EXOKAY_SLVERR_DECERR
+
+> 5, 1, MGR_EVNT_ERR
+= 0, OK ; DMA manager has appropriate security to execute DMAWFE or DMASEV
+= 1, NS_FAIL ; DMA manager thread in the Non-secure state attempted to execute either: a. DMAWFE to wait for a secure event b. DMASEV to create a secure event or secure interrupt
+
+> 4, 1, DMAGO_ERR
+= 0, OK ; DMA manager has appropriate security to execute DMAGO
+= 1, NS_FAIL ; DMA manager thread in the Non-secure state attempted to execute DMAGO to create a DMA channel operating in the Secure state
+
+> 1, 1, OPERAND_INVALID ; The configuration of the DMAC.
+= 0, VALID
+= 1, INVALID
+
+> 0, 1, UNDEF_INSTR
+= 0, DEFINED
+= 1, UNDEFINED
+
+FTR$ = 0x0040, RO, @8 ; Fault Type DMA Channel $ Register 
+> 31, 1, LOCKUP_ERR, RO ;  resources This fault is an imprecise abort.
+= 0, NO ; DMA channel has adequate resources
+= 1, YES ; DMA channel has locked-up because of insufficient
+
+> 30, 1, DBG_INSTR, RO ; Memory or from the debug interface. This fault is an imprecise abort
+= 0, SYSTEM_MEMORY ; Instruction that generated an abort was read from system memory
+= 1, DEBUG ; Instruction that generated an abort was read from the debug interface. but the bit is only valid when a precise abort occurs.
+
+> 18, 1, DATA_READ_ERR ; Thread performs a data read. This fault is an imprecise abort.
+= 0, OKAY
+= 1, EXOKAY_SLVERR_DECERR
+
+> 17, 1, DATA_WRITE_ERR ; Thread performs a data write. This fault is an imprecise abort.
+= 0, OKAY
+= 1, EXOKAY_SLVERR_DECERR
+
+> 16, 1, INSTR_FETCH_ERR ; Thread performs an instruction fetch. This fault is a precise abort.
+= 0, OKAY
+= 1, EXOKAY_SLVERR_DECERR
+
+> 13, 1, ST_DATA_UNAVAILABLE ; This fault is a precise abort.
+= 0, AVAILABLE ; MFIFO contains all the data to enable the DMAST to complete
+= 1, UNAVAILABLE ; Previous DMALDs have not put enough data in the MFIFO to enable the DMAST to complete
+
+> 12, 1, MFIFO_ERR ; This fault is an imprecise abort.
+= 0, SUFFICIENT
+= 1, TOO_SMALL
+
+> 7, 1, CH_RDWR_ERR ; To perform a secure read or secure write. This fault is a precise abort.
+= 0, OK ; A DMA channel thread in the Non-secure state is not violating the security permissions
+= 1, NS_FAIL ; A DMA channel thread in the Non-secure state attempted to perform a secure read or secure write
+
+> 6, 1, CH_PERIPH_ERR ; DMASTP, or DMAFLUSHP with inappropriate security permissions. This fault is a precise abort.
+= 0, OK ; a DMA channel thread in the Non-secure state is not violating the security permissions
+= 1, NS_FAIL ; a DMA channel thread in the Non-secure state attempted to execute either: a. DMAWFP to wait for a secure peripheral b. DMALDP or DMASTP to notify a secure peripheral c. DMAFLUSHP to flush a secure peripheral
+
+> 5, 1, CH_EVENT_ERR ; This fault is a precise abort.
+= 0, OK ; A DMA channel thread in the Non-secure state is not violating the security permissions
+= 1, NS_FAIL ; A DMA channel thread in the Non-secure state attempted to execute either: a. DMAWFE to wait for a secure event b. DMASEV to create a secure event or secure interrupt
+
+> 1, 1, OPERAND_INVALID ; Valid for the configuration of the DMAC. This fault is a precise abort.
+= 0, VALID
+= 1, INVALID
+
+> 0, 1, UNDEF_INSTR ; This fault is a precise abort. 
+= 0, DEFINED
+= 1, UNDEFINED
+
+CSR0 = 0x0100, RO ; Channel 0 Status Register 
+> 21, 1, CNS
+= 0, SECURE ; DMA channel operates in the Secure state
+= 1, NON_SECURE ; DMA channel operates in the Non-secure state
+
+> 15, 1, DMAWFP_PERIPH
+= 0, NOT_SET ; DMAWFP executed with the periph operand not set
+= 1, SET ; DMAWFP executed with the periph operand set
+
+> 14, 1, DMAWFP_B_NS
+= 0, SINGLE ; DMAWFP executed with the single operand set
+= 1, BURST ; DMAWFP executed with the burst operand set
+
+> 4, 5, WAKEUP_NUMBER ; Indicate the event or peripheral number that the channel is waiting for.
+
+> 0, 4, CHANNEL_STATUS ; Channel 0 status.
+= 0, STOPPED
+= 1, EXECUTING
+= 2, CACHE_MISS
+= 3, UPDATING_PC
+= 4, WAITING_FOR_EVENT
+= 5, AT_BARRIER
+= 7, WAITING_FOR_PERIPHERAL
+= 8, KILLING
+= 9, COMPLETING
+= 14, FAULTING_COMPLETING
+= 15, FAULTING
+
+CPC0 = 0x0104, RO ; Channel 0 Program Counter Register 
+
+CSR1 = 0x0108, RO ; Channel 1 Status Register 
+> 21, 1, CNS
+= 0, SECURE ; DMA channel operates in the Secure state
+= 1, NON_SECURE ; DMA channel operates in the Non-secure state
+
+> 15, 1, DMAWFP_PERIPH
+= 0, NOT_SET ; DMAWFP executed with the periph operand not set
+= 1, SET ; DMAWFP executed with the periph operand set
+
+> 14, 1, DMAWFP_B_NS
+= 0, SINGLE ; DMAWFP executed with the single operand set
+= 1, BURST ; DMAWFP executed with the burst operand set
+
+> 4, 5, WAKEUP_NUMBER ; Indicate the event or peripheral number that the channel is waiting for.
+
+> 0, 4, CHANNEL_STATUS ; Channel 1 status.
+= 0, STOPPED
+= 1, EXECUTING
+= 2, CACHE_MISS
+= 3, UPDATING_PC
+= 4, WAITING_FOR_EVENT
+= 5, AT_BARRIER
+= 7, WAITING_FOR_PERIPHERAL
+= 8, KILLING
+= 9, COMPLETING
+= 14, FAULTING_COMPLETING
+= 15, FAULTING
+
+CPC1 = 0x010C, RO ; Channel 1 Program Counter Register 
+
+CSR2 = 0x0110, RO ; Channel 2 Status Register 
+> 21, 1, CNS
+= 0, SECURE ; DMA channel operates in the Secure state
+= 1, NON_SECURE ; DMA channel operates in the Non-secure state
+
+> 15, 1, DMAWFP_PERIPH
+= 0, NOT_SET ; DMAWFP executed with the periph operand not set
+= 1, SET ; DMAWFP executed with the periph operand set
+
+> 14, 1, DMAWFP_B_NS
+= 0, SINGLE ; DMAWFP executed with the single operand set
+= 1, BURST ; DMAWFP executed with the burst operand set
+
+> 4, 5, WAKEUP_NUMBER ; Indicate the event or peripheral number that the channel is waiting for.
+
+> 0, 4, CHANNEL_STATUS ; Channel 2 status.
+= 0, STOPPED
+= 1, EXECUTING
+= 2, CACHE_MISS
+= 3, UPDATING_PC
+= 4, WAITING_FOR_EVENT
+= 5, AT_BARRIER
+= 7, WAITING_FOR_PERIPHERAL
+= 8, KILLING
+= 9, COMPLETING
+= 14, FAULTING_COMPLETING
+= 15, FAULTING
+
+CPC2 = 0x0114, RO ; Channel 2 Program Counter Register 
+
+CSR3 = 0x0118, RO ; Channel 3 Status Register 
+> 21, 1, CNS
+= 0, SECURE ; DMA channel operates in the Secure state
+= 1, NON_SECURE ; DMA channel operates in the Non-secure state
+
+> 15, 1, DMAWFP_PERIPH
+= 0, NOT_SET ; DMAWFP executed with the periph operand not set
+= 1, SET ; DMAWFP executed with the periph operand set
+
+> 14, 1, DMAWFP_B_NS
+= 0, SINGLE ; DMAWFP executed with the single operand set
+= 1, BURST ; DMAWFP executed with the burst operand set
+
+> 4, 5, WAKEUP_NUMBER ; Indicate the event or peripheral number that the channel is waiting for.
+
+> 0, 4, CHANNEL_STATUS ; Channel 3 status.
+= 0, STOPPED
+= 1, EXECUTING
+= 2, CACHE_MISS
+= 3, UPDATING_PC
+= 4, WAITING_FOR_EVENT
+= 5, AT_BARRIER
+= 7, WAITING_FOR_PERIPHERAL
+= 8, KILLING
+= 9, COMPLETING
+= 14, FAULTING_COMPLETING
+= 15, FAULTING
+
+CPC3 = 0x011C, RO ; Channel 3 Program Counter Register 
+
+CSR4 = 0x0120, RO ; Channel 4 Status Register 
+> 21, 1, CNS
+= 0, SECURE ; DMA channel operates in the Secure state
+= 1, NON_SECURE ; DMA channel operates in the Non-secure state
+
+> 15, 1, DMAWFP_PERIPH
+= 0, NOT_SET ; DMAWFP executed with the periph operand not set
+= 1, SET ; DMAWFP executed with the periph operand set
+
+> 14, 1, DMAWFP_B_NS
+= 0, SINGLE ; DMAWFP executed with the single operand set
+= 1, BURST ; DMAWFP executed with the burst operand set
+
+> 4, 5, WAKEUP_NUMBER ; Indicate the event or peripheral number that the channel is waiting for.
+
+> 0, 4, CHANNEL_STATUS ; Channel 4 status.
+= 0, STOPPED
+= 1, EXECUTING
+= 2, CACHE_MISS
+= 3, UPDATING_PC
+= 4, WAITING_FOR_EVENT
+= 5, AT_BARRIER
+= 7, WAITING_FOR_PERIPHERAL
+= 8, KILLING
+= 9, COMPLETING
+= 14, FAULTING_COMPLETING
+= 15, FAULTING
+
+CPC4 = 0x0124, RO ; Channel 4 Program Counter Register 
+
+CSR5 = 0x0128, RO ; Channel 5 Status Register 
+> 21, 1, CNS
+= 0, SECURE ; DMA channel operates in the Secure state
+= 1, NON_SECURE ; DMA channel operates in the Non-secure state
+
+> 15, 1, DMAWFP_PERIPH
+= 0, NOT_SET ; DMAWFP executed with the periph operand not set
+= 1, SET ; DMAWFP executed with the periph operand set
+
+> 14, 1, DMAWFP_B_NS
+= 0, SINGLE ; DMAWFP executed with the single operand set
+= 1, BURST ; DMAWFP executed with the burst operand set
+
+> 4, 5, WAKEUP_NUMBER ; Indicate the event or peripheral number that the channel is waiting for.
+
+> 0, 4, CHANNEL_STATUS ; Channel 5 status.
+= 0, STOPPED
+= 1, EXECUTING
+= 2, CACHE_MISS
+= 3, UPDATING_PC
+= 4, WAITING_FOR_EVENT
+= 5, AT_BARRIER
+= 7, WAITING_FOR_PERIPHERAL
+= 8, KILLING
+= 9, COMPLETING
+= 14, FAULTING_COMPLETING
+= 15, FAULTING
+
+CPC5 = 0x012C, RO ; Channel 5 Program Counter Register 
+
+CSR6 = 0x0130, RO ; Channel 6 Status Register 
+> 21, 1, CNS
+= 0, SECURE ; DMA channel operates in the Secure state
+= 1, NON_SECURE ; DMA channel operates in the Non-secure state
+
+> 15, 1, DMAWFP_PERIPH
+= 0, NOT_SET ; DMAWFP executed with the periph operand not set
+= 1, SET ; DMAWFP executed with the periph operand set
+
+> 14, 1, DMAWFP_B_NS
+= 0, SINGLE ; DMAWFP executed with the single operand set
+= 1, BURST ; DMAWFP executed with the burst operand set
+
+> 4, 5, WAKEUP_NUMBER ; Indicate the event or peripheral number that the channel is waiting for.
+
+> 0, 4, CHANNEL_STATUS ; Channel 6 status.
+= 0, STOPPED
+= 1, EXECUTING
+= 2, CACHE_MISS
+= 3, UPDATING_PC
+= 4, WAITING_FOR_EVENT
+= 5, AT_BARRIER
+= 7, WAITING_FOR_PERIPHERAL
+= 8, KILLING
+= 9, COMPLETING
+= 14, FAULTING_COMPLETING
+= 15, FAULTING
+
+CPC6 = 0x0134, RO ; Channel 6 Program Counter Register 
+
+CSR7 = 0x0138, RO ; Channel 7 Status Register 
+> 21, 1, CNS
+= 0, SECURE ; DMA channel operates in the Secure state
+= 1, NON_SECURE ; DMA channel operates in the Non-secure state
+
+> 15, 1, DMAWFP_PERIPH
+= 0, NOT_SET ; DMAWFP executed with the periph operand not set
+= 1, SET ; DMAWFP executed with the periph operand set
+
+> 14, 1, DMAWFP_B_NS
+= 0, SINGLE ; DMAWFP executed with the single operand set
+= 1, BURST ; DMAWFP executed with the burst operand set
+
+> 4, 5, WAKEUP_NUMBER ; Indicate the event or peripheral number that the channel is waiting for.
+
+> 0, 4, CHANNEL_STATUS ; Channel 7 status.
+= 0, STOPPED
+= 1, EXECUTING
+= 2, CACHE_MISS
+= 3, UPDATING_PC
+= 4, WAITING_FOR_EVENT
+= 5, AT_BARRIER
+= 7, WAITING_FOR_PERIPHERAL
+= 8, KILLING
+= 9, COMPLETING
+= 14, FAULTING_COMPLETING
+= 15, FAULTING
+
+CPC7 = 0x013C, RO ; Channel 7 Program Counter Register 
+
+SAR0 = 0x0400, RO ; Channel 0 Source Address Register 
+DAR0 = 0x0404, RO ; Channel 0 Destination Address Register 
+
+CCR0 = 0x0408, RO ; Channel 0 Channel Control Register 
+> 27, 1, AWCACHE3
+= 0, LOW
+= 1, HIGH
+
+> 26, 1, AWCACHE1
+= 0, LOW
+= 1, HIGH
+
+> 25, 1, AWCACHE0
+= 0, LOW
+= 1, HIGH
+
+> 24, 1, AWPROT2
+= 0, LOW
+= 1, HIGH
+
+> 23, 1, AWPROT1
+= 0, LOW
+= 1, HIGH
+
+> 22, 1, AWPROT0
+= 0, LOW
+= 1, HIGH
+
+> 18, 3, DST_BURST_LEN ; the destination data. The total number of bytes that the DMAC writes out of the MFIFO when it executes a DMAST instruction is the product of dst_burst_len and dst_burst_size. 
+= 0, 1XFER
+= 1, 2XFERS
+= 2, 3XFERS
+= 3, 4XFERS
+= 4, 5XFERS
+= 5, 6XFERS
+= 6, 7XFERS
+= 7, 8XFERS
+= 8, 9XFERS
+= 9, 10XFERS
+= 10, 11XFERS
+= 11, 12XFERS
+= 12, 13XFERS
+= 13, 14XFERS
+= 14, 15XFERS
+= 15, 16XFERS
+
+> 15, 3, DST_BURST_SIZE ; The total number of bytes that the DMAC writes out of the MFIFO when it executes a DMAST instruction is the product of dst_burst_len and dst_burst_size.
+= 0, 1BYTE
+= 1, 2BYTES
+= 2, 4BYTES
+= 3, 8BYTES
+= 4, 16BYTES
+
+> 14, 1, DST_INC
+= 0, FIXED ; Fixed-address burst. The DMAC signals AWBURST[0] LOW.
+= 1, INCREMENT ; Incrementing-address burst. The DMAC signals AWBURST[0] HIGH.
+
+> 13, 1, ARCACHE2
+= 0, LOW
+= 1, HIGH
+
+> 12, 1, ARCACHE1
+= 0, LOW
+= 1, HIGH
+
+> 11, 1, ARCACHE0
+= 0, LOW
+= 1, HIGH
+
+> 10, 1, ARPROT2
+= 0, LOW
+= 1, HIGH
+
+> 9, 1, ARPROT1
+= 0, LOW
+= 1, HIGH
+
+> 8, 1, ARPROT0
+= 0, LOW
+= 1, HIGH
+
+> 4, 4, SRC_BURST_LEN ; The total number of bytes that the DMAC reads into the MFIFO when it executes a DMALD instruction is the product of src_burst_len and src_burst_size. 
+= 0, 1XFER
+= 1, 2XFERS
+= 2, 3XFERS
+= 3, 4XFERS
+= 4, 5XFERS
+= 5, 6XFERS
+= 6, 7XFERS
+= 7, 8XFERS
+= 8, 9XFERS
+= 9, 10XFERS
+= 10, 11XFERS
+= 11, 12XFERS
+= 12, 13XFERS
+= 13, 14XFERS
+= 14, 15XFERS
+= 15, 16XFERS
+
+> 1, 3, SRC_BURST_SIZE ; The total number of bytes that the DMAC reads into the MFIFO when it executes a DMALD instruction is the product of src_burst_len and src_burst_size.
+= 0, 1BYTE
+= 1, 2BYTES
+= 2, 4BYTES
+= 3, 8BYTES
+= 4, 16BYTES
+
+> 0, 1, SRC_INC
+= 0, FIXED ; Fixed-address burst. The DMAC signals ARBURST[0] LOW.
+= 1, INCREMENT ; Incrementing-address burst. The DMAC signals ARBURST[0] HIGH. 
+
+LC0_0 = 0x040C, RO ; Channel 0 Loop Counter 0 Register 
+> 0, 8, LOOP_COUNTER_ITERATIONS, RO ; Loop counter 0 iterations 
+
+LC1_0 = 0x0410, RO ; Channel 0 Loop Counter 1 Register 
+> 0, 8, LOOP_COUNTER_ITERATIONS, RO ; Loop counter 1 iterations 
+
+SAR1 = 0x0420, RO ; Channel 1 Source Address Register 
+DAR1 = 0x0424, RO ; Channel 1 Destination Address Register 
+
+CCR1 = 0x0428, RO ; Channel 1 Channel Control Register 
+> 27, 1, AWCACHE3
+= 0, LOW
+= 1, HIGH
+
+> 26, 1, AWCACHE1
+= 0, LOW
+= 1, HIGH
+
+> 25, 1, AWCACHE0
+= 0, LOW
+= 1, HIGH
+
+> 24, 1, AWPROT2
+= 0, LOW
+= 1, HIGH
+
+> 23, 1, AWPROT1
+= 0, LOW
+= 1, HIGH
+
+> 22, 1, AWPROT0
+= 0, LOW
+= 1, HIGH
+
+> 18, 3, DST_BURST_LEN ; the destination data. The total number of bytes that the DMAC writes out of the MFIFO when it executes a DMAST instruction is the product of dst_burst_len and dst_burst_size. 
+= 0, 1XFER
+= 1, 2XFERS
+= 2, 3XFERS
+= 3, 4XFERS
+= 4, 5XFERS
+= 5, 6XFERS
+= 6, 7XFERS
+= 7, 8XFERS
+= 8, 9XFERS
+= 9, 10XFERS
+= 10, 11XFERS
+= 11, 12XFERS
+= 12, 13XFERS
+= 13, 14XFERS
+= 14, 15XFERS
+= 15, 16XFERS
+
+> 15, 3, DST_BURST_SIZE ; The total number of bytes that the DMAC writes out of the MFIFO when it executes a DMAST instruction is the product of dst_burst_len and dst_burst_size.
+= 0, 1BYTE
+= 1, 2BYTES
+= 2, 4BYTES
+= 3, 8BYTES
+= 4, 16BYTES
+
+> 14, 1, DST_INC
+= 0, FIXED ; Fixed-address burst. The DMAC signals AWBURST[0] LOW.
+= 1, INCREMENT ; Incrementing-address burst. The DMAC signals AWBURST[0] HIGH.
+
+> 13, 1, ARCACHE2
+= 0, LOW
+= 1, HIGH
+
+> 12, 1, ARCACHE1
+= 0, LOW
+= 1, HIGH
+
+> 11, 1, ARCACHE0
+= 0, LOW
+= 1, HIGH
+
+> 10, 1, ARPROT2
+= 0, LOW
+= 1, HIGH
+
+> 9, 1, ARPROT1
+= 0, LOW
+= 1, HIGH
+
+> 8, 1, ARPROT0
+= 0, LOW
+= 1, HIGH
+
+> 4, 4, SRC_BURST_LEN ; The total number of bytes that the DMAC reads into the MFIFO when it executes a DMALD instruction is the product of src_burst_len and src_burst_size. 
+= 0, 1XFER
+= 1, 2XFERS
+= 2, 3XFERS
+= 3, 4XFERS
+= 4, 5XFERS
+= 5, 6XFERS
+= 6, 7XFERS
+= 7, 8XFERS
+= 8, 9XFERS
+= 9, 10XFERS
+= 10, 11XFERS
+= 11, 12XFERS
+= 12, 13XFERS
+= 13, 14XFERS
+= 14, 15XFERS
+= 15, 16XFERS
+
+> 1, 3, SRC_BURST_SIZE ; The total number of bytes that the DMAC reads into the MFIFO when it executes a DMALD instruction is the product of src_burst_len and src_burst_size.
+= 0, 1BYTE
+= 1, 2BYTES
+= 2, 4BYTES
+= 3, 8BYTES
+= 4, 16BYTES
+
+> 0, 1, SRC_INC
+= 0, FIXED ; Fixed-address burst. The DMAC signals ARBURST[0] LOW.
+= 1, INCREMENT ; Incrementing-address burst. The DMAC signals ARBURST[0] HIGH. 
+
+LC0_1 = 0x042C, RO ; Channel 1 Loop Counter 0 Register 
+> 0, 8, LOOP_COUNTER_ITERATIONS, RO ; Loop counter 0 iterations 
+
+LC1_1 = 0x0430, RO ; Channel 1 Loop Counter 1 Register 
+> 0, 8, LOOP_COUNTER_ITERATIONS, RO ; Loop counter 1 iterations 
+
+SAR2 = 0x0440, RO ; Channel 2 Source Address Register 
+DAR2 = 0x0444, RO ; Channel 2 Destination Address Register 
+
+CCR2 = 0x0448, RO ; Channel 2 Channel Control Register 
+> 27, 1, AWCACHE3
+= 0, LOW
+= 1, HIGH
+
+> 26, 1, AWCACHE1
+= 0, LOW
+= 1, HIGH
+
+> 25, 1, AWCACHE0
+= 0, LOW
+= 1, HIGH
+
+> 24, 1, AWPROT2
+= 0, LOW
+= 1, HIGH
+
+> 23, 1, AWPROT1
+= 0, LOW
+= 1, HIGH
+
+> 22, 1, AWPROT0
+= 0, LOW
+= 1, HIGH
+
+> 18, 3, DST_BURST_LEN ; the destination data. The total number of bytes that the DMAC writes out of the MFIFO when it executes a DMAST instruction is the product of dst_burst_len and dst_burst_size. 
+= 0, 1XFER
+= 1, 2XFERS
+= 2, 3XFERS
+= 3, 4XFERS
+= 4, 5XFERS
+= 5, 6XFERS
+= 6, 7XFERS
+= 7, 8XFERS
+= 8, 9XFERS
+= 9, 10XFERS
+= 10, 11XFERS
+= 11, 12XFERS
+= 12, 13XFERS
+= 13, 14XFERS
+= 14, 15XFERS
+= 15, 16XFERS
+
+> 15, 3, DST_BURST_SIZE ; The total number of bytes that the DMAC writes out of the MFIFO when it executes a DMAST instruction is the product of dst_burst_len and dst_burst_size.
+= 0, 1BYTE
+= 1, 2BYTES
+= 2, 4BYTES
+= 3, 8BYTES
+= 4, 16BYTES
+
+> 14, 1, DST_INC
+= 0, FIXED ; Fixed-address burst. The DMAC signals AWBURST[0] LOW.
+= 1, INCREMENT ; Incrementing-address burst. The DMAC signals AWBURST[0] HIGH.
+
+> 13, 1, ARCACHE2
+= 0, LOW
+= 1, HIGH
+
+> 12, 1, ARCACHE1
+= 0, LOW
+= 1, HIGH
+
+> 11, 1, ARCACHE0
+= 0, LOW
+= 1, HIGH
+
+> 10, 1, ARPROT2
+= 0, LOW
+= 1, HIGH
+
+> 9, 1, ARPROT1
+= 0, LOW
+= 1, HIGH
+
+> 8, 1, ARPROT0
+= 0, LOW
+= 1, HIGH
+
+> 4, 4, SRC_BURST_LEN ; The total number of bytes that the DMAC reads into the MFIFO when it executes a DMALD instruction is the product of src_burst_len and src_burst_size. 
+= 0, 1XFER
+= 1, 2XFERS
+= 2, 3XFERS
+= 3, 4XFERS
+= 4, 5XFERS
+= 5, 6XFERS
+= 6, 7XFERS
+= 7, 8XFERS
+= 8, 9XFERS
+= 9, 10XFERS
+= 10, 11XFERS
+= 11, 12XFERS
+= 12, 13XFERS
+= 13, 14XFERS
+= 14, 15XFERS
+= 15, 16XFERS
+
+> 1, 3, SRC_BURST_SIZE ; The total number of bytes that the DMAC reads into the MFIFO when it executes a DMALD instruction is the product of src_burst_len and src_burst_size.
+= 0, 1BYTE
+= 1, 2BYTES
+= 2, 4BYTES
+= 3, 8BYTES
+= 4, 16BYTES
+
+> 0, 1, SRC_INC
+= 0, FIXED ; Fixed-address burst. The DMAC signals ARBURST[0] LOW.
+= 1, INCREMENT ; Incrementing-address burst. The DMAC signals ARBURST[0] HIGH. 
+
+LC0_2 = 0x044C, RO ; Channel 2 Loop Counter 0 Register 
+> 0, 8, LOOP_COUNTER_ITERATIONS, RO ; Loop counter 0 iterations 
+
+LC1_2 = 0x0450, RO ; Channel 2 Loop Counter 1 Register 
+> 0, 8, LOOP_COUNTER_ITERATIONS, RO ; Loop counter 1 iterations 
+
+SAR3 = 0x0460, RO ; Channel 3 Source Address Register 
+DAR3 = 0x0464, RO ; Channel 3 Destination Address Register 
+
+CCR3 = 0x0468, RO ; Channel 3 Channel Control Register 
+> 27, 1, AWCACHE3
+= 0, LOW
+= 1, HIGH
+
+> 26, 1, AWCACHE1
+= 0, LOW
+= 1, HIGH
+
+> 25, 1, AWCACHE0
+= 0, LOW
+= 1, HIGH
+
+> 24, 1, AWPROT2
+= 0, LOW
+= 1, HIGH
+
+> 23, 1, AWPROT1
+= 0, LOW
+= 1, HIGH
+
+> 22, 1, AWPROT0
+= 0, LOW
+= 1, HIGH
+
+> 18, 3, DST_BURST_LEN ; the destination data. The total number of bytes that the DMAC writes out of the MFIFO when it executes a DMAST instruction is the product of dst_burst_len and dst_burst_size. 
+= 0, 1XFER
+= 1, 2XFERS
+= 2, 3XFERS
+= 3, 4XFERS
+= 4, 5XFERS
+= 5, 6XFERS
+= 6, 7XFERS
+= 7, 8XFERS
+= 8, 9XFERS
+= 9, 10XFERS
+= 10, 11XFERS
+= 11, 12XFERS
+= 12, 13XFERS
+= 13, 14XFERS
+= 14, 15XFERS
+= 15, 16XFERS
+
+> 15, 3, DST_BURST_SIZE ; The total number of bytes that the DMAC writes out of the MFIFO when it executes a DMAST instruction is the product of dst_burst_len and dst_burst_size.
+= 0, 1BYTE
+= 1, 2BYTES
+= 2, 4BYTES
+= 3, 8BYTES
+= 4, 16BYTES
+
+> 14, 1, DST_INC
+= 0, FIXED ; Fixed-address burst. The DMAC signals AWBURST[0] LOW.
+= 1, INCREMENT ; Incrementing-address burst. The DMAC signals AWBURST[0] HIGH.
+
+> 13, 1, ARCACHE2
+= 0, LOW
+= 1, HIGH
+
+> 12, 1, ARCACHE1
+= 0, LOW
+= 1, HIGH
+
+> 11, 1, ARCACHE0
+= 0, LOW
+= 1, HIGH
+
+> 10, 1, ARPROT2
+= 0, LOW
+= 1, HIGH
+
+> 9, 1, ARPROT1
+= 0, LOW
+= 1, HIGH
+
+> 8, 1, ARPROT0
+= 0, LOW
+= 1, HIGH
+
+> 4, 4, SRC_BURST_LEN ; The total number of bytes that the DMAC reads into the MFIFO when it executes a DMALD instruction is the product of src_burst_len and src_burst_size. 
+= 0, 1XFER
+= 1, 2XFERS
+= 2, 3XFERS
+= 3, 4XFERS
+= 4, 5XFERS
+= 5, 6XFERS
+= 6, 7XFERS
+= 7, 8XFERS
+= 8, 9XFERS
+= 9, 10XFERS
+= 10, 11XFERS
+= 11, 12XFERS
+= 12, 13XFERS
+= 13, 14XFERS
+= 14, 15XFERS
+= 15, 16XFERS
+
+> 1, 3, SRC_BURST_SIZE ; The total number of bytes that the DMAC reads into the MFIFO when it executes a DMALD instruction is the product of src_burst_len and src_burst_size.
+= 0, 1BYTE
+= 1, 2BYTES
+= 2, 4BYTES
+= 3, 8BYTES
+= 4, 16BYTES
+
+> 0, 1, SRC_INC
+= 0, FIXED ; Fixed-address burst. The DMAC signals ARBURST[0] LOW.
+= 1, INCREMENT ; Incrementing-address burst. The DMAC signals ARBURST[0] HIGH. 
+
+LC0_3 = 0x046C, RO ; Channel 3 Loop Counter 0 Register 
+> 0, 8, LOOP_COUNTER_ITERATIONS, RO ; Loop counter 0 iterations 
+
+LC1_3 = 0x0470, RO ; Channel 3 Loop Counter 1 Register 
+> 0, 8, LOOP_COUNTER_ITERATIONS, RO ; Loop counter 1 iterations 
+
+SAR4 = 0x0480, RO ; Channel 4 Address Register 
+DAR4 = 0x0484, RO ; Channel 4 Destination Address Register 
+
+CCR4 = 0x0488, RO ; Channel 4 Channel Control Register 
+> 27, 1, AWCACHE3
+= 0, LOW
+= 1, HIGH
+
+> 26, 1, AWCACHE1
+= 0, LOW
+= 1, HIGH
+
+> 25, 1, AWCACHE0
+= 0, LOW
+= 1, HIGH
+
+> 24, 1, AWPROT2
+= 0, LOW
+= 1, HIGH
+
+> 23, 1, AWPROT1
+= 0, LOW
+= 1, HIGH
+
+> 22, 1, AWPROT0
+= 0, LOW
+= 1, HIGH
+
+> 18, 3, DST_BURST_LEN ; the destination data. The total number of bytes that the DMAC writes out of the MFIFO when it executes a DMAST instruction is the product of dst_burst_len and dst_burst_size. 
+= 0, 1XFER
+= 1, 2XFERS
+= 2, 3XFERS
+= 3, 4XFERS
+= 4, 5XFERS
+= 5, 6XFERS
+= 6, 7XFERS
+= 7, 8XFERS
+= 8, 9XFERS
+= 9, 10XFERS
+= 10, 11XFERS
+= 11, 12XFERS
+= 12, 13XFERS
+= 13, 14XFERS
+= 14, 15XFERS
+= 15, 16XFERS
+
+> 15, 3, DST_BURST_SIZE ; The total number of bytes that the DMAC writes out of the MFIFO when it executes a DMAST instruction is the product of dst_burst_len and dst_burst_size.
+= 0, 1BYTE
+= 1, 2BYTES
+= 2, 4BYTES
+= 3, 8BYTES
+= 4, 16BYTES
+
+> 14, 1, DST_INC
+= 0, FIXED ; Fixed-address burst. The DMAC signals AWBURST[0] LOW.
+= 1, INCREMENT ; Incrementing-address burst. The DMAC signals AWBURST[0] HIGH.
+
+> 13, 1, ARCACHE2
+= 0, LOW
+= 1, HIGH
+
+> 12, 1, ARCACHE1
+= 0, LOW
+= 1, HIGH
+
+> 11, 1, ARCACHE0
+= 0, LOW
+= 1, HIGH
+
+> 10, 1, ARPROT2
+= 0, LOW
+= 1, HIGH
+
+> 9, 1, ARPROT1
+= 0, LOW
+= 1, HIGH
+
+> 8, 1, ARPROT0
+= 0, LOW
+= 1, HIGH
+
+> 4, 4, SRC_BURST_LEN ; The total number of bytes that the DMAC reads into the MFIFO when it executes a DMALD instruction is the product of src_burst_len and src_burst_size. 
+= 0, 1XFER
+= 1, 2XFERS
+= 2, 3XFERS
+= 3, 4XFERS
+= 4, 5XFERS
+= 5, 6XFERS
+= 6, 7XFERS
+= 7, 8XFERS
+= 8, 9XFERS
+= 9, 10XFERS
+= 10, 11XFERS
+= 11, 12XFERS
+= 12, 13XFERS
+= 13, 14XFERS
+= 14, 15XFERS
+= 15, 16XFERS
+
+> 1, 3, SRC_BURST_SIZE ; The total number of bytes that the DMAC reads into the MFIFO when it executes a DMALD instruction is the product of src_burst_len and src_burst_size.
+= 0, 1BYTE
+= 1, 2BYTES
+= 2, 4BYTES
+= 3, 8BYTES
+= 4, 16BYTES
+
+> 0, 1, SRC_INC
+= 0, FIXED ; Fixed-address burst. The DMAC signals ARBURST[0] LOW.
+= 1, INCREMENT ; Incrementing-address burst. The DMAC signals ARBURST[0] HIGH. 
+
+LC0_4 = 0x048C, RO ; Channel 4 Loop Counter 0 Register 
+> 0, 8, LOOP_COUNTER_ITERATIONS, RO ; Loop counter 0 iterations 
+
+LC1_4 = 0x0490, RO ; Channel 4 Loop Counter 1 Register 
+> 0, 8, LOOP_COUNTER_ITERATIONS, RO ; Loop counter 1 iterations 
+
+SAR5 = 0x04A0, RO ; Channel 5 Address Register 
+DAR5 = 0x04A4, RO ; Channel 5 Destination Address Register 
+
+CCR5 = 0x04A8, RO ; Channel 5 Channel Control Register 
+> 27, 1, AWCACHE3
+= 0, LOW
+= 1, HIGH
+
+> 26, 1, AWCACHE1
+= 0, LOW
+= 1, HIGH
+
+> 25, 1, AWCACHE0
+= 0, LOW
+= 1, HIGH
+
+> 24, 1, AWPROT2
+= 0, LOW
+= 1, HIGH
+
+> 23, 1, AWPROT1
+= 0, LOW
+= 1, HIGH
+
+> 22, 1, AWPROT0
+= 0, LOW
+= 1, HIGH
+
+> 18, 3, DST_BURST_LEN ; the destination data. The total number of bytes that the DMAC writes out of the MFIFO when it executes a DMAST instruction is the product of dst_burst_len and dst_burst_size. 
+= 0, 1XFER
+= 1, 2XFERS
+= 2, 3XFERS
+= 3, 4XFERS
+= 4, 5XFERS
+= 5, 6XFERS
+= 6, 7XFERS
+= 7, 8XFERS
+= 8, 9XFERS
+= 9, 10XFERS
+= 10, 11XFERS
+= 11, 12XFERS
+= 12, 13XFERS
+= 13, 14XFERS
+= 14, 15XFERS
+= 15, 16XFERS
+
+> 15, 3, DST_BURST_SIZE ; The total number of bytes that the DMAC writes out of the MFIFO when it executes a DMAST instruction is the product of dst_burst_len and dst_burst_size.
+= 0, 1BYTE
+= 1, 2BYTES
+= 2, 4BYTES
+= 3, 8BYTES
+= 4, 16BYTES
+
+> 14, 1, DST_INC
+= 0, FIXED ; Fixed-address burst. The DMAC signals AWBURST[0] LOW.
+= 1, INCREMENT ; Incrementing-address burst. The DMAC signals AWBURST[0] HIGH.
+
+> 13, 1, ARCACHE2
+= 0, LOW
+= 1, HIGH
+
+> 12, 1, ARCACHE1
+= 0, LOW
+= 1, HIGH
+
+> 11, 1, ARCACHE0
+= 0, LOW
+= 1, HIGH
+
+> 10, 1, ARPROT2
+= 0, LOW
+= 1, HIGH
+
+> 9, 1, ARPROT1
+= 0, LOW
+= 1, HIGH
+
+> 8, 1, ARPROT0
+= 0, LOW
+= 1, HIGH
+
+> 4, 4, SRC_BURST_LEN ; The total number of bytes that the DMAC reads into the MFIFO when it executes a DMALD instruction is the product of src_burst_len and src_burst_size. 
+= 0, 1XFER
+= 1, 2XFERS
+= 2, 3XFERS
+= 3, 4XFERS
+= 4, 5XFERS
+= 5, 6XFERS
+= 6, 7XFERS
+= 7, 8XFERS
+= 8, 9XFERS
+= 9, 10XFERS
+= 10, 11XFERS
+= 11, 12XFERS
+= 12, 13XFERS
+= 13, 14XFERS
+= 14, 15XFERS
+= 15, 16XFERS
+
+> 1, 3, SRC_BURST_SIZE ; The total number of bytes that the DMAC reads into the MFIFO when it executes a DMALD instruction is the product of src_burst_len and src_burst_size.
+= 0, 1BYTE
+= 1, 2BYTES
+= 2, 4BYTES
+= 3, 8BYTES
+= 4, 16BYTES
+
+> 0, 1, SRC_INC
+= 0, FIXED ; Fixed-address burst. The DMAC signals ARBURST[0] LOW.
+= 1, INCREMENT ; Incrementing-address burst. The DMAC signals ARBURST[0] HIGH. 
+
+LC0_5 = 0x04AC, RO ; Channel 5 Loop Counter 0 Register 
+> 0, 8, LOOP_COUNTER_ITERATIONS, RO ; Loop counter 0 iterations 
+
+LC1_5 = 0x04B0, RO ; Channel 5 Loop Counter 1 Register 
+> 0, 8, LOOP_COUNTER_ITERATIONS, RO ; Loop counter 1 iterations 
+
+SAR6 = 0x04C0, RO ; Channel 6 Source Address Register 
+DAR6 = 0x04C4, RO ; Channel 6 Destination Address Register 
+
+CCR6 = 0x04C8, RO ; Channel 6 Channel Control Register 
+> 27, 1, AWCACHE3
+= 0, LOW
+= 1, HIGH
+
+> 26, 1, AWCACHE1
+= 0, LOW
+= 1, HIGH
+
+> 25, 1, AWCACHE0
+= 0, LOW
+= 1, HIGH
+
+> 24, 1, AWPROT2
+= 0, LOW
+= 1, HIGH
+
+> 23, 1, AWPROT1
+= 0, LOW
+= 1, HIGH
+
+> 22, 1, AWPROT0
+= 0, LOW
+= 1, HIGH
+
+> 18, 3, DST_BURST_LEN ; the destination data. The total number of bytes that the DMAC writes out of the MFIFO when it executes a DMAST instruction is the product of dst_burst_len and dst_burst_size. 
+= 0, 1XFER
+= 1, 2XFERS
+= 2, 3XFERS
+= 3, 4XFERS
+= 4, 5XFERS
+= 5, 6XFERS
+= 6, 7XFERS
+= 7, 8XFERS
+= 8, 9XFERS
+= 9, 10XFERS
+= 10, 11XFERS
+= 11, 12XFERS
+= 12, 13XFERS
+= 13, 14XFERS
+= 14, 15XFERS
+= 15, 16XFERS
+
+> 15, 3, DST_BURST_SIZE ; The total number of bytes that the DMAC writes out of the MFIFO when it executes a DMAST instruction is the product of dst_burst_len and dst_burst_size.
+= 0, 1BYTE
+= 1, 2BYTES
+= 2, 4BYTES
+= 3, 8BYTES
+= 4, 16BYTES
+
+> 14, 1, DST_INC
+= 0, FIXED ; Fixed-address burst. The DMAC signals AWBURST[0] LOW.
+= 1, INCREMENT ; Incrementing-address burst. The DMAC signals AWBURST[0] HIGH.
+
+> 13, 1, ARCACHE2
+= 0, LOW
+= 1, HIGH
+
+> 12, 1, ARCACHE1
+= 0, LOW
+= 1, HIGH
+
+> 11, 1, ARCACHE0
+= 0, LOW
+= 1, HIGH
+
+> 10, 1, ARPROT2
+= 0, LOW
+= 1, HIGH
+
+> 9, 1, ARPROT1
+= 0, LOW
+= 1, HIGH
+
+> 8, 1, ARPROT0
+= 0, LOW
+= 1, HIGH
+
+> 4, 4, SRC_BURST_LEN ; The total number of bytes that the DMAC reads into the MFIFO when it executes a DMALD instruction is the product of src_burst_len and src_burst_size. 
+= 0, 1XFER
+= 1, 2XFERS
+= 2, 3XFERS
+= 3, 4XFERS
+= 4, 5XFERS
+= 5, 6XFERS
+= 6, 7XFERS
+= 7, 8XFERS
+= 8, 9XFERS
+= 9, 10XFERS
+= 10, 11XFERS
+= 11, 12XFERS
+= 12, 13XFERS
+= 13, 14XFERS
+= 14, 15XFERS
+= 15, 16XFERS
+
+> 1, 3, SRC_BURST_SIZE ; The total number of bytes that the DMAC reads into the MFIFO when it executes a DMALD instruction is the product of src_burst_len and src_burst_size.
+= 0, 1BYTE
+= 1, 2BYTES
+= 2, 4BYTES
+= 3, 8BYTES
+= 4, 16BYTES
+
+> 0, 1, SRC_INC
+= 0, FIXED ; Fixed-address burst. The DMAC signals ARBURST[0] LOW.
+= 1, INCREMENT ; Incrementing-address burst. The DMAC signals ARBURST[0] HIGH. 
+
+LC0_6 = 0x04CC, RO ; Channel 6 Loop Counter 0 Register 
+> 0, 8, LOOP_COUNTER_ITERATIONS, RO ; Loop counter 0 iterations 
+
+LC1_6 = 0x04D0, RO ; Channel 6 Loop Counter 1 Register 
+> 0, 8, LOOP_COUNTER_ITERATIONS, RO ; Loop counter 1 iterations 
+
+SAR7 = 0x04E0, RO ; Channel 7 Source Address Register 
+DAR7 = 0x04E4, RO ; Channel 7 Destination Address Register 
+
+CCR7 = 0x04E8, RO ; Channel 7 Channel Control Register 
+> 27, 1, AWCACHE3
+= 0, LOW
+= 1, HIGH
+
+> 26, 1, AWCACHE1
+= 0, LOW
+= 1, HIGH
+
+> 25, 1, AWCACHE0
+= 0, LOW
+= 1, HIGH
+
+> 24, 1, AWPROT2
+= 0, LOW
+= 1, HIGH
+
+> 23, 1, AWPROT1
+= 0, LOW
+= 1, HIGH
+
+> 22, 1, AWPROT0
+= 0, LOW
+= 1, HIGH
+
+> 18, 3, DST_BURST_LEN ; the destination data. The total number of bytes that the DMAC writes out of the MFIFO when it executes a DMAST instruction is the product of dst_burst_len and dst_burst_size. 
+= 0, 1XFER
+= 1, 2XFERS
+= 2, 3XFERS
+= 3, 4XFERS
+= 4, 5XFERS
+= 5, 6XFERS
+= 6, 7XFERS
+= 7, 8XFERS
+= 8, 9XFERS
+= 9, 10XFERS
+= 10, 11XFERS
+= 11, 12XFERS
+= 12, 13XFERS
+= 13, 14XFERS
+= 14, 15XFERS
+= 15, 16XFERS
+
+> 15, 3, DST_BURST_SIZE ; The total number of bytes that the DMAC writes out of the MFIFO when it executes a DMAST instruction is the product of dst_burst_len and dst_burst_size.
+= 0, 1BYTE
+= 1, 2BYTES
+= 2, 4BYTES
+= 3, 8BYTES
+= 4, 16BYTES
+
+> 14, 1, DST_INC
+= 0, FIXED ; Fixed-address burst. The DMAC signals AWBURST[0] LOW.
+= 1, INCREMENT ; Incrementing-address burst. The DMAC signals AWBURST[0] HIGH.
+
+> 13, 1, ARCACHE2
+= 0, LOW
+= 1, HIGH
+
+> 12, 1, ARCACHE1
+= 0, LOW
+= 1, HIGH
+
+> 11, 1, ARCACHE0
+= 0, LOW
+= 1, HIGH
+
+> 10, 1, ARPROT2
+= 0, LOW
+= 1, HIGH
+
+> 9, 1, ARPROT1
+= 0, LOW
+= 1, HIGH
+
+> 8, 1, ARPROT0
+= 0, LOW
+= 1, HIGH
+
+> 4, 4, SRC_BURST_LEN ; The total number of bytes that the DMAC reads into the MFIFO when it executes a DMALD instruction is the product of src_burst_len and src_burst_size. 
+= 0, 1XFER
+= 1, 2XFERS
+= 2, 3XFERS
+= 3, 4XFERS
+= 4, 5XFERS
+= 5, 6XFERS
+= 6, 7XFERS
+= 7, 8XFERS
+= 8, 9XFERS
+= 9, 10XFERS
+= 10, 11XFERS
+= 11, 12XFERS
+= 12, 13XFERS
+= 13, 14XFERS
+= 14, 15XFERS
+= 15, 16XFERS
+
+> 1, 3, SRC_BURST_SIZE ; The total number of bytes that the DMAC reads into the MFIFO when it executes a DMALD instruction is the product of src_burst_len and src_burst_size.
+= 0, 1BYTE
+= 1, 2BYTES
+= 2, 4BYTES
+= 3, 8BYTES
+= 4, 16BYTES
+
+> 0, 1, SRC_INC
+= 0, FIXED ; Fixed-address burst. The DMAC signals ARBURST[0] LOW.
+= 1, INCREMENT ; Incrementing-address burst. The DMAC signals ARBURST[0] HIGH. 
+
+LC0_7 = 0x04EC, RO ; Channel 7 Loop Counter 0 Register 
+> 0, 8, LOOP_COUNTER_ITERATIONS, RO ; Loop counter 0 iterations 
+
+LC1_7 = 0x04F0, RO ; Channel 7 Loop Counter 1 Register 
+> 0, 8, LOOP_COUNTER_ITERATIONS, RO ; Loop counter 1 iterations 
+
+DBGSTATUS = 0x0D00 ; Debug Status Register 
+> 0, 1, DBGSTATUS
+= 0, IDLE
+= 1, BUSY 
+
+DBGCMD = 0x0D04, WO ; Debug Command Register 
+> 0, 2, DBGCMD
+= 0, EXECUTE ; Execute the instruction that the DMAC_DBGINST [1:0] Registers contain
+
+DBGINST0 = 0x0D08, WO ; Debug Instruction-0 Register 
+> 24, 8, INSTRUCTION_BYTE1 ; Instruction byte 1
+> 16, 8, INSTRUCTION_BYTE0 ; Instruction byte 0
+
+> 8, 3, CHANNEL_NUMBER
+= 0, DMA_CH0
+= 1, DMA_CH1
+= 2, DMA_CH2
+= 3, DMA_CH3
+= 4, DMA_CH4
+= 5, DMA_CH5
+= 6, DMA_CH6
+= 7, DMA_CH7
+
+> 0, 1, DEBUG_THREAD
+= 0, MANAGER
+= 1, CHANNEL
+
+DBGINST1 = 0x0D0C, WO ; Debug Instruction-1 Register 
+> 24, 8, INSTRUCTION_BYTE5 ; Instruction byte 5
+> 16, 8, INSTRUCTION_BYTE4 ; Instruction byte 4
+> 8, 8, INSTRUCTION_BYTE3 ; Instruction byte 3
+> 0, 8, INSTRUCTION_BYTE2 ; Instruction byte 2 
+
+CR0 = 0x0E00 ; Configuration Register 0 
+> 17, 5, NUM_EVENTS
+= 0, 1 ; irq[0]
+= 1, 2 ; irq[1:0]
+= 2, 3 ; irq[2:0]
+= 3, 4 ; irq[3:0]
+= 4, 5 ; irq[4:0]
+= 5, 6 ; irq[5:0]
+= 6, 7 ; irq[6:0]
+= 7, 8 ; irq[7:0]
+= 8, 9 ; irq[8:0]
+= 9, 10 ; irq[9:0]
+= 10, 11 ; irq[10:0]
+= 11, 12 ; irq[11:0]
+= 12, 13 ; irq[12:0]
+= 13, 14 ; irq[13:0]
+= 14, 15 ; irq[14:0]
+= 15, 16 ; irq[15:0]
+= 16, 17 ; irq[16:0]
+= 17, 18 ; irq[17:0]
+= 18, 19 ; irq[18:0]
+= 19, 20 ; irq[19:0]
+= 20, 21 ; irq[20:0]
+= 21, 22 ; irq[21:0]
+= 22, 23 ; irq[22:0]
+= 23, 24 ; irq[23:0]
+= 24, 25 ; irq[24:0]
+= 25, 26 ; irq[25:0]
+= 26, 27 ; irq[26:0]
+= 27, 28 ; irq[27:0]
+= 28, 29 ; irq[28:0]
+= 29, 30 ; irq[29:0]
+= 30, 31 ; irq[30:0]
+= 31, 32 ; irq[31:0]
+
+> 12, 5, NUM_PERIPH_REQ
+= 0, 1
+= 1, 2
+= 2, 3
+= 3, 4
+= 4, 5
+= 5, 6
+= 6, 7
+= 7, 8
+= 8, 9
+= 9, 10
+= 10, 11
+= 11, 12
+= 12, 13
+= 13, 14
+= 14, 15
+= 15, 16
+= 16, 17
+= 17, 18
+= 18, 19
+= 19, 20
+= 20, 21
+= 21, 22
+= 22, 23
+= 23, 24
+= 24, 25
+= 25, 26
+= 26, 27
+= 27, 28
+= 28, 29
+= 29, 30
+= 30, 31
+= 31, 32
+
+> 4, 3, NUM_CHNLS
+= 0, 1CHANNEL
+= 1, 2CHANNELS
+= 2, 3CHANNELS
+= 3, 4CHANNELS
+= 4, 5CHANNELS
+= 5, 6CHANNELS
+= 6, 7CHANNELS
+= 7, 8CHANNELS
+
+> 2, 1, MGR_NS_AT_RST
+= 0, LOW ; boot_manager_ns was LOW
+= 1, HIGH ; boot_manager_ns was HIGH
+
+> 1, 1, BOOT_EN
+= 0, LOW ; boot_from_pc was LOW
+= 1, HIGH ; boot_from_pc was HIGH
+
+> 0, 1, PERIPH_REQ
+= 0, NO ; The DMAC does not provide a peripheral request interface
+= 1, YES ; The DMAC provides the number of peripheral request interfaces that the num_periph_req field specifies 
+
+CR1 = 0x0E04 ; Configuration Register 1 
+> 4, 4, NUM_I_CACHE_LINES
+= 0, 1LINE
+= 1, 2LINES
+= 2, 3LINES
+= 3, 4LINES
+= 4, 5LINES
+= 5, 6LINES
+= 6, 7LINES
+= 7, 8LINES
+= 8, 9LINES
+= 9, 10LINES
+= 10, 11LINES
+= 11, 12LINES
+= 12, 13LINES
+= 13, 14LINES
+= 14, 15LINES
+= 15, 16LINES
+
+> 0, 3, I_CACHE_LEN
+= 2, 4BYTES
+= 3, 8BYTES
+= 4, 16BYTES
+= 5, 32BYTES
+
+CR2 = 0x0E08 ; Configuration Register 2 
+> 0, 32, BOOT_ADDR ; Provides the value of boot_addr[31:0] when the DMAC exited from reset 
+
+CR3 = 0x0E0C ; Configuration Register 3 
+> 31, 1, INS31
+= 0, SECURE
+= 1, NON_SECURE
+
+> 30, 1, INS30
+= 0, SECURE
+= 1, NON_SECURE
+
+> 29, 1, INS29
+= 0, SECURE
+= 1, NON_SECURE
+
+> 28, 1, INS28
+= 0, SECURE
+= 1, NON_SECURE
+
+> 27, 1, INS27
+= 0, SECURE
+= 1, NON_SECURE
+
+> 26, 1, INS26
+= 0, SECURE
+= 1, NON_SECURE
+
+> 25, 1, INS25
+= 0, SECURE
+= 1, NON_SECURE
+
+> 24, 1, INS24
+= 0, SECURE
+= 1, NON_SECURE
+
+> 23, 1, INS23
+= 0, SECURE
+= 1, NON_SECURE
+
+> 22, 1, INS22
+= 0, SECURE
+= 1, NON_SECURE
+
+> 21, 1, INS21
+= 0, SECURE
+= 1, NON_SECURE
+
+> 20, 1, INS20
+= 0, SECURE
+= 1, NON_SECURE
+
+> 19, 1, INS19
+= 0, SECURE
+= 1, NON_SECURE
+
+> 18, 1, INS18
+= 0, SECURE
+= 1, NON_SECURE
+
+> 17, 1, INS17
+= 0, SECURE
+= 1, NON_SECURE
+
+> 16, 1, INS16
+= 0, SECURE
+= 1, NON_SECURE
+
+> 15, 1, INS15
+= 0, SECURE
+= 1, NON_SECURE
+
+> 14, 1, INS14
+= 0, SECURE
+= 1, NON_SECURE
+
+> 13, 1, INS13
+= 0, SECURE
+= 1, NON_SECURE
+
+> 12, 1, INS12
+= 0, SECURE
+= 1, NON_SECURE
+
+> 11, 1, INS11
+= 0, SECURE
+= 1, NON_SECURE
+
+> 10, 1, INS10
+= 0, SECURE
+= 1, NON_SECURE
+
+> 9, 1, INS9
+= 0, SECURE
+= 1, NON_SECURE
+
+> 8, 1, INS8
+= 0, SECURE
+= 1, NON_SECURE
+
+> 7, 1, INS7
+= 0, SECURE
+= 1, NON_SECURE
+
+> 6, 1, INS6
+= 0, SECURE
+= 1, NON_SECURE
+
+> 5, 1, INS5
+= 0, SECURE
+= 1, NON_SECURE
+
+> 4, 1, INS4
+= 0, SECURE
+= 1, NON_SECURE
+
+> 3, 1, INS3
+= 0, SECURE
+= 1, NON_SECURE
+
+> 2, 1, INS2
+= 0, SECURE
+= 1, NON_SECURE
+
+> 1, 1, INS1
+= 0, SECURE
+= 1, NON_SECURE
+
+> 0, 1, INS0
+= 0, SECURE
+= 1, NON_SECURE
+
+CR4 = 0x0E10 ; Configuration Register 4 
+> 31, 1, PNS31
+= 0, SECURE
+= 1, NON_SECURE
+
+> 30, 1, PNS30
+= 0, SECURE
+= 1, NON_SECURE
+
+> 29, 1, PNS29
+= 0, SECURE
+= 1, NON_SECURE
+
+> 28, 1, PNS28
+= 0, SECURE
+= 1, NON_SECURE
+
+> 27, 1, PNS27
+= 0, SECURE
+= 1, NON_SECURE
+
+> 26, 1, PNS26
+= 0, SECURE
+= 1, NON_SECURE
+
+> 25, 1, PNS25
+= 0, SECURE
+= 1, NON_SECURE
+
+> 24, 1, PNS24
+= 0, SECURE
+= 1, NON_SECURE
+
+> 23, 1, PNS23
+= 0, SECURE
+= 1, NON_SECURE
+
+> 22, 1, PNS22
+= 0, SECURE
+= 1, NON_SECURE
+
+> 21, 1, PNS21
+= 0, SECURE
+= 1, NON_SECURE
+
+> 20, 1, PNS20
+= 0, SECURE
+= 1, NON_SECURE
+
+> 19, 1, PNS19
+= 0, SECURE
+= 1, NON_SECURE
+
+> 18, 1, PNS18
+= 0, SECURE
+= 1, NON_SECURE
+
+> 17, 1, PNS17
+= 0, SECURE
+= 1, NON_SECURE
+
+> 16, 1, PNS16
+= 0, SECURE
+= 1, NON_SECURE
+
+> 15, 1, PNS15
+= 0, SECURE
+= 1, NON_SECURE
+
+> 14, 1, PNS14
+= 0, SECURE
+= 1, NON_SECURE
+
+> 13, 1, PNS13
+= 0, SECURE
+= 1, NON_SECURE
+
+> 12, 1, PNS12
+= 0, SECURE
+= 1, NON_SECURE
+
+> 11, 1, PNS11
+= 0, SECURE
+= 1, NON_SECURE
+
+> 10, 1, PNS10
+= 0, SECURE
+= 1, NON_SECURE
+
+> 9, 1, PNS9
+= 0, SECURE
+= 1, NON_SECURE
+
+> 8, 1, PNS8
+= 0, SECURE
+= 1, NON_SECURE
+
+> 7, 1, PNS7
+= 0, SECURE
+= 1, NON_SECURE
+
+> 6, 1, PNS6
+= 0, SECURE
+= 1, NON_SECURE
+
+> 5, 1, PNS5
+= 0, SECURE
+= 1, NON_SECURE
+
+> 4, 1, PNS4
+= 0, SECURE
+= 1, NON_SECURE
+
+> 3, 1, PNS3
+= 0, SECURE
+= 1, NON_SECURE
+
+> 2, 1, PNS2
+= 0, SECURE
+= 1, NON_SECURE
+
+> 1, 1, PNS1
+= 0, SECURE
+= 1, NON_SECURE
+
+> 0, 1, PNS0
+= 0, SECURE
+= 1, NON_SECURE
+
+CRD = 0x0E14 ; Configuration Register 
+> 20, 10, DATA_BUFFER_DEP ; Lines = value + 1
+
+> 16, 4, RD_Q_DEP
+= 0, 1LINE
+= 1, 2LINES
+= 2, 3LINES
+= 3, 4LINES
+= 4, 5LINES
+= 5, 6LINES
+= 6, 7LINES
+= 7, 8LINES
+= 8, 9LINES
+= 9, 10LINES
+= 10, 11LINES
+= 11, 12LINES
+= 12, 13LINES
+= 13, 14LINES
+= 14, 15LINES
+= 15, 16LINES
+
+> 12, 3, RD_CAP
+= 0, 1
+= 1, 2
+= 2, 3
+= 3, 4
+= 4, 5
+= 5, 6
+= 6, 7
+= 7, 8
+
+> 8, 4, WR_Q_DEP
+= 0, 1LINE
+= 1, 2LINES
+= 2, 3LINES
+= 3, 4LINES
+= 4, 5LINES
+= 5, 6LINES
+= 6, 7LINES
+= 7, 8LINES
+= 8, 9LINES
+= 9, 10LINES
+= 10, 11LINES
+= 11, 12LINES
+= 12, 13LINES
+= 13, 14LINES
+= 14, 15LINES
+= 15, 16LINES
+
+> 4, 3, WR_CAP
+= 0, 1
+= 1, 2
+= 2, 3
+= 3, 4
+= 4, 5
+= 5, 6
+= 6, 7
+= 7, 8
+
+> 0, 3, DATA_WIDTH
+= 2, 32BIT
+= 3, 64BIT
+= 4, 128BIT
+
+WD = 0x0E80 ; DMA Watchdog Register
+> 0, 1, WD_IRQ_ONLY
+= 0, ABORT_AND_ASSERT ; The DMAC aborts all of the contributing DMA channels and sets irq_abort HIGH
+= 1, ASSERT ; The DMAC sets irq_abort
+
