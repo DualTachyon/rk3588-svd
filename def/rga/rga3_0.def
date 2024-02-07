@@ -1,3 +1,1153 @@
 [RGA3_0]
 @ = 0x0FDB60000, 0x00010000
 
++ = RGA3
+
+SYS_CTRL = 0x0000 ; System control
+> 11, 1, SW_FRMEND_AUTO_RSTN_EN ; Auto reset after frame done
+
+> 9, 2, SW_RGA_BIC_MODE ; Bicubic mode
+= 0, PRECISE
+= 1, SPLINE
+= 2, CATROM
+= 3, MITCHELL
+
+> 8, 1, SW_RGA_RAM_CLK_ON ; RGA ram clock always on
+
+> 4, 1, SW_CCLK_SRESET ; Core clock soft reset
+
+> 3, 1, SW_ACLK_SRESET ; Aclk soft reset
+
+> 2, 1, SW_RGA_LGC_CLK_ON ; RGA logic clock always on
+
+> 1, 1, SW_CMD_MODE ; Configuration mode
+= 0, AHB ; Slave mode use AHB write
+= 1, AXI ; Master mode use AXI read
+
+> 0, 1, RGA_START, W1C ; RGA start
+= 1, START
+
+CMD_CTRL = 0x0004 ; Command control
+> 3, 10, SW_CMD_INCR_NUM ; Command increase start max number
+
+> 2, 1, SW_CMD_STOP_MODE ; Command stop mode:
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, CMD_INCR_VALID_P ; Command increase start pulse
+
+> 0, 1, CMD_LINE_ST_P ; Command line start pulse, clear itself
+= 0, NO_START ; Master mode no start
+= 1, START ; Master mode start
+
+CMD_ADDR = 0x0008 ; Command address
+> 0, 32, SW_CMD_BASE ; Command address when using master configuration mode, 16B aligned
+
+MI_GROUP_CTRL = 0x000C ; DMA read group control
+> 31, 1, SW_MI_RD_GROUP_DIS ; AXI read command group disable
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 3, SW_MI_RD_GROUP_NUM ; AXI read command group number
+= 0, FILL_FULL ; fill internal fifo to full
+= 1, BURST_x2
+= 2, BURST_x3
+= 3, BURST_x4
+= 4, BURST_x5
+= 5, BURST_x6
+= 6, BURST_x7
+= 7, BURST_x8
+
+ARQOS_CTRL = 0x0010 ; DMA read qos control
+> 8, 3, SW_NOC_HURRY_VALUE ; NOC hurry value
+= 0, LOW ; The Low priority to NOC
+= 7, HIGHEST ; The first High priority to NOC
+
+> 4, 3, SW_AR_MMU_QOS ; Read qos, configure 0 to 7, default 3
+
+> 0, 1, SW_AR_QOS_EN ; All bus channel AXI read qos enable
+= 0, DISABLE
+= 1, ENABLE
+
+# TODO: Probably DO for next two registers!
+VERSION_NUM = 0x0018 ; RGA3 version number
+> 28, 4, MAJOR ; RGA3 major number
+> 20, 8, MINOR ; RGA3 minor number
+> 0, 20, SVNBUILD ; RGA3 svn build number
+
+VERSION_TIM = 0x001C ; RGA3 version time
+> 16, 16, YEAR ; RGA3 year
+> 8, 8, MONTH ; RGA3 month
+> 0, 8, DATE ; RGA3 date
+
+INT_EN = 0x0020 ; Interrupt enable
+> 29, 1, INT_EN_WIN1_VER_FIFO_REN_ERR ; RGA3 win1 vertical FIFO read error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 28, 1, INT_EN_WIN1_VER_FIFO_WEN_ERR ; RGA3 win1 vertical FIFO write error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 27, 1, INT_EN_WIN1_HOR_FIFO_REN_ERR ; RGA3 win1 horizontal FIFO read error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 26, 1, INT_EN_WIN1_HOR_FIFO_WEN_ERR ; RGA3 win1 horizontal FIFO write error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 25, 1, INT_EN_WIN1_IN_FIFO_REN_ERR ; RGA3 win1 in FIFO read error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 24, 1, INT_EN_WIN1_IN_FIFO_WEN_ERR ; RGA3 win1 in FIFO write error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 21, 1, INT_EN_WIN0_VER_FIFO_REN_ERR ; RGA3 win0 vertical FIFO read error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 20, 1, INT_EN_WIN0_VER_FIFO_WEN_ERR ; RGA3 win0 vertical FIFO write error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 19, 1, INT_EN_WIN0_HOR_FIFO_REN_ERR ; RGA3 win0 horizontal FIFO read error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 18, 1, INT_EN_WIN0_HOR_FIFO_WEN_ERR ; RGA3 win0 horizontal FIFO write error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 17, 1, INT_EN_WIN0_IN_FIFO_REN_ERR ; RGA3 win0 in FIFO read error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 16, 1, INT_EN_WIN0_IN_FIFO_WEN_ERR ; RGA3 win0 in FIFO write error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 15, 1, INT_EN_RGA_MI_WR_BUS_ERR ; RGA3 mi_wr bus error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 14, 1, INT_EN_RGA_MI_WR_IN_HERR ; RGA3 mi_wr horizontal error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 13, 1, INT_EN_RGA_MI_WR_IN_VERR ; RGA3 mi_wr vertical error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 11, 1, INT_EN_WIN1_V_ERR ; RGA3 win1 vertical error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 10, 1, INT_EN_WIN1_H_ERR ; RGA3 win1 horizontal error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 9, 1, INT_EN_WIN1_FBCD_DEC_ERR ; RGA3 win1 FBCD decoder error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 8, 1, INT_EN_WIN1_RD_FRM_END ; RGA3 win1 read frame end enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 7, 1, INT_EN_WIN0_V_ERR ; RGA3 win0 vertical error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 6, 1, INT_EN_WIN0_H_ERR ; RGA3 win0 horizontal error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, INT_EN_WIN0_FBCD_DEC_ERR ; RGA3 win0 FBCD decoder error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 1, INT_EN_WIN0_RD_FRM_END ; RGA3 win0 read frame end enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 3, 1, INT_EN_CMD_LINE_FINISH ; RGA3 command line finish enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, INT_EN_RGA_MI_RD_BUS_ERR ; RGA3 DMA read bus error enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, INT_EN_RGA_MMU_INTR ; RGA3 MMU interrupt enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, INT_EN_FRM_DONE ; RGA3 frame done enable
+= 0, DISABLE
+= 1, ENABLE
+
+INT_RAW = 0x0024, RO ; Interrupt raw status
+> 29, 1, INT_RAW_WIN1_VER_FIFO_REN_ERR ; RGA3 win1 vertical FIFO read error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 28, 1, INT_RAW_WIN1_VER_FIFO_WEN_ERR ; RGA3 win1 vertical FIFO write error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 27, 1, INT_RAW_WIN1_HOR_FIFO_REN_ERR ; RGA3 win1 horizontal FIFO read error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 26, 1, INT_RAW_WIN1_HOR_FIFO_WEN_ERR ; RGA3 win1 horizontal FIFO write error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 25, 1, INT_RAW_WIN1_IN_FIFO_REN_ERR ; RGA3 win1 in FIFO read error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 24, 1, INT_RAW_WIN1_IN_FIFO_WEN_ERR ; RGA3 win1 in FIFO write error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 21, 1, INT_RAW_WIN0_VER_FIFO_REN_ERR ; RGA3 win0 vertical FIFO read error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 20, 1, INT_RAW_WIN0_VER_FIFO_WEN_ERR ; RGA3 win0 vertical FIFO write error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 19, 1, INT_RAW_WIN0_HOR_FIFO_REN_ERR ; RGA3 win0 horizontal FIFO read error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 18, 1, INT_RAW_WIN0_HOR_FIFO_WEN_ERR ; RGA3 win0 horizontal FIFO write error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 17, 1, INT_RAW_WIN0_IN_FIFO_REN_ERR ; RGA3 win0 in FIFO read error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 16, 1, INT_RAW_WIN0_IN_FIFO_WEN_ERR ; RGA3 win0 in FIFO write error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 15, 1, INT_RAW_RGA_MI_WR_BUS_ERR ; RGA3 mi_wr bus error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 14, 1, INT_RAW_RGA_MI_WR_IN_HERR ; RGA3 mi_wr horizontal error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 13, 1, INT_RAW_RGA_MI_WR_IN_VERR ; RGA3 mi_wr vertical error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 11, 1, INT_RAW_WIN1_V_ERR ; RGA3 win1 vertical error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 10, 1, INT_RAW_WIN1_H_ERR ; RGA3 win1 horizontal error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 9, 1, INT_RAW_WIN1_FBCD_DEC_ERR ; RGA3 win1 FBCD decoder error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 8, 1, INT_RAW_WIN1_RD_FRM_END ; RGA3 win1 read frame end interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 7, 1, INT_RAW_WIN0_V_ERR ; RGA3 win0 vertical error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 6, 1, INT_RAW_WIN0_H_ERR ; RGA3 win0 horizontal error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 5, 1, INT_RAW_WIN0_FBCD_DEC_ERR ; RGA3 win0 FBCD decoder error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 4, 1, INT_RAW_WIN0_RD_FRM_END ; RGA3 win0 read frame end interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 3, 1, INT_RAW_CMD_LINE_FINISH ; RGA3 command line finish interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 2, 1, INT_RAW_RGA_MI_RD_BUS_ERR ; RGA3 DMA read bus error interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 1, 1, INT_RAW_RGA_MMU_INTR ; RGA3 MMU interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+> 0, 1, INT_RAW_FRM_DONE ; RGA3 frame done interrupt raw status
+= 0, INVALID
+= 1, VALID
+
+# TODO: should this be RO?
+INT_MSK = 0x0028 ; Interrupt mask
+> 29, 1, INT_MSK_WIN1_VER_FIFO_REN_ERR ; RGA3 win1 vertical FIFO read error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 28, 1, INT_MSK_WIN1_VER_FIFO_WEN_ERR ; RGA3 win1 vertical FIFO write error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 27, 1, INT_MSK_WIN1_HOR_FIFO_REN_ERR ; RGA3 win1 horizontal FIFO read error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 26, 1, INT_MSK_WIN1_HOR_FIFO_WEN_ERR ; RGA3 win1 horizontal FIFO write error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 25, 1, INT_MSK_WIN1_IN_FIFO_REN_ERR ; RGA3 win1 in FIFO read error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 24, 1, INT_MSK_WIN1_IN_FIFO_WEN_ERR ; RGA3 win1 in FIFO write error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 21, 1, INT_MSK_WIN0_VER_FIFO_REN_ERR ; RGA3 win0 vertical FIFO read error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 20, 1, INT_MSK_WIN0_VER_FIFO_WEN_ERR ; RGA3 win0 vertical FIFO write error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 19, 1, INT_MSK_WIN0_HOR_FIFO_REN_ERR ; RGA3 win0 horizontal FIFO read error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 18, 1, INT_MSK_WIN0_HOR_FIFO_WEN_ERR ; RGA3 win0 horizontal FIFO write error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 17, 1, INT_MSK_WIN0_IN_FIFO_REN_ERR ; RGA3 win0 in FIFO read error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 16, 1, INT_MSK_WIN0_IN_FIFO_WEN_ERR ; RGA3 win0 in FIFO write error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 15, 1, INT_MSK_RGA_MI_WR_BUS_ERR ; RGA3 mi_wr bus error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 14, 1, INT_MSK_RGA_MI_WR_IN_HERR ; RGA3 mi_wr horizontal error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 13, 1, INT_MSK_RGA_MI_WR_IN_VERR ; RGA3 mi_wr vertical error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 11, 1, INT_MSK_WIN1_V_ERR ; RGA3 win1 vertical error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 10, 1, INT_MSK_WIN1_H_ERR ; RGA3 win1 horizontal error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 9, 1, INT_MSK_WIN1_FBCD_DEC_ERR ; RGA3 win1 FBCD decoder error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 8, 1, INT_MSK_WIN1_RD_FRM_END ; RGA3 win1 read frame end interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 7, 1, INT_MSK_WIN0_V_ERR ; RGA3 win0 vertical error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 6, 1, INT_MSK_WIN0_H_ERR ; RGA3 win0 horizontal error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 5, 1, INT_MSK_WIN0_FBCD_DEC_ERR ; RGA3 win0 FBCD decoder error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 4, 1, INT_MSK_WIN0_RD_FRM_END ; RGA3 win0 read frame end interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 3, 1, INT_MSK_CMD_LINE_FINISH ; RGA3 command line finish interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 2, 1, INT_MSK_RGA_MI_RD_BUS_ERR ; RGA3 DMA read bus error interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 1, 1, INT_MSK_RGA_MMU_INTR ; RGA3 MMU interrupt mask
+= 0, INVALID
+= 1, VALID
+
+> 0, 1, INT_MSK_FRM_DONE ; RGA3 frame done interrupt mask
+= 0, INVALID
+= 1, VALID
+
+# TODO: The attributes seemed messed up in the TRM.
+INT_CLR = 0x002C ; Interrupt clear
+> 29, 1, INT_CLR_WIN1_VER_FIFO_REN_ERR ; RGA3 win1 vertical FIFO read error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 28, 1, INT_CLR_WIN1_VER_FIFO_WEN_ERR ; RGA3 win1 vertical FIFO write error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 27, 1, INT_CLR_WIN1_HOR_FIFO_REN_ERR ; RGA3 win1 horizontal FIFO read error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 26, 1, INT_CLR_WIN1_HOR_FIFO_WEN_ERR ; RGA3 win1 horizontal FIFO write error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 25, 1, INT_CLR_WIN1_IN_FIFO_REN_ERR ; RGA3 win1 in FIFO read error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 24, 1, INT_CLR_WIN1_IN_FIFO_WEN_ERR ; RGA3 win1 in FIFO write error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 21, 1, INT_CLR_WIN0_VER_FIFO_REN_ERR ; RGA3 win0 vertical FIFO read error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 20, 1, INT_CLR_WIN0_VER_FIFO_WEN_ERR ; RGA3 win0 vertical FIFO write error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 19, 1, INT_CLR_WIN0_HOR_FIFO_REN_ERR ; RGA3 win0 horizontal FIFO read error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 18, 1, INT_CLR_WIN0_HOR_FIFO_WEN_ERR ; RGA3 win0 hor horizontal FIFO write error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 17, 1, INT_CLR_WIN0_IN_FIFO_REN_ERR ; RGA3 win0 in FIFO read error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 16, 1, INT_CLR_WIN0_IN_FIFO_WEN_ERR ; RGA3 win0 in FIFO write error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 15, 1, INT_CLR_RGA_MI_WR_BUS_ERR ; RGA3 mi_wr bus error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 14, 1, INT_CLR_RGA_MI_WR_IN_HERR ; RGA3 mi_wr horizontal error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 13, 1, INT_CLR_RGA_MI_WR_IN_VERR ; RGA3 mi_wr vertical error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 11, 1, INT_CLR_WIN1_V_ERR ; RGA3 win1 vertical error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 10, 1, INT_CLR_WIN1_H_ERR ; RGA3 win1 horizontal error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 9, 1, INT_CLR_WIN1_FBCD_DEC_ERR ; RGA3 win1 FBCD decoder error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 8, 1, INT_CLR_WIN1_RD_FRM_END ; RGA3 win1 read frame end interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 7, 1, INT_CLR_WIN0_V_ERR ; RGA3 win0 vertical error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 6, 1, INT_CLR_WIN0_H_ERR ; RGA3 win0 horizontal error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, INT_CLR_WIN0_FBCD_DEC_ERR ; RGA3 win0 FBCD decoder error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 1, INT_CLR_WIN0_RD_FRM_END ; RGA3 win0 read frame end interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 3, 1, INT_CLR_CMD_LINE_FINISH ; RGA3 command line finish interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, INT_CLR_RGA_MI_RD_BUS_ERR ; RGA3 DMA read bus error interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, INT_CLR_RGA_MMU_INTR ; RGA3 MMU interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, INT_CLR_FRM_DONE ; RGA3 frame done interrupt clear
+= 0, DISABLE
+= 1, ENABLE
+
+RO_SRST = 0x0030, RO ; RGA soft reset done
+> 0, 6, RO_SRST_DONE ; RGA soft reset done
+
+STATUS0 = 0x0034 ; RGA3 status
+> 19, 1, OVLP_ACK ; Ovlp_ack
+= 0, LOW
+= 1, HIGH
+
+> 18, 1, OVLP_VAL ; Ovlp_val
+= 0, LOW
+= 1, HIGH
+
+> 17, 1, SCAN_ACK ; Scan_ack
+= 0, LOW
+= 1, HIGH
+
+> 16, 1, SCAN_VAL ; Scan_val
+= 0, LOW
+= 1, HIGH
+
+> 15, 1, WIN1_VER_ACK ; Win1_ver_ack
+= 0, LOW
+= 1, HIGH
+
+> 14, 1, WIN1_VER_VAL ; Win1_ver_val
+= 0, LOW
+= 1, HIGH
+
+> 13, 1, WIN1_HOR_ACK ; Win1_hor_ack
+= 0, LOW
+= 1, HIGH
+
+> 12, 1, WIN1_HOR_VAL ; Win1_hor_val
+= 0, LOW
+= 1, HIGH
+
+> 11, 1, WIN1_SRC_ACK ; Win1_src_ack
+= 0, LOW
+= 1, HIGH
+
+> 10, 1, WIN1_SRC_VAL ; Win1_src_val
+= 0, LOW
+= 1, HIGH
+
+> 9, 1, WIN1_IN_ACK ; Win1_in_ack
+= 0, LOW
+= 1, HIGH
+
+> 8, 1, WIN1_IN_VAL ; Win1_in_val
+= 0, LOW
+= 1, HIGH
+
+> 7, 1, WIN0_VER_ACK ; Win0_ver_ack
+= 0, LOW
+= 1, HIGH
+
+> 6, 1, WIN0_VER_VAL ; Win0_ver_val
+= 0, LOW
+= 1, HIGH
+
+> 5, 1, WIN0_HOR_ACK ; Win0_hor_ack
+= 0, LOW
+= 1, HIGH
+
+> 4, 1, WIN0_HOR_VAL ; Win0_hor_val
+= 0, LOW
+= 1, HIGH
+
+> 3, 1, WIN0_SRC_ACK ; Win0_src_ack
+= 0, LOW
+= 1, HIGH
+
+> 2, 1, WIN0_SRC_VAL ; Win0_src_val
+= 0, LOW
+= 1, HIGH
+
+> 1, 1, WIN0_IN_ACK ; Win0_in_ack
+= 0, LOW
+= 1, HIGH
+
+> 0, 1, WIN0_IN_VAL ; Win0_in_val
+= 0, LOW
+= 1, HIGH
+
+CMD_STATE = 0x0040 ; Command state
+> 16, 12, CMD_CNT_CUR ; Command current frame counter
+
+> 0, 1, CMD_WORKING ; Command working status
+= 0, IDLE
+= 1, WORKING
+
+WIN0_CTRL = 0x0100 ; Win0 control
+> 30, 1, SW_WIN0_RD_ALIGN_DIS ; Raster read mode align disable
+= 0, ENABLE
+= 1, DISABLE
+
+> 29, 1, SW_WIN0_PERF_OPT_DIS ; AXI read performance optimization disable
+= 0, ENABLE
+= 1, DISABLE
+
+> 26, 2, SW_WIN0_CSC_MODE ; Color space conversion
+= 0, BT601_L
+= 1, BT709
+= 2, BT601_F
+= 3, BT2020
+
+> 25, 1, SW_WIN0_R2Y_EN ; Win RGB to YUV transfer, if input is RGB, overlap field is YUV
+= 0, DISABLE
+= 1, ENABLE
+
+> 24, 1, SW_WIN0_Y2R_EN ; Win YUV to RGB transfer, if input is YUV, overlap field is RGB
+= 0, DISABLE
+= 1, ENABLE
+
+> 23, 1, SW_WIN_VER_UP ; Win vertical up scale
+= 0, NO
+= 1, YES
+
+> 22, 1, SW_WIN0_VER_BY ; Win vertical bypass
+= 0, NO_BYPASS
+= 1, BYPASS
+
+> 21, 1, SW_WIN0_HOR_UP ; Win horizontal up scale
+= 0, NO
+= 1, YES
+
+> 20, 1, SW_WIN0_HOR_BY ; Win horizontal bypass
+= 0, NO_BYPASS
+= 1, BYPASS
+
+> 18, 1, SW_WIN0_YMIRROR ; Input picture y-mirror enable
+= 0, NO
+= 1, YES
+
+> 17, 1, SW_WIN0_XMIRROR ; Input picture x-mirror enable
+= 0, NO
+= 1, YES
+
+> 16, 1, SW_WIN0_ROT ; Input picture rotation enable. Note: YUV422 (or YUYV) does not support rotation
+= 0, NO
+= 1, YES
+
+> 13, 1, SW_WIN0_YC_SWAP ; YC swap, used by YUYV
+
+> 12, 1, SW_WIN0_PIX_SWAP ; Input data pixel swap. If RGB mode, do RB swap, else do UV swap
+
+> 11, 1, SW_WIN0_ENDIAN_MODE ; Input YUV10bit incompact data endian mode in DDR for raster mode
+= 0, LITTLE
+= 1, BIG
+
+> 10, 1, SW_WIN0_YUV10B_COMPACT ; Input YUV10bit data is compact in DDR for raster mode
+= 0, INCOMPACT
+= 1, COMPACT
+
+> 8, 2, SW_WIN0_RD_FORMAT ; Defines how YUV picture data is read from DDR
+= 1, SEMI_PLANAR ; for YUV 4:2:x
+= 2, INTERLEAVED ; RGB or YUYV(YUV422 8bti)
+
+> 4, 4, SW_WIN0_PIC_FORMAT ; Input picture format
+= 0, YUV420_8BIT
+= 1, YUV422_8BIT
+= 2, YUV420_10BIT
+= 3, YUV422_10BIT
+= 4, RGB565
+= 5, RGB888
+= 6, ARGB8888
+= 7, RGBA8888
+= 8, ABGR8888
+= 9, BGRA8888
+
+> 1, 2, SW_WIN0_RD_MODE ; Win0 read mode
+= 1, FBCD
+= 2, TILE8X8
+
+> 0, 1, SW_WIN0_ENABLE ; Win0 enable
+= 0, DISABLE
+= 1, ENABLE
+
+WIN0_Y_BASE = 0x0110 ; Base address of input picture y or RGB or header(FBCD mode) component ring buffer
+> 4, 28, SW_WIN0_Y_BASE ; Base address of input picture Y or RGB or header (FBCD mode) component ring buffer Note: 16byte aligned
+
+WIN0_C_BASE = 0x0114 ; Base address of input picture c or payload (FBCD mode) component ring buffer
+> 4, 28, SW_WIN0_C_BASE ; Base address of input picture C or payload (FBCD mode) component ring buffer Note: 16byte aligned
+
+WIN0_VIR_STRIDE = 0x011C ; Virtual stride of input picture y or RGB or header (FBCD mode) component ring buffer
+> 0, 15, SW_WIN0_VIR_STRIDE ; Virtual stride of input picture y or RGB or header (FBCD mode) component ring buffer Note: Word unit, 16byte align. If header, the recommended configuration is 0.
+
+WIN0_FBC_OFF = 0x0120 ; Win0 FBCD offset
+> 16, 13, SW_WIN0_FBC_YOFF ; Source picture FBCD up y-offset for src_height + fbc_yoff is 16pixel align.
+
+> 0, 13, SW_WIN0_FBC_XOFF ; Source picture FBCD left x-offset for src_width + fbc_xoff is 16pixel align.
+
+WIN0_SRC_SIZE = 0x0124 ; Win0 source size
+> 16, 13, SW_WIN0_SRC_HEIGHT ; Input source picture height
+
+> 0, 13, SW_WIN0_SRC_WIDTH ; Input source picture width
+
+WIN0_ACT_OFF = 0x0128 ; Win0 actual offset
+> 16, 13, SW_WIN0_ACT_YOFF ; Actual input picture y-offset
+
+> 0, 13, SW_WIN0_ACT_XOFF ; Actual input picture x-offset
+
+WIN0_ACT_SIZE = 0x012C ; Win0 actual size
+> 16, 13, SW_WIN0_ACT_HEIGHT ; Actual picture height
+
+> 0, 13, SW_WIN0_ACT_WIDTH ; Actual picture width
+
+WIN0_DST_SIZE = 0x0130 ; Win0 destination size
+> 16, 13, SW_WIN0_DST_HEIGHT ; Destination picture height
+
+> 0, 13, SW_WIN0_DST_WIDTH ; Destination picture width
+
+WIN0_SCL_FAC = 0x0134 ; Win0 scale factor
+> 16, 16, SW_WIN0_VER_FAC ; Scale down int(65536*(dst-1)/(src-1)) + 1 scale up if((dst-1) % (src-1) == 0) int(65536*(dst-1)/(src-1)) - 1 else int(65536*(dst-1)/(src-1));
+
+> 0, 16, SW_WIN0_HOR_FAC ; Scale down int(65536*(dst-1)/(src-1)) + 1 scale up if((dst-1) % (src-1) == 0) int(65536*(dst-1)/(src-1)) - 1 else int(65536*(dst-1)/(src-1));
+
+WIN0_C_VIR_STRIDE = 0x0138 ; Win0 uv virtual stride
+> 0, 15, SW_WIN0_UV_VIR_STRIDE ; Virtual stride of input picture uv component ring buffer Note: Word unit, 16byte align
+
+WIN1_CTRL = 0x0140 ; Win1 control
+> 30, 1, SW_WIN1_RD_ALIGN_DIS ; Raster read mode align disable
+= 0, ENABLE
+= 1, DISABLE
+
+> 29, 1, SW_WIN1_PERF_OPT_DIS ; AXI read performance optimization disable
+= 0, ENABLE
+= 1, DISABLE
+
+> 26, 2, SW_WIN1_CSC_MODE ; Color space conversion
+= 0, BT601_L
+= 1, BT709
+= 2, BT601_F
+= 3, BT2020
+
+> 25, 1, SW_WIN1_R2Y_EN ; Win RGB to YUV transfer, if input is RGB, overlap field is YUV
+= 0, DISABLE
+= 1, ENABLE
+
+> 24, 1, SW_WIN1_Y2R_EN ; Win YUV to RGB transfer, if input is YUV, overlap field is RGB
+= 0, DISABLE
+= 1, ENABLE
+
+> 23, 1, SW_WIN1_VER_UP ; Win vertical up scale
+= 0, NO_SCALE_UP
+= 1, SCALE_UP
+
+> 22, 1, SW_WIN1_VER_BY ; Win vertical bypass
+= 0, NO_BYPASS
+= 1, BYPASS
+
+> 21, 1, SW_WIN1_HOR_UP ; Win horizontal up scale
+= 0, NO_SCALE_UP
+= 1, SCALE_UP
+
+> 20, 1, SW_WIN1_HOR_BY ; Win horizontal bypass
+= 0, NO_BYPASS
+= 1, BYPASS
+
+> 18, 1, SW_WIN1_YMIRROR ; Input picture y-mirror enable
+= 0, NO
+= 1, YES
+
+> 17, 1, SW_WIN1_XMIRROR ; Input picture x-mirror enable
+= 0, NO
+= 1, YES
+
+> 16, 1, SW_WIN1_ROT ; Input picture rotation enable. Note: YUV422 (or YUYV) does not support rotation
+= 0, NO
+= 1, YES
+
+> 13, 1, SW_WIN1_YC_SWAP ; YC swap, used by YUYV
+
+> 12, 1, SW_WIN1_PIX_SWAP ; Input data pixel swap. If RGB mode, do RB swap, else do UV swap
+
+> 11, 1, SW_WIN1_ENDIAN_MODE ; Input YUV10bit incompact data endian mode in DDR for raster mode
+= 0, LITTLE
+= 1, BIG
+
+> 10, 1, SW_WIN1_YUV10B_COMPACT ; Input YUV10bit data is compact in DDR for raster mode
+= 0, INCOMPACT
+= 1, COMPACT
+
+> 8, 2, SW_WIN1_RD_FORMAT ; Defines how YUV picture data is read from DDR
+= 1, SEMI_PLANAR ; for YUV 4:2:x
+= 2, INTERLEAVED ; RGB or YUYV(YUV422 8bit)
+
+> 4, 4, SW_WIN1_PIC_FORMAT ; Input picture format
+= 0, YUV420_8BIT
+= 1, YUV422_8BIT
+= 2, YUV420_10BIT
+= 3, YUV422_10BIT
+= 4, RGB565
+= 5, RGB888
+= 6, ARGB8888
+= 7, RGBA8888
+= 8, ABGR8888
+= 9, BGRA8888
+
+> 1, 2, SW_WIN1_RD_MODE ; Win1 read mode
+= 1, FBCD
+= 2, TILE8X8
+
+> 0, 1, SW_WIN1_ENABLE ; Win1 enable
+= 0, DISABLE
+= 1, ENABLE
+
+WIN1_Y_BASE = 0x0150 ; Base address of input picture y or RGB or header (FBCD mode) component ring buffer
+> 4, 28, SW_WIN1_Y_BASE ; Base address of input picture Y or RGB or header (FBCD mode) component ring buffer Note: 16byte aligned
+
+WIN1_C_BASE = 0x0154 ; Base address of input picture c or payload (FBCD mode) component ring buffer
+> 4, 28, SW_WIN1_U_BASE ; Base address of input picture uv or payload (FBCD mode) component ring buffer Note: 16byte aligned
+
+WIN1_VIR_STRIDE = 0x015C ; Virtual stride of input picture y or RGB or header (FBCD mode) component ring buffer
+> 0, 15, SW_WIN1_VIR_STRIDE ; Virtual stride of input picture Y or RGB or header (FBCD mode) component ring buffer Note: Word unit, 16byte align. If header, the recommended configuration is 0.
+
+WIN1_FBC_OFF = 0x0160 ; Win1 FBCD offset
+> 16, 13, SW_WIN1_FBC_YOFF ; Source picture fbcd up y-offset for src_height + fbc_yoff is16pixel align
+
+> 0, 13, SW_WIN1_FBC_XOFF ; Source picture fbcd left x-offset for src_width + fbc_xoff is16pixel align
+
+WIN1_SRC_SIZE = 0x0164 ; Win1 source size
+> 16, 13, SW_WIN1_SRC_HEIGHT ; Input source picture height
+
+> 0, 13, SW_WIN1_SRC_WIDTH ; Input source picture width
+
+WIN1_ACT_OFF = 0x0168 ; Win1 actual offset
+> 16, 13, SW_WIN1_ACT_YOFF ; Actual input picture y-offset
+
+> 0, 13, SW_WIN1_ACT_XOFF ; Actual input picture x-offset
+
+WIN1_ACT_SIZE = 0x016C ; Win1 actual size
+> 16, 13, SW_WIN1_ACT_HEIGHT ; Actual picture height
+
+> 0, 13, SW_WIN1_ACT_WIDTH ; Actual picture width
+
+WIN1_DST_SIZE = 0x0170 ; Win1 destination size
+> 16, 13, SW_WIN1_DST_HEIGHT ; Destination picture height
+
+> 0, 13, SW_WIN1_DST_WIDTH ; Destination picture width
+
+WIN1_SCL_FAC = 0x0174 ; Win1 scale factor
+> 16, 16, SW_WIN1_VER_FAC ; Scale down int(65536*(dst-1)/(src-1)) + 1 scale up if((dst-1) % (src-1) == 0) int(65536*(dst-1)/(src-1)) - 1 else int(65536*(dst-1)/(src-1));
+
+> 0, 16, SW_WIN1_HOR_FAC ; Scale down int(65536*(dst-1)/(src-1)) + 1 scale up if((dst-1) % (src-1) == 0) int(65536*(dst-1)/(src-1)) - 1 else int(65536*(dst-1)/(src-1));
+
+WIN1_C_VIR_STRIDE = 0x0178 ; Win1 uv virtual stride
+> 0, 15, SW_WIN1_UV_VIR_STRIDE ; Virtual stride of input picture uv component ring buffer Note: Word unit, 16byte aligned
+
+OVLP_CTRL = 0x0180 ; Overlap control
+> 5, 15, SW_TOP_KEY_EN ; Top key enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 1, SW_TOP_ALPHA_EN ; Top alpha enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, SW_OVLP_FIELD ; Overlap field
+= 0, RGB
+= 1, YUV
+
+> 0, 2, SW_OVLP_MODE ; Overlap mode
+= 0, ABC
+= 1, ABB
+
+OVLP_OFF = 0x0184 ; Overlap offset
+> 16, 13, SW_OVLP_YOFF ; Overlap y-offset
+
+> 0, 13, SW_OVLP_XOFF ; Overlap x-offset
+
+OVLP_TOP_KEY_MIN = 0x0188 ; Overlap top key min value
+> 20, 10, SW_TOP_KEY_VR_MIN ; Color key vr min value, if RGB or YUV 8bit, then shift left 2bits
+
+> 10, 10, SW_TOP_KEY_UB_MIN ; Color key ub min value, if RGB or YUV 8bit, then shift left 2bits
+
+> 0, 10, SW_TOP_KEY_YG_MIN ; Color key yg min value, if RGB or YUV 8bit, then shift left 2bits
+
+OVLP_TOP_KEY_MAX = 0x018C ; Overlap top key max value
+> 20, 10, SW_TOP_KEY_VR_MAX ; Color key vr max value, if RGB or YUV 8bit, then shift left 2bits
+
+> 10, 10, SW_TOP_KEY_UB_MAX ; Color key ub max value, if RGB or YUV 8bit, then shift left 2bits
+
+> 0, 10, SW_TOP_KEY_YG_MAX ; Color key yg max value, if RGB or YUV 8bit, then shift left 2bits
+
+OVLP_TOP_COLOR_CTRL = 0x0190 ; Overlap top color control
+> 16, 8, SW_TOP_GLOBAL_ALPHA ; Source global alpha value(Ags)
+
+> 5, 3, SW_TOP_FACTOR_M0 ; Source factor of color channel
+= 0, 0
+= 1, 256
+= 2, AD0_PP
+= 3, 256_MINUS_AD0_PP
+= 4, AS0_PP
+= 5, AGS
+
+> 4, 1, SW_TOP_ALPHA_CAL_M0 ; Source alpha select mode of color channel
+= 0, AS0__PP_PLUS_AS0__PP_SR_7
+= 1, AS0__PP
+
+> 2, 2, SW_TOP_BLEND_M0 ; Source alpha blending mode of color channel
+= 0, AGS
+= 1, AS0_P
+= 2, AS0_P_MULT_AGS_SR_8
+
+> 1, 1, SW_TOP_ALPHA_M0 ; Source alpha mode of color channel
+= 0, AS
+= 1, 255_MINUS_AS
+
+> 0, 1, SW_TOP_COLOR_M0 ; Source color mode
+= 0, CS
+= 1, CS_MULT_AS0_PP
+
+OVLP_BOT_COLOR_CTRL = 0x0194 ; Overlap bottom color control
+> 16, 8, SW_BOT_GLOBAL_ALPHA ; Destination global alpha value(Agd)
+
+> 5, 3, SW_BOT_FACTOR_M0 ; Destination factor of color channel
+= 0, 0
+= 1, 256
+= 2, AS0
+= 3, 256_MINUS_AS0
+= 4, AD0
+= 5, ADS
+
+> 4, 1, SW_BOT_ALPHA_CAL_M0 ; Destination alpha select mode of color channel
+= 0, AD0__PP_PLUS_AD0__PP_SR_7
+= 1, AD0__PP
+
+> 2, 2, SW_BOT_BLEND_M0 ; Destination alpha blending mode of color channel
+= 0, AGD
+= 1, AD0_P
+= 2, AD0_P_MULT_AGD_SR_8
+
+> 1, 1, SW_BOT_ALPHA_M0 ; Destination alpha mode of color channel
+= 0, AD
+= 1, 255_MINUS_AD
+
+> 0, 1, SW_BOT_COLOR_M0 ; Destination color mode
+= 0, CD
+= 1, CD_MULT_AD0_PP
+
+OVLP_TOP_ALPHA_CTRL = 0x0198 ; Overlap top alpha control
+> 5, 3, SW_TOP_FACTOR_M1 ; Source factor of alpha channel
+= 0, 0
+= 1, 256
+= 2, AD0_PP
+= 3, 256_MINUS_AD0_PP
+= 4, AS0_PP
+= 5, AGS
+
+> 4, 1, SW_TOP_ALPHA_CAL_M1 ; Source alpha select mode of alpha channel
+= 0, AS0__PP_PLUS_AS0__PP_SR_7
+= 1, AS0__PP
+
+> 2, 2, SW_TOP_BLEND_M1 ; Source alpha blending mode of alpha channel
+= 0, AG
+= 1, AS0
+= 2, AS0_P_MULT_AGS_SR_8
+
+> 1, 1, SW_TOP_ALPHA_M1 ; Source alpha mode of alpha channel
+= 0, AS
+= 1, 255_MINUS_AS
+
+OVLP_BOT_ALPHA_CTRL = 0x019C ; Overlap bottom alpha control
+> 5, 3, SW_BOT_FACTOR_M1 ; Destination factor of alpha channel
+= 0, 0
+= 1, 256
+= 2, AS0_PP
+= 3, 256_MINUS_AS0_PP
+= 4, AD0_PP
+= 5, ADS
+
+> 4, 1, SW_BOT_ALPHA_CAL_M1 ; Destination alpha select mode of alpha channel
+= 0, AD0__PP_PLUS_AD0__PP_SR_7
+= 1, AD0__PP
+
+> 2, 2, SW_BOT_BLEND_M1 ; Destination alpha blending mode of alpha channel
+= 0, AG
+= 1, AD0_PP
+= 2, AD0_PP_MULT_AGD_SR_8
+
+> 1, 1, SW_BOT_ALPHA_M1 ; Destination alpha mode of alpha channel
+= 0, AD
+= 1, 255_MINUS_AD
+
+WR_CTRL = 0x01A0 ; DMA write control
+> 20, 1, SW_WR_YC_SWAP ; YC swap, used by YUYV
+
+> 13, 6, SW_OUTSTANDING_MAX ; MI write ddr outstanding: 6'd0~6'd63
+
+> 12, 1, SW_WR_PIX_SWAP ; Output data pixel swap. If RGB mode, do RB swap, else do UV swap
+
+> 11, 1, SW_WR_ENDIAN_MODE ; Output YUV10bit incompact data endian mode in DDR
+= 0, LITTLE
+= 1, BIG
+
+> 10, 1, SW_WR_YUV10B_COMPACT ; Output YUV10bit data is compact in DDR
+= 0, INCOMPACT
+= 1, COMPACT
+
+> 8, 2, SW_WR_FORMAT ; Defines how YUV picture data is written to DDR
+= 1, SEMI_PLANAR ; for YUV 4:2:x
+= 2, INTERLEAVED ; for RGB or YUYV(YUV422 8bit)
+
+> 4, 4, SW_WR_PIC_FORMAT ; Output picture format
+= 0, YUV420_8BIT
+= 1, YUV422_8BIT
+= 2, YUV420_10BIT
+= 3, YUV422_10BIT
+= 4, RGB565
+= 5, RGB888
+= 6, ARGB8888
+
+> 2, 1, SW_WR_FBCE_SPARSE_EN ; Write fbce payload sparse mode enable
+= 0, NON_SPARSE
+= 1, SPARSE
+
+> 0, 2, SW_WR_MODE ; Write mode
+= 0, RASTER
+= 1, FBCE
+= 2, TILE8X8
+= 3, RESERVED
+
+WR_FBCE_CTRL = 0x01A4 ; DMA FBCE write control
+> 31, 1, SW_WR_FBCE_SIZE_ALIGN_DIS ; FBCE output payload size align
+= 0, ALIGNED ; FBCE 16x16 block payload aligned to 16B
+= 1, UNALIGNED ; FBCE 16x16 block payload not aligned to 16B Note: only valid when YUV420 10bit output
+
+> 8, 6, SW_WR_FBCE_PL_FIFO1_WATERMARK ; FBCE payload fifo0 watermark, default is 6
+
+> 2, 6, SW_WR_FBCE_PL_FIFO0_WATERMARK ; FBCE payload fifo0 watermark, default is 6
+
+> 1, 1, SW_WR_FBCE_HEAD_OFF_DIS ; Write FBCE payload sparse mode enable
+= 0, HAS_OFFSET ; Payload offset in head
+= 1, NO_OFFSET ; Payload no offset in head
+
+> 0, 1, SW_WR_FBCE_BLK_OPT_DIS ; FBCE block optimize for DDR
+= 0, DISABLE
+= 1, ENABLE
+
+WR_VIR_STRIDE = 0x01A8 ; Write virtual stride
+> 0, 16, SW_WR_VIR_STRIDE ; Virtual stride of output picture Y or RGB or header (FBCE mode) component ring buffer Note: Word unit, 16byte align. If header, the recommended configuration is 0.
+
+WR_PL_VIR_STRIDE = 0x01AC ; Write payload virtual stride
+> 0, 16, SW_WR_PL_VIR_STRIDE ; Virtual stride of input picture uv or payload (FBCE compact mode) component ring buffer Note: Word unit, 16byte align
+
+WR_Y_BASE = 0x01B0 ; Write y base address
+> 0, 32, SW_WR_Y_BASE ; Base address of output picture Y or RGB or header (FBCE mode) component ring buffer Note: 16byte align
+
+WR_C_BASE = 0x01B4 ; Write c base address
+> 0, 32, SW_WR_U_BASE ; Base address of output picture UV or payload (FBCE mode) component ring buffer Note: 16byte align
+
+MMU_DTE_ADDR = 0x0F00 ; MMU current page Table address
+
+MMU_STATUS = 0x0F04, RO ; MMU status
+> 6, 5, PAGE_FAULT_BUS_ID, RO ; Index of master responsible for last page fault
+
+> 5, 1, PAGE_FAULT_IS_WRITE ; The direction of access for last page fault
+= 0, READ
+= 1, WRITE
+
+> 4, 1, REPLAY_BUFFER_EMPTY ; The MMU replay buffer is empty.
+= 1, EMPTY
+= 0, NOT_EMPTY
+
+> 3, 1, MMU_IDLE ; The MMU is idle when accesses are being translated and there are no unfinished translated accesses.
+= 1, IDLE
+= 0, BUSY
+
+> 2, 1, STALL_ACTIVE ; MMU stall mode currently enabled. The mode is enabled by command.
+= 1, STALLED
+= 0, MODE
+
+> 1, 1, PAGE_FAULT_ACTIVE ; MMU page fault mode currently enabled. The mode is enabled by command.
+= 1, ACTIVE
+= 0, NOT_ACTIVE
+
+> 0, 1, PAGING_ENABLED ; Paging is enabled.
+= 1, ENABLED
+= 0, DISABLED
+
+MMU_COMMAND = 0x0F08, WO ; MMU command
+> 0, 3, MMU_CMD
+= 0, MMU_ENABLE_PAGING
+= 1, MMU_DISABLE_PAGINg
+= 2, MMU_ENABLE_STALL
+= 3, MMU_DISABLE_STALL
+= 4, MMU_ZAP_CACHE
+# TODO: DONE??
+= 5, MMU_PAGE_FAULT_DON
+= 6, MMU_FORCE_RESET
+
+MMU_PAGE_FAULT_ADDR = 0x0F0C, RO ; MMU address of last page fault
+
+MMU_ZAP_ONE_LINE = 0x0F10, WO ; MMU address to be invalidated from the page table cache
+
+MMU_INT_RAWSTAT = 0x0F14 ; MMU interrupt raw
+> 1, 1, READ_BUS_ERROR, RO ; Read bus error
+
+> 0, 1, PAGE_FAULT ; Page fault
+
+MMU_INT_CLEAR = 0x0F18, WO ; MMU interrupt clear
+> 1, 1, READ_BUS_ERROR ; Read bus error
+
+> 0, 1, PAGE_FAULT ; Page fault
+
+MMU_INT_MASK = 0x0F1C ; MMU interrupt mask
+> 1, 1, READ_BUS_ERROR ; Read bus error
+
+> 0, 1, PAGE_FAULT ; Page fault
+
+MMU_INT_STATUS = 0x0F20, RO ; MMU interrupt status
+> 1, 1, READ_BUS_ERROR ; Read bus error
+= 1, ERROR
+= 0, OK
+
+> 0, 1, PAGE_FAULT ; Page fault
+= 1, ERROR
+= 0, OK
+
+MMU_AUTO_GATING = 0x0F24 ; MMU auto gating
+> 31, 1, MMU_BUG_FIXED_DISABLE ; MMU bug fixed disable, must be 1
+= 1, MUST_BE_SET
+
+> 1, 1, MMU_CFG_MODE, RO ; MMU configuration mode
+
+> 0, 1, MMU_AUTO_GATING ; When it is 1'b1, the MMU will auto gate itself.
+= 1, AUTO_GATE
+
+MMU_REG_LOAD_EN = 0x0F28 ; MMU register load enable
+> 0, 1, REG_LOAD_MMU_EN ; Register load enable
+= 1, ENABLE
+= 0, DISABLE
