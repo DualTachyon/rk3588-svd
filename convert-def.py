@@ -805,6 +805,7 @@ def generate_structure(f, peripheral):
 
 def generate_headers(peripherals, path):
     if path:
+        path += os.sep + 'rk3588'
         try:
             os.mkdir(path, mode = 0o755)
         except FileExistsError:
@@ -813,7 +814,7 @@ def generate_headers(peripherals, path):
             print('Cannot create output folder!: %s' % e)
             return
     else:
-        path = ''
+        path = 'rk3588'
 
     for peripheral in peripherals.values():
         fullpath = get_include_filename(path, peripheral)
@@ -846,7 +847,7 @@ def generate_headers(peripherals, path):
             struct = peripheral.name
 
         if peripheral.refcount or peripheral.derived:
-            f.write('#include "%s%s.h"\n' % (prefix, struct.lower()))
+            f.write('#include <rk3588/%s%s.h>\n' % (prefix, struct.lower()))
             f.write('\n')
             generate_base(f, struct, peripheral, short_indent)
         else:
