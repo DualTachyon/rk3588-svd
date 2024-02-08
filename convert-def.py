@@ -783,17 +783,20 @@ def generate_structure(f, peripheral):
                 if modifier.startswith('@'):
                     count = int(modifier[1:], 0)
                     break
+
+            readonly = 'const ' if 'RO' in register.modifiers else ''
+
             if count > 1:
                 if register.size == 8:
-                    f.write('\tuint%d_t %s[%d];\n' % (register.size, reg_name, count))
+                    f.write('\t%suint%d_t %s[%d];\n' % (readonly, register.size, reg_name, count))
                 else:
-                    f.write('\tunion {\n')
+                    f.write('\t%sunion {\n' % readonly)
                     f.write('\t\tuint8_t %s_BASE[%d];\n' % (reg_name, count * (register.size // 8)))
                     f.write('\t\tuint%d_t %s[%d];\n' % (register.size, reg_name, count))
                     f.write('\t};\n')
                 offset += (register.size // 8) * (count - 1)
             else:
-                f.write('\tuint%d_t %s;\n' % (register.size, reg_name))
+                f.write('\t%suint%d_t %s;\n' % (readonly, register.size, reg_name))
         base = offset + (register.size // 8)
     f.write('} %s_t;\n' % struct)
     f.write('\n')
