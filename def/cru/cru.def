@@ -5266,1740 +5266,2296 @@ GATE_CON77 = 0x0934 ; Internal clock gate and division register 77
 SOFTRST_CON01 = 0x0A04 ; Internal clock reset register 1
 > 15, 1, ARESETN_TOP_M500_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, PRESETN_CSIPHY1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, PRESETN_CSIPHY0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, PRESETN_TOP_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, ARESETN_TOP_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON02 = 0x0A08 ; Internal clock reset register 2
 > 15, 1, RESETN_USBDP_COMBO_PHY1_INIT ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, RESETN_USBDP_COMBO_PHY0_PCS ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, RESETN_USBDP_COMBO_PHY0_LANE ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, RESETN_USBDP_COMBO_PHY0_CMN ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, RESETN_USBDP_COMBO_PHY0_INIT ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, ARESETN_TOP_M300_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, ARESETN_TOP_S400_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, ARESETN_TOP_S200_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, ARESETN_TOP_M400_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON03 = 0x0A0C ; Internal clock reset register 3
 > 15, 1, PRESETN_MIPI_DCPHY0_GRF ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 14, 1, PRESETN_MIPI_DCPHY0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, RESETN_USBDP_COMBO_PHY1_PCS ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, RESETN_USBDP_COMBO_PHY1_LANE ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, RESETN_USBDP_COMBO_PHY1_CMN ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON04 = 0x0A10 ; Internal clock reset register 4
 > 11, 1, PRESETN_APB2ASB_SLV_IOC_RIGHT ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, PRESETN_APB2ASB_SLV_IOC_TOP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, PRESETN_APB2ASB_SLV_EMMCIO ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, PRESETN_APB2ASB_SLV_VCCIO6 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, PRESETN_APB2ASB_SLV_VCCIO3_5 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, PRESETN_APB2ASB_SLV_CSIPHY ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, PRESETN_APB2ASB_SLV_CDPHY ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, PRESETN_MIPI_DCPHY1_GRF ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, PRESETN_MIPI_DCPHY1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON05 = 0x0A14 ; Internal clock reset register 5
 > 15, 1, HRESETN_CHANNEL_SECURE2CENTER ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 14, 1, HRESETN_CHANNEL_SECURE2VO1USB ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, ARESETN_CHANNEL_SECURE2CENTER ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, ARESETN_CHANNEL_SECURE2VO1USB ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, PRESETN_CRU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON06 = 0x0A18 ; Internal clock reset register 6
 > 1, 1, PRESETN_CHANNEL_SECURE2CENTER ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, PRESETN_CHANNEL_SECURE2VO1USB ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON07 = 0x0A1C ; Internal clock reset register 7
 > 13, 1, HRESETN_I2S3_2CH ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, HRESETN_I2S2_2CH ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, PRESETN_ACDCDIG ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, MRESETN_I2S0_8CH_RX ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, MRESETN_I2S0_8CH_TX ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, HRESETN_I2S0_8CH ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, PRESETN_AUDIO_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, HRESETN_AUDIO_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON08 = 0x0A20 ; Internal clock reset register 8
 > 14, 1, HRESETN_SPDIF0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, RESETN_DAC_ACDCDIG ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, MRESETN_I2S3_2CH ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, MRESETN_I2S2_2CH ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON09 = 0x0A24 ; Internal clock reset register 9
 > 7, 1, RESETN_PDM1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, HRESETN_PDM1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, MRESETN_SPDIF1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, HRESETN_SPDIF1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, MRESETN_SPDIF0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON10 = 0x0A28 ; Internal clock reset register 10
 > 15, 1, PRESETN_I2C8 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 14, 1, PRESETN_I2C7 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, PRESETN_I2C6 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, PRESETN_I2C5 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, PRESETN_I2C4 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, PRESETN_I2C3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, PRESETN_I2C2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, PRESETN_I2C1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, ARESETN_DMAC2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, ARESETN_DMAC1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, ARESETN_DMAC0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, ARESETN_GIC_DBG ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, ARESETN_GIC ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, PRESETN_BUS_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, ARESETN_BUS_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON11 = 0x0A2C ; Internal clock reset register 11
 > 14, 1, PRESETN_SARADC ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, RESETN_CAN2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, PRESETN_CAN2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, RESETN_CAN1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, PRESETN_CAN1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, RESETN_CAN0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, PRESETN_CAN0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, RESETN_I2C8 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, RESETN_I2C7 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, RESETN_I2C6 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, RESETN_I2C5 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, RESETN_I2C4 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, RESETN_I2C3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, RESETN_I2C2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, RESETN_I2C1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON12 = 0x0A30 ; Internal clock reset register 12
 > 13, 1, SRESETN_UART1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, PRESETN_UART9 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, PRESETN_UART8 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, PRESETN_UART7 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, PRESETN_UART6 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, PRESETN_UART5 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, PRESETN_UART4 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, PRESETN_UART3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, PRESETN_UART2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, PRESETN_UART1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, RESETN_TSADC ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, PRESETN_TSADC ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON13 = 0x0A34 ; Internal clock reset register 13
 > 15, 1, SRESETN_UART7 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, SRESETN_UART6 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, SRESETN_UART5 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, SRESETN_UART4 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, SRESETN_UART3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, SRESETN_UART2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON14 = 0x0A38 ; Internal clock reset register 14
 > 15, 1, RESETN_SPI4 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 14, 1, RESETN_SPI3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, RESETN_SPI2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, RESETN_SPI1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, RESETN_SPI0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, PRESETN_SPI4 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, PRESETN_SPI3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, PRESETN_SPI2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, PRESETN_SPI1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, PRESETN_SPI0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, SRESETN_UART9 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, SRESETN_UART8 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON15 = 0x0A3C ; Internal clock reset register 15
 > 15, 1, RESETN_BUSTIMER0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, PRESETN_BUSTIMER1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, PRESETN_BUSTIMER0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, RESETN_PWM3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, PRESETN_PWM3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, RESETN_PWM2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, PRESETN_PWM2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, RESETN_PWM1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, PRESETN_PWM1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, PRESETN_SYS_GRF ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, TRESETN_WDT0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, PRESETN_WDT0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON16 = 0x0A40 ; Internal clock reset register 16
 > 15, 1, DBRESETN_GPIO1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 14, 1, PRESETN_GPIO1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, PRESETN_MAILBOX2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, PRESETN_MAILBOX1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, PRESETN_MAILBOX0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, RESETN_BUSTIMER11 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, RESETN_BUSTIMER10 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, RESETN_BUSTIMER9 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, RESETN_BUSTIMER8 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, RESETN_BUSTIMER7 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, RESETN_BUSTIMER6 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, RESETN_BUSTIMER5 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, RESETN_BUSTIMER4 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, RESETN_BUSTIMER3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, RESETN_BUSTIMER2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, RESETN_BUSTIMER1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON17 = 0x0A44 ; Internal clock reset register 17
 > 15, 1, PRESETN_APB2ASB_MST_BOT_RIGHT ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 14, 1, PRESETN_APB2ASB_MST_CDPHY ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, PRESETN_APB2ASB_MST_TOP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, PRESETN_DFT2APB ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, ARESETN_GICADB_GIC2CORE_BUS ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, PRESETN_TOP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, DRESETN_DECOM ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, PRESETN_DECOM ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, ARESETN_DECOM ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, DBRESETN_GPIO4 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, PRESETN_GPIO4 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, DBRESETN_GPIO3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, PRESETN_GPIO3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, DBRESETN_GPIO2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, PRESETN_GPIO2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON18 = 0x0A48 ; Internal clock reset register 18
 > 11, 1, RESETN_OTPC_ARB ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, RESETN_OTPC_NS ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, PRESETN_OTPC_NS ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, ARESETN_SPINLOCK ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, PRESETN_APB2ASB_MST_EMMCIO ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, PRESETN_APB2ASB_MST_VCCIO6 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, PRESETN_APB2ASB_MST_VCCIO3_5 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, PRESETN_APB2ASB_MST_CSIPHY ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, PRESETN_APB2ASB_MST_IOC_RIGHT ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, PRESETN_APB2ASB_MST_IOC_TOP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON19 = 0x0A4C ; Internal clock reset register 19
 > 5, 1, PRESETN_DDRCM0_INTMUX ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, PRESETN_PMUCM0_INTMUX ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, PRESETN_BUSIOC ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON20 = 0x0A50 ; Internal clock reset register 20
 > 15, 1, PRESETN_DDR_STANDBY_CH1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 14, 1, PRESETN_DDR_MON_CH1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, PRESETN_DDR_DFICTL_CH1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, ARESETN_DDR_UPCTL_CH0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, RESETN_DDR_STANDBY_CH0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, RESETN_DDR_MON_CH0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, RESETN_DDR_DFICTL_CH0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, RESETN_DDR_UPCTL_CH0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, RESETN_SBR_CH0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, RESETN_DFI_CH0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, PRESETN_DDR_GRF_CH01 ; ddr ch0 and ch1 grf presetn When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, TMRESETN_DDR_MON_CH0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, PRESETN_DDR_UPCTL_CH0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, PRESETN_DDR_STANDBY_CH0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, PRESETN_DDR_MON_CH0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, PRESETN_DDR_DFICTL_CH0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON21 = 0x0A54 ; Internal clock reset register 21
 > 15, 1, ARESETN_DDR_FRS_DDRSCH0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 14, 1, ARESETN_DDR_RS_DDRSCH0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, ARESETN_DDR_DDRSCH0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, ARESETN_DDR_UPCTL_CH1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, RESETN_DDR_STANDBY_CH1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, RESETN_DDR_MON_CH1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, RESETN_DDR_DFICTL_CH1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, RESETN_DDR_UPCTL_CH1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, RESETN_SBR_CH1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, RESETN_DFI_CH1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, TMRESETN_DDR_MON_CH1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, PRESETN_DDR_UPCTL_CH1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON22 = 0x0A58 ; Internal clock reset register 22
 > 8, 1, PRESETN_DDR_DDRSCH1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, PRESETN_DDR_DDRSCH0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, ARESETN_DDR_FRS_SCRAMBLE1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, ARESETN_DDR_SCRAMBLE1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, ARESETN_DDR_FRS_DDRSCH1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, ARESETN_DDR_RS_DDRSCH1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, ARESETN_DDR_DDRSCH1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, ARESETN_DDR_FRS_SCRAMBLE0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, ARESETN_DDR_SCRAMBLE0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON23 = 0x0A5C ; Internal clock reset register 23
 > 15, 1, PRESETN_DDR_STANDBY_CH3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 14, 1, PRESETN_DDR_MON_CH3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, PRESETN_DDR_DFICTL_CH3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, ARESETN_DDR_UPCTL_CH2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, RESETN_DDR_STANDBY_CH2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, RESETN_DDR_MON_CH2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, RESETN_DDR_DFICTL_CH2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, RESETN_DDR_UPCTL_CH2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, RESETN_SBR_CH2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, RESETN_DFI_CH2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, PRESETN_DDR_GRF_CH23 ; ddr ch2 and ch3 grf presetn When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, TMRESETN_DDR_MON_CH2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, PRESETN_DDR_UPCTL_CH2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, PRESETN_DDR_STANDBY_CH2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, PRESETN_DDR_MON_CH2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, PRESETN_DDR_DFICTL_CH2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON24 = 0x0A60 ; Internal clock reset register 24
 > 15, 1, ARESETN_DDR_FRS_DDRSCH2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 14, 1, ARESETN_DDR_RS_DDRSCH2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, ARESETN_DDR_DDRSCH2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, ARESETN_DDR_UPCTL_CH3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, RESETN_DDR_STANDBY_CH3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, RESETN_DDR_MON_CH3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, RESETN_DDR_DFICTL_CH3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, RESETN_DDR_UPCTL_CH3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, RESETN_SBR_CH3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, RESETN_DFI_CH3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, TMRESETN_DDR_MON_CH3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, PRESETN_DDR_UPCTL_CH3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON25 = 0x0A64 ; Internal clock reset register 25
 > 8, 1, PRESETN_DDR_DDRSCH3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, PRESETN_DDR_DDRSCH2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, ARESETN_DDR_FRS_SCRAMBLE3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, ARESETN_DDR_SCRAMBLE3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, ARESETN_DDR_FRS_DDRSCH3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, ARESETN_DDR_RS_DDRSCH3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, ARESETN_DDR_DDRSCH3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, ARESETN_DDR_FRS_SCRAMBLE2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, ARESETN_DDR_SCRAMBLE2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON26 = 0x0A68 ; Internal clock reset register 26
 > 8, 1, HRESETN_ISP1_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, ARESETN_ISP1_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, RESETN_ISP1_VICAP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, RESETN_ISP1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON27 = 0x0A6C ; Internal clock reset register 27
 > 3, 1, HRESETN_RKNN1_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, HRESETN_RKNN1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, ARESETN_RKNN1_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, ARESETN_RKNN1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON28 = 0x0A70 ; Internal clock reset register 28
 > 3, 1, HRESETN_RKNN2_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, HRESETN_RKNN2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, ARESETN_RKNN2_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, ARESETN_RKNN2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON29 = 0x0A74 ; Internal clock reset register 29
 > 14, 1, RESETN_PVTM1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, PRESETN_NPU_GRF ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, PRESETN_PVTM1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, TRESETN_NPU_WDT ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, PRESETN_NPU_WDT ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, RESETN_NPUTIMER1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, RESETN_NPUTIMER0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, PRESETN_NPU_TIMER ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, PRESETN_NPUTOP_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, ARESETN_RKNN_DSU0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON30 = 0x0A78 ; Internal clock reset register 30
 > 9, 1, HRESETN_RKNN0_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, HRESETN_RKNN0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, ARESETN_RKNN0_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, ARESETN_RKNN0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, TRESETN_NPU_CM0_JTAG ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, FRESETN_NPU_CM0_CORE ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, HRESETN_NPU_CM0_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, RESETN_NPU_PVTPLL ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON31 = 0x0A7C ; Internal clock reset register 31
 > 11, 1, HRESETN_SFC_XIP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, HRESETN_SFC ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, SRESETN_SFC ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, TRESETN_EMMC ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, BRESETN_EMMC ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, CRESETN_EMMC ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, ARESETN_EMMC ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, HRESETN_EMMC ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, ARESETN_NVM_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, HRESETN_NVM_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON32 = 0x0A80 ; Internal clock reset register 32
 > 15, 1, RESETN_PCIE_1L0_POWER_UP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 14, 1, RESETN_PCIE_2L_POWER_UP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, RESETN_PCIE_4L_POWER_UP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, ARESETN_PCIE_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, ARESETN_GMAC1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, ARESETN_GMAC0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, ARESETN_PHP_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, ARESETN_PCIE_BRIDGE ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, PRESETN_PHP_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, PRESETN_DEC_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, PRESETN_GRF ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON33 = 0x0A84 ; Internal clock reset register 33
 > 15, 1, PRESETN_PCIE_1L1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 14, 1, PRESETN_PCIE_1L0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, PRESETN_PCIE_2L ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, PRESETN_PCIE_4L ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, RESETN_PCIE_1L2_POWER_UP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, RESETN_PCIE_1L1_POWER_UP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON34 = 0x0A88 ; Internal clock reset register 34
 > 9, 1, ARESETN_MMU_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, ARESETN_MMU_PHP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, ARESETN_MMU_PCIE ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, ARESETN_PHP_GIC_ITS ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, PRESETN_PCIE_1L2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON35 = 0x0A8C ; Internal clock reset register 35
 > 7, 1, ARESETN_USB3OTG2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON37 = 0x0A94 ; Internal clock reset register 37
 > 15, 1, RESETN_ASIC2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 14, 1, RESETN_ASIC1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, RESETN_ASIC0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, RESETN_RXOOB2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, RESETN_RXOOB1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, RESETN_RXOOB0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, ARESETN_SATA2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, ARESETN_SATA1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, ARESETN_SATA0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, RESETN_PMALIVE2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, RESETN_PMALIVE1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, RESETN_PMALIVE0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON40 = 0x0AA0 ; Internal clock reset register 40
 > 9, 1, RESETN_RKVDEC0_CORE ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, RESETN_RKVDEC0_HEVC_CA ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, RESETN_RKVDEC0_CA ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, ARESETN_RKVDEC0_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, HRESETN_RKVDEC0_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, ARESETN_RKVDEC0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, HRESETN_RKVDEC0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, ARESETN_RKVDEC_CCU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON41 = 0x0AA4 ; Internal clock reset register 41
 > 8, 1, RESETN_RKVDEC1_CORE ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, RESETN_RKVDEC1_HEVC_CA ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, RESETN_RKVDEC1_CA ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, ARESETN_RKVDEC1_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, HRESETN_RKVDEC1_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, ARESETN_RKVDEC1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, HRESETN_RKVDEC1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON42 = 0x0AA8 ; Internal clock reset register 42
 > 15, 1, CRESETN_USB2P0_HOST0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 14, 1, ARESETN_USB_GRF ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, HRESETN_HOST_ARB1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, HRESETN_HOST1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, HRESETN_HOST_ARB0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, HRESETN_HOST0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, ARESETN_USB3OTG1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, ARESETN_USB3OTG0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, HRESETN_USB_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, ARESETN_USB_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON43 = 0x0AAC ; Internal clock reset register 43
 > 2, 1, RESETN_HOST_UTMI1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, RESETN_HOST_UTMI0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, CRESETN_USB2P0_HOST1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON44 = 0x0AB0 ; Internal clock reset register 44
 > 15, 1, HRESETN_JPEG_ENCODER2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 14, 1, ARESETN_JPEG_ENCODER2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, HRESETN_JPEG_ENCODER1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, ARESETN_JPEG_ENCODER1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, HRESETN_JPEG_ENCODER0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, ARESETN_JPEG_ENCODER0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, HRESETN_VPU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, ARESETN_VPU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, ARESETN_JPEG_DECODER_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, HRESETN_VDPU_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, ARESETN_VDPU_LOW_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, ARESETN_VDPU_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON45 = 0x0AB4 ; Internal clock reset register 45
 > 12, 1, RESETN_RGA3_0_CORE ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, ARESETN_RGA3_0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, HRESETN_RGA3_0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, RESETN_RGA2_CORE ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, ARESETN_RGA2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, HRESETN_RGA2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, RESETN_IEP2P0_CORE ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, ARESETN_IEP2P0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, HRESETN_IEP2P0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, HRESETN_JPEG_DECODER ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, ARESETN_JPEG_DECODER ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, HRESETN_JPEG_ENCODER3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, ARESETN_JPEG_ENCODER3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON47 = 0x0ABC ; Internal clock reset register 47
 > 6, 1, RESETN_RKVENC0_CORE ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, ARESETN_RKVENC0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, HRESETN_RKVENC0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, ARESETN_RKVENC0_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, HRESETN_RKVENC0_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON48 = 0x0AC0 ; Internal clock reset register 48
 > 6, 1, RESETN_RKVENC1_CORE ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, ARESETN_RKVENC1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, HRESETN_RKVENC1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, ARESETN_RKVENC1_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, HRESETN_RKVENC1_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON49 = 0x0AC4 ; Internal clock reset register 49
 > 11, 1, RESETN_ISP0_VICAP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, RESETN_ISP0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, HRESETN_VICAP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, ARESETN_VICAP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, DRESETN_VICAP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, PRESETN_VI_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, HRESETN_VI_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, ARESETN_VI_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON50 = 0x0AC8 ; Internal clock reset register 50
 > 9, 1, PRESETN_CSI_HOST_5 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, PRESETN_CSI_HOST_4 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, PRESETN_CSI_HOST_3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, PRESETN_CSI_HOST_2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, PRESETN_CSI_HOST_1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, PRESETN_CSI_HOST_0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, RESETN_FISHEYE1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, RESETN_FISHEYE0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON51 = 0x0ACC ; Internal clock reset register 51
 > 13, 1, RESETN_CIFIN ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, RESETN_CSIHOST5_VICAP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, RESETN_CSIHOST4_VICAP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, RESETN_CSIHOST3_VICAP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, RESETN_CSIHOST2_VICAP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, RESETN_CSIHOST1_VICAP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, RESETN_CSIHOST0_VICAP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON52 = 0x0AD0 ; Internal clock reset register 52
 > 15, 1, DRESETN_VP2HDMI_BRIDGE1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 14, 1, DRESETN_VP2HDMI_BRIDGE0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, DRESETN_VP0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, ARESETN_VOP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, HRESETN_VOP ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, PRESETN_VOP_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, HRESETN_VOP_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, ARESETN_VOP_LOW_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, ARESETN_VOP_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON53 = 0x0AD4 ; Internal clock reset register 53
 > 9, 1, PRESETN_VOP_CHANNEL_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, RESETN_VOP_PMU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, RESETN_DSIHOST1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, RESETN_DSIHOST0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, PRESETN_DSIHOST1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, PRESETN_DSIHOST0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, PRESETN_VOPGRF ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, DRESETN_VP3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, DRESETN_VP2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, DRESETN_VP1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON55 = 0x0ADC ; Internal clock reset register 55
 > 15, 1, RESETN_HDCP0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, HRESETN_HDCP0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, ARESETN_HDCP0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, HRESETN_HDCP_KEY0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, PRESETN_VO0GRF ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, ARESETN_HDCP0_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, PRESETN_VO0_S_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, PRESETN_VO0_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, HRESETN_VO0_S_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, HRESETN_VO0_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON56 = 0x0AE0 ; Internal clock reset register 56
 > 14, 1, HRESETN_I2S8_8CH ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, MRESETN_I2S4_8CH_TX ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, HRESETN_I2S4_8CH ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, RESETN_DP1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, RESETN_DP0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, PRESETN_TRNG0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON57 = 0x0AE4 ; Internal clock reset register 57
 > 11, 1, MRESETN_SPDIF5_DP1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, HRESETN_SPDIF5_DP1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, MRESETN_SPDIF2_DP0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, HRESETN_SPDIF2_DP0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, MRESETN_I2S8_8CH_TX ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON59 = 0x0AEC ; Internal clock reset register 59
 > 13, 1, PRESETN_VO1_S_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, PRESETN_VO1GRF ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, DOC_BUG1_HRESETN_VO1_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, HRESETN_VO1_S_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, DOC_BUG0_HRESETN_VO1_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, ARESETN_VO1_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, ARESETN_HDCP1_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON60 = 0x0AF0 ; Internal clock reset register 60
 > 11, 1, PRESETN_HDMITX0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, PRESETN_TRNG1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, RESETN_HDCP1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, HRESETN_HDCP1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, ARESETN_HDCP1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, HRESETN_HDCP_KEY1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, MRESETN_I2S7_8CH_RX ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, HRESETN_I2S7_8CH ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON61 = 0x0AF4 ; Internal clock reset register 61
 > 11, 1, RESETN_HDMIRX_REF ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, PRESETN_HDMIRX ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, ARESETN_HDMIRX ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, RESETN_HDMITX1_REF ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, PRESETN_HDMITX1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, RESETN_HDMITX0_REF ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON62 = 0x0AF8 ; Internal clock reset register 62
 > 15, 1, MRESETN_I2S6_8CH_TX ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, HRESETN_I2S5_8CH ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, MRESETN_I2S5_8CH_TX ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, RESETN_EDP1_24M ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, PRESETN_EDP1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, RESETN_EDP0_24M ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, PRESETN_EDP0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON63 = 0x0AFC ; Internal clock reset register 63
 > 15, 1, MRESETN_SPDIFRX1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 14, 1, HRESETN_SPDIFRX1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, MRESETN_SPDIFRX0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, HRESETN_SPDIFRX0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, MRESETN_SPDIF4 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, HRESETN_SPDIF4 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, MRESETN_SPDIF3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, HRESETN_SPDIF3 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, HRESETN_I2S6_8CH ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, MRESETN_I2S6_8CH_RX ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON64 = 0x0B00 ; Internal clock reset register 64
 > 15, 1, RESETN_VO1_BRIDGE1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 14, 1, RESETN_VO1_BRIDGE0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, RESETN_LINKSYM_HDMITXPHY1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, RESETN_LINKSYM_HDMITXPHY0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, MRESETN_SPDIFRX2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, HRESETN_SPDIFRX2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON65 = 0x0B04 ; Internal clock reset register 65
 > 8, 1, PRESETN_S_HDMIRX ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, MRESETN_I2S10_8CH_RX ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, HRESETN_I2S10_8CH ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, MRESETN_I2S9_8CH_RX ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, HRESETN_I2S9_8CH ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON66 = 0x0B08 ; Internal clock reset register 66
 > 15, 1, PRESETN_PVTM2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 14, 1, PRESETN_GPU_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, ARESETN_M3_GPU_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, ARESETN_M2_GPU_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, ARESETN_M1_GPU_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, ARESETN_M0_GPU_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, ARESETN_S_GPU_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, SYSRESETN_GPU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, RESETN_GPU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON67 = 0x0B0C ; Internal clock reset register 67
 > 4, 1, PORESETN_GPU_JTAG ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, RESETN_GPU_PVTPLL ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, PRESETN_GPU_GRF ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, RESETN_PVTM2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON68 = 0x0B10 ; Internal clock reset register 68
 > 5, 1, PRESETN_AV1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, PRESETN_AV1_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, ARESETN_AV1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, ARESETN_AV1_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON69 = 0x0B14 ; Internal clock reset register 69
 > 14, 1, FRESETN_DDR_CM0_CORE ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 13, 1, HRESETN_CENTER_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, HRESETN_AHB2APB ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, ARESETN_CENTER_S400_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, ARESETN_CENTER_S200_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, ARESETN_DDR_SHAREMEM_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, ARESETN_DDR_SHAREMEM ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, ARESETN_DMA2DDR ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, ARESETN_DDR_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON70 = 0x0B18 ; Internal clock reset register 70
 > 12, 1, PRESETN_CENTER_CHANNEL_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 11, 1, PRESETN_CENTER_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, PRESETN_SHAREMEM ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, PRESETN_DMA2DDR ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, PRESETN_TIMER ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, PRESETN_WDT ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, PRESETN_AHB2APB ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, PRESETN_CENTER_GRF ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, TRESETN_DDR_CM0_JTAG ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, TRESETN_WDT_DDR ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, RESETN_DDR_TIMER1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 0, 1, RESETN_DDR_TIMER0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON72 = 0x0B20 ; Internal clock reset register 72
 > 11, 1, PRESETN_USB2PHY_U2_1_GRF0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 10, 1, PRESETN_USB2PHY_U2_0_GRF0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 9, 1, PRESETN_USB2PHY_U3_1_GRF0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 8, 1, PRESETN_USB2PHY_U3_0_GRF0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, PRESETN_APB2ASB_SLV_BOT_RIGHT ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, PRESETN_HDPTX1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, PRESETN_HDPTX0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, PRESETN_USBDPPHY1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, PRESETN_USBDPGRF1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, PRESETN_USBDPPHY0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, PRESETN_USBDPGRF0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON73 = 0x0B24 ; Internal clock reset register 73
 > 13, 1, RESETN_HDMIHDP1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 12, 1, RESETN_HDMIHDP0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON74 = 0x0B28 ; Internal clock reset register 74
 > 3, 1, HRESETN_VO1USB_TOP_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, ARESETN_VO1USB_TOP_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON75 = 0x0B2C ; Internal clock reset register 75
 > 3, 1, RESETN_SDIO ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, HRESETN_SDIO ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 1, 1, HRESETN_SDIO_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON76 = 0x0B30 ; Internal clock reset register 76
 > 6, 1, RESETN_RGA3_1_CORE ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 5, 1, ARESETN_RGA3_1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 4, 1, HRESETN_RGA3_1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 3, 1, ARESETN_RGA3_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 2, 1, HRESETN_RGA3_BIU ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 SOFTRST_CON77 = 0x0B34 ; Internal clock reset register 77
 > 8, 1, RESETN_REF_PIPE_PHY2 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 7, 1, RESETN_REF_PIPE_PHY1 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 > 6, 1, RESETN_REF_PIPE_PHY0 ; When high, reset relative logic
 = 1, ASSERT
+= 0, DEASSERT
 
 GLB_CNT_TH = 0x0C00 ; System control register
 > 0, 10, GLOBAL_RESET_COUNTER_THRESHOLD ; global_reset_counter_threshold Global soft reset, wdt reset or tsadc_shut reset asserted time counter threshold. Measured in OSC clock cycles
