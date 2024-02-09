@@ -1,3 +1,50 @@
 [DCF]
 @ = 0x0FE3C0000, 0x00010000
 
+# WARNING! Registers based on RK3568.
+# There are also many typos with regards to RO/WO
+
+CTRL = 0x0000 ; DCF Control Register
+> 2, 1, VOP_HW_EN
+= 1, ENABLE
+= 0, DISABLE
+
+> 1, 1, TIMEOUT_EN, WO
+= 1, ENABLE
+= 0, DISABLE
+
+> 0, 1, START, WO
+= 1, START
+= 0, STOP
+
+STATUS = 0x0004, RO ; Internal Status Register
+> 7, 1, DMA_DONE_ST
+> 6, 1, INSTR_DONE_ST
+> 5, 1, DMA_ERROR_ST
+> 4, 1, INSTR_ERROR_ST
+> 3, 1, DCF_TIMEOUT_ST
+> 2, 1, DCF_EDGE_TRIGGER_ST
+> 1, 1, DCF_LEVEL_TRIGGER_ST
+
+> 0, 1, DCF_IDLE_ST
+= 1, IDLE
+= 0, BUSY
+
+ADDR = 0x0008 ; Instruction Start Address Register
+
+ISR = 0x000C, RO ; Interrupt Status Register
+> 1, 1, DCF_ERROR
+> 0, 1, DCF_DONE
+= 1, COMPLETE
+= 0, NOT_COMPLETE
+
+TIMEOUT_CYC = 0x0014 ; Instruction Timeout Cycle Register
+
+CURR_R0 = 0x0020, RO ; Current Internal R0 Value Register
+CURR_R1 = 0x0024, RO ; Current Internal R1 Value Register
+CMD_COUNTER = 0x0028, RO ; Current Command Counter Value Register
+LAST_ADDR1 = 0x0030, RO ; Last 1 Instruction Address Register
+LAST_ADDR2 = 0x0034, RO ; Last 2 Instruction Address Register
+LAST_ADDR3 = 0x0038, RO ; Last 3 Instruction Address Register
+LAST_ADDR4 = 0x003C, RO ; Last 4 Instruction Address Register
+
