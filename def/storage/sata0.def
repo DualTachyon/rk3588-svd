@@ -1,0 +1,550 @@
+[SATA0, storage]
+@ = 0x0FE210000, 0x00010000
+
++ = SATA
+
+CAP = 0x0000, RO ; This register indicates basic capabilities of the SATA Host to the software.
+> 31, 1, S64A ; Supports 64-bit addressable data structures by utilizing P0FBU and P0CLBU registers.
+> 30, 1, SNCQ ; Supports SATA native command queuing by handing DMA Setup FIS natively.
+> 29, 1, SSNTF ; Supports P0SNTF (SNotification) register and its associated functionality. 28 RW 0x0 smps This bit is set by the system firmware/BIOS when platform supports mechanical presence for hot plug operation. 27 RW 0x0 sss This bit is set by the system firmware/BIOS to indicate platform support for staggered devices' spin-up. SATA Host supports this feature through the P0CMD.SUD bit functionality.
+> 26, 1, SALP ; Supports auto-generating Link Layer requests to the PARTIAL or SLUMBER power management states when there are no commands to process.
+> 25, 1, SAL ; Supports activity indication using signal P0_act_led.
+> 24, 1, SCLO ; Supports the P0CMA.CLO bit functionality for Port Multiplier devices' enumeration.
+> 20, 4, ISS ; Supports SATA 1.5Gb/s, SATA 3Gb/s, SATA 6Gb/s interface speeds.
+> 19, 1, SNZO ; This feature is not supported.
+> 18, 1, SAM ; Supports AHCI mode only and does not supports legacy, task-file based register interface.
+> 17, 1, SPM ; Supports command-based switching Port Multiplier on any of its ports.
+> 16, 1, FBSS ; FIS-Based Switching supported.
+> 15, 1, PMD ; Supports multiple DRQ block data transfer for the PIO command protocol.
+> 14, 1, SSC ; Supports transitions to the interface SLUMBER power management state.
+> 13, 1, PSC ; Supports transitions to the interface PARTIAL power management state.
+> 8, 5, NCS ; Supports 32 command slots per Port.
+> 7, 1, CCCS ; Command Completion Coalescing Supported
+> 6, 1, EMS ; SATA Host does not support enclosure management.
+
+> 5, 1, SXS ; The options for this field are:
+= 0, NO_SINGLE_ONLY ; Indicates that the SATA Host has no ports that have a signal only connector externally accessible;
+= 1, HAS_SINGLE_ONLY ; Indicates that the SATA Host has one or more ports that has a signal only connector (power is not part of that connector) that is externally accessible. When this bit is set to 1, the software can refer to the P0CMD.ESP bit to determine whether a specific Port has its signal connector externally accessible.
+
+> 0, 5, NP ; Indicating the numbers of ports supported by the SATA Host.
+
+GHC = 0x0004 ; This register controls various global actions of the SATA Host.
+> 31, 1, AE, RO ; This bit is always set since SATA Host supports only AHCI mode as indicated by the CAP.SAM=1.
+> 1, 1, IE ; This global bit enables interrupts from the SATA Host. When cleared, all interrupt sources from all the ports are disabled. When set, interrupts are enabled and ant SATA Host interrupt event caused interrupt assertion.
+> 0, 1, HR, WO ; When set by the software, this bit causes an internal Global reset of the SATA Host. All state machines that relate to data transfers and queuing return to and idle state, and all the ports are re- initialized by sending COMRESET when staggered spin-up is not supported. When staggered spin-up is supported, then the software must spin-up each port after this reset has complete.
+
+IS = 0x0008 ; This register indicates which of the ports within the SATA Host have an interrupt pending and require service
+> 0, 2, IPS ; When set, this bit indicates that the corresponding Ports or Command Completion Coalescing logic has an interrupt pending. The software can use this information to determine which ports require service after an interrupt. The bits of this field are set by the ports that have interrupt events pending in the P0IS bits and enabled by the P0IE or CCC interrupt is generated. Set bits are cleared by the software writing 1 to all bits to clear.
+
+PI = 0x000C ; This register indicates which ports are exposed by the SATA Host and are available for the software to use. It is loaded by the BIOS.
+> 0, 1, PI ; This register is bit significant.
+= 0, NOT_AVAILABLE ; The Port is not available for the software to use;
+= 1, AVAILABLE ; The corresponding Port is available for the software to use.
+
+VS = 0x0010 ; This register indicates the major and minor version of the AHCI specification that the SATA Host implementation supports. The SATA Host supports version 1.3.0
+> 16, 16, MJR ; Indicates that the major AHCI version is 1.
+> 0, 16, MNR ; Indicates that the minor AHCI version is 30 or 31.
+
+CCC_CTL = 0x0014 ; This register is used to configure the command completion coalescing (CCC) feature for the SATA Host.
+> 16, 16, TV ; This field specifies the CCC time-out value in 1ms intervals. The software loads this value prior to enabling CCC.
+
+> 8, 8, CC ; This field specifies the number of command completions that are necessary to cause a CCC interrupt. The value 0, for this field disables CCC interrupts being generated based on the number of commands completed. In this case, CCC interrupts are only generated based on the timer.
+
+> 3, 5, INTR_INT ; This field specifies the interrupt used by the ccc feature, using the number of ports configured for the core.
+
+> 0, 1, EN ; The options for this field are:
+= 0, DISABLED ; CCC feature is disabled and no CCC interrupts are generated;
+= 1, ENABLED ; CCC feature is enabled and CCC interrupts may be generated based on the time-out or command completion conditions.
+
+CCC_PORTS = 0x0018 ; This register specifies the ports that are coalesced as part of the command completion coalescing (CCC) feature.
+> 0, 1, PRT ; This field is bit significant. Each bit corresponds to a particular Port, where bit 0 corresponds to Port0.The options for this field are:
+= 0, NOT_PART_OF ; The corresponding Port is not part of the CCC feature.
+= 1, PART_OF ; The corresponding Port is part of the CCC feature. Bits set in this register must also have the corresponding bit set in the PI (Ports Implemented Register).
+
+CAP2 = 0x0024, RO ; This register indicates capabilities of the SATA Host to the software.
+> 5, 1, DESO ; SATA Host supports DevSleep entrance from any Link state (active, Partial, or Slumber).
+> 4, 1, SADM ; SATA Host supports hardware assertion of the P0_phy_devslp output after the idle timer expires.
+> 3, 1, SDS ; SATA Host supports hardware assertion of the P0_phy_devslp output after the idle timer expires.
+> 2, 1, APST ; Automatic Partial to Slumber Transitions
+> 1, 1, NVMP ; SATA Host does not support NVMHCI.
+> 0, 1, BPH ; SATA Host does not support BOH.
+
+BISTAFR = 0x00A0 ; This register contains the pattern definition and data pattern fields of the received BIST Activate FIS.
+> 8, 8, NCP ; Least significant byte of the received BIST Activate FIS second DWORD (bits [7:0]). This value defines the required pattern for Far-end transmit only mode (BISTAFR.PD=0xC0 or 0xE0). When none of these values is decoded, the Lone bit pattern (LBP) is transmitted by default.
+= 0x4A, HFTP ; High frequency test pattern (HFTP)
+= 0x78, MFTP ; Mid frequency test pattern (MFTP)
+= 0x7E, LFTP ; Low frequency test pattern (LFTP)
+= 0x7F, SSOP ; Simultaneous switching outputs pattern (SSOP)
+= 0xAB, LFSCP ; Low frequency spectral component pattern (LFSCP)
+= 0xB5, HTDP ; High transition density pattern (HTDP)
+= 0xF1, LTDP ; Low transition density pattern (LTDP)
+
+> 0, 8, PD ; Indicates the pattern definition field of the received BIST Activate FIS - bits [23:16] of the first DWORD. It is used to put the SATA Host in one of the following BIST modes. All other values should not be used by the device, otherwise, the FIS is negatively acknowledged with R_ERRp. For Far-end Transmit only modes BISTAFR.NCP field contains the required data pattern.
+= 0x08, ANALOG ; Far-end Analog (when PHY supports this mode);
+= 0x10, RETIMED ; Far-end Retimed;
+= 0xC0, TRANSMIT_ONLY ; Far-end Transmit only;
+= 0xE0, TRANSMIT_ONLY_WITH_BYPASS ; Far-end Transmit only with scrambler bypassed.
+
+BISTCR = 0x00A4 ; This register is used in BIST initiator modes and for general PHY/Link control. It is loaded by the host software prior to sending BIST Activate FIS to the device.
+> 25, 1, OLD_PHY_READY, RO ; Old phy_ready
+> 24, 1, LATE_PHY_READY, RO ; When set, this bit changes monitoring of phy_ready to be the "OR" of phy_ready or phy_rx_data_vld so that a "late arriving", or even "never asserting" phy_ready. This requires that phy_rx_data_vld does not become valid until after the PHY has locked onto post OOB incoming ALIGNs, and the ALIGNs are valid from the PHY. This will not work if phy_rx_data_vld is asserted during OOB data bursts. This behavior is intended for PHYs that assert phy_ready late, but will also work if phy_ready never asserts or is not present.
+> 20, 1, FERLB, WO ; When set, this bit is used to put the SATA Host Link into Far-end Retimed mode, without the BIST Activate FIS, regardless whether the device is connected or disconnected (Link in NOCOMM state). This field is one-shot type and reads returns 0.
+> 19, 1, RESERVED, RO ;
+> 18, 1, TXO, WO ; This bit is used to initiate transmission of one of the non- compliant patterns defined by the BISTCR.PATTERN value when the device is disconnected.
+
+> 17, 1, CNTCLR, WO ; This bit clears BIST error count registers. This field is one-shot type and reads returns 0.
+= 1, CLEAR ; Clear BISTFCTR, BISTSR, and BISTDECR registers.
+
+> 16, 1, NEARLB, WO ; This bit places the Port PHY into Near-end Analog loopback mode. This field is one-shot type and reads returns 0. BISTCR.PATTERN field contains the appropriate pattern. This mode should be initiated either in the PARTIAL or SLUMBER power mode, or with the device disconnected from the Port PHY (Link NOCOMM state). BIST Activate FIS is not sent to the device in this mode.
+
+> 15, 1, LLB ; When set, masks out phy_sig_det from the OOB Detector in BIST Loopback Mode, and the only way to exit BIST Loopback mode is to clear the register bit (requires access to the Device AMBA register interface), then issue COMRESET or receive COMINIT as normal. Alternately, a power on reset will automatically clear the BIST Loopback Mode register bit.
+= 0, DISABLED ; Near-end Analog loopback disabled;
+= 1, REQUEST ; Near-end Analog loopback request.
+
+> 14, 1, QPHYINIT, RO ; When set, this bit enables quick PHY initialization feature. The Link does not require any ALIGNs to transition from OOB to normal operation.
+
+> 13, 1, ERRLOSSEN ; This bit is cleared until it is set via programming.
+
+> 12, 1, SDFE ; This bit is cleared until it is set via programming. It is not affected by a Global reset or COMRESET.
+
+> 10, 1, RPD
+= 0, DISABLED ; Repeat primitive drop function disabled in normal mode, NA in BIST mode.
+= 1, ENABLED ; Repeat primitive drop function enabled in normal mode, NA in BIST mode.
+
+> 9, 1, DESCRAM
+= 0, DISABLED ; Descrambler disabled in normal mode, enabled in BIST mode.
+= 1, ENABLED ; Descrambler enabled in normal mode, disabled in BIST mode.
+
+> 8, 1, SCRAM ; The SCRAM bit is cleared (enabled) by the Port when the Port enters a responder far-end transmit BIST mode with scrambling enabled (BISTAFR.PD=0xC0). In normal mode, the functions scrambler, descrambler, or RPD can be changed only during Port reset (P0SCTL.DET=0x1)
+= 0, DISABLED ; Scrambler disabled in normal mode, enabled in BIST mode;
+= 1, ENABLED ; Scrambler enabled in normal mode, disabled in BIST mode.
+
+> 6, 1, ERREN ; This bit is used to allow or filter (disable) PHY internal errors outside the FIS boundary to set corresponding P0SERR bits.
+= 0, FILTER ; Filter errors outside the FIS, allow errors inside the FIS;
+= 1, ALLOW ; Allow errors outside or inside the FIS.
+
+> 5, 1, FLIP ; This bit is used to change disparity of the current test pattern to the opposite every time its state is changed by the software. 4 RW 0x0 pv This bit is used to select either short or long version of the SSOP, HTDP, LTDP, LFSCP, COMP patterns.
+= 0, SHORT ; Short pattern version;
+= 1, LONG ; Long pattern version.
+
+> 0, 4, PATTERN ; This field defines one of the following SATA-compliant patterns for Far-end Retimed/Far-end Analog/Near-end Analog initiator modes, or non-compliant patterns for Transmit-only responder mode when initiated by the software writing to the BISTCR.TXO bit. All other values are reserved and should not be used. If the value is none of the listed previously, Composite pattern (COMP) is transmitted by default.
+= 0, SSOP ; Simultaneous switching outputs pattern (SSOP)
+= 1, HTDP ; High transition density pattern (HTDP)
+= 2, LTDP ; Low transition density pattern (LTDP)
+= 3, LFSCP ; Low frequency spectral component pattern (LFSCP)
+= 4, COMP ; Composite pattern (COMP)
+= 5, LBP ; Lone bit pattern (LBP)
+= 6, MFTP ; Mid frequency test pattern (MFTP)
+= 7, HFTP ; High frequency test pattern (HFTP)
+= 8, LFTP ; Low frequency test pattern (LFTP)
+
+BISTFCTR = 0x00A8, RO ; This register contains the received BIST FIS count in the loopback initiator Far-end Retimed, Far-end Analog and Near-end Analog modes.
+> 0, 32, COUNT ; Received BIST FIS Count
+
+BISTSR = 0x00AC, RO ; This register contains errors detected in the received BIST FIS in the loopback initiator Far-end Retimed, Far-end Analog and Near-end Analog modes. It is updated each time a new BIST FIS is received. RK3588 TRM-Part2 Copyright 2022 © Rockchip Electronics Co., Ltd. 2286 Name Offset Size Reset Value Description
+> 16, 8, BRSTERR ; This field contains the burst error count. It is accumulated each time a burst error condition is detected: DWORD error is detected in the received frame and 1.5 seconds (27,000 frames) passed since the previous burst error was detected.
+
+> 0, 16, FRAMERR ; This field contains the frame error count. It is accumulated (new value is added to the old value) each time a new BIST frame with a CRC error is received.
+
+BISTDECR = 0x00B0, RO ; This register contains the number of DWORD errors detected in the received BIST frame in the loopback initiator Far-end Retimed, Far-end Analog and Near-end Analog modes. It is updated each time a new BIST frame is received.
+> 0, 32, DWERR ; This field contains the DWORD error count. It is accumulated (new value is added to the old value) each time a new BIST frame is received.
+
+MEMEDFBSERRDATA = 0x00B4, RO ; This is read-only per-port FBS RAM Data Ecc/Parity error location (address) and syndrome register. J
+> 12, 20, MEM_FBS_ERR_SYND ; This field logs the error syndrome of the RAM Data Ecc/Parity error, if the syndrome with excess the range of the filed MEMEDFBSERRDATA.mem_fbs_err_synd, extra bits is logged in another register MEMEDFBSERRDATAU.mem_fbs_err_synd_u.
+
+> 0, 12, MEM_FBS_ERR_ADDR ; This filed logs the error location (the address of which the RAM data Ecc/Parity error detected)
+
+MEMEDADDRERRIN = 0x00B8 ; This per-port register controls the ECC/Parity error injection functionality. Single-bit and double-bit pseudo-random errors can be injected in each of the three memory interfaces (RX FIFO RAM, TX FIFO RAM, FBS RAM). The register allows for just one memory element to be injected with an error or for continuous error injection in each memory element.
+> 17, 1, UED, W1C ; Indicates a single bit uncorrected, or multiple bit error was detected. Cleared by writing '1' to this field.
+
+> 16, 1, CED, W1C ; Indicates a single bit error was corrected. Cleared by writing '1' to this field.
+
+> 4, 1, ONEB_2B ; When MEM_DP_TYPE=1 (Parity), only single-bit error injection is allowed in Parity mode and hence the value programmed in this bit is 'don't care'.
+
+> 3, 1, CONT, W1C ; Selects 'one-shot' (0) or 'continuous' (1) errors
+
+> 1, 2, MEM_SEL
+= 0, ALL ; All three memory interfaces;
+= 1, RX_FIFO ; RX FIFO Memory;
+= 2, TX_FIFO ; TX FIFO Memory;
+= 3, RFS_RAM ; FBS RAM.
+
+> 0, 1, ERR_INJ_VALID ; The values in the rest of the fields of this register are valid only when this bit is set to 1.
+= 1, VALID
+
+OOBR = 0x00BC ; This register controls the Link layer OOB detection counters. The default values, MIN_COMWAKE, MAX_COMWAKE, MIN_COMINIT and MAX_COMINIT are calculated based on the RXOOB_CLK_FREQ parameter and loaded on power- up or asynchronous SATA Host reset.
+> 31, 1, WE ; This bit is cleared when COMRESET is detected.
+= 0, READ_ONLY ; OOBR bits [30:0] are read-only;
+= 1, READ_WRITE ; OOBR bits [30:0] can be written.
+
+> 24, 7, CWMIN ; This field is RW when WE=1 and RO when WE=0.
+
+> 16, 8, CWMAX ; This field is RW when WE=1 and RO when WE=0.
+
+> 8, 8, CIMIN ; This field is RW when WE=1 and RO when WE=0.
+
+> 0, 8, CIMAX ; This field is RW when WE=1 and RO when WE=0.
+
+MEMEDTXFERRDATAU = 0x00C0, RO ; When the TX FIFO RAM Data parity error syndrome width excess the range of the register MEMEDTXFERRDATA.mem_txf_err _synd, extra bits are logged in this register. If the upper syndrome bits are not enough for filling all the bits of this register, redundancy bits filled with 0.
+> 0, 32, MEM_TXF_ERR_SYND_U ; When the TX FIFO RAM Data parity error syndrome width excess the range of the register MEMEDTXFERRDATA.mem_tx_err_synd, extra bits is logged in this field.
+
+DIAGNR3 = 0x00C4, RO ; DIAGNR3
+> 0, 32, FBCSW_CNT ; FIS-based context switching counter
+
+TIMER1MS = 0x00E0 ; This register is used to generate a 1-ms tick for the command completion coalescing (CCC) or DevSleep logic, based on the AMBA bus clock frequency.
+> 0, 20, TIMV ; This field contains the following value for the internal timer to generate 1-ms tick: Famba*1000, where Famba = AMBA clock frequency in MHz. The options for this field are: RW when CCC_CTL.EN=0 and CCC_SUPPORT = Include RO when CCC_CTL.EN=1 and CCC_SUPPORT = Include RW when CCC_SUPPORT=Exclude and DEVSLP_SUPPORT=Include
+
+MEMDPCR = 0x00E4 ; This register is used to control the various options associated with the Data protection (ECC/Parity) and Address protection (Parity) functionality. RK3588 TRM-Part2 Copyright 2022 © Rockchip Electronics Co., Ltd. 2287 Name Offset Size Reset Value Description
+> 9, 1, MEM_PAR_EVEN ; This value is derived from the MEM_PAR_EVEN parameter.
+= 0, ODD ; Generate odd type of parity for data (if parity type protection selected) and address;
+= 1, EVEN ; Generate even type of parity for data (if parity type protection selected) and address.
+
+> 8, 1, MEM_ERR_INJ_LOC ; The options for this field are as follows:
+= 0, DATA ; Inject error on data bits;
+= 1, DATA_CHECK ; Inject error on data check bits.
+
+> 7, 1, MEM_ED_LOG_CLR_EN ;
+= 0, BY_RESET ; All error detection and correction logging registers are cleared by Global or COMRESET.
+= 1, BY_EM_ED_LOG_CLR ; All error detection and correction logging registers are cleared only when MEMDPCR.EM_ED_LOG_CLR is set.
+
+> 6, 1, MEM_ED_LOG_CLR, WO ; This field clears all error detection and correction logging registers when written. This bit clears itself one cycle after written.
+
+> 5, 1, MEM_ED_LOG_DIS ; This field disables error detection and correction logging when set.
+
+> 4, 1, MEM_ED_CE_EN ; This field enables correctable error detection interrupt (INFS). (For diagnostic purposes only)
+
+> 3, 1, MEM_ED_PDMAF_DIS ; This field disables PDMA from entering a fatal error state when an incorrect error is detected. (For diagnostic purposes only)
+
+> 2, 1, MEM_ED_IFS_DIS ; This field disables setting the IFS interrupt register bit (interface fatal error status interrupt) when an incorrect error is detected when MEM_DP_TYPE selects ECC, or a Parity error is detected when MEM_DP_TYPE selects Parity.
+
+> 1, 1, MEM_EC_DIS ; When set, disables the single error correcting features everywhere, and all errors are reported as incorrect. This field has no effect when MEM_DP_TYPE = Parity or when MEM_DP_EN = 0.
+
+> 0, 1, MEM_ED_DIS ; All ECC/Parity error detection, correction, interrupt generation and Fatal error state transitions are disabled when this bit is set to 1. This field has no effect when the hardware parameter MEM_DP_EN = 0.
+
+TESTR = 0x00F4 ; This register is used to put the SATA Host slave interface into a test mode and to select a Port for BIST operation.
+> 24, 2, BSEL ; This field is used to select a bank for BIST or Data Protection operation or Address Protection operation.
+= 0, BIST ; BIST registers selected
+= 1, DATA_PROT ; Data Protection registers selected
+= 2, ADDR_PROT ; Address Protection registers selected
+= 3, RESERVED
+
+> 16, 3, PSEL ; This field is used to select a Port for BIST operation. The options for this field are:
+= 0, PORT0 ; Port0 is selected;
+= 1, PORT1 ; Port1 is selected;
+= 2, PORT2 ; Port2 is selected;
+= 3, PORT3 ; Port3 is selected;
+= 4, PORT4 ; Port4 is selected;
+= 5, PORT5 ; Port5 is selected;
+= 6, PORT6 ; Port6 is selected;
+= 7, PORT7 ; Port7 is selected.
+
+> 0, 1, TEST_IF ; This bit is used to put the SATA Host slave interface into the test mode.
+= 0, NORMAL ; Normal mode: the read back value of some registers is a function of the SATA Host state and does not match the value written;
+= 1, TEST ; Test mode: the read back value of the registers matches the value written. Normal operation is disabled. The following registers can be accessed in this mode: GHC register IE bit BISTAFR register NCP and PD bits become read-write BISTCR register LLC, ERREN, FLIP, PV, PATTERN BISTFCTR, BISTSR, BISTDECR become read-write P0CLB/CLBU, P0FB/FBU registers P0IS register RW1C and UFS bits become read-write P0IE register RW bits (CPDE is RO if DEV_CP_DET = Exclude, DMPE bit is RO if DEV_MP_SWITCH = Exclude) P0CMD register ASP, ALPE, DLAE, ATAPI, PMA bits P0TFD, P0SIG registers become read-write P0SCTL register RW bits [9:8], [5:4], and [2:0] (Bits [2:0] cannot be written with the 3'b001 value if P0CMD.SUD=0) P0SERR register RW1C bits become read-write bits P0SACT, P0CI, P0SNTF registers become read-write P0DMACR register P0PHYCR register P0PHYSR register becomes read-write GPSR register becomes read-write
+
+VERSION = 0x00F8, RO ; This 32-bit read-only register contains hard-coded hexadecimal SATA Host component version value.
+
+IDR = 0x00FC, RO ; This register contains a hard- coded hexadecimal SATA Host identification value, as determined by the configuration parameter External User Core ID Port.
+
+P0CLB = 0x0100 ; Port Command List Base Address Register
+> 10, 22, CLB ; Indicates the 32-bit base physical address for the command list for this Port. This base is used when fetching commands to execute. The structure pointed to by this address range is 1 KB in length. This address must be 1-KB-aligned as indicated by bits
+
+P0FB = 0x0108 ; Port FIS Base Address Register
+> 8, 24, FB ; Indicates the 32-bit base physical address for received FISes. The structure pointed to by this address range is 256 bytes in length. This address must be 256byte-aligned as indicated by bits
+
+P0IS = 0x0110 ; Port Interrupt Status Register.
+> 31, 1, CPDS ; This bit is set when the P0_cp_det input changes its state due to the insertion or removal of the device. This bit is only valid when the Port supports cold presence detect as indicated by the P0CMD.CPD set to 1.
+> 30, 1, TFES ; This bit is set whenever the P0TFD.STS register is updated by the device and the error bit [0] is set.
+> 29, 1, HBFS ; This bit is set when SATA Host AMBA Master detects an ERROR response from the slave. Port DMA transitions to a fatal state until the software clears P0CMD.ST bit or resets the interface by way of Port or Global reset.
+> 28, 1, HBDS ; This bit is always cleared to 0.
+> 27, 1, IFS ; This bit is set when any of the following conditions are detected: SYNC escape is received from the device during non-Data or Data FIS transmission or reception (P0SERR.DIAG_S and ERR_P are set); One or more of the following errors are detected during Data FIS transfer: Protocol (P0SERR.ERR_P) CRC (P0SERR.DIAG_C) Handshake (P0SERR.DIAG_H) PHY Not Ready (P0SERR.ERR_C) Unknown FIS is received with good CRC, but the length exceeds 64 bytes; PRD table byte count is zero; DMA Setup FIS is received with a TAG corresponding to inactive (P0SACT bit is cleared) command slot; RAM address protection error detected (when hardware configuration parameter MEM_AP_SUPPORT is set to Include, and the MEM_AP_ERRFB_EN is set to Include, and the MEMDPCR.MEM_ADDR_ED_IFS_DIS register bit is set to 0); and/or Uncorrected error detected (when hardware configuration parameter MEM_DP_SUPPORT is set to Include, and the MEMDPCR.MEM_ED_IFS_DIS register bit is set to 0). Port DMA transitions to a fatal state until the software clears PCMD.ST bit or resets the interface by way of Port or Global reset.
+> 26, 1, INFS ; This bit is set when any of the following conditions are detected: One or more of the following errors are detected during non-data FIS transfer: Protocol (P0SERR.ERR_P) CRC (P0SERR.DIAG_C) Handshake (P0SERR.DIAG_H) PHY Not Ready (P0SERR.ERR_C) Command list underflow during read operation (such as, DMA read) when the software builds command table that has more total bytes than the transaction given to the device Corrected error detected (when hardware configuration parameter MEM_DP_SUPPORT is set to Include, MEM_DP_TYPE is set to ECC, and the MEMDPCR.MEM_ED_CE_EN register bit is set to 1) In both cases Port operation continues normally. When error is detected during non-data FIS transmission, this FIS is retransmitted continuously until it succeeds, or until the software times out and resets the interface.
+> 24, 1, OFS ; This bit is set when command list overflow is detected during read or write operation when the software builds command table that has fever total bytes than the transaction given to the device. Port DMA transitions to a fatal state until the software clears P0CMD.ST bit or resets the interface by way of Port or Global reset.
+> 23, 1, IPMS ; Indicates that the HBA received a FIS from a device whose Port Multiplier field did not match what was expected. This bit may be set during enumeration of devices on a Port Multiplier due to the normal Port Multiplier enumeration process. The software must use the IPMS bit only after enumeration is complete on the Port Multiplier.
+> 22, 1, PRCS ; This bit reflects the state of the P0SERR.DIAG_N bit. When set to 1, indicates the internal P0_phy_ready signal changed state. To clear this bit, the software must clear the P0SERR.DIAG_N bit to 0.
+> 7, 1, DMPS ; This bit is set when the P0_mp_switch input changes its state as a result of a mechanical switch attached to this Port opening or closing. This bit is valid only when both CAP.SMPS and P0CMD.MPSP are set.
+> 6, 1, PCS ; This bit reflects the state of the P0SERR.DIAG_X bit:
+= 0, NO_CHANGE ; No change in Current Connect Status;
+= 1, CHANGE ; Change in Current Connect Status. This bit is cleared only when P0SERR.DIAG_X is cleared.
+
+> 5, 1, DPS ; A PRD with the I bit set has transferred all of its data.
+> 4, 1, UFS ; When set to 1, indicates that an unknown FIS was received and has been copied into system memory. This bit is cleared to 0 by the software clearing the P0SERR.DIAG_F bit to 0.
+> 3, 1, SDBS ; A Set Device Bits FIS has been received with the 'I' bit set and has been copied into system memory.
+> 2, 1, DSS ; A DMA Setup FIS has been received with the 'I' bit set and has been copied into system memory.
+> 1, 1, PSS ; A PIO Setup FIS has been received with the 'I' bit set, it has been copied into system memory, and the data related to that FIS has been transferred.
+> 0, 1, DHRS ; A Device-to-Host Register FIS has been received with the 'I' bit set, and has been copied into system memory.
+
+P0IE = 0x0114 ; Port Interrupt Enable Register.
+> 31, 1, CPDE ; When the following conditions are true, the interrupt output signal is asserted: This bit=1 GHC.IE=1 P0IS.CPDS=1
+> 30, 1, TFEE ; when the following conditions are true, the interrupt output signal is asserted: This bit=1 GHC.IE=1 P0IS.TFES=1
+> 29, 1, HBFE ; When the following conditions are true, the interrupt output signal is asserted: This bit=1 GHC.IE=1 P0IS.HBFS=1
+> 28, 1, HBDE ; When the following conditions are true, the interrupt output signal is asserted: This bit=1 GHC.IE=1 P0IS.HBDS=1
+> 27, 1, IFE ; When the following conditions are true, the interrupt output signal is asserted: This bit=1 GHC.IE=1 P0IS.IFS=1
+> 26, 1, INFE ; When the following conditions are true, the interrupt output signal is asserted: This bit=1 GHC.IE=1 P0IS.INFS=1
+> 24, 1, OFE ; When the following conditions are true, the interrupt output signal is asserted: This bit=1 GHC.IE=1 P0IS.OFS=1
+> 23, 1, IPME ; When the following conditions are true, the interrupt output signal is asserted: This bit=1 GHC.IE=1 P0IS.IPMS=1
+> 22, 1, PRCE ; When the following conditions are true, the interrupt output signal is asserted: This bit=1 GHC.IE=1 P0IS.PRCS=1
+> 7, 1, DMPE ; When the following conditions are true, the interrupt output signal is asserted: This bit=1 GHC.IE=1 P0IS.DMPS=1
+> 6, 1, PCE, RO ; When the following conditions are true, the interrupt output signal is asserted: This bit=1 GHC.IE=1 P0IS.PCS=1
+> 5, 1, DPE ; When the following conditions are true, the interrupt output signal is asserted: This bit=1 GHC.IE=1 P0IS.DPS=1
+> 4, 1, UFE, RO ; When the following conditions are true, the interrupt output signal is asserted: This bit=1 GHC.IE=1 P0IS.UFS=1
+> 3, 1, SDBE ; When the following conditions are true, the interrupt output signal is asserted: This bit=1 GHC.IE=1 P0IS.SDBS=1
+> 2, 1, DSE ; When the following conditions are true, the interrupt output signal is asserted: This bit=1 GHC.IE=1 P0IS.DSS=1
+> 1, 1, PSE ; When the following conditions are true, the interrupt output signal is asserted: This bit=1 GHC.IE=1 P0IS.PSS=1
+> 0, 1, DHRE ; Dependencies: when the following conditions are true, the interrupt output signal is asserted: This bit=1 GHC.IE=1 P0IS.DHRS=1
+
+P0CMD = 0x0118 ; Port Command Register. This register contains bits controlling various Port functions.
+> 28, 4, ICC ; This field is used to control power management states of the interface. When the Link layer is currently in the L_IDLE state or L_NoCommPower state, writes to this field cause the Port to initiate a transition to the interface power management state requested. When the Link layer is not currently in the L_IDLE state or L_NoCommPower, writes to this field have no effect. 4'h1: Active. This causes the Port to request a transition of the interface into the active state; 4'h2: Partial. This causes the Port to request a transition of the interface to the Partial state. The SATA device can reject the request and the interface remains in its current state; 4'h6: Slumber. This causes the Port to request a transition of the interface to the Slumber state. The SATA device can reject the request and the interface remains in its current state; Else: Reserved.
+> 27, 1, ASP ; The options for this field are: When set to 1, and P0CMD.ALPE=1, the Port aggressively enters the SLUMBER state when one of the following conditions is true: The Port clears the P0CI and the P0SACT register is cleared. The Port clears the P0SACT register and P0CI is cleared. When cleared to 0, and P0CMD.ALPE=1, the Port aggressively enters the PARTIAL state when one of the following conditions is true: The Port clears the P0CI register and the P0SACT register is cleared. The Port clears the P0SACT register and P0CI is cleared.
+> 26, 1, ALPE ; When set to 1, the Port aggressively enters a lower link power state (PARTIAL or SLUMBER) based on the setting of the P0CMD.ASP bit. When cleared to 0, aggressive power management state transition is disabled.
+> 25, 1, DLAE ; When set to 1, P0CMD.ATAPI=1, and commands are active, the Port asserts P0_act_led output.
+
+> 24, 1, ATAPI ; This bit is used by the Port to control whether to assert P0_act_led output when commands are active.
+= 0, NON_ATAPI
+= 1, ATAPI
+
+> 23, 1, APSTE ; When this bit is set and the SATA Host Link layer negotiates Partial power management state with the device, it transitions into the Slumber state directly, regardless whether it was host software-, Port (aggressive)-, or device-initiated.
+> 22, 1, FBSCP ; When set to 1, indicates that this Port supports Port Multiplier FIS-based switching. When cleared to 0, indicates that this Port does not support FIS-based switching.
+> 21, 1, ESP ; When set to 1, indicates that this Port's signal only connector is externally accessible. When set to 1, CAP.SXS is also set to 1. When cleared to 0, indicates that this Port's signal only connector is not externally accessible.
+
+> 20, 1, CPD ;
+= 0, NOT_SUPPORTED ; Platform does not support cold presence detection on this Port;
+= 1, SUPPORTED ; Platform supports cold presence detection on this Port. When this bit is set to 1, P0CMD.HPCP must also be set to 1.
+
+> 19, 1, MPSP ; To enable the SATA Host mechanical presence detection feature.
+= 0, NOT_SUPPORTED ; Indicates the platform does not support a mechanical presence switch attached to this Port. When this bit is set to 1, P0CMD.HPCP should also be set to 1;
+= 1, SUPPORTED ; Indicates the platform supports a mechanical presence switch attached to this Port.
+
+> 18, 1, HPCP ;
+= 0, INTERNAL ; Indicates that this Port's signal and power connectors are not externally accessible;
+= 1, EXTERNAL ; Indicates that this Port's signal and power connectors are externally accessible via a joint signal-power connector for blind mate device hot plug.
+
+> 17, 1, PMA, RO ; The software is responsible for detecting whether a Port Multiplier is present; the SATA Host Port does not auto-detect the presence of a Port Multiplier.
+= 0, NOT_ATTACHED ; A Port Multiplier is not attached to this Port;
+= 1, ATTACHED ; A Port Multiplier is attached to this Port.
+
+> 16, 1, CPS, RO ; This bit reports whether a device is currently detected on this Port as indicated by the P0_cp_det input state.
+= 0, NOT_ATTACHED ; No device attached to this Port;
+= 1, ATTACHED ; Device is attached to this Port.
+
+> 15, 1, CR, RO ; When this bit is set to '1', the command list DMA engine for this Port is running.
+
+> 14, 1, FR, RO ; When set to '1', the FIS Receive DMA engine for the Port is running.
+
+> 13, 1, MPSS, RO ; The software must use this bit only when both CAP.SMPS and P0CMD.MPSP are set. This bit reports the state of a mechanical presence switch attached to this Port as indicated by the P0_mp_switch input state.
+= 0, CLOSED ; Switch is closed;
+= 1, OPEN ; Switch is open. When CAP.SMPS=0 then this bit is cleared to 0.
+
+> 8, 5, CCS ; This field is set to the command slot value of the command that is currently being issued by the Port. When P0CMD.ST transitions from 1 to 0, this field is cleared again to 5'h0. After P0CMD.ST transitions from 0 to 1, the highest priority slot to issue from next is command slot 0. After the first command has been issued, the highest priority slot to issue from next is P0CMD.CCS+1. 7:5 RO 0x0 reserved
+
+> 4, 1, FRE ; When set to 1, the Port may post received FISes into the FIS receive area pointed to by P0FB. When cleared, received FISes are not accepted by the Port, except for the first D2H register FIS after the initialization sequence, and no FISes are posted to the FIS receive area. The software must not set this bit until P0FB has been programmed with a valid pointer to the FIS receive area. When the software wishes to move the base, this bit must first be cleared, and the software must wait for the P0CMD.FR bit to be cleared.
+
+> 3, 1, CLO ; Setting this bit to 1 cause P0TFD.STS.BSY and P0TFD.STS.DRQ to be cleared to 0. This allows a software reset to be transmitted to the device regardless of whether the BSY and DRQ bits are still set in the P0TFD.STS register. This bit is cleared to 0 when P0TFD.STS.BSY and P0TFD.STS.DRQ have been cleared to 0. A write to this register with a value of '0' has no effect. This bit should only be set to 1 immediately prior to setting P0CMD.ST bit to 1 from a previous value of 0. Setting this bit to 1 at any other time is not supported and results in indeterminate behaviors.
+
+> 2, 1, POD ; This bit is read/write when cold presence detection is supported on this Port as indicated by P0CMD.CPD=1. This bit is read-only 1 when cold presence detection is not supported and P0CMD.CPD=0. When set, the Port asserts the P0_cp_pod output pin so that it may be used to provide power to a cold-presence detectable Port.
+
+> 1, 1, SUD ; This bit is read/write when staggered spin-up is supported as indicated by the CAP.SSS=1. This bit is read-only 1 when staggered spin-up is not supported and CAP.SSS=0. On an edge detect from 0 to 1, the Port starts a COMRESET initialization sequence to the device. Clearing this bit causes no action on the interface.
+
+> 0, 1, ST ; When set to 1, the Port processes the command list. When cleared, the Port does not process the command list. Whenever this bit is changed from a 0 to a 1, the Port starts processing the command list at entry 0. Whenever this bit is changed from a 1 to a 0, the P0CI register is cleared by the Port upon transition into an idle state.
+
+P0TFD = 0x0120 ; Port Task File Data Register. This register contains Error and Status registers updated every time a new Register FIS, PIO Setup FIS, or Set Device Bits FIS is received from the device.
+> 8, 8, ERR ; This field contains the latest copy of the task file error register.
+
+#> 0, 8, STS ; This field contains the latest copy of the task file status register.
+> 7, 1, STS_BSY ; Indicates the interface is busy;
+> 4, 3, STS_CS1 ; Command specific
+> 3, 1, STS_DRQ ; Indicates a data transfer is requested
+> 1, 2, STS_CS0 ; Command specific
+> 0, 1, STS_ERR ; Indicates an error during the transfer.
+
+P0SIG = 0x0124, RO ; Port Signature Register
+> 24, 8, LBA_HIGH ; (Cylinder High) Register
+> 16, 8, LBA_MID ; (Cylinder Low) Register
+> 8, 8, LBA_LOW ; (Sector Number) Register
+> 0, 8, COUNT ; Sector Count Register. This field is updated once after a reset sequence (cause by asynchronous, port, or soft reset). Reset on Global or Port reset.
+
+P0SSTS = 0x0128, RO ; Port Serial ATA Status (SStatus) Register. This 32-bit register conveys the current state of the interface and host. The Port updates it continuously and asynchronously. When the Port transmits a COMRESET to the device, this register is updated to its reset values (such as, Global reset, Port reset, or device disconnect ('PHY Ready' negation)).
+> 8, 4, IPM ; Indicates the current interface state.
+= 0, NOT_PRESENT ; Device not present or communication not established;
+= 1, ACTIVE ; Interface in Active state;
+= 2, PARTIAL ; Interface in Partial power management state;
+= 6, SLUMBER ; Interface in Slumber power management state;
+= 8, DEVSLEEP ; Interface in DevSleep power management state.
+
+> 4, 4, SPD ; Indicates the negotiated interface communication speed.
+= 0, NOT_PRESENT ; Device not present or communication not established;
+= 1, 1_5GBPS ; 1.5 Gb/s communication rate negotiated;
+= 2, 3_0GBPS ; 3.0 Gb/s communication rate negotiated;
+= 3, 6_0GBPS ; 6.0 Gb/s communication rate negotiated.
+
+> 0, 4, DET ; Indicates the interface device detection and PHY state.
+= 0, NO_DEVICE ; No device detected and PHY communication not established;
+= 1, COMINIT ; Device presence detected but PHY communication not established (COMINIT is detected);
+= 3, PHY_READY ; Device presence detected and PHY communication established ('PHY Ready' is detected);
+= 4, PHY_OFFLINE ; PHY in offline mode as a result of the interface being disabled or running in a BIST loopback mode.
+
+P0SCTL = 0x012C ; Port Serial ATA Control Register. This 32-bit read-write register is used by the software to control SATA interface capabilities. Writes to this register result in an action being taken by the Port PHY interface. Reads from the register return the last value written to it. Reset on Global reset.
+> 9, 1, IPM_SLUMBER ; This field indicates which power states the Port PHY interface is allowed to transition to. When an interface power management state is disabled, the Port does not initiate that state and any request from the device to enter that state is rejected via PMNAKp.
+= 1, DISABLED
+= 0, ENABLED
+
+> 8, 1, IPM_PARTIAL ; This field indicates which power states the Port PHY interface is allowed to transition to. When an interface power management state is disabled, the Port does not initiate that state and any request from the device to enter that state is rejected via PMNAKp.
+= 1, DISABLED
+= 0, ENABLED
+
+> 4, 2, SPD ; This field indicates the highest allowable speed of the Port PHY interface.
+= 0, NO_RESTRICTIONS ; No speed negotiation restrictions
+= 1, LIMIT_1_5_GBPS ; Limit speed negotiation to SATA 1.5 Gb/s communication rate
+= 2, LIMIT_3_0_GBPS ; Limit speed negotiation to SATA 3.0 Gb/s communication rate
+= 3, LIMIT_6_0_GBPS ; Limit speed negotiation to a rate not greater than SATA 6.0 Gb/s communication rate.
+
+> 0, 3, DET ; Controls the Port's device detection and interface initialization.
+= 0, NO ; No device detection or initialization action requested
+= 1, PERFORM ; Perform interface initialization sequence to establish communication. This results in the interface being reset and communication re initialized. The SATA Host asserts the corresponding P0_phy_reset(_n) output when DET=0x1. It negates P0_phy_reset(_n) and sends COMRESET OOB sequence when DET=0x0.
+= 4, DISABLE ; Disable the Serial ATA interface and put the Port PHY in offline mode.
+
+P0SERR = 0x0130 ; Port Serial ATA Error Register. This 32-bit register represents all the detected interface errors accumulated since the last time it was cleared.
+> 26, 1, DIAG_X ; This bit is set to 1 when PHY COMINIT signal is detected. This bit is reflected in the P0IS.PCS bit.
+> 25, 1, DIAG_F ; This bit indicates that one or more FISes were received by the Transport layer with good CRC, but had a type field that was not recognized/known and the length was less than or equal to 64 bytes.
+> 24, 1, DIAG_T ; This bit indicates that a Transport Layer protocol violation was detected since the last time this bit was cleared.
+> 23, 1, DIAG_S ; This bit indicates that one or more Link state machine error conditions was encountered. One of the conditions that cause this bit to be set is device doing SYNC escape during FIS transmission.
+> 22, 1, DIAG_H ; This bit indicates that one or more R_ERRp was received in response to frame transmission. Such errors may be the result of a CRC error detected by the device, a disparity or 8b/10b decoding error, or other error condition leading to a negative handshake on a transmitted frame.
+> 21, 1, DIAG_C ; This bit indicates that one or more CRC errors were detected by the Link layer during FIS reception. 20 RO 0x0 diag_d This bit is always cleared to 0 since it is not used by the AHCI specification.
+> 19, 1, DIAG_B ; This bit indicates errors were detected by 10b/8b decoder.
+> 18, 1, DIAG_W ; This bit is set when PHY COMWAKE signal is detected.
+> 17, 1, DIAG_I ; This bit is set when the PHY detects some internal error as indicated by the assertion of the P0_phy_rx_err input.
+> 16, 1, DIAG_N ; This bit indicates that the PHY Ready signal changed state. This bit is reflected in the P0IS.PRCS bit. 15:12 RO 0x0 reserved
+> 11, 1, ERR_E ; This bit is set to 1 when one or more AMBA bus ERROR responses are detected on the master interface.
+> 10, 1, ERR_P ; This bit is set to 1 when any of the following conditions are detected. Transport state transition error (DIAG_T) Link sequence error (DIAG_S) RX FIFO overflow Link bad end error (WTRM instead of EOF is received).
+> 9, 1, ERR_C ; This bit is set to 1 when PHY Ready signal is negated due to the loss of communication with the device or problems with interface, but not after transition from active to Partial or Slumber power management state.
+> 8, 1, ERR_T ; This bit is set when any of the following P0SERR register bits are set during Data FIS transfer: ERR_P (Protocol) DIAG_C (CRC) DIAG_H (Handshake) ERR_C ('PHY Ready' negation) 7:2 RO 0x00 reserved
+> 1, 1, ERR_M ; This bit is set to 1 when the PHY Ready condition is asserted under the following conditions: At any time except when there is a transition from power-down mode to Active state After interface initialization (after power on or COMRESET)
+> 0, 1, ERR_I ; This bit is set when any of the following P0SERR register bits is set during non-Data FIS transfer: ERR_P (Protocol) DIAG_C (CRC) DIAG_H (Handshake)
+
+P0SACT = 0x0134 ; Port Serial ATA Active Register
+> 31, 1, DS31 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 30, 1, DS30 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 29, 1, DS29 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 28, 1, DS28 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 27, 1, DS27 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 26, 1, DS26 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 25, 1, DS25 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 24, 1, DS24 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 23, 1, DS23 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 22, 1, DS22 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 21, 1, DS21 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 20, 1, DS20 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 19, 1, DS19 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 18, 1, DS18 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 17, 1, DS17 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 16, 1, DS16 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 15, 1, DS15 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 14, 1, DS14 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 13, 1, DS13 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 12, 1, DS12 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 11, 1, DS11 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 10, 1, DS10 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 9, 1, DS9 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 8, 1, DS8 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 7, 1, DS7 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 6, 1, DS6 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 5, 1, DS5 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 4, 1, DS4 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 3, 1, DS3 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 2, 1, DS2 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 1, 1, DS1 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+> 0, 1, DS0 ; Software sets this field prior to issuing a native queued command for a particular command slot. Prior to writing P0CI[TAG] to 1, the software sets DS[TAG] to 1 to indicate that a command with that TAG is outstanding. This field is cleared to 0 when: The software writes P0CMD.ST from a 1 to a 0. The device sends a Set Device Bits FIS to the Port. The Port clears bits in this field that are set in the SActive field of the Set Device Bits FIS. The Port clears only bits that correspond to native queued commands that have completed successfully. This field is not cleared by the following: Port reset (COMRESET). Software reset.
+
+P0CI = 0x0138 ; Port Command Issue Register
+> 31, 1, CI31 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 30, 1, CI30 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 29, 1, CI29 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 28, 1, CI28 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 27, 1, CI27 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 26, 1, CI26 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 25, 1, CI25 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 24, 1, CI24 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 23, 1, CI23 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 22, 1, CI22 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 21, 1, CI21 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 20, 1, CI20 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 19, 1, CI19 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 18, 1, CI18 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 17, 1, CI17 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 16, 1, CI16 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 15, 1, CI15 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 14, 1, CI14 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 13, 1, CI13 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 12, 1, CI12 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 11, 1, CI11 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 10, 1, CI10 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 9, 1, CI9 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 8, 1, CI8 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 7, 1, CI7 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 6, 1, CI6 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 5, 1, CI5 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 4, 1, CI4 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 3, 1, CI3 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 2, 1, CI2 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 1, 1, CI1 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+> 0, 1, CI0 ; This field is set by the software to indicate to the Port that a command has been built in system memory for a command slot and may be sent to the device. When the Port receives a FIS which clears the BSY, DRQ, and ERR bits for the command, it clears the corresponding bit in this register for that command slot. Bits in this field can only be set to 1 by the software when P0CMD.ST is set to 1.
+
+P0SNTF = 0x013C, W1C ; Port Serial ATA Notification Register. This register is used to determine when asynchronous notification events have occurred for directly connected devices and devices connected to a Port Multiplier.
+> 15, 1, PMN15 ; This field indicates whether a particular device issued a Set Device Bits FIS to the SATA Host Port with the Notification bit set This field is reset on Global reset, but it is not reset by Port reset (COMRESET) or software reset.
+> 14, 1, PMN14 ; This field indicates whether a particular device issued a Set Device Bits FIS to the SATA Host Port with the Notification bit set This field is reset on Global reset, but it is not reset by Port reset (COMRESET) or software reset.
+> 13, 1, PMN13 ; This field indicates whether a particular device issued a Set Device Bits FIS to the SATA Host Port with the Notification bit set This field is reset on Global reset, but it is not reset by Port reset (COMRESET) or software reset.
+> 12, 1, PMN12 ; This field indicates whether a particular device issued a Set Device Bits FIS to the SATA Host Port with the Notification bit set This field is reset on Global reset, but it is not reset by Port reset (COMRESET) or software reset.
+> 11, 1, PMN11 ; This field indicates whether a particular device issued a Set Device Bits FIS to the SATA Host Port with the Notification bit set This field is reset on Global reset, but it is not reset by Port reset (COMRESET) or software reset.
+> 10, 1, PMN10 ; This field indicates whether a particular device issued a Set Device Bits FIS to the SATA Host Port with the Notification bit set This field is reset on Global reset, but it is not reset by Port reset (COMRESET) or software reset.
+> 9, 1, PMN9 ; This field indicates whether a particular device issued a Set Device Bits FIS to the SATA Host Port with the Notification bit set This field is reset on Global reset, but it is not reset by Port reset (COMRESET) or software reset.
+> 8, 1, PMN8 ; This field indicates whether a particular device issued a Set Device Bits FIS to the SATA Host Port with the Notification bit set This field is reset on Global reset, but it is not reset by Port reset (COMRESET) or software reset.  > 7, 16, PMN7 ; This field indicates whether a particular device issued a Set Device Bits FIS to the SATA Host Port with the Notification bit set This field is reset on Global reset, but it is not reset by Port reset (COMRESET) or software reset.
+> 6, 1, PMN6 ; This field indicates whether a particular device issued a Set Device Bits FIS to the SATA Host Port with the Notification bit set This field is reset on Global reset, but it is not reset by Port reset (COMRESET) or software reset.
+> 5, 1, PMN5 ; This field indicates whether a particular device issued a Set Device Bits FIS to the SATA Host Port with the Notification bit set This field is reset on Global reset, but it is not reset by Port reset (COMRESET) or software reset.
+> 4, 1, PMN4 ; This field indicates whether a particular device issued a Set Device Bits FIS to the SATA Host Port with the Notification bit set This field is reset on Global reset, but it is not reset by Port reset (COMRESET) or software reset.
+> 3, 1, PMN3 ; This field indicates whether a particular device issued a Set Device Bits FIS to the SATA Host Port with the Notification bit set This field is reset on Global reset, but it is not reset by Port reset (COMRESET) or software reset.
+> 2, 1, PMN2 ; This field indicates whether a particular device issued a Set Device Bits FIS to the SATA Host Port with the Notification bit set This field is reset on Global reset, but it is not reset by Port reset (COMRESET) or software reset.
+> 1, 1, PMN1 ; This field indicates whether a particular device issued a Set Device Bits FIS to the SATA Host Port with the Notification bit set This field is reset on Global reset, but it is not reset by Port reset (COMRESET) or software reset.
+> 0, 1, PMN0 ; This field indicates whether a particular device issued a Set Device Bits FIS to the SATA Host Port with the Notification bit set This field is reset on Global reset, but it is not reset by Port reset (COMRESET) or software reset.
+
+P0FBS = 0x0140 ; Port FIS-Based Switching Control Register. This register is used to control and obtain status for Port Multiplier FIS-based switching.
+> 16, 4, DWE ; This field is set by the SATA Host core to the value of the Port Multiplier port number of the device that experienced a fatal error condition. This field is only valid when P0FBS.SDE=1.
+
+> 12, 4, ADO ; This field is hard-wired to the FBS_PMPN_MAX value.
+
+> 8, 4, DEV ; Software sets this field to the Port Multiplier port value of the next command to issue. This field enables the SATA Host core to know the port the command to be issues to without fetching the command header. Software should not issue commands to multiple Port Multiplier ports on the same write of the P0CI register. This bit is reset on Global reset.
+
+> 2, 1, SDE ; When this field is set to 1 and a fatal error condition has occurred, the SATA Host core believes the error is localized to one device such that software's first error recovery step should be to utilize the P0FBS.DEC functionality. When cleared to 0 and a fatal error condition has occurred, the error applies to the entire Port. To clear the error, software should clear P0CMD.ST to 0. This bit is cleared on P0FBS.DEC being set to 1 or on P0CMD.ST being cleared to 0. This bit is reset on Global reset.
+
+> 1, 1, DEC ; When set to 1 by software, the SATA Host core clears the device- specific error condition. It flushes any commands outstanding for the device that experienced the error, including clearing P0CI and P0SACT bits for that device to 0. The SATA Host core clears this bit to 0 when it completes error recovery actions. When software writes a 0 to this bit, there is no effect. Software should only set this bit to 1 if P0FBS.EN=1 and P0FBS.SDE=1. This bit is reset on Global reset.
+
+> 0, 1, EN ;
+= 0, DISABLE ; FIS-based switching is not being used (command-based switching is used instead). Software should only change the value of this bit when P0CMD.ST=0;
+= 1, ENABLE ; A Port Multiplier is attached and the SATA Host uses FIS- based switching to communicate with it. This bit is reset on Global reset.
+
+P0DMACR = 0x0170 ; Port DMA Control Register. This register contains bits for controlling the Port DMA engine. The software can change the fields of this register only when P0CMD.ST=0. This register is reset to its default value on power-up (system reset) only.
+> 4, 4, RXTS ; This field defines the Port DMA transaction size in FIFO words for receive (system bus write, device read) operation. This field is read-write when P0CMD.ST=0 and read-only when P0CMD.ST=1.
+= 0, 1
+= 1, 2
+= 2, 4
+= 3, 8
+= 4, 16
+= 5, 32
+= 6, 64
+= 7, 128
+= 8, 256
+= 9, 512
+= 10, 1024
+
+> 0, 4, TXTS ; This field defines the DMA transaction size in FIFO words for transmit (system bus read, device write) operation. This field is read-write when P0CMD.ST=0 and read-only when P0CMD.ST=1.
+= 0, 1
+= 1, 2
+= 2, 4
+= 3, 8
+= 4, 16
+= 5, 32
+= 6, 64
+= 7, 128
+= 8, 256
+= 9, 512
+= 10, 1024
+

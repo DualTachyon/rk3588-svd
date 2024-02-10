@@ -1,4 +1,4 @@
-[CRU_BIGCORE0, CRU]
+[CRU_BIGCORE0, cru]
 @ = 0x0FD810000, 0x00002000
 
 B0PLL_CON0 = 0x0000 ; B0PLL configuration register 0

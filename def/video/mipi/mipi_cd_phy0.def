@@ -1,0 +1,5 @@
+[MIPI_CD_PHY0, video/mipi]
+@ = 0x0FEDA0000, 0x00010000
+
++ = MIPI_CD_PHY
+

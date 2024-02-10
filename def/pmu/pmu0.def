@@ -1,0 +1,137 @@
+[PMU0, pmu]
+@ = 0x0FD8D0000, 0x00004000
+
+PWR_CON0 = 0x0000 ; PMU power control 0 register
+> 14, 1, POWER_OFF_IO_ENA ; Enable VCCIO enter low power mode by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 13, 1, BIU_AUTO_PMU1 ; When perform idle operation, BIU_PMU1 corresponding clock can be opened or gated automatically.
+= 0, DISABLE
+= 1, ENABLE
+
+> 12, 1, PMU1_BUS_IDLE_SFTENA ; Enable sending idle request to BIU_PMU1 by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 11, 1, PMU1_BUS_IDLE_ENA ; Enable sending idle request to BIU_PMU1 by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 10, 1, PMU1_MEMPWR_GATE_SFTENA ; Enable power down PD_PMU1's memory by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 9, 1, PMU1_PWR_GATE_SFTENA ; Enable power down PD_PMU1 by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 8, 1, PMU1_PWR_GATE_ENA ; Enable power down PD_PMU1 by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 7, 1, OSC_DIS_BYPASS ; Bypass disable oscillator in power mode 0 procedure. If asserted, the oscillator cannot be disabled by FSM during power mode 0 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 6, 1, FREQ_SWITCH_BYPASS ; Bypass frequency switch stability in power mode 0 procedure. If asserted, clk_pmu cannot be switched to 32KHz clock source during power mode 0 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, RESET_BYPASS ; Bypass wake up reset clear stability in power mode 0 procedure. If asserted, the FSM will enter next state not wait for reset counter, and chip will not be reset.
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 1, PMIC_BYPASS ; Bypass waiting for PMIC stability in power mode 0 procedure. If asserted, the FSM will enter next state not wait until PMIC is stable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 3, 1, WAKEUP_BYPASS ; Bypass waiting for wake up interrupt in power mode 0 procedure. If asserted, the FSM will exit sleep state without waiting for wake up source.
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, PMU1_BUS_BYPASS ; Bypass BIU_PMU1 idle flow in power mode 0 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, PMU1_PWR_BYPASS ; Bypass PD_PMU1 power gating flow in power mode 0 procedure. If asserted, PD_PMU1 is not power down or power up during power mode 0 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, POWERMODE0_EN ; Power mode 0 enable. When controller enters power mode 0 procedure, this bit is automatically cleared.
+= 0, DISABLE
+= 1, ENABLE
+
+WAKEUP_INT_CON_P0 = 0x0008 ; PMU wake up interrupt control register for power mode 0
+> 0, 1, WAKEUP_INT_EN ; Enable GPIO interrupt as wake up source to exit power mode 0 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+WAKEUP_INT_STS_P0 = 0x000C ; PMU wake up interrupt status register for power mode 0
+> 0, 1, WAKEUP_INT_ST, RO ; Power mode 0 wake up source status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+PMIC_STABLE_CNT_P0 = 0x0010 ; PMIC stable count register for power mode 0
+> 0, 20, PMIC_STABLE_CNT ; PMIC stable count for power mode 0 procedure. Number of clk_pmu used by counter logic.
+
+WAKEUP_RST_CLR_CNT_P0 = 0x0014 ; Wake up reset clear count register for power mode 0
+> 0, 20, WAKEUP_RST_CLR_CNT ; Wake up reset clear count for power mode 0 procedure. Number of clk_pmu used by counter logic.
+
+OSC_STABLE_CNT_P0 = 0x0018 ; Oscillator stable count register for power mode 0
+> 0, 20, OSC_STABLE_CNT ; Oscillator stable count for power mode 0 procedure. Number of clk_pmu used by counter logic.
+
+PMU1_PWR_CHAIN_STABLE_CON = 0x001C ; PD_PMU1 power chain stable control register
+> 9, 5, PMU1_PWR_DWN_STABLE_CNT ; Stable count for PD_PMU1 power down flow. Number of clk_pmu used by counter logic.
+
+> 8, 1, PMU1_PWR_DWN_STABLE_EN ; Enable stable counter between power chains for PD_PMU1 power down flow.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 5, PMU1_PWR_UP_STABLE_CNT ; Stable count for PD_PMU1 power up flow. Number of clk_pmu used by counter logic.
+
+> 0, 1, PMU1_PWR_UP_STABLE_EN ; Enable stable counter between power chains for PD_PMU1 power up flow.
+= 0, DISABLE
+= 1, ENABLE
+
+DDR_RET_CON0_P0 = 0x0020 ; DDR retention control register 0 for power mode 0
+> 12, 4, DDRIO_RSTIOV_EXIT_ENA ; Enable DDR exits retention mode through RST_IOV by hardware in power mode 0 procedure. Bit[12] used for DDR channel 0. Bit[13] used for DDR channel 1. Bit[14] used for DDR channel 2. Bit[15] used for DDR channel 3.
+= 0, DISABLE
+= 1, ENABLE
+
+> 8, 4, DDRIO_RETON_EXIT_ENA ; Enable DDR exits retention mode through RETON/RETOFF by hardware in power mode 0 procedure. Bit[8] used for DDR channel 0. Bit[9] used for DDR channel 1. Bit[10] used for DDR channel 2. Bit[11] used for DDR channel 3.
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 4, DDRIO_RSTIOV_ENTER_ENA ; Enable DDR enters retention mode through RST_IOV by hardware in power mode 0 procedure. Bit[4] used for DDR channel 0. Bit[5] used for DDR channel 1. Bit[6] used for DDR channel 2. Bit[7] used for DDR channel 3.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 4, DDRIO_RETON_ENTER_ENA ; Enable DDR enters retention mode through RETON/RETOFF by hardware in power mode 0 procedure. Bit[0] used for DDR channel 0. Bit[1] used for DDR channel 1. Bit[2] used for DDR channel 2. Bit[3] used for DDR channel 3.
+= 0, DISABLE
+= 1, ENABLE
+
+DDR_RET_CON1_P0 = 0x0024 ; DDR retention control register 1 for power mode 0
+> 12, 4, DDRIO_RSTIOV_EXIT_SFTENA ; Enable DDR exits retention mode through RST_IOV by software. Bit[12] used for DDR channel 0. Bit[13] used for DDR channel 1. Bit[14] used for DDR channel 2. Bit[15] used for DDR channel 3.
+= 0, DISABLE
+= 1, ENABLE
+
+> 8, 4, DDRIO_RETON_EXIT_SFTENA ; Enable DDR exits retention mode through RETON/RETOFF by software. Bit[8] used for DDR channel 0. Bit[9] used for DDR channel 1. Bit[10] used for DDR channel 2. Bit[11] used for DDR channel 3.
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 4, DDRIO_RSTIOV_ENTER_SFTENA ; Enable DDR enters retention mode through RST_IOV by software. Bit[4] used for DDR channel 0. Bit[5] used for DDR channel 1. Bit[6] used for DDR channel 2. Bit[7] used for DDR channel 3.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 4, DDRIO_RETON_ENTER_SFTENA ; Enable DDR enters retention mode through RETON/RETOFF by software. Bit[0] used for DDR channel 0. Bit[1] used for DDR channel 1. Bit[2] used for DDR channel 2. Bit[3] used for DDR channel 3.
+= 0, DISABLE
+= 1, ENABLE
+
+INFO_TX_CON = 0x0030 ; PMU debug information transmit control register
+> 8, 1, INFO_TX_EN ; Enable PMU debug information transition.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 8, INFO_TX_INTV_TIME ; The interval time between the bytes of PMU debug information.
+

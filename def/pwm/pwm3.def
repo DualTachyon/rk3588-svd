@@ -1,3 +1,3 @@
-[PWM3, PWM]
+[PWM3, pwm]
 @ = 0x0FEBF0000, 0x00010000, PWM0
 

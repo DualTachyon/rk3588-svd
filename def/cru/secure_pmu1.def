@@ -1,4 +1,4 @@
-[CRU_SECURE_PMU1, CRU]
+[CRU_SECURE_PMU1, cru]
 @ = 0x0FD7E0000, 0x00010000
 
 CLKSEL_CON00 = 0x0300 ; Internal clock select and division register 0

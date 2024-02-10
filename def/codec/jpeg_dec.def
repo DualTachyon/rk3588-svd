@@ -1,0 +1,518 @@
+[JPEG_DEC, codec]
+@ = 0x0FDB90000, 0x00010000
+
+ID = 0x0000, RO ; ID register (read only)
+> 16, 32, PROD_NUM ; RKDJPEG version
+
+> 8, 1, BIT_DEPTH ; Max bit_depth support
+= 0, 8BITS
+= 1, 12BITS
+
+> 0, 8, MINOR_VER
+= 0, DEFAULT
+= 1, 8k
+
+INT = 0x0004 ; Interrupt and decoder enable register
+> 16, 1, SW_CARE_STRM_ERROR_E ; Use for sw_error_prc_mode=1
+= 0, DONT_CARE ; Not care stream error,when sw_care_strm_error_e=0, sw_dec_error_sta will not valid, Mmu will not be reset at frame end, Link table mode will continue without care stream error, Only active error info registers;
+= 1, CARE ; Care stream error
+
+> 15, 1, SW_BUF_EMPTY_FORCE_END_FLAG
+= 0, INVALID
+= 1, VALID ; Valid Buffer empty interrupt with stream real empty So should force hardware decoder current frame end
+
+> 14, 1, SW_SOFTRESET_RDY ; When it is 1'b1, it says that softreset has been done
+= 1, READY
+
+> 13, 1, SW_DEC_BUF_EMPTY_STA ; Buffer empty status, only when sw_buf_empty_e is 1'b1 , this bit is valid Software should clean stream buffer empty state and set sw_buf_empty_reload_p enbale at the same time
+= 1, EMPTY
+
+> 12, 1, SW_DEC_TIMEOUT_STA ; When high the decoder has been idling for too long. it will self reset the hardware Only when sw_dec_timeout_e is 1'b1, this bit is valid
+= 1, TIMEOUT
+
+> 11, 1, SW_DEC_ERROR_STA ; When high, an error is found in input data stream decoding.When sw_error_prc_mode is 1'b0, it will self reset the hardware, otherwise it will not
+= 1, ERROR
+
+> 10, 1, SW_DEC_BUS_STA ; When this bit is high, there is error on the axi bus, it will self reset hardware
+= 1, ERROR
+
+> 9, 1, SW_DEC_RDY_STA ; When this bit is high, decoder has decoded a picture (the output module send out a frame rdy)
+= 1, ERROR
+
+> 8, 1, SW_DEC_IRQ ; When high, decoder requests an interrrupt. sw_dec_irq = sw_dec_irq_raw && (sw_dec_irq_dis == 1'b0)
+= 1, PENDING
+
+> 7, 1, SW_WAIT_RESET_E ; The enable flag of wait software system to reset flag
+= 0, AUTO_RESET ; Hardware will auto reset when error occur
+= 1, WAIT_SW ; Wait software process reset when error occur
+
+> 6, 1, SW_DEC_IRQ_RAW ; The raw status of sw_dec_irq,SW should reset this bit after interrupt is handled
+
+> 5, 1, SW_SOFTRST_EN_P ; Softreset enable signal Write 1 to soft reset, write 0 invalid Pluse register
+
+> 4, 1, SW_BUF_EMPTY_RELOAD_P ; Buffer empty stream reload enable signal Write 1 to reload stream data ready Pulse register with hardware auto clean valid at next cycle Before reload enable,strm_len register should be reset and start_of_type is zero sw_strm_base addr may be reset also. Note:sw_error_prc_mode should be set to 1 when sw_buf_empty_e valid Otherwise the hardware would be reset and not support buffer buffer empty reload
+
+> 3, 1, SW_BUF_EMPTY_E ; Buffer empty interrupt enable
+= 1, ENABLE
+= 0, DISABLE
+
+> 2, 1, SW_DEC_TIMEOUT_E ; If enabled HW may return timeout interrupt in case HW gets stucked while decoding picture.
+= 1, ENABLE
+= 0, DISABLE
+
+> 1, 1, SW_DEC_IRQ_DIS ; When high, there are no interrupts concerning decoder from HW. Polling must be used to see the interrupt status
+= 0, ENABLE
+= 1, DISABLE
+
+> 0, 1, SW_DEC_E ; Decoder enable. Setting this bit high will start the decoding operation. HW will reset this when the picture is decoded ready or bus error or time out interrupt is given for all decode format.
+= 1, ENABLE
+= 0, DISABLE
+
+SYS = 0x0008 ; Rk jpeg decoder system ctrl
+> 31, 1, SW_YUV2RGB_RANGE ; Jpeg decoder yuv2rgb range
+= 0, RANGE0_LIMIT ; Y[16:235],UV[16:240],RGB[0:255]
+= 1, RANGE1_FULL ; YUV[0:255],RGB[0:255]
+
+> 30, 1, SW_YUV2RGB_REC ; Jpeg decoder yuv2rgb rec
+= 0, BT601
+= 1, BT709
+
+> 27, 3, SW_YUV_OUT_FORMAT ; Jpeg decoder yuv output transmit format
+= 0, YUV_RAW ; Yuv out without transmit format
+= 1, YUV2RGB888
+= 2, YUV2RGB565
+= 3, YUV2YUV420SP ; not support yuv400 transmit to yuv420sp
+= 4, YUV2YUYV ; only support yuv422 or yuv444, yuv444 should uv scaledown
+
+> 26, 1, SW_DEC_OUT_SEQUENCE ; Recon data out format when afbc off
+= 0, RASTER
+= 1, TILE
+
+> 25, 1, SW_FILL_RIGHT_E ; When JPEG picture width pixels is not a multiple of 16 pixels.
+= 0, NO_FILL ; Not fill picture width to multiple of 16 pixels.
+= 1, FILL ; Fill picture width to multiple of 16 pixels. HW must fill one block of zero pixel data to the right border of the picture.
+
+> 24, 1, SW_FILL_DOWN_E ; When JPEG picture height pixels is not a multiple of 16 pixels.
+= 0, NO_FILL ; Not fill picture height to multiple of 16 pixels.
+= 1, FILL ; Fill picture height to multiple of 16 pixels. HW must fill one block row of zero pixel data for the last block row of picture.
+
+> 23, 1, SW_BGR_SEQUENCE ; Jpeg decoder rgb sequence
+= 0, RGB565_RGB888
+= 1, BGR565_BGR888
+
+> 22, 1, SW_FBC_FORCE_UNCOMPRESS
+= 0, COMPRESS ; Allow fbce compress yuv block
+= 1, UNCOMPRESS ; Force all yuv block use uncompress mode
+
+> 21, 1, SW_ALLOW_16X8_CP_FLAG ; The configured value is depend on vop work mode
+= 0, NOT_ALLOW
+= 1, ALLOW
+
+> 20, 1, SW_FBC_E
+= 0, DISABLE
+= 1, ENABLE
+
+> 17, 1, SW_FORCE_SOFTRESET_VALID ; When sw_force_softreset_valid is 1'b1, sw_softrst_en will always be valid to the system no matter that whether the axi bus is idle; When sw_force_softreset_valid is 1'b0, sw_softrst_en will only be valid when the axi bus is idle.
+
+> 16, 1, SW_TIMEOUT_MODE ; Timeout mode select
+= 0, 24CYCLES ; TIMEOUT_CYCLES is 24 1'b1
+= 1, 18CYCLES ; TIMEOUT_CYCLES is 18 1'b1
+
+> 12, 1, SW_SCALEDOWN_MODE ; Jpeg decoder scaledown mode
+= 0, NOT
+= 1, 1_2
+= 2, 1_4
+= 3, 1_8
+
+> 10, 1, SW_OUT_BYTE_SWAP ; May be used for 16 bits sequence output info
+= 0, NO_SWAP ; No swapping of 8 bits data, 0x1234
+= 1, SWAP ; 8 bits data are swapped, 0x3412
+
+> 9, 1, SW_OUT_CBCR_SWAP ; sw_in_cbcr_swap is the same with sw_out_cbcr_swap Jpeg decoder only support for yuv4xxsp
+= 0, CB_U_LOW_CR_V_HIGH ; Cb(u) is in the lower address, cr(v) is in the higher address
+= 1, CB_U_HIGH_CR_V_LOW ; Cb(u) is in the higher address,cr(v) is in the lower address
+
+> 8, 1, SW_OUT_SWAP64_E ; May be used for 128 bit environment
+= 0, NO_SWAP ; No swapping of 64 bit words
+= 1, SWAP ; 64 bit data words are swapped
+
+> 7, 1, SW_OUT_SWAP32_E ; May be used for 64 or 128 bit environment
+= 0, NO_SWAP ; No swapping of 32 bit words
+= 1, SWAP ; 32 bit data words are swapped
+
+> 6, 1, SW_OUT_ENDIAN
+= 0, LITTLE
+= 1, BIG
+
+> 5, 1, SW_STR_SWAP64_E ; May be used for 128 bit environment
+= 0, NO_SWAP ; No swapping of 64 bit words
+= 1, SWAP ; 64 bit data words are swapped
+
+> 4, 1, SW_STR_SWAP32_E ; May be used for 64 or 128 bit environment
+= 0, NO_SWAP ; No swapping of 32 bit words
+= 1, SWAP ; 32 bit data words are swapped
+
+> 3, 1, SW_STR_ENDIAN
+= 0, LITTLE
+= 1, BIG
+
+> 2, 1, SW_IN_SWAP64_E ; May be used for 128 bit environment
+= 0, NO_SWAP ; No swapping of 64 bit words
+= 1, SWAP ; 64 bit data words are swapped
+
+> 1, 1, SW_IN_SWAP32_E ; My be used for 64 or 128 bit environment
+= 0, NO_SWAP ; No swapping of 32 bit words
+= 1, SWAP ; 32 bit data words are swapped
+
+> 0, 1, SW_IN_ENDIAN
+= 0, LITTLE
+= 1, BIG
+
+PIC_SIZE = 0x000C ; Picture width and height size
+> 16, 16, SW_PIC_HEIGHT_M1 ; Picture height in pixels unit minus1(should be mcu align by hardware)
+> 0, 16, SW_PIC_WIDTH_M1 ; Picture width in pixels unit minus1(should be mcu align by hardware)
+
+PIC_FORMAT = 0x0010 ; Jpeg picture format configurate
+> 16, 16, SW_DRI_MCU_NUM_M1 ; Restart marker frequency. Tells the amount of coding units between restart markers Specifies the number of MCU in the restart. The number is minus1 15 RW 0x0 sw_dri_e Define restart interval marker enable
+= 0, DISABLE ; Restart interval marker disable
+= 1, ENABLE ; Restart interval marker enable
+
+> 12, 1, SW_HTABLES_SEL ; Amount of Huffman tables in external memory
+= 0, 0 ; No Huffman tables.
+= 1, 1 ; One Huffman table. Used when picture is single type
+= 2, 2 ; Two Huffman tables. One for luminance and one for chominances
+= 3, 3 ; Three Huffman tables. Each type (Lu, Cb, Cr) has own Huffman table
+
+> 8, 2, SW_QTABLES_SEL ; Amount of Quantization tables in external memory:
+= 0, 0 ; No quantization tables.
+= 1, 1 ; One quantization table. Used when picture is single type
+= 2, 2 ; Two quantization tables. One for luminance and one for chominances
+= 3, 3 ; Three quantization tables. Each type (Lu, Cr, Cb) has own QP-table
+
+> 4, 3, SW_PIXEL_DEPTH ; Picture luma pixel depth minus8.
+= 0, 8BITS
+= 4, 12BITS
+
+> 0, 3, SW_JPEG_MODE ; Input picture sampling format
+= 0, 400 ; single type, MB 1 block (4:0:0)
+= 1, 411 ; single type, MB 6 blocks (4:1:1)
+= 2, 420 ; three types, MB 6 blocks (4:2:0)
+= 3, 422 ; three types, MB 4 blocks (4:2:2)
+= 4, 440 ; three types, MB 4 blocks (4:4:0)
+= 5, 444 ; three types, MB 3 blocks (4:4:4)
+
+HOR_VIRSTRIDE = 0x0014 ; Sw_y_hor_virstride and sw_uv_hor_virstride configurate
+> 16, 16, SW_UV_HOR_VIRSTRIDE ; Picture horizontal virtual stride (the unit is 128bit) The max is 65536x2/16 = 0x2000 Suggest this register to configuration to even for advance DDR performance yuv444 tile mode ,uv_hor_virstride will use 16bits
+> 0, 16, SW_Y_HOR_VIRSTRIDE ; Picture horizontal virtual stride (the unit is 128bit) The max is 65536x2/16 = 0x2000 Suggest this register to configuration to even for advance DDR performance Fbc mode: used for head virtual stride But rgb888 tile mode ,y_hor_virstride 16bits is not enought,will be use 17bits
+
+Y_VIRSTRIDE = 0x0018 ; Sw_y_virstride configurate
+> 4, 28, SW_Y_VIRSTRIDE ; Base address with 16 byte precision for decoder output luminance picture virtual stride
+
+TABLE_LEN = 0x001C ; Dequant table and huffman table length Description
+> 24, 1, SW_Y_HOR_VIRSTRIDE_H ; Picture horizontal virtual stride (the unit is 128bit) High bit when rgb888 tile mode use ,y_hor_virstride 16bits is not enought,will be use 17bits
+> 16, 6, SW_HTBL_VALUE_LEN ; Huffman value tables length(minus 1) with 16 byte align(128bits)
+> 8, 5, SW_HTBL_MINCODE_LEN ; Huffman maxcode mincode and accaddr length(minus 1) with 16 byte align(128bits)
+> 0, 5, SW_QTBL_LEN  ;Quant table length(minus 1) with 16 byte align(128bits)
+
+STRM_LEN = 0x0020 ; Rk jpeg stream length and start byte info Description
+> 4, 28, SW_STREAM_LEN ; Amount of stream data 16 bytes(minus 1) in input buffer. If the given buffer size is not enough for finishing the picture the corresponding interrupt is given and new stream buffer base address and stream buffer size information should be given (assosiates with sw_strm_in_base).
+
+> 0, 4, SW_STRM_START_BYTE ; Input stream start byte offset
+
+QTBL_BASE = 0x0024 ; Dequant table DDR base address Description
+> 6, 26, SW_QTBL_BASE ; Base address for standard dependent tables: AC,DC, QP tables 64 bytes align
+
+HTBL_MINCODE_BASE = 0x0028 ; huffman mincode table DDR base address Description
+> 6, 26, SW_HTBL_MINCODE_BASE ; Base address for standard dependent tables: Huffman mincode and accaddr tables 64 bytes align
+
+HTBL_VALUE_BASE = 0x002C ; Huffman value table DDR base address Description
+> 6, 26, SW_HTBL_VALUE_BASE ; Base address for standard dependent tables: Huffman value tables 64 bytes align
+
+STRM_BASE = 0x0030 ; Stream data DDR base address Description
+> 4, 28, SW_STRM_IN_BASE ; Stream start address with 16 byte precision. Actually, start byte number in stream_start_byte.
+
+DEC_OUT_BASE = 0x0034 ; Rk jpeg recon decoder output data DDR address Description
+> 6, 26, SW_DEC_OUT_BASE ; Base address with 64 byte precision for decoder output luminance picture
+
+STRM_ERROR = 0x0038 ; Rk jpeg decoder stream error process
+> 20, 1, SW_HFM_FORCE_STOP_BUFFER_EMPTY ; AXI stream buffer empty, and without detect EOI marker stop or not(0:support fill coefficient)
+= 0, CONTINUE ; Huffman decoder error and continue.
+= 1, STOP ; Huffman decoder error force stop the decoder and wait soft reset.
+
+> 19, 1, SW_HFM_FORCE_STOP_EOI ; Huffman get EOI marker without frame end stop or not(0:support fill coefficient)
+= 0, CONTINUE ; Huffman decoder error and continue.
+= 1, STOP ; Huffman decoder error force stop the decoder and wait soft reset.
+
+> 18, 1, SW_HFM_FORCE_STOP_OVERFLOW ; Huffman coefficient overflow detect and stop or not(0:support decode next coefficient)
+= 0, CONTINUE ; Huffman decoder error and continue.
+= 1, STOP ; Huffman decoder error force stop the decoder and wait soft reset.
+
+> 17, 1, SW_HFM_FORCE_STOP_NOT_0_WITH_DRI ; Huffman decode DRI stream stop or not, when MCU counter is not zero with DRI marker detect(0:support fill coefficient)
+= 0, CONTINUE ; Huffman decoder error and continue.
+= 1, STOP ; Huffman decoder error force stop the decoder and wait soft reset.
+
+> 16, 1, SW_HFM_FORCE_STOP_0_WITH_NO_DRI ; Huffman decode DRI stream stop or not, when MCU counter is zero without DRI marker detect(0:support skip dummy stream)
+= 0, CONTINUE ; Huffman decoder error and continue.
+= 1, STOP ; Huffman decoder error force stop the decoder and wait soft reset.
+
+> 9, 1, SW_STRM_DRI_SEQ_ERR_MODE ; Note: error state should be report at all case
+= 0, NO_REPORT ; Stream dri sequence error do not report error pos
+= 1, REPORT ; Stream dri sequence error should be report error pos(if it's first error)
+
+> 7, 2, SW_STRM_OTHER_MARK_MODE ; Note: error state should be report at all case
+= 0, IGNORE ; Stream detect other marker do skip process and not report error pos
+= 1, STOP ; Stream detect another marker stop the decoder and wait soft reset
+= 2, SKIP ; Stream detect other marker do skip process
+= 3, NORMAL ; Stream detect other marker do with normal stream
+
+> 5, 2, SW_STRM_FFFF_ERR_MODE ; Note: error state should be report at all case
+= 0, IGNORE ; Stream detect ffff marker do skip first 0xff process and not report error position;
+= 1, STOP ; Stream detect another marker stop the decoder and wait soft reset;
+= 2, SKIP ; Stream detect ffff marker do skip first 0xff process;
+= 3, NORMAL ; Stream detect ffff marker do with normal stream at first 0xff
+
+> 3, 2, SW_STRM_R1_ERR_MODE ; Stream detect second select marker process mode configuration
+= 0, IGNORE ; Ignore second select marker.
+= 1, STOP ; Force stop decoder when meet the second select marker
+= 2, SKIP ; Do skip process when meet the second select marker
+= 3, NORMAL ; Do with normal stream when meet the second select marker
+
+> 1, 2, SW_STRM_R0_ERR_MODE ; Stream detect first select marker process mode configuration
+= 0, IGNORE ; Ignore first select marker.
+= 1, STOP ; Force stop decoder when meet the first select marker
+= 2, SKIP ; Do skip process when meet the first select marker
+= 3, NORMAL ; Do with normal stream when meet the first select marker
+
+> 0, 1, SW_ERROR_PRC_MODE
+= 0, STOP_AND_RESET ; When there is any stream error, the hardware will stop the decoder and reset itself;
+= 1, WAIT_AND_RESET ; When there is any stream error, the hardware will wait the end signal of recon and then reset request;
+
+STRM_MASK = 0x003C ; Rk jpeg decoder special marker process
+> 31, 1, SW_STRM_R1_MASK7 ; zmark the mask info
+= 1, IGNORE ; Stream value 7 will mask and not care
+= 0, MATCH ; Stream value 7 shall match SW marker value
+
+> 30, 1, SW_STRM_R1_MASK6 ; zmark the mask info
+= 1, IGNORE ; Stream value 6 will mask and not care
+= 0, MATCH ; Stream value 6 shall match SW marker value
+
+> 29, 1, SW_STRM_R1_MASK5 ; zmark the mask info
+= 1, IGNORE ; Stream value 5 will mask and not care
+= 0, MATCH ; Stream value 5 shall match SW marker value
+
+> 28, 1, SW_STRM_R1_MASK4 ; zmark the mask info
+= 1, IGNORE ; Stream value 4 will mask and not care
+= 0, MATCH ; Stream value 4 shall match SW marker value
+
+> 27, 1, SW_STRM_R1_MASK3 ; zmark the mask info
+= 1, IGNORE ; Stream value 3 will mask and not care
+= 0, MATCH ; Stream value 3 shall match SW marker value
+
+> 26, 1, SW_STRM_R1_MASK2 ; zmark the mask info
+= 1, IGNORE ; Stream value 2 will mask and not care
+= 0, MATCH ; Stream value 2 shall match SW marker value
+
+> 25, 1, SW_STRM_R1_MASK1 ; zmark the mask info
+= 1, IGNORE ; Stream value 1 will mask and not care
+= 0, MATCH ; Stream value 1 shall match SW marker value
+
+> 24, 1, SW_STRM_R1_MASK0 ; zmark the mask info
+= 1, IGNORE ; Stream value 0 will mask and not care
+= 0, MATCH ; Stream value 0 shall match SW marker value
+
+> 16, 8, SW_STRM_R1_MARKER ; 0xffxx marker low 8bits value
+
+> 15, 1, SW_STRM_R0_MASK7 ; zmark the mask info
+= 1, IGNORE ; Stream value 7 will mask and not care
+= 0, MATCH ; Stream value 7 shall match SW marker value
+
+> 14, 1, SW_STRM_R0_MASK6 ; zmark the mask info
+= 1, IGNORE ; Stream value 6 will mask and not care
+= 0, MATCH ; Stream value 6 shall match SW marker value
+
+> 13, 1, SW_STRM_R0_MASK5 ; zmark the mask info
+= 1, IGNORE ; Stream value 5 will mask and not care
+= 0, MATCH ; Stream value 5 shall match SW marker value
+
+> 12, 1, SW_STRM_R0_MASK4 ; zmark the mask info
+= 1, IGNORE ; Stream value 4 will mask and not care
+= 0, MATCH ; Stream value 4 shall match SW marker value
+
+> 11, 1, SW_STRM_R0_MASK3 ; zmark the mask info
+= 1, IGNORE ; Stream value 3 will mask and not care
+= 0, MATCH ; Stream value 3 shall match SW marker value
+
+> 10, 1, SW_STRM_R0_MASK2 ; zmark the mask info
+= 1, IGNORE ; Stream value 2 will mask and not care
+= 0, MATCH ; Stream value 2 shall match SW marker value
+
+> 9, 1, SW_STRM_R0_MASK1 ; zmark the mask info
+= 1, IGNORE ; Stream value 1 will mask and not care
+= 0, MATCH ; Stream value 1 shall match SW marker value
+
+> 8, 1, SW_STRM_R0_MASK0 ; zmark the mask info
+= 1, IGNORE ; Stream value 0 will mask and not care
+= 0, MATCH ; Stream value 0 shall match SW marker value
+
+> 0, 8, SW_STRM_R0_MARKER ; 0xffxx marker low 8bits value
+
+CLK_GATE = 0x0040 ; Rk jpeg decoder clk gate enable
+> 7, 1, SW_DEC_GATE_E7
+= 0, DISABLE ; Clock gate is not enable
+= 1, ENABLE ; Clock gate is enable when busifd block is not working
+
+> 6, 1, SW_DEC_GATE_E6
+= 0, DISABLE ; Clock gate is not enable
+= 1, ENABLE ; Clock gate is enable when busifd block is not working
+
+> 5, 1, SW_DEC_GATE_E5
+= 0, DISABLE ; Clock gate is not enable
+= 1, ENABLE ; Clock gate is enable when busifd block is not working
+
+> 4, 1, SW_DEC_GATE_E4
+= 0, DISABLE ; Clock gate is not enable
+= 1, ENABLE ; Clock gate is enable when busifd block is not working
+
+> 3, 1, SW_DEC_GATE_E3
+= 0, DISABLE ; Clock gate is not enable
+= 1, ENABLE ; Clock gate is enable when busifd block is not working
+
+> 2, 1, SW_DEC_GATE_E2
+= 0, DISABLE ; Clock gate is not enable
+= 1, ENABLE ; Clock gate is enable when busifd block is not working
+
+> 1, 1, SW_DEC_GATE_E1
+= 0, DISABLE ; Clock gate is not enable
+= 1, ENABLE ; Clock gate is enable when busifd block is not working
+
+> 0, 1, SW_DEC_GATE_E0
+= 0, DISABLE ; Clock gate is not enable
+= 1, ENABLE ; Clock gate is enable when busifd block is not working
+
+
+PERF_LATENCY_CTRL0 = 0x0078 ; Rk jpeg decoder axi performance ctrl0 Description
+> 8, 12, SW_RD_LATENCY_THR ; Rd channel latency threshold
+
+> 4, 4, SW_RD_LATENCY_ID ; Rd channel id for performance test
+
+> 3, 1, SW_AXI_CNT_TYPE ; sw_axi_cnt_type
+= 0, AXI_XFER ; AXI transfer num count
+= 1, DDR_XFER ; DDR align transfer num count
+
+> 2, 1, SW_AXI_PERF_FRM_TYPE
+= 0, FRAME_END ; Clear by frame end
+= 1, SW ; Clear by software configuration
+
+> 1, 1, SW_AXI_PERF_CLR_E ; Clear pulse
+= 0, DISABLE ; Software clear disable
+= 1, ENABLE ; Software clear enable
+
+> 0, 1, SW_AXI_PERF_WORK_E
+= 0, DISABLE
+= 1, ENABLE
+
+PERF_LATENCY_CTRL1 = 0x007C ; Rk jpeg decoder axi performance ctrl1 Description
+> 12, 1, SW_RD_TOTAL_BYTES_MODE
+= 0, ALL_ID
+= 1, SW_AR_COUNT_ID
+
+> 8, 4, SW_AW_COUNT_ID ; sw_aw_count_id
+
+> 4, 4, SW_AR_COUNT_ID ; sw_ar_count_id
+
+> 3, 1, SW_AW_CNT_ID_TYPE ; sw_aw_cnt_id_type
+= 0, ALL_WR ; Count all wr-channels
+= 1, SW_WR_CONT_ID ; Count sw_wr_cont_id wr-channel only
+
+> 2, 1, SW_AR_CNT_ID_TYPE ; sw_ar_cnt_id_type
+= 0, ALL_RD ; Count all rd-channels
+= 1, SW_AR_CONT_ID ; Count sw_ar_cont_id rd-channel only
+
+> 0, 2, SW_ADDR_ALIGN_TYPE ; sw_addr_align_type
+= 0, 16BYTE
+= 1, 32BYTE
+= 2, 64BYTE
+= 3, 128BYTE
+
+DBG_MCU_POS = 0x0080, RO ; Rk jpeg debug register with mcu position Description
+> 16, 32, MCU_POS_Y ; Decoder mcu position at x coordinal with first error detect, only for read enable
+
+> 0, 16, MCU_POS_X ; Decoder mcu position at y coordinal with first error detect, only for read enable
+
+DBG_ERROR_INFO = 0x0084 ; Rk jpeg debug register with error info Description
+> 16, 4, JPEG_FIRST_ERROR_IDX ; Jpeg decoder first error index
+= 0, STREAM_DRI_SEQ_ERR_STA
+= 1, STREAM_R0_ERR_STA
+= 2, STREAM_R1_ERR_STA
+= 3, STREAM_FFFF_ERR_STA
+= 4, STREAM_OTHER_MARK_ERR_STA
+= 8, HUFFMAN_MCU_CNT_L
+= 9, HUFFMAN_MCU_CNT_M
+= 10, HUFFMAN_EOI_WITHOUT_END
+= 11, HUFFMAN_END_WITHOUT_EOI
+= 12, HUFFMAN_OVERFLOW
+= 13, HUFFMAN_BUF_EMPTY
+
+> 13, 1, HUFFMAN_BUF_EMPTY ; Decoder picture not complete, and not detect EOI with buffer empty
+= 0, NOT_EMPTY ; Buffer not empty
+= 1, EMPTY ; Buffer empty
+
+> 12, 1, HUFFMAN_OVERFLOW ; Decoder Huffman coefficient overflow
+
+> 11, 1, HUFFMAN_END_WITHOUT_EOI ; Decoder Huffman frame end without get EOI marker
+
+> 10, 1, HUFFMAN_EOI_WITHOUT_END ; Decoder Huffman get EOI marker without frame end
+
+> 9, 1, HUFFMAN_MCU_CNT_M ; Decoder dri stream mcu count more, mcu count 0 without restart mark
+
+> 8, 1, HUFFMAN_MCU_CNT_L ; Decoder dri stream mcu count low, restart mark is coming without mcu count 0
+
+> 4, 1, STREAM_OTHER_MARK_ERR_STA ; Decoder stream other marker error detect flag, only for read enable
+= 0, NOT_DETECTED ; Other marker not detect
+= 1, DETECTED ; Other marker detect
+
+> 3, 1, STREAM_FFFF_ERR_STA ; Decoder stream ffff error detect flag, only for read enable
+= 0, NOT_DETECTED ; Other marker not detect
+= 1, DETECTED ; Other marker detect
+
+> 2, 1, STREAM_R1_ERR_STA ; Decoder stream special marker1 error detect flag, only for read enable
+= 0, NOT_DETECTED ; Special marker1 not detect
+= 1, DETECTED ; Special marker1 detect
+
+> 1, 1, STREAM_R0_ERR_STA ; Decoder stream special marker0 error detect flag, only for read enable
+= 0, NOT_DETECTED ; Special marker0 not detect
+= 1, DETECTED ; Special marker0 detect
+
+> 0, 1, STREAM_DRI_SEQ_ERR_STA
+= 0, NORMAL ; Stream DRI at normal sequence
+= 1, NOT_NORMAL ; Stream error with DRI not at normal sequence
+
+PERF_RD_MAX_LATENCY_NUM0 = 0x0088 ; Rd_max_latency_num Description
+> 0, 16, RD_MAX_LATENCY_NUM_CH0 ; rd_max_latency_num_ch0
+
+PERF_RD_LATENCY_SAMP_NUM = 0x008C ; Rd_latency_thr_num Description
+> 0, 32, RD_LATENCY_THR_NUM_CH0
+
+PERF_RD_LATENCY_ACC_SUM = 0x0090 ; Rd_latency_acc_sum Description
+> 0, 32, RD_LATENCY_ACC_SUM
+
+PERF_RD_AXI_TOTAL_BYTE = 0x0094 ; Perf_rd_axi_total_byte Description
+> 0, 32, PERF_RD_AXI_TOTAL_BYTE
+
+PERF_WR_AXI_TOTAL_BYTE = 0x0098 ; Perf_wr_axi_total_byte Description
+> 0, 32, PERF_WR_AXI_TOTAL_BYTE
+
+PERF_WORKING_CNT = 0x009C ; Perf_working_cnt Description
+> 0, 32, PERF_WORKING_CNT
+
+MMU_DTE_ADDR = 0x0480 ; MMU current page Table address. It is only can be written when MMU state is disable or page fault or mmu enable stall state
+MMU_STATUS = 0x0484 ; MMU status register
+MMU_COMMAND = 0x0488 ; MMU command register
+MMU_PAGE_FAULT_ADDR = 0x048C ; MMU logical address of last page fault
+MMU_ZAP_ONE_LINE = 0x0490 ; MMU Zap cache line register
+MMU_INT_RAWSTAT = 0x0494 ; MMU raw interrupt status register
+MMU_INT_CLEAR = 0x0498 ; MMU raw interrupt status register
+MMU_INT_MASK = 0x049C ; MMU raw interrupt status register
+MMU_INT_STATUS = 0x04A0 ; MMU raw interrupt status register
+MMU_AUTO_GATING = 0x04A4 ; MMU auto gating
+

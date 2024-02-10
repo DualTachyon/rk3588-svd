@@ -1,4 +1,4 @@
-[GRF_GPU, GRF]
+[GRF_GPU, grf]
 @ = 0x0FD5A0000, 0x00002000
 
 PVTPLL_CON0_L = 0x0000 ; PVTPLL Control Register 0

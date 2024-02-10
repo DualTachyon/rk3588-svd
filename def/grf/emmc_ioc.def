@@ -1,4 +1,4 @@
-[IOC_EMMC, GRF]
+[IOC_EMMC, grf]
 @ = 0x0FD5FD000, 0x00001000
 
 GPIO2A_DS_L = 0x0040 ; GPIO2A Driver Strength Control Low bits

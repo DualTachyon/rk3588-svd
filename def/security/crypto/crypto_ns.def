@@ -1,0 +1,690 @@
+[CRYPTO_NS, security/crypto]
+@ = 0x0FE370000, 0x00008000
+
+CLK_CTL = 0x0000 ; Clock Control Register
+> 0, 1, AUTO_CLKGATE_EN ; CRYPTO will gate unused Block Cipher and HASH module automatically
+= 0, DISABLE
+= 1, ENABLE
+
+RST_CTL = 0x0004 ; Reset Control Register
+> 2, 1, SW_PKA_RESET ; Software set this bit to start a reset to PKA module. After the reset is done, CRYPTO will clear this bit.
+= 1, START
+
+> 1, 1, SW_RNG_RESET ; Software set this bit to start a reset to TRNG module. After the reset is done, CRYPTO will clear this bit.
+= 1, START
+
+> 0, 1, SW_CC_RESET ; Software set this bit to start a reset to Symmetric Cipher and HASH module. After the reset is done, CRYPTO will clear this bit.
+= 1, START
+
+DMA_INT_EN = 0x0008 ; DMA Interrupt Enable Register
+> 6, 1, ZERO_LEN_INT_EN
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, LIST_ERR_INT_EN
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 1, SRC_ERR_INT_EN
+= 0, DISABLE
+= 1, ENABLE
+
+> 3, 1, DST_ERR_INT_EN
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, SRC_ITEM_DONE_INT_EN
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, DST_ITEM_DONE_INT_EN
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, LIST_DONE_INT_EN
+= 0, DISABLE
+= 1, ENABLE
+
+DMA_INT_ST = 0x000C ; DMA Interrupt Status Register
+> 6, 1, ZERO_LEN, W1C
+= 1, SET ; Indicate that DMA has met an 0 byte source transfer length in list descriptors.
+= 0, NOTHING
+
+> 5, 1, LIST_ERR, W1C
+= 1, ERROR ; Indicate that DMA has met an error response when transfer list descriptors. The state machine will exit current transfer and then return to IDLE state.
+= 0, NOTHING
+
+> 4, 1, SRC_ERR, W1C
+= 1, ERROR ; Indicate that DMA has met an error response when transfer source data. The state machine will exit current transfer and then return to IDLE state.
+= 0, NOTHING
+
+> 3, 1, DST_ERR, W1C
+= 1, ERROR ; Indicate that DMA has met an error response when transfer destination data. The state machine will exit current transfer and then return to IDLE state.
+= 0, NOTHING
+
+> 2, 1, SRC_ITEM_DONE, W1C
+= 1, DONE ; Indicate that DMA has completed a read transfers which the current list descriptor pointed to.
+= 0, NOTHING
+
+> 1, 1, DST_ITEM_DONE, W1C
+= 1, DONE ; Indicate that DMA has completed a write transfers which the current list descriptor pointed to.
+= 0, NOTHING
+
+> 0, 1, LIST_DONE, W1C
+= 1, DONE ; Indicate that DMA has completed all the transfers which the list descriptors pointed to.
+= 0, NOTHING
+
+DMA_CTL = 0x0010 ; DMA Control Register
+> 1, 1, DMA_RESTART ; If DMA data for next stage is not ready, application could pause DMA by descriptor commands. DMA will stop prefetching next descriptor. The application could restart DMA by asserting this bit when DMA data for next state is ready. CRYPTO will continue with previous transfer, and clear the bit automatically.
+= 1, ASSERT
+
+> 0, 1, DMA_START ; DMA asserts the bit to start DMA transfer, then CRYPTO will clear the bit automatically.
+= 1, ASSERT
+
+DMA_LLI_ADDR = 0x0014 ; DMA LIST Start Address Register
+> 0, 32, DMA_LLI_ADDR ; When DMA_CTL start asserted, CRYPTO will read the address to get the 1'st descriptor. It should be 8-bytes align. We suggest dma_lli_addr 64-byte align for best performance consideration.
+
+DMA_ST = 0x0018 ; DMA Status Register
+> 0, 1, DMA_BUSY, RO
+= 0, IDLE ; DMA idle
+= 1, BUSY ; DMA busy
+
+DMA_STATE = 0x001C ; DMA State Register
+> 4, 2, DMA_LLI_STATE, RO ; For debug use only.
+= 0, IDLE
+= 1, FETCH
+= 2, WORK
+
+> 2, 2, DMA_SRC_STATE, RO ; For debug use only.
+= 0, IDLE
+= 1, LOAD
+= 2, WORK
+
+> 0, 2, DMA_DST_STATE, RO ; For debug use only.
+= 0, IDLE
+= 1, LOAD
+= 2, WORK
+
+DMA_LLI_RADDR = 0x0020 ; DMA LLI Read Address Register
+> 0, 32, DMA_LLI_RADDR, RO ; For debug use only It indicates the current DMA LLI read address
+
+DMA_SRC_RADDR = 0x0024 ; DMA Source Data Read Address Register
+> 0, 32, DMA_SRC_RADDR, RO ; For debug use only It indicates the current DMA source read address
+
+DMA_DST_WADDR = 0x0028 ; DMA Destination Data Read Address Register
+> 0, 32, DMA_DST_WADDR, RO ; For debug use only It indicates the current DMA destination write address
+
+DMA_ITEM_ID = 0x002C ; DMA Descriptor ID Register
+> 0, 8, DMA_ITEM_ID, RO ; For debug use only It indicates the current descriptor ID
+
+FIFO_CTL = 0x0040 ; FIFO Control Register
+> 1, 1, DOUT_BYTESWAP
+= 0, LITTLE_ENDIAN
+= 1, BIG_ENDIAN
+
+> 0, 1, DIN_BYTESWAP
+= 0, LITTLE_ENDIAN
+= 1, BIG_ENDIAN
+
+BC_CTL = 0x0044 ; Block Cipher Control Register
+> 8, 2, BC_CIPHER_SEL
+= 0, AES
+= 1, SM4
+= 2, DES
+= 3, TDES
+
+> 4, 4, MODE
+= 0, ECB
+= 1, CBC
+= 2, CTS
+= 3, CTR
+= 4, CFB
+= 5, OFB
+= 6, XTS
+= 7, CCM
+= 8, GCM
+= 9, CMAC
+= 10, CBC_MAC
+
+> 2, 2, KEY_SIZE ; For AES
+= 0, 128
+= 1, 192
+= 2, 256
+= 3, RESERVED
+
+> 1, 1, DECRYPT
+= 0, ENCRYPT
+= 1, DECRYPT
+
+> 0, 1, BC_ENABLE
+= 0, DISABLE
+= 1, ENABLE
+
+HASH_CTL = 0x0048 ; Hash Control Register
+> 4, 4, HASH_CIPHER_SEL
+= 0, SHA1
+= 1, MD5
+= 2, SHA256
+= 3, SHA224
+= 4, SM3
+= 8, SHA512
+= 9, SHA384
+= 10, SHA512_224
+= 11, SHA512_256
+
+> 3, 1, HMAC_ENABLE ; CRYPTO supports HMAC-SHA1, HMAC-SHA256, HMAC_SHA512, HMAC-MD5, HMAC-SM3. Note: If hmac_enable set '1' hash_cipher_sel must set 0x6 when chose HMAC-SM3 mode hash_cipher_sel set the corresponding value when chose other mode
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, HW_PAD_ENABLE
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, HASH_SRC_SEL
+= 0, RX_FIFO
+= 1, TX_FIFO
+
+> 0, 1, HASH_ENABLE
+= 0, DISABLE
+= 1, ENABLE
+
+CIPHER_ST = 0x004C ; Cipher Status Register
+> 2, 1, OTP_KEY_VALID, RO ; Indicate if otp_key is valid.
+= 0, INVALID
+= 1, VALID
+
+> 1, 1, HASH_BUSY, RO
+= 0, IDLE
+= 1, BUSY
+
+> 0, 1, BLOCK_CIPHER_BUSY, RO
+= 0, IDLE
+= 1, BUSY
+
+CIPHER_STATE = 0x0050, RO ; Cipher Current State Register
+> 10, 5, HASH_STATE ; For debug use only
+= 1, IDLE
+= 2, IPAD
+= 4, TEXT
+= 8, OPAD
+= 16, OPAD_EXT
+
+> 8, 2, GCM_STATE ; For debug use only
+= 0, IDLE
+= 1, PRE
+= 2, NA
+= 3, PC
+
+> 6, 2, CCM_STATE ; For debug use only
+= 0, IDLE
+= 1, PRE
+= 2, NA
+= 3, PC
+
+> 4, 2, PARALLEL_STATE ; For debug use only
+= 0, IDLE
+= 1, PRE
+= 2, BULK
+= 3, RESERVED
+
+> 2, 2, MAC_STATE ; For debug use only
+= 0, IDLE
+= 1, PRE
+= 2, BULK
+= 3, RESERVED
+
+> 0, 2, SERIAL_STATE ; For debug use only
+= 0, IDLE
+= 1, PRE
+= 2, BULK
+= 3, RESERVED
+
+CH0_IV$ = 0x0100, @4 ; Channel 0 IV Register $
+CH1_IV$ = 0x0110, @4 ; Channel 1 IV Register $
+CH2_IV$ = 0x0120, @4 ; Channel 2 IV Register $
+CH3_IV$ = 0x0130, @4 ; Channel 3 IV Register $
+CH4_IV$ = 0x0140, @4 ; Channel 4 IV Register $
+CH5_IV$ = 0x0150, @4 ; Channel 5 IV Register $
+CH6_IV$ = 0x0160, @4 ; Channel 6 IV Register $
+CH7_IV$ = 0x0170, @4 ; Channel 7 IV Register $
+
+CH0_KEY$ = 0x0180, WO, @4 ; Channel 0 KEY Register $
+CH1_KEY$ = 0x0190, WO, @4 ; Channel 1 KEY Register $
+CH2_KEY$ = 0x01A0, WO, @4 ; Channel 2 KEY Register $
+CH3_KEY$ = 0x01B0, WO, @4 ; Channel 3 KEY Register $
+CH4_KEY$ = 0x01C0, WO, @4 ; Channel 4 KEY Register $
+CH5_KEY$ = 0x01D0, WO, @4 ; Channel 5 KEY Register $
+CH6_KEY$ = 0x01E0, WO, @4 ; Channel 6 KEY Register $
+CH7_KEY$ = 0x01F0, WO, @4 ; Channel 7 KEY Register $
+
+CH0_PC_LEN$ = 0x0280, @2 ; Channel 0 PC Length Register $
+CH1_PC_LEN$ = 0x0288, @2 ; Channel 1 PC Length Register $
+CH2_PC_LEN$ = 0x0290, @2 ; Channel 2 PC Length Register $
+CH3_PC_LEN$ = 0x0298, @2 ; Channel 3 PC Length Register $
+CH4_PC_LEN$ = 0x02A0, @2 ; Channel 4 PC Length Register $
+CH5_PC_LEN$ = 0x02A8, @2 ; Channel 5 PC Length Register $
+CH6_PC_LEN$ = 0x02B0, @2 ; Channel 6 PC Length Register $
+CH7_PC_LEN$ = 0x02B8, @2 ; Channel 7 PC Length Register $
+
+CH0_AAD_LEN$ = 0x02C0, @2 ; Channel 0 AAD Length Register $
+CH1_AAD_LEN$ = 0x02C8, @2 ; Channel 1 AAD Length Register $
+CH2_AAD_LEN$ = 0x02D0, @2 ; Channel 2 AAD Length Register $
+CH3_AAD_LEN$ = 0x02D8, @2 ; Channel 3 AAD Length Register $
+CH4_AAD_LEN$ = 0x02E0, @2 ; Channel 4 AAD Length Register $
+CH5_AAD_LEN$ = 0x02E8, @2 ; Channel 5 AAD Length Register $
+CH6_AAD_LEN$ = 0x02F0, @2 ; Channel 6 AAD Length Register $
+CH7_AAD_LEN$ = 0x02F8, @2 ; Channel 7 AAD Length Register $
+
+CH$_IV_LEN_0 = 0x0300, @8 ; Channel $ IV Length Register 0
+
+CH0_TAG$ = 0x0320, RO, @4 ; Channel 0 Tag Register $
+CH1_TAG$ = 0x0330, RO, @4 ; Channel 1 Tag Register $
+CH2_TAG$ = 0x0340, RO, @4 ; Channel 2 Tag Register $
+CH3_TAG$ = 0x0350, RO, @4 ; Channel 3 Tag Register $
+CH4_TAG$ = 0x0360, RO, @4 ; Channel 4 Tag Register $
+CH5_TAG$ = 0x0370, RO, @4 ; Channel 5 Tag Register $
+CH6_TAG$ = 0x0380, RO, @4 ; Channel 6 Tag Register $
+CH7_TAG$ = 0x0390, RO, @4 ; Channel 7 Tag Register $
+
+HASH_DOUT$ = 0x03A0, RO, @16 ; HASH Data Output Register $
+
+TAG_VALID = 0x03E0, W1C ; TAG Valid Register
+> 7, 1, CH7 ; When channel 7 tag calculation is finished, CRYPTO will set this bit. After the bit is read by application, it should be cleared by writing 1 to this bit
+= 0, INVALID ; Channel 7 tag is invalid
+= 1, VALID ; Channel 7 tag is valid
+
+> 6, 1, CH6 ; When channel 6 tag calculation is finished, CRYPTO will set this bit. After the bit is read by application, it should be cleared by writing 1 to this bit
+= 0, INVALID ; Channel 6 tag is invalid
+= 1, VALID ; Channel 6 tag is valid
+
+> 5, 1, CH5 ; When channel 5 tag calculation is finished, CRYPTO will set this bit. After the bit is read by application, it should be cleared by writing 1 to this bit
+= 0, INVALID ; Channel 5 tag is invalid
+= 1, VALID ; Channel 5 tag is valid
+
+> 4, 1, CH4 ; When channel 4 tag calculation is finished, CRYPTO will set this bit. After the bit is read by application, it should be cleared by writing 1 to this bit
+= 0, INVALID ; Channel 4 tag is invalid
+= 1, VALID ; Channel 4 tag is valid
+
+> 3, 1, CH3 ; When channel 3 tag calculation is finished, CRYPTO will set this bit. After the bit is read by application, it should be cleared by writing 1 to this bit
+= 0, INVALID ; Channel 3 tag is invalid
+= 1, VALID ; Channel 3 tag is valid
+
+> 2, 1, CH2 ; When channel 2 tag calculation is finished, CRYPTO will set this bit. After the bit is read by application, it should be cleared by writing 1 to this bit.
+= 0, INVALID ; Channel 2 tag is invalid
+= 1, VALID ; Channel 2 tag is valid
+
+> 1, 1, CH1 ; When channel 1 tag calculation is finished, CRYPTO will set this bit. After the bit is read by application, it should be cleared by writing 1 to this bit
+= 0, INVALID ; Channel 1 tag is invalid
+= 1, VALID ; Channel 1 tag is valid
+
+> 0, 1, CH0 ; When channel 0 tag calculation is finished, CRYPTO will set this bit. After the bit is read by application, it should be cleared by writing 1 to this bit
+= 0, INVALID ; Channel 0 tag is invalid
+= 1, VALID ; Channel 0 tag is valid
+
+HASH_VALID = 0x03E4 ; HASH Output Valid Register
+> 0, 1, HASH_VALID, W1C ; When HASH calculation is finished, CRYPTO will set this bit. After the bit is read by application, it should be cleared by writing 1 to this bit
+= 0, INVALID ; HASH_DOUT is invalid
+= 1, VALID ; HASH_DOUT is valid
+
+RNG_CTL = 0x0400 ; RNG Control Register
+> 4, 2, RNG_LEN
+= 0, 64BIT
+= 1, 128BIT
+= 2, 192BIT
+= 3, 256BIT
+
+> 2, 2, RING_SEL ; There are 4 OSC rings choice to decide the RNG output data
+= 0, SLOWEST ; Slowest OSC ring
+= 1, FASTER_THAN_0 ; Faster than OSC ring 0
+= 2, FASTER_THAN_1 ; Faster than OSC ring 1
+= 3, FASTEST ; Fastest OSC ring
+
+> 1, 1, RNG_ENABLE
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, RNG_START ; The application triggers this bit to start collect RNG output data. After RNG is started, CRYPTO will clear the bit automatically
+= 0, DO_NOTHING
+= 1, START
+
+RNG_SAMPLE_CNT = 0x0404 ; RNG Sample Counter Register
+> 0, 16, RNG_SAMPLE_CNT ; RNG collects OSC ring output bit every rng_sample_cnt time. The value of rng_sample_cnt affects RNG output data rate, the value more bigger, the rate more slower.
+
+RNG_DOUT$ = 0x0410, RO, @8 ; RNG Data Output Register $. The 32'th OSC ring bit is captured in RNG_DOUT_0.bit31
+> 0, 32, RNG_DOUT_$ ; RNG dout $
+
+RAM_CTL = 0x0480 ; RAM Control Register
+> 0, 1, RAM_PKA_RDY ; Indicate whether ram is controlled by PKA engine
+= 0, CPU ; RAM is controlled by CPU
+= 1, PKA ; RAM is controlled by CRYPTO PKA engine
+
+RAM_ST = 0x0484, RO ; RAM Status Register
+> 0, 1, CLK_RAM_RDY ; Indicate whether clk_ram is stable, and ready for use
+= 0, NOT_STABLE
+= 1, STABLE
+
+DEBUG_CTL = 0x04A0 ; PKA Debug Control Register
+> 0, 1, PKA_DEBUG_MODE
+= 0, NORMAL ; PKA is in normal mode
+= 1, DEBUG ; PKA is in debug mode
+
+DEBUG_ST = 0x04A4 ; PKA Debug Status Register
+> 0, 1, PKA_DEBUG_CLK_EN, RO ; For debug use only
+= 0, DISABLE
+= 1, ENABLE
+
+DEBUG_MONITOR = 0x04A8 ; PKA Debug Monitor Bus Register
+> 0, 32, PKA_MONITOR_BUS ; For debug use only.
+
+AES_VERSION = 0x0680, RO ; AES_VERSION code is 0x0007_07ff
+> 18, 1, AES256_FLAG ; Whether the AES supports AES256
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 17, 1, AES192_FLAG ; Whether the AES supports AES192
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 16, 1, AES128_FLAG ; Whether the AES supports AES128
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 10, 1, CBC_MAC_FLAG ; Whether the AES supports CBC-MAC
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 9, 1, CMAC_FLAG ; Whether the AES supports CMAC
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 8, 1, GCM_FLAG ; Whether the AES supports GCM
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 7, 1, CCM_FLAG ; Whether the AES supports CCM
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 6, 1, XTS_FLAG ; Whether the AES supports XTS
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 5, 1, OFB_FLAG ; Whether the AES supports OFB
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 4, 1, CFB_FLAG ; Whether the AES supports CFB
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 3, 1, CTR_FLAG ; Whether the AES supports CTR
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 2, 1, CTS_FLAG ; Whether the AES supports CTS
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 1, 1, CBC_FLAG ; Whether the AES supports CBC
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 0, 1, ECB_FLAG ; Whether the AES supports ECB
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+DES_VERSION = 0x0684, RO ; DES_VERSION code is 0x0003_0033
+> 17, 1, EEE_FLAG ; Whether the DES supports EEE mode
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 16, 1, TDES_FLAG ; Whether the DES supports TDES
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 5, 1, OFB_FLAG ; Whether the DES supports OFB
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 4, 1, CFB_FLAG ; Whether the DES supports CFB
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 1, 1, CBC_FLAG ; Whether the DES supports CBC
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 0, 1, ECB_FLAG ; Whether the DES supports ECB
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+SM4_VERSION = 0x0688, RO ; SM4_VERSION code is 0x0000_07ff
+> 10, 1, CBC_MAC_FLAG ; Whether the SM4 supports CBC-MAC
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 9, 1, CMAC_FLAG ; Whether the SM4 supports CMAC
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 8, 1, GCM_FLAG ; Whether the SM4 supports GCM
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 7, 1, CCM_FLAG ; Whether the SM4 supports CCM
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 6, 1, XTS_FLAG ; Whether the SM4 supports XTS
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 5, 1, OFB_FLAG ; Whether the SM4 supports OFB
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 4, 1, CFB_FLAG ; Whether the SM4 supports CFB
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 3, 1, CTR_FLAG ; Whether the SM4 supports CTR
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 2, 1, CTS_FLAG ; Whether the SM4 supports CTS
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 1, 1, CBC_FLAG ; Whether the SM4 supports CBC
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 0, 1, ECB_FLAG ; Whether the SM4 supports ECB
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+HASH_VERSION = 0x068C, RO ; HASH_VERSION code is 0x0000_01ff
+> 8, 1, SM3_FLAG ; Whether the HASH supports SM3
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 7, 1, MD5_FLAG ; Whether the HASH supports MD5
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 6, 1, SHA512_256_FLAG ; Whether the HASH supports SHA-512/256
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 5, 1, SHA512_224_FLAG ; Whether the HASH supports SHA-512/224
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 4, 1, SHA512_FLAG ; Whether the HASH supports SHA-512
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 3, 1, SHA384_FLAG ; Whether the HASH supports SHA-384
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 2, 1, SHA256_FLAG ; Whether the HASH supports SHA-256
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 1, 1, SHA224_FLAG ; Whether the HASH supports SHA-224
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 0, 1, SHA1_FLAG ; Whether the HASH supports SHA-1
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+HMAC_VERSION = 0x0690, RO ; HMAC_VERSION code is 0x0000_001f
+> 4, 1, SM3_FLAG ; Whether the HMAC supports SM3
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 3, 1, MD5_FLAG ; Whether the HMAC supports MD5
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 2, 1, SHA512_FLAG ; Whether the HMAC supports SHA-512
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 1, 1, SHA256_FLAG ; Whether the HMAC supports SHA-256
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 0, 1, SHA1_FLAG ; Whether the HMAC supports SHA-1
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+RNG_VERSION = 0x0694, RO ; RNG_VERSION code is 0x0100_0000
+> 0, 32, RNG_VERSION_CODE ; RNG version code is 0x0100_0000.
+
+PKA_VERSION = 0x0698, RO ; PKA_VERSION code is 0x0100_0000
+> 0, 32, PKA_VERSION_CODE ; PKA version code is 0x0100_0000.
+
+CRYPTO_VERSION = 0x06F0, RO ; CRYPTO_VERSION code is 0x0200_0001
+> 0, 32, NSCRYPTO_VERSION_CODE ; NSCRYPTO version code is 0x0200_0001.
+
+PKA_MEM_MAP$ = 0x0800, @32 ; PKA Memory Map $ Register
+> 2, 10, MEMORY_MAP$ ; Memory map $ [11:2], bit[1:0] is stuck to 0
+
+PKA_OPCODE = 0x0880, WO ; PKA Operation Code Register
+> 27, 5, OPCODE ; Defines the PKA operation
+= 0, TERMINATE
+= 4, ADD_INC
+= 5, SUB_DEC_NEG
+= 6, MODADD_MODINC
+= 7, MODSUB_MODDEC_MODNEG
+= 8, AND_TST0_CLR0
+= 9, OR_COPY_SET0
+= 10, XOR_FLIP0_INVERT_COMPARE
+= 11, SHR0
+= 13, SHR1
+= 14, SHL0
+= 15, SHL1
+= 16, MULLOW
+= 17, MODMUL
+= 18, MODMULN
+= 19, MODEXP
+= 20, DIVISION
+= 21, DIV
+= 22, MODDIV
+
+> 24, 3, LEN ; The virtual length address 0-7. Virtual address x point to PKA_Lx
+> 18, 6, REG_A ; Operand A virtual address 0-15
+> 12, 6, REG_B ; Operand B virtual address 0-15
+> 6, 6, REG_R ; Result register virtual address 0-15
+> 0, 6, TAG ; Tag
+
+N_NP_T0_T1_ADDR = 0x0884 ; N_NP_T0_T1_ADDR Register
+> 15, 5, REG_T1 ; Virtual address of temporary register number 1
+> 10, 5, REG_T0 ; Virtual address of temporary register number 0
+> 5, 5, REG_NP ; Virtual address of register np
+> 0, 5, REG_N ; Virtual address of register n
+
+PKA_STATUS = 0x0888, RO ; PKA Status Register
+> 14, 6, TAG ; Tag of the Last Operation
+> 9, 5, OPCODE ; 5 The last OPCODE
+= 0, TERMINATE
+= 4, ADD_INC
+= 5, SUB_DEC_NEG
+= 6, MODADD_MODINC
+= 7, MODSUB_MODDEC_MODNEG
+= 8, AND_TST0_CLR0
+= 9, OR_COPY_SET0
+= 10, XOR_FLIP0_INVERT_COMPARE
+= 11, SHR0
+= 13, SHR1
+= 14, SHL0
+= 15, SHL1
+= 16, MULLOW
+= 17, MODMUL
+= 18, MODMULN
+= 19, MODEXP
+= 20, DIVISION
+= 21, DIV
+= 22, MODDIV
+
+> 8, 1, PKA_CPU_BUSY ; PKA is busy memory control is by PKA
+> 7, 1, MODINV_OF_ZERO ; Modular inverse of zero flag
+> 6, 1, ALU_SIGN_OUT ; Sign of the last operation(MSB)
+> 5, 1, ALU_CARRY ; Carry of the last ALU operation
+> 4, 1, DIV_BY_ZERO ; Division by 0
+> 3, 1, ALU_MOD_OVFLW ; Modular overflow flag
+> 2, 1, ALU_OUT_ZERO ; ALU out is 0
+> 1, 1, PKA_BUSY ; PKA is busy
+> 0, 1, PIPE_IS_BUSY ; PKA ready signal
+= 0, FULL ; Pipe full
+= 1, READY ; PKA ready for new command
+
+PKA_SW_RESET = 0x088C ; software reset of PKA
+> 0, 1, PKA_SW_RESET ; PKA software reset the reset mechanism will take about four PKA clocks until the reset line is de-asserted.
+
+PKA_L$ = 0x0890, @8 ; PKA Length $ Register
+> 0, 13, PKA_L$ ; PKA length $, in bit unit
+
+PKA_PIPE_RDY = 0x08B0 ; PKA pipe is ready for new opcode
+> 0, 1, PKA_PIPE_RDY, RO ; PKA pipe is ready for new opcode.
+= 1, READY
+= 0, NOT_READY
+
+PKA_DONE = 0x08B4 ; PKA Done Register
+> 0, 1, PKA_DONE, RO ; PKA operation is completed and pipe is empty.
+= 1, DONE
+= 0, NOT_DONE
+
+PKA_MON_SELECT = 0x08B8 ; PKA Monitor Select Register
+> 0, 4, PKA_MON_SELECT ; PKA monitor select which PKA FSM monitor is being output.
+
+PKA_DEBUG_REG_EN = 0x08BC ; PKA Debug Enable Register
+> 0, 1, PKA_DEBUG_REG_EN ; Enable all the debug mechanism when set.
+= 1, ENABLE
+= 0, DISABLE
+
+DEBUG_CNT_ADDR = 0x08C0 ; Debug Counter Address Register
+> 0, 20, DEBUG_CNT_ADDR ; The clock counter initial values. clock is disabled when counter expires. Triggered when pka_debug_en is set.
+
+DEBUG_EXT_ADDR = 0x08C4 ; Debug Extra Address Register
+> 0, 1, DEBUG_EXT_ADDR ; Disable the debug Mechanism.
+
+PKA_DEBUG_HALT = 0x08C8 ; PKA Debug Halt State Register
+> 0, 1, PKA_DEBUG_HALT, RO ; In debug mode: PKA is in halt state.
+
+PKA_MON_READ = 0x08D0 ; PKA Monitor Read Register
+> 0, 32, PKA_MON_READ, RO ; This is the PKA monitor bus register output.
+
+PKA_INT_ENA = 0x08D4 ; PKA Interrupt Enable Register
+> 0, 1, PKA_INT_ENA
+= 0, DISABLE ; Disable pka interrupt
+= 1, ENABLE ; Enable pka interrupt
+
+PKA_INT_ST = 0x08D8 ; PKA Interrupt Status Register
+> 0, 1, PKA_INT_ST, W1C ; Indicate that PKA operation completes. After the bit is read, the application should write 1 to clear this bit for next time use.
+
+SRAM$ = 0x1000, @0x400 ; SRAM Base Address
+

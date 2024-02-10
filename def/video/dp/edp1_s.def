@@ -1,0 +1,3 @@
+[EDP1_S, video/dp]
+@ = 0x0FDF1C000, 0x00004000, EDP0
+

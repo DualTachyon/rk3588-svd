@@ -1,0 +1,3 @@
+[SPDIF_TX5, audio]
+@ = 0x0FDDB8000, 0x00008000, SPDIF_TX0
+

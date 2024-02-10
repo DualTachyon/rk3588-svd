@@ -1,0 +1,448 @@
+[KEYLADDER_S, security/crypto]
+@ = 0x0FE380000, 0x00010000
+
+CLK_CTL = 0x0000 ; Clock Control Register
+> 0, 1, AUTO_CLKGATE_EN ; CRYPTO will gate unused Block Cipher and HASH module automatically
+= 0, DISABLE
+= 1, ENABLE
+
+RST_CTL = 0x0004 ; Reset Control Register
+> 1, 1, SW_RNG_RESET ; Software set this bit to start a reset to TRNG module. After the reset is done, CRYPTO will clear this bit.
+= 1, START
+
+> 0, 1, SW_CC_RESET ; Software set this bit to start a reset to Symmetric Cipher and HASH module. After the reset is done, CRYPTO will clear this bit.
+= 1, START
+
+DMA_INT_EN = 0x0008 ; DMA Interrupt Enable Register
+> 7, 1, LOCKSTEP_INT_EN
+= 0, DISABLE
+= 1, ENABLE
+
+> 6, 1, ZERO_LEN_INT_EN
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, LIST_ERR_INT_EN
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 1, SRC_ERR_INT_EN
+= 0, DISABLE
+= 1, ENABLE
+
+> 3, 1, DST_ERR_INT_EN
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, SRC_ITEM_DONE_INT_EN
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, DST_ITEM_DONE_INT_EN
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, LIST_DONE_INT_EN
+= 0, DISABLE
+= 1, ENABLE
+
+DMA_INT_ST = 0x000C ; DMA Interrupt Status Register
+> 7, 1, LOCKSTEP_FLAG, W1C
+= 0, NOTHING
+= 1, ATTACK ; Indicate that crypto was attacked
+
+> 6, 1, ZERO_LEN, W1C
+= 1, SET ; Indicate that DMA has met an 0 byte source transfer length in list descriptors.
+= 0, NOTHING
+
+> 5, 1, LIST_ERR, W1C
+= 1, ERROR ; Indicate that DMA has met an error response when transfer list descriptors. The state machine will exit current transfer and then return to IDLE state.
+= 0, NOTHING
+
+> 4, 1, SRC_ERR, W1C
+= 1, ERROR ; Indicate that DMA has met an error response when transfer source data. The state machine will exit current transfer and then return to IDLE state.
+= 0, NOTHING
+
+> 3, 1, DST_ERR, W1C
+= 1, ERROR ; Indicate that DMA has met an error response when transfer destination data. The state machine will exit current transfer and then return to IDLE state.
+= 0, NOTHING
+
+> 2, 1, SRC_ITEM_DONE, W1C
+= 1, DONE ; Indicate that DMA has completed a read transfers which the current list descriptor pointed to.
+= 0, NOTHING
+
+> 1, 1, DST_ITEM_DONE, W1C
+= 1, DONE ; Indicate that DMA has completed a write transfers which the current list descriptor pointed to.
+= 0, NOTHING
+
+> 0, 1, LIST_DONE, W1C
+= 1, DONE ; Indicate that DMA has completed all the transfers which the list descriptors pointed to.
+= 0, NOTHING
+
+DMA_CTL = 0x0010 ; DMA Control Register
+> 1, 1, DMA_RESTART ; If DMA data for next stage is not ready, application could pause DMA by descriptor commands. DMA will stop prefetching next descriptor. The application could restart DMA by asserting this bit when DMA data for next state is ready. CRYPTO will continue with previous transfer, and clear the bit automatically.
+= 1, ASSERT
+
+> 0, 1, DMA_START ; DMA asserts the bit to start DMA transfer, then CRYPTO will clear the bit automatically.
+= 1, ASSERT
+
+DMA_LLI_ADDR = 0x0014 ; DMA LIST Start Address Register
+> 0, 32, DMA_LLI_ADDR ; When DMA_CTL start asserted, CRYPTO will read the address to get the 1'st descriptor. It should be 8-bytes align. We suggest dma_lli_addr 64-byte align for best performance consideration.
+
+DMA_ST = 0x0018 ; DMA Status Register
+> 0, 1, DMA_BUSY, RO
+= 0, IDLE ; DMA idle
+= 1, BUSY ; DMA busy
+
+DMA_STATE = 0x001C ; DMA State Register
+> 4, 2, DMA_LLI_STATE, RO ; For debug use only.
+= 0, IDLE
+= 1, FETCH
+= 2, WORK
+
+> 2, 2, DMA_SRC_STATE, RO ; For debug use only.
+= 0, IDLE
+= 1, LOAD
+= 2, WORK
+
+> 0, 2, DMA_DST_STATE, RO ; For debug use only.
+= 0, IDLE
+= 1, LOAD
+= 2, WORK
+
+DMA_LLI_RADDR = 0x0020 ; DMA LLI Read Address Register
+> 0, 32, DMA_LLI_RADDR, RO ; For debug use only It indicates the current DMA LLI read address
+
+DMA_SRC_RADDR = 0x0024 ; DMA Source Data Read Address Register
+> 0, 32, DMA_SRC_RADDR, RO ; For debug use only It indicates the current DMA source read address
+
+DMA_DST_WADDR = 0x0028 ; DMA Destination Data Read Address Register
+> 0, 32, DMA_DST_WADDR, RO ; For debug use only It indicates the current DMA destination write address
+
+DMA_ITEM_ID = 0x002C ; DMA Descriptor ID Register
+> 0, 8, DMA_ITEM_ID, RO ; For debug use only It indicates the current descriptor ID
+
+FIFO_CTL = 0x0040 ; FIFO Control Register
+> 1, 1, DOUT_BYTESWAP
+= 0, LITTLE_ENDIAN
+= 1, BIG_ENDIAN
+
+> 0, 1, DIN_BYTESWAP
+= 0, LITTLE_ENDIAN
+= 1, BIG_ENDIAN
+
+BC_CTL = 0x0044 ; Block Cipher Control Register
+> 8, 2, BC_CIPHER_SEL
+= 0, AES
+= 1, SM4
+= 2, DES
+= 3, TDES
+
+> 4, 4, MODE
+= 0, ECB
+= 1, CBC
+= 4, CFB
+= 5, OFB
+
+> 2, 2, KEY_SIZE ; For AES
+= 0, 128
+= 1, 192
+= 2, 256
+= 3, RESERVED
+
+> 1, 1, DECRYPT
+= 0, ENCRYPT
+= 1, DECRYPT
+
+> 0, 1, BC_ENABLE
+= 0, DISABLE
+= 1, ENABLE
+
+CIPHER_ST = 0x004C ; Cipher Status Register
+> 2, 1, OTP_KEY_VALID, RO ; Indicate if otp_key is valid.
+= 0, INVALID
+= 1, VALID
+
+> 0, 1, BLOCK_CIPHER_BUSY, RO
+= 0, IDLE
+= 1, BUSY
+
+CIPHER_STATE = 0x0050 ; Cipher Current State Register
+> 4, 2, PARALLEL_STATE ; For debug use only
+= 0, IDLE
+= 1, PRE
+= 2, BULK
+= 3, RESERVED
+
+> 0, 2, SERIAL_STATE ; For debug use only
+= 0, IDLE
+= 1, PRE
+= 2, BULK
+= 3, RESERVED
+
+CH0_IV$ = 0x0100, @4 ; iv $
+
+CH0_KEY$ = 0x0180, @4 ; key $
+
+APB_CMD = 0x0450 ; apb master command enable
+> 0, 1, APB_CMD_EN ; APB master command enable
+= 0, DISABLE
+= 1, ENABLE
+
+APB_PADDR = 0x0454 ; apb paddr
+APB_PWDATA = 0x0458 ; apb pwdata. Chose which 32 bits data in key table will be write out
+> 0, 32, APB_PWDATA
+= 0, KEY_TAB_31_0
+= 1, KEY_TAB_63_32
+= 2, KEY_TAB_95_64
+= 3, KEY_TAB_127_96
+= 4, KEY_TAB_159_128
+= 5, KEY_TAB_191_160
+= 6, KEY_TAB_243_192
+= 7, KEY_TAB_255_244
+
+APB_PWRITE = 0x045C ; apb pwrite
+> 0, 1, APB_PWRITE
+
+INTER_COPY = 0x0608 ; key table internal copy
+> 31, 1, INTER_COPY_EN ; internal key copy enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 16, 13, INTER_COPY_DES_ADDR ; OTP key copy destination address (dword count).
+
+> 0, 13, INTER_COPY_SRC_ADDR ; OTP key copy source address (dword count).
+
+OTP_COPY = 0x060C ; OTP key COPY
+> 2, 1, OTP_KEY_COPY_EN ; OTP key copy enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 2, OTP_KEY_COPY_SEL ; OTP key copy select
+= 0, FIRST ; select the first 256 bits of key table
+= 1, SECOND ; select the second 256 bits of key table
+= 2, THIRD ; select the third 256 bits of key table
+= 3, FOURTH ; select the fourth 256 bits of key table
+
+KEY_SEL = 0x0610 ; Operation key select
+> 31, 1, KL_HIGH_SEL ; Swap high and low word pair keys per 64 bits.
+= 0, NOTHING
+= 1, SWAP
+
+> 0, 31, KEY_SEL ; Select which key to use as the operation key.
+= 0x5A5A5A5A, KEY_TABLE
+
+LOCKSTEP_FLAG = 0x0618 ; Lockstep mistake flag
+> 0, 1, LOCKSTEP_FLAG, RO ; Indicates whether CIPHER has been attacked
+= 0, NOT_UNDER_ATTACK
+= 1, UNDER_ATTACK
+
+LOCKSTEP_EN = 0x061C ; Lockstep check enable
+> 0, 1, LOCKSTEP_EN ; Enable lockstep check. If disable, lockstep_flag field of DMA_INT_ST register will never pull up
+= 0, DISABLE
+= 1, ENABLE
+
+SRC_NUM_SEL = 0x0620 ; Source key select
+> 0, 1, SRC_NUM_SEL ; Select which key to write to the key table
+= 0, OTP ; Select OTP value
+= 1, TRNG ; Select TRNG value
+
+SRC_NUM_DONE = 0x0624 ; Source key cache flag
+> 0, 1, SRC_NUM_DONE, W1C ; Indicates whether the key reaches the port
+= 0, NOT_REACH ; Not reach the port
+= 1, REACH ; Reach the port
+
+AES_VERSION = 0x0680, RO ; AES version code is 0x0007_0033
+> 18, 1, AES256_FLAG ; Whether the AES supports AES256
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 17, 1, AES192_FLAG ; Whether the AES supports AES192
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 16, 1, AES128_FLAG ; Whether the AES supports AES128
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 10, 1, CBC_MAC_FLAG ; Whether the AES supports CBC-MAC
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 9, 1, CMAC_FLAG ; Whether the AES supports CMAC
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 8, 1, GCM_FLAG ; Whether the AES supports GCM
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 7, 1, CCM_FLAG ; Whether the AES supports CCM
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 6, 1, XTS_FLAG ; Whether the AES supports XTS
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 5, 1, OFB_FLAG ; Whether the AES supports OFB
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 4, 1, CFB_FLAG ; Whether the AES supports CFB
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 3, 1, CTR_FLAG ; Whether the AES supports CTR
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 2, 1, CTS_FLAG ; Whether the AES supports CTS
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 1, 1, CBC_FLAG ; Whether the AES supports CBC
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 0, 1, ECB_FLAG ; Whether the AES supports ECB
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+DES_VERSION = 0x0684, RO ; DES version code is 0x0003_0033
+> 17, 1, EEE_FLAG ; Whether the DES supports EEE mode
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 16, 1, TDES_FLAG ; Whether the DES supports TDES
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 5, 1, OFB_FLAG ; Whether the DES supports OFB
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 4, 1, CFB_FLAG ; Whether the DES supports CFB
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 1, 1, CBC_FLAG ; Whether the DES supports CBC
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 0, 1, ECB_FLAG ; Whether the DES supports ECB
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+SM4_VERSION = 0x0688, RO ; SM4 version code is 0x0000_0033
+> 10, 1, CBC_MAC_FLAG ; Whether the SM4 supports CBC-MAC
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 9, 1, CMAC_FLAG ; Whether the SM4 supports CMAC
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 8, 1, GCM_FLAG ; Whether the SM4 supports GCM
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 7, 1, CCM_FLAG ; Whether the SM4 supports CCM
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 6, 1, XTS_FLAG ; Whether the SM4 supports XTS
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 5, 1, OFB_FLAG ; Whether the SM4 supports OFB
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 4, 1, CFB_FLAG ; Whether the SM4 supports CFB
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 3, 1, CTR_FLAG ; Whether the SM4 supports CTR
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 2, 1, CTS_FLAG ; Whether the SM4 supports CTS
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 1, 1, CBC_FLAG ; Whether the SM4 supports CBC
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 0, 1, ECB_FLAG ; Whether the SM4 supports ECB
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+HASH_VERSION = 0x068C, RO ; HASH version code is 0x0000_0000
+> 8, 1, SM3_FLAG ; Whether the HASH supports SM3
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 7, 1, MD5_FLAG ; Whether the HASH supports MD5
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 6, 1, SHA512_256_FLAG ; Whether the HASH supports SHA-512/256
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 5, 1, SHA512_224_FLAG ; Whether the HASH supports SHA-512/224
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 4, 1, SHA512_FLAG ; Whether the HASH supports SHA-512
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 3, 1, SHA384_FLAG ; Whether the HASH supports SHA-384
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 2, 1, SHA256_FLAG ; Whether the HASH supports SHA-256
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 1, 1, SHA224_FLAG ; Whether the HASH supports SHA-224
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 0, 1, SHA1_FLAG ; Whether the HASH supports SHA-1
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+HMAC_VERSION = 0x0690, RO ; HMAC version code is 0x0000_0000
+> 4, 1, SM3_FLAG ; Whether the HMAC supports SM3
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 3, 1, MD5_FLAG ; Whether the HMAC supports MD5
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 2, 1, SHA512_FLAG ; Whether the HMAC supports SHA-512
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 1, 1, SHA256_FLAG ; Whether the HMAC supports SHA-256
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+> 0, 1, SHA1_FLAG ; Whether the HMAC supports SHA-1
+= 0, NO_SUPPORT
+= 1, SUPPORT
+
+RNG_VERSION = 0x0694, RO ; RNG version code is 0x0200_0000
+> 0, 32, RNG_VERSION_CODE ; RNG version code is 0x0200_0000.
+
+PKA_VERSION = 0x0698, RO ; PKA version code is 0x0000_0000
+> 0, 32, PKA_VERSION_CODE ; PKA version code is 0x0100_0000.
+
+CRYPTO_VERSION = 0x06F0 ; KEYLAD version code is 0x0200_0003
+> 0, 32, KEYLAD_VERSION_CODE ; KEYLAD version code is 0x0200_0002.
+

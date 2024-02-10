@@ -1,4 +1,4 @@
-[GRF_DSU, GRF]
+[GRF_DSU, grf]
 @ = 0x0FD598000, 0x00004000
 
 CON0 = 0x0000 ; DSU Control Register 0

@@ -1,7 +1,0 @@
-[HDCP_KEY_0, HDCP]
-@ = 0x0FDEF0000, 0x00008000
-
-+ = HDCP_KEY
-
-KEY$ = 0x0000, @8
-

@@ -1,4 +1,4 @@
-[PORT0_PROBE0, INTERCONNECT]
+[PORT0_PROBE0, interconnect/probe]
 @ = 0xFDF50000, 0x400
 
 + = PORT_PROBE
@@ -385,36 +385,36 @@ COUNTERS_3_ALARMMODE = 0x0238 ; Defines statistics alarm counter behavior.
 COUNTERS_3_VAL = 0x023C, RO ; Contain the statistics counter values.
 > 0, 16, COUNTERS_3_VAL ; Register Val is a read-only register that is always present. The register contains the statistics counter value either pending StatAlarm output, or when statistics collection is suspended subsequent to triggers or signal statSuspend.
 
-[PORT0_PROBE1, INTERCONNECT]
+[PORT0_PROBE1, interconnect/probe]
 @ = 0xFDF50400, 0x400, PORT0_PROBE0
 
-[PORT1_PROBE0, INTERCONNECT]
+[PORT1_PROBE0, interconnect/probe]
 @ = 0xFDF50800, 0x400, PORT0_PROBE0
 
-[PORT1_PROBE1, INTERCONNECT]
+[PORT1_PROBE1, interconnect/probe]
 @ = 0xFDF50C00, 0x400, PORT0_PROBE0
 
-[PORT2_PROBE0, INTERCONNECT]
+[PORT2_PROBE0, interconnect/probe]
 @ = 0xFDF51000, 0x400, PORT0_PROBE0
 
-[PORT2_PROBE1, INTERCONNECT]
+[PORT2_PROBE1, interconnect/probe]
 @ = 0xFDF51400, 0x400, PORT0_PROBE0
 
-[PORT3_PROBE0, INTERCONNECT]
+[PORT3_PROBE0, interconnect/probe]
 @ = 0xFDF51800, 0x400, PORT0_PROBE0
 
-[PORT3_PROBE1, INTERCONNECT]
+[PORT3_PROBE1, interconnect/probe]
 @ = 0xFDF51C00, 0x400, PORT0_PROBE0
 
-[PORT4_PROBE0, INTERCONNECT]
+[PORT4_PROBE0, interconnect/probe]
 @ = 0xFE008C00, 0x400, PORT0_PROBE0
 
-[PORT4_PROBE1, INTERCONNECT]
+[PORT4_PROBE1, interconnect/probe]
 @ = 0xFE009000, 0x400, PORT0_PROBE0
 
-[PORT4_PROBE2, INTERCONNECT]
+[PORT4_PROBE2, interconnect/probe]
 @ = 0xFE009400, 0x400, PORT0_PROBE0
 
-[PORT4_PROBE3, INTERCONNECT]
+[PORT4_PROBE3, interconnect/probe]
 @ = 0xFE009800, 0x400, PORT0_PROBE0
 

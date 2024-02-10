@@ -1,0 +1,6 @@
+[PCIE3_1L2_DBI, bus/pcie]
+@ = 0x0F6000000, 0x00400000
+
+[HI_PCIE3_1L2_DBI, bus/pcie]
+@ = 0xA41000000, 0x00400000
+

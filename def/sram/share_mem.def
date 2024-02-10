@@ -1,4 +1,4 @@
-[SHAREMEM]
+[SHAREMEM, sram]
 @ = 0x0FE120000, 0x00008000
 
 RRA_SLT = 0x0000 ; RRA slot assignment register

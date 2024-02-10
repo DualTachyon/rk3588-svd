@@ -1,0 +1,5 @@
+[DSI_HOST0, video]
+@ = 0x0FDE20000, 0x00010000
+
++ = DSI_HOST
+

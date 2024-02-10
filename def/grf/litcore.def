@@ -1,4 +1,4 @@
-[GRF_LITCORE, GRF]
+[GRF_LITCORE, grf]
 @ = 0x0FD594000, 0x00004000
 
 MEM_CFG_HSSPRF_L = 0x0020 ; Memory Configuration Register For HSSPRF

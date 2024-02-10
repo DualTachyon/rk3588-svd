@@ -1,0 +1,3 @@
+[PCIE3_2L_APB, bus/pcie]
+@ = 0x0FE160000, 0x00010000
+

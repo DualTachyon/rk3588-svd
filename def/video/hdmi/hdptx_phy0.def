@@ -1,0 +1,3 @@
+[HDPTX_PHY0, video/hdmi]
+@ = 0x0FED60000, 0x00010000
+

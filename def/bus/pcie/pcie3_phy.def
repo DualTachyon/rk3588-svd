@@ -1,0 +1,3 @@
+[PCIE3_PHY, bus/pcie]
+@ = 0x0FEE80000, 0x00080000
+

@@ -1,0 +1,5 @@
+[USB2HOST_0, bus/usb]
+@ = 0x0FC800000, 0x00080000
+
++ = USB2HOST
+

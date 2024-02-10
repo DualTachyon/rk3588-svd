@@ -1,4 +1,4 @@
-[GRF_CENTER, GRF]
+[GRF_CENTER, grf]
 @ = 0x0FD59E000, 0x00002000
 
 SOC_CON0 = 0x0000 ; CENTER GRF Control Register 0

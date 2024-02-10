@@ -1,0 +1,3 @@
+[HDCP0_TRNG, video/hdcp]
+@ = 0x0FDE48000, 0x00008000
+

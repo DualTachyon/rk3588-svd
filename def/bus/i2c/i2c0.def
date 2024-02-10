@@ -1,0 +1,194 @@
+[I2C0, bus/i2c]
+@ = 0x0FD880000, 0x00010000
+
++ = I2C
+
+CON = 0x0000 ; Control register
+> 16, 16, VERSION ; Rki2c version information.
+
+> 14, 2, STOP_SETUP ; Stop setup config. TSU;sto = (stop_setup + 1) * T(SCL_HIGH) + Tclk_i2c.
+
+> 12, 2, START_SETUP ; Start setup config. TSU;sta = (start_setup + 1) * T(SCL_HIGH) + Tclk_i2c. THD;sta = (start_setup + 2) * T(SCL_HIGH) - Tclk_i2c.
+
+> 8, 4, DATA_UPD_ST ; SDA update point config. Used to config sda change state when scl is low, used to adjust setup/hold time. 4'bn: Thold = (n + 1) * Tclk_i2c. Note: 0 <= n <= 5
+
+> 6, 1, ACT2NAK ; Operation when NAK handshake is received.
+= 0, IGNORED
+= 1, STOP
+
+> 5, 1, ACK ; Last byte acknowledge control in master receive mode.
+= 0, ACK
+= 1, NAK
+
+> 4, 1, STOP ; Stop enable, when this bit is written to 1, I2C will generate stop signal.
+= 1, ENABLE
+
+> 3, 1, START ; Start enable, when this bit is written to 1, I2C will generate start signal.
+= 1, ENABLE
+
+> 1, 2, I2C_MODE ; I2c mode select.
+= 0, TX_ONLY ; Transmit only.
+= 1, TX_ADDRESS ; Transmit address (device + register address) --> Restart - -> Transmit address -> Receive only.
+= 2, RX_ONLY ; Receive only.
+= 3, RX_ADDRESS ; Transmit address (device + register address, write/read bit is 1) --> Restart --> Transmit address (device address) --> Receive data.
+
+> 0, 1, I2C_EN ; I2c module enable.
+= 0, DISABLE
+= 1, ENABLE
+
+CLKDIV = 0x0004 ; Clock divider register I2C CLK = PCLK / (16*CLKDIV)
+> 16, 16, CLKDIVH ; SCL high level clock count. T(SCL_HIGH) = Tclk_i2c * (CLKDIVH + 1) * 8.
+> 0, 16, CLKDIVL ; SCL low level clock count. T(SCL_LOW) = Tclk_i2c * (CLKDIVL + 1) * 8.
+
+MRXADDR = 0x0008 ; The slave address accessed for master rx mode
+> 26, 1, ADDHVLD ; Address high byte valid.
+= 0, INVALID
+= 1, VALID
+
+> 25, 1, ADDMVLD ; Address middle byte valid.
+= 0, INVALID
+= 1, VALID
+
+> 24, 1, ADDLVLD ; Address low byte valid.
+= 0, INVALID
+= 1, VALID
+
+> 0, 24, SADDR ; Master address register. The lowest bit indicate write or read. 24 bits address register.
+
+MRXRADDR = 0x000C ; The slave register address accessed for master rx mode
+> 26, 1, SRADDHVLD ; Address high byte valid.
+= 0, INVALID
+= 1, VALID
+
+> 25, 1, SRADDMVLD ; Address middle byte valid.
+= 0, INVALID
+= 1, VALID
+
+> 24, 1, SRADDLVLD ; Address low byte valid.
+= 0, INVALID
+= 1, VALID
+
+> 0, 24, SRADDR ; Slave register address accessed. 24 bits register address
+
+MTXCNT = 0x0010 ; Master transmit count, specify the total bytes to be transmit (0~32)
+> 0, 6, MTXCNT ; Master transmit count. 6 bits counter
+
+MRXCNT = 0x0014 ; Master rx count, specify the total bytes to be recieved(0~32)
+> 0, 6, MRXCNT ; Master rx count. 6 bits counter
+
+IEN = 0x0018 ; Interrupt enable register
+> 7, 1, SLAVEHDSCLEN ; Slave hold scl interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 6, 1, NAKRCVIEN ; NAK handshake received interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, STOPIEN ; Stop operation finished interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 1, STARTIEN ; Start operation finished interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 3, 1, MBRFIEN ; MRXCNT data received finished interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, MBTFIEN ; MTXCNT data transfer finished interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, BRFIEN ; Byte rx finished interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, BTFIEN ; Byte tx finished interrupt enable.
+= 0, DISABLE
+= 1, ENABLE
+
+IPD = 0x001C, W1C ; Interrupt pending register
+> 7, 1, SLAVEHDSCLIPD ; Slave hold scl interrupt pending bit.
+= 0, NONE ; No interrupt available.
+= 1, PENDING ; Slave hold scl interrupt appear.
+
+> 6, 1, NAKRCVIPD ; NAK handshake received interrupt pending bit.
+= 0, NONE ; No interrupt available.
+= 1, PENDING ; NAK handshake received interrupt appear.
+
+> 5, 1, STOPIPD ; Stop operation finished interrupt pending bit.
+= 0, NONE ; No interrupt available.
+= 1, PENDING ; Stop operation finished interrupt appear.
+
+> 4, 1, STARTIPD ; Start operation finished interrupt pending bit.
+= 0, NONE ; No interrupt available.
+= 1, PENDING ; Start operation finished interrupt appear.
+
+> 3, 1, MBRFIPD ; MRXCNT data received finished interrupt pending bit.
+= 0, NONE ; No interrupt available.
+= 1, PENDING ; MRXCNT data received finished interrupt appear.
+
+> 2, 1, MBTFIPD ; MTXCNT data transfer finished interrupt pending bit.
+= 0, NONE ; No interrupt available.
+= 1, PENDING ; MTXCNT data transfer finished interrupt appear.
+
+> 1, 1, BRFIPD ; Byte rx finished interrupt pending bit.
+= 0, NONE ; No interrupt available.
+= 1, PENDING ; Byte rx finished interrupt appear.
+
+> 0, 1, BTFIPD ; Byte tx finished interrupt pending bit.
+= 0, NONE ; No interrupt available.
+= 1, PENDING ; Byte tx finished interrupt appear.
+
+FCNT = 0x0020, RO ; Finished count: the count of data which has been transmitted or received for debug purpose
+> 0, 6, FCNT ; The count of data which has been transmitted or received for debug purpose.
+
+SCL_OE_DB = 0x0024 ; Slave hold debounce configure register
+> 0, 8, SCL_OE_DB ; Slave hold scl debounce. Cycles for debounce (unit: Tclk_i2c).
+
+TXDATA$ = 0x0100, @8 ; I2C tx data register $
+RXDATA$ = 0x0200, @8, RO ; I2C rx data register $
+
+ST = 0x0220, RO ; Status debug register
+> 1, 1, SCL_ST ; SCL status.
+= 0, DOC_BUG_LOW
+= 1, DOC_BUG_HIGH
+
+> 0, 1, SDA_ST ; SDA status.
+= 0, DOC_BUG_LOW
+= 1, DOC_BUG_HIGH
+
+DBGCTRL = 0x0224 ; Debug config register
+> 14, 1, H0_CHECK_SCL
+= 0, WHOLE ; Check if scl been pull down by slave at the whole SCL_HIGH.
+= 1, AT_H0 ; Check if scl been pull down by slave only at the h0 of SCL_HIGH(SCL_HIGH including h0~h7).
+
+> 13, 1, NAK_RELEASE_SCL
+= 0, HOLD ; Hold scl as low when recieved nack.
+= 1, RELEASE ; Release scl as high when recieved nack.
+
+> 12, 1, FLT_EN ; SCL edage glitch filter enable.
+= 0, DISABLE
+= 1, ENABLE
+
+> 8, 4, SLV_HOLD_SCL_TH ; Slave hold scl threshold = slv_hold_scl_db * Tclk_i2c.
+
+> 4, 4, FLT_R ; Filter scl rising edge glitches of width less than flt_r * Tclk_i2c.
+
+> 0, 4, FLT_F ; Filter scl falling edge glitches of width less than flt_f * Tclk_i2c.
+
+CON1 = 0x0228 ; Control register
+> 2, 1, AUTO_STOP_NAK ; Auto stop when i2c master recieved nak from slave. Work when CON1[0]=1'b1.
+= 0, NO_AUTO ; Do not auto stop when recieved nak.
+= 1, AUTO ; Auto stop when recieved nak.
+
+> 1, 1, AUTO_STOP_TX_END ; Auto stop when i2c master tx end. Work when CON1[0]=1'b1.
+= 0, NO_AUTO ; Do not auto stop when tx end.
+= 1, AUTO ; Auto stop when tx end.
+
+> 0, 1, AUTO_STOP ; Auto stop when i2c master recieved nak from slave or tx end.
+= 0, NO_AUTO ; Do not auto stop when recieved nak or tx end.
+= 1, AUTO ; Auto stop when recieved nak or tx end.
+

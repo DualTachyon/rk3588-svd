@@ -1,4 +1,4 @@
-[GRF_DDR01, GRF]
+[GRF_DDR01, grf]
 @ = 0x0FD59C000, 0x00001000
 
 + = GRF_DDR

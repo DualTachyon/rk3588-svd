@@ -1,4 +1,4 @@
-[DECOM]
+[DECOM, misc]
 @ = 0x0FEA80000, 0x00010000
 
 CTRL = 0x0000 ; Control Register

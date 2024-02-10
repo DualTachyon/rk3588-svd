@@ -1,4 +1,4 @@
-[DDRCTL_0, DDR]
+[DDRCTL_0, ddr]
 @ = 0x0F7000000, 0x01000000
 
 + = DDTCTL

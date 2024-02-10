@@ -1,4 +1,4 @@
-[DDRSCH0, INTERCONNECT]
+[DDRSCH0, interconnect]
 @ = 0xFE000000, 0x2000
 
 + = DDRSCH

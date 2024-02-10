@@ -636,7 +636,7 @@ def insert_indent(a, b, indent):
 
 def get_include_filename(path, peripheral):
     if peripheral.group:
-        group = peripheral.group.lower() + os.sep
+        group = peripheral.group + os.sep
     else:
         group = ''
 
@@ -837,7 +837,7 @@ def generate_headers(peripherals, path):
         short_indent = 37 + len(peripheral.name)
 
         if peripheral.group:
-            prefix = peripheral.group.lower() + '/'
+            prefix = peripheral.group + '/'
         else:
             prefix = ''
 

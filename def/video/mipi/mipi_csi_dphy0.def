@@ -1,0 +1,5 @@
+[MIPI_CSI_DPHY0, video/mipi]
+@ = 0x0FEDC0000, 0x00008000
+
++ = MIPI_CSI_DPHY
+

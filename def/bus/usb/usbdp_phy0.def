@@ -1,0 +1,5 @@
+[USBDP_PHY0, bus/usb]
+@ = 0x0FED80000, 0x00010000
+
++ = USBDP_PHY
+

@@ -1,4 +1,4 @@
-[IOC_VCCIO1_4, GRF]
+[IOC_VCCIO1_4, grf]
 @ = 0x0FD5F9000, 0x00001000
 
 GPIO1A_DS_L = 0x0020 ; GPIO1A Driver Strength Control Low bits

@@ -1,4 +1,4 @@
-[CRU_PHP_PPLL, CRU]
+[CRU_PHP_PPLL, cru]
 @ = 0x0FD7C8000, 0x00008000
 
 PPLL_CON0 = 0x0200 ; PPLL configuration register 0

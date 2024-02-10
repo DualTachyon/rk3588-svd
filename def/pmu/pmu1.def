@@ -1,0 +1,891 @@
+[PMU1, pmu]
+@ = 0x0FD8D4000, 0x00004000
+
+VERSION = 0x0000 ; PMU version register
+> 0, 32, VERSION, RO
+
+PWR_CON1 = 0x0004 ; PMU power control 1 register
+> 12, 1, WFI_BYPASS ; Bypass WFI in power mode 1 procedure. If asserted, PMU FSM does not need to wait for CPU standbywfi state before entering low power flow.
+= 0, DISABLE
+= 1, ENABLE
+
+> 9, 3, CORE_BYPASS ; Bypass core low power flow in power mode 1 procedure. Bit[9] used to bypass BIGCORE0 low power flow. Bit[10] used to bypass BIGCORE1 low power flow. Bit[11] used to bypass LITDSU low power flow.
+= 0, DISABLE
+= 1, ENABLE
+
+> 8, 1, QCH_BYPASS ; Bypass power Q-Channel low power flow in power mode 1 procedure. If asserted, PMU_QCHANNEL_PWR_CON cannot take effect for power Q-Channel low power flow. If you want to execute power Q-Channel low power flow, you can program PMU_QCHANNEL_PWR_SFTCON through software flow.
+= 0, DISABLE
+= 1, ENABLE
+
+> 7, 1, CRU_BYPASS ; Bypass clock and reset low power flow in power mode 1 procedure. If asserted, PMU_CRU_PWR_CON cannot take effect for clock and reset low power flow. If you want to execute clock and reset low power flow, you can program PMU_CRU_PWR_SFTCON through software flow.
+= 0, DISABLE
+= 1, ENABLE
+
+> 6, 1, PWRGATE_BYPASS ; Bypass power gating flow in power mode 1 procedure. If asserted, PMU_PWR_GATE_CON0/1/2 cannot take effect for power gating flow. If you want to execute power gating flow, you can program PMU_PWR_GATE_SFTCON0/1/2 through software flow.
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, DDR_BYPASS ; Bypass DDR low power flow in power mode 1 procedure. If asserted, PMU_DDR_CH0/1/2/3_PWR_CON cannot take effect for DDR low power flow. If you want to execute DDR low power flow, you can program PMU_DDR_CH0/1/2/3_PWR_SFTCON through software flow.
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 1, BUS_BYPASS ; Bypass BIU idle request in power mode 1 procedure. If asserted, PMU_BIU_IDLE_CON0/1/2 cannot take effect for BIU idle request. If you want to execute BIU idle request, you can program PMU_BIU_IDLE_SFTCON0/1/2 through software flow.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, DSU_BYPASS ; Bypass DSU low power flow in power mode 1 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, POWERMODE1_EN ; Power mode 1 enable. When controller enters power mode 1 procedure. It is automatically cleared after PMU enters power mode 1 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+GLB_POWER_STS = 0x0008 ; PMU global power status register
+> 0, 4, POWER_STATE, RO ; PMU1 global power state.
+= 0, NORMAL ; Normal state
+= 1, CORE_LP ; Core low power state
+= 2, CLUSTER_LP ; Cluster low power state
+= 3, QCH_LP ; Q-Channel low power state
+= 4, BUS_LP ; Bus low power state
+= 5, DDR_LP ; DDR low power state
+= 6, PG_LP ; Power gating low power state
+= 7, CR_LP ; Clock and reset low power state
+= 8, SLEEP ; Sleep state
+= 9, CR_ACTIVE ; Clock and reset active state
+= 10, PG_ACTIVE ; Power gating active state
+= 11, DDR_ACTIVE ; DDR active state
+= 12, BUS_ACTIVE ; Bus active state
+= 13, QCH_ACTIVE ; Q-Channel active state
+= 14, CLUSTER_ACTIVE ; Cluster active state
+= 15, CORE_ACTIVE ; Core active state
+
+INT_MASK_CON = 0x000C ; PMU interrupt mask control register
+> 0, 1, GLB_INT_MASK ; Global interrupt mask during DSU sleep state.
+= 0, UNMASKED ; Interrupt is not mask
+= 1, MASKED ; Interrupt is mask
+
+WAKEUP_INT_CON = 0x0010 ; PMU wake up interrupt control register
+> 16, 1, WAKEUP_TIMEOUT_EN ; Enable PMU wake up timeout as wake up source to exit power mode 1 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 15, 1, WAKEUP_SYS_INT_EN ; Enable system interrupt as wake up source to exit power mode 1 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 14, 1, WAKEUP_TIMER_INT_EN ; Enable PMU_TIMER interrupt as wake up source to exit power mode 1 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 13, 1, WAKEUP_VAD_INT_EN ; Enable VAD interrupt as wake up source to exit power mode 1 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 12, 1, WAKEUP_UART0_INT_EN ; Enable UART0 interrupt as wake up source to exit power mode 1 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 11, 1, WAKEUP_USB_INT_EN ; Enable USB detect interrupt as wake up source to exit power mode 1 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 10, 1, WAKEUP_SDIO_INT_EN ; Enable SDIO interrupt as wake up source to exit power mode 1 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 9, 1, WAKEUP_SDMMC_INT_EN ; Enable SDMMC detect interrupt as wake up source to exit power mode 1 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 8, 1, WAKEUP_GPIO0_INT_EN ; Enable GPIO0 interrupt as wake up source to exit power mode 1 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 7, 1, WAKEUP_CPU7_INT_EN ; Enable CPU7 interrupt as wake up source to exit power mode 1 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 6, 1, WAKEUP_CPU6_INT_EN ; Enable CPU6 interrupt as wake up source to exit power mode 1 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, WAKEUP_CPU5_INT_EN ; Enable CPU5 interrupt as wake up source to exit power mode 1 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 1, WAKEUP_CPU4_INT_EN ; Enable CPU4 interrupt as wake up source to exit power mode 1 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 3, 1, WAKEUP_CPU3_INT_EN ; Enable CPU3 interrupt as wake up source to exit power mode 1 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, WAKEUP_CPU2_INT_EN ; Enable CPU2 interrupt as wake up source to exit power mode 1 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, WAKEUP_CPU1_INT_EN ; Enable CPU1 interrupt as wake up source to exit power mode 1 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, WAKEUP_CPU0_INT_EN ; Enable CPU0 interrupt as wake up source to exit power mode 1 procedure.
+= 0, DISABLE
+= 1, ENABLE
+
+WAKEUP_INT_STS = 0x0014 ; PMU wake up interrupt status register
+> 16, 1, WAKEUP_TIMEOUT_ST, RO ; Wake up timeout as wake up source status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 15, 1, WAKEUP_SYS_INT_ST, RO ; System interrupt as wake up source status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 14, 1, WAKEUP_TIMER_INT_ST, RO ; PMU_TIMER interrupt as wake up source status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 13, 1, WAKEUP_VAD_INT_ST, RO ; VAD interrupt as wake up source status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 12, 1, WAKEUP_UART0_INT_ST, RO ; UART0 interrupt as wake up source status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 11, 1, WAKEUP_USB_INT_ST, RO ; USB detect interrupt as wake up source status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 10, 1, WAKEUP_SDIO_INT_ST, RO ; SDIO interrupt as wake up source status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 9, 1, WAKEUP_SDMMC_INT_ST, RO ; SDMMC detect interrupt as wake up source status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 8, 1, WAKEUP_GPIO0_INT_ST, RO ; GPIO0 interrupt as wake up source status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 7, 1, WAKEUP_CPU7_INT_ST, RO ; CPU7 interrupt as wake up source status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 6, 1, WAKEUP_CPU6_INT_ST, RO ; CPU6 interrupt as wake up source status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 5, 1, WAKEUP_CPU5_INT_ST, RO ; CPU5 interrupt as wake up source status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 4, 1, WAKEUP_CPU4_INT_ST, RO ; CPU4 interrupt as wake up source status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 3, 1, WAKEUP_CPU3_INT_ST, RO ; CPU3 interrupt as wake up source status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 2, 1, WAKEUP_CPU2_INT_ST, RO ; CPU2 interrupt as wake up source status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 1, 1, WAKEUP_CPU1_INT_ST, RO ; CPU1 interrupt as wake up source status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 0, 1, WAKEUP_CPU0_INT_ST, RO ; CPU0 interrupt as wake up source status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+DDR_CH0_PWR_CON = 0x0020 ; DDR channel 0 hardware power control register
+> 10, 1, DDRPHY_AUTO_GATING_ENA ; Enable DDRPHY auto clock gating. DDRPHY's clock can be gated when in sleep mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 9, 1, DDRCTL_C_AUTO_GATING_ENA ; Enable DDRCTRL's core-clock auto clock gating. Core-clock can be gated when in self-refresh mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 8, 1, DDRCTL_A_AUTO_GATING_ENA ; Enable DDRCTRL's AXI-clock auto clock gating. AXI-clock can be gated when in self-refresh mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 7, 1, DDRIO_RSTIOV_EXIT_ENA ; Enable DDR exits retention mode through RST_IOV by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 6, 1, DDRIO_RSTIOV_ENTER_ENA ; Enable DDR enters retention mode through RST_IOV by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, DDRIO_RETON_EXIT_ENA ; Enable DDR exits retention mode through RETON/RETOFF by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, DDRIO_RETON_ENTER_ENA ; Enable DDR enters retention mode through RETON/RETOFF by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, DDR_SREF_A_ENA ; Enable DDR self-refresh mode for AXI-clock domain by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, DDR_SREF_C_ENA ; Enable DDR self-refresh mode for core-clock domain by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+DDR_CH1_PWR_CON = 0x0024 ; DDR channel 1 hardware power control register
+> 10, 1, DDRPHY_AUTO_GATING_ENA ; Enable DDRPHY auto clock gating. DDRPHY's clock can be gated when in sleep mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 9, 1, DDRCTL_C_AUTO_GATING_ENA ; Enable DDRCTRL's core-clock auto clock gating. Core-clock can be gated when in self-refresh mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 8, 1, DDRCTL_A_AUTO_GATING_ENA ; Enable DDRCTRL's AXI-clock auto clock gating. AXI-clock can be gated when in self-refresh mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 7, 1, DDRIO_RSTIOV_EXIT_ENA ; Enable DDR exits retention mode through RST_IOV by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 6, 1, DDRIO_RSTIOV_ENTER_ENA ; Enable DDR enters retention mode through RST_IOV by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, DDRIO_RETON_EXIT_ENA ; Enable DDR exits retention mode through RETON/RETOFF by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, DDRIO_RETON_ENTER_ENA ; Enable DDR enters retention mode through RETON/RETOFF by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, DDR_SREF_A_ENA ; Enable DDR self-refresh mode for AXI-clock domain by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, DDR_SREF_C_ENA ; Enable DDR self-refresh mode for core-clock domain by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+DDR_CH2_PWR_CON = 0x0028 ; DDR channel 2 hardware power control register
+> 10, 1, DDRPHY_AUTO_GATING_ENA ; Enable DDRPHY auto clock gating. DDRPHY's clock can be gated when in sleep mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 9, 1, DDRCTL_C_AUTO_GATING_ENA ; Enable DDRCTRL's core-clock auto clock gating. Core-clock can be gated when in self-refresh mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 8, 1, DDRCTL_A_AUTO_GATING_ENA ; Enable DDRCTRL's AXI-clock auto clock gating. AXI-clock can be gated when in self-refresh mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 7, 1, DDRIO_RSTIOV_EXIT_ENA ; Enable DDR exits retention mode through RST_IOV by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 6, 1, DDRIO_RSTIOV_ENTER_ENA ; Enable DDR enters retention mode through RST_IOV by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, DDRIO_RETON_EXIT_ENA ; Enable DDR exits retention mode through RETON/RETOFF by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, DDRIO_RETON_ENTER_ENA ; Enable DDR enters retention mode through RETON/RETOFF by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, DDR_SREF_A_ENA ; Enable DDR self-refresh mode for AXI-clock domain by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, DDR_SREF_C_ENA ; Enable DDR self-refresh mode for core-clock domain by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+DDR_CH3_PWR_CON = 0x002C ; DDR channel 3 hardware power control register
+> 10, 1, DDRPHY_AUTO_GATING_ENA ; Enable DDRPHY auto clock gating. DDRPHY's clock can be gated when in sleep mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 9, 1, DDRCTL_C_AUTO_GATING_ENA ; Enable DDRCTRL's core-clock auto clock gating. Core-clock can be gated when in self-refresh mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 8, 1, DDRCTL_A_AUTO_GATING_ENA ; Enable DDRCTRL's AXI-clock auto clock gating. AXI-clock can be gated when in self-refresh mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 7, 1, DDRIO_RSTIOV_EXIT_ENA ; Enable DDR exits retention mode through RST_IOV by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 6, 1, DDRIO_RSTIOV_ENTER_ENA ; Enable DDR enters retention mode through RST_IOV by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, DDRIO_RETON_EXIT_ENA ; Enable DDR exits retention mode through RETON/RETOFF by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, DDRIO_RETON_ENTER_ENA ; Enable DDR enters retention mode through RETON/RETOFF by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, DDR_SREF_A_ENA ; Enable DDR self-refresh mode for AXI-clock domain by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, DDR_SREF_C_ENA ; Enable DDR self-refresh mode for core-clock domain by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+DDR_CH0_PWR_SFTCON = 0x0030 ; DDR channel 0 software power control register
+> 11, 1, DDRCTL_C_ACTIVE_WAIT_ENTER ;
+= 0, NOT_NEED ; Not need to wait for ddrctl_c_active low before FSM enter self-refresh state
+= 1, NEED ; Need to wait for ddrctl_c_active low before FSM enter self- refresh state
+
+> 10, 1, DDRCTL_A_ACTIVE_WAIT_EXIT ;
+= 0, NOT_NEED ; Not need to wait for ddrctl_a_active high before FSM exit self-refresh state
+= 1, NEED ; Need to wait for ddrctl_a_active high before FSM exit self- refresh state
+
+> 9, 1, DDRCTL_C_ACTIVE_WAIT_EXIT ;
+= 0, NOT_NEED ; Not need to wait for ddrctl_c_active high before FSM exit self-refresh state
+= 1, NEED ; Need to wait for ddrctl_c_active high before FSM exit self- refresh state
+
+> 8, 1, DDRCTL_A_ACTIVE_WAIT_ENTER ;
+= 0, NOT_NEED ; Not need to wait for ddrctl_a_active low before FSM enter self-refresh state
+= 1, NEED ; Need to wait for ddrctl_a_active low before FSM enter self- refresh state
+
+> 7, 1, DDRIO_RSTIOV_EXIT_SFTENA ; Enable DDR exits retention mode through RST_IOV by software. It is auto cleared after DDR exits retention mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 6, 1, DDRIO_RSTIOV_ENTER_SFTENA ; Enable DDR enters retention mode through RST_IOV by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, DDRIO_RETON_EXIT_SFTENA ; Enable DDR exits retention mode through RETON/RETOFF by software. It is auto cleared after DDR exits retention mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, DDRIO_RETON_ENTER_SFTENA ; Enable DDR enters retention mode through RETON/RETOFF by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, DDR_SREF_A_SFTENA ; Enable DDR self-refresh mode for AXI-clock domain by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, DDR_SREF_C_SFTENA ; Enable DDR self-refresh mode for core-clock domain by software.
+= 0, DISABLE
+= 1, ENABLE
+
+DDR_CH1_PWR_SFTCON = 0x0034 ; DDR channel 1 software power control register
+> 11, 1, DDRCTL_C_ACTIVE_WAIT_ENTER ;
+= 0, NOT_NEED ; Not need to wait for ddrctl_c_active low before FSM enter self-refresh state
+= 1, NEED ; Need to wait for ddrctl_c_active low before FSM enter self- refresh state
+
+> 10, 1, DDRCTL_A_ACTIVE_WAIT_EXIT ;
+= 0, NOT_NEED ; Not need to wait for ddrctl_a_active high before FSM exit self-refresh state
+= 1, NEED ; Need to wait for ddrctl_a_active high before FSM exit self- refresh state
+
+> 9, 1, DDRCTL_C_ACTIVE_WAIT_EXIT ;
+= 0, NOT_NEED ; Not need to wait for ddrctl_c_active high before FSM exit self-refresh state
+= 1, NEED ; Need to wait for ddrctl_c_active high before FSM exit self- refresh state
+
+> 8, 1, DDRCTL_A_ACTIVE_WAIT_ENTER ;
+= 0, NOT_NEED ; Not need to wait for ddrctl_a_active low before FSM enter self-refresh state
+= 1, NEED ; Need to wait for ddrctl_a_active low before FSM enter self- refresh state
+
+> 7, 1, DDRIO_RSTIOV_EXIT_SFTENA ; Enable DDR exits retention mode through RST_IOV by software. It is auto cleared after DDR exits retention mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 6, 1, DDRIO_RSTIOV_ENTER_SFTENA ; Enable DDR enters retention mode through RST_IOV by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, DDRIO_RETON_EXIT_SFTENA ; Enable DDR exits retention mode through RETON/RETOFF by software. It is auto cleared after DDR exits retention mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, DDRIO_RETON_ENTER_SFTENA ; Enable DDR enters retention mode through RETON/RETOFF by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, DDR_SREF_A_SFTENA ; Enable DDR self-refresh mode for AXI-clock domain by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, DDR_SREF_C_SFTENA ; Enable DDR self-refresh mode for core-clock domain by software.
+= 0, DISABLE
+= 1, ENABLE
+
+DDR_CH2_PWR_SFTCON = 0x0038 ; DDR channel 2 software power control register
+> 11, 1, DDRCTL_C_ACTIVE_WAIT_ENTER ;
+= 0, NOT_NEED ; Not need to wait for ddrctl_c_active low before FSM enter self-refresh state
+= 1, NEED ; Need to wait for ddrctl_c_active low before FSM enter self- refresh state
+
+> 10, 1, DDRCTL_A_ACTIVE_WAIT_EXIT ;
+= 0, NOT_NEED ; Not need to wait for ddrctl_a_active high before FSM exit self-refresh state
+= 1, NEED ; Need to wait for ddrctl_a_active high before FSM exit self- refresh state
+
+> 9, 1, DDRCTL_C_ACTIVE_WAIT_EXIT ;
+= 0, NOT_NEED ; Not need to wait for ddrctl_c_active high before FSM exit self-refresh state
+= 1, NEED ; Need to wait for ddrctl_c_active high before FSM exit self- refresh state
+
+> 8, 1, DDRCTL_A_ACTIVE_WAIT_ENTER ;
+= 0, NOT_NEED ; Not need to wait for ddrctl_a_active low before FSM enter self-refresh state
+= 1, NEED ; Need to wait for ddrctl_a_active low before FSM enter self- refresh state
+
+> 7, 1, DDRIO_RSTIOV_EXIT_SFTENA ; Enable DDR exits retention mode through RST_IOV by software. It is auto cleared after DDR exits retention mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 6, 1, DDRIO_RSTIOV_ENTER_SFTENA ; Enable DDR enters retention mode through RST_IOV by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, DDRIO_RETON_EXIT_SFTENA ; Enable DDR exits retention mode through RETON/RETOFF by software. It is auto cleared after DDR exits retention mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, DDRIO_RETON_ENTER_SFTENA ; Enable DDR enters retention mode through RETON/RETOFF by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, DDR_SREF_A_SFTENA ; Enable DDR self-refresh mode for AXI-clock domain by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, DDR_SREF_C_SFTENA ; Enable DDR self-refresh mode for core-clock domain by software.
+= 0, DISABLE
+= 1, ENABLE
+
+DDR_CH3_PWR_SFTCON = 0x003C ; DDR channel 3 software power control register
+> 11, 1, DDRCTL_C_ACTIVE_WAIT_ENTER ;
+= 0, NOT_NEED ; Not need to wait for ddrctl_c_active low before FSM enter self-refresh state
+= 1, NEED ; Need to wait for ddrctl_c_active low before FSM enter self- refresh state
+
+> 10, 1, DDRCTL_A_ACTIVE_WAIT_EXIT ;
+= 0, NOT_NEED ; Not need to wait for ddrctl_a_active high before FSM exit self-refresh state
+= 1, NEED ; Need to wait for ddrctl_a_active high before FSM exit self- refresh state
+
+> 9, 1, DDRCTL_C_ACTIVE_WAIT_EXIT ;
+= 0, NOT_NEED ; Not need to wait for ddrctl_c_active high before FSM exit self-refresh state
+= 1, NEED ; Need to wait for ddrctl_c_active high before FSM exit self- refresh state
+
+> 8, 1, DDRCTL_A_ACTIVE_WAIT_ENTER ;
+= 0, NOT_NEED ; Not need to wait for ddrctl_a_active low before FSM enter self-refresh state
+= 1, NEED ; Need to wait for ddrctl_a_active low before FSM enter self- refresh state
+
+> 7, 1, DDRIO_RSTIOV_EXIT_SFTENA ; Enable DDR exits retention mode through RST_IOV by software. It is auto cleared after DDR exits retention mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 6, 1, DDRIO_RSTIOV_ENTER_SFTENA ; Enable DDR enters retention mode through RST_IOV by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, DDRIO_RETON_EXIT_SFTENA ; Enable DDR exits retention mode through RETON/RETOFF by software. It is auto cleared after DDR exits retention mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, DDRIO_RETON_ENTER_SFTENA ; Enable DDR enters retention mode through RETON/RETOFF by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, DDR_SREF_A_SFTENA ; Enable DDR self-refresh mode for AXI-clock domain by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, DDR_SREF_C_SFTENA ; Enable DDR self-refresh mode for core-clock domain by software.
+= 0, DISABLE
+= 1, ENABLE
+
+DDR_POWER_STS = 0x0040 ; DDR power state register
+> 0, 4, DDR_POWER_STATE, RO ; DDR power state.
+= 0, NORMAL ; Normal state
+= 1, ENTER_SR_AXI_CLK ; Enter self-refresh mode for AXI-clock state
+= 2, ENTER_SR_CORE_CLK ; Enter self-refresh mode core-clock state
+= 3, ENTER_RET ; Enter retention mode through RETON/RETOFF state
+= 4, ENTER_RET_RST ; Enter retention mode through RST_IOV state
+= 5, SLEEP ; Sleep state
+= 6, EXIT_RET_RST ; Exit retention mode through RST_IOV state
+= 7, EXIT_RET ; Exit retention mode through RETON/RETOFF state
+= 8, EXIT_SR_CORE_CLK ; Exit self-refresh mode for core-clock state
+= 9, EXIT_SR_AXI_CLK ; Exit self-refresh mode for AXI-clock state
+
+DDR_STS = 0x0044 ; DDR state register
+> 29, 1, DDR_CH3_IO_RSTIOV, RO ; DDR RST_IOV state for channel 3.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 28, 1, DDRCTRL_CH3_A_SYSACTIVE, RO ; DDRC AXI clock active for channel 3.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 27, 1, DDRCTRL_CH3_A_SYSACK, RO ; DDRC AXI hardware low-power request acknowledge for channel 3.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 26, 1, DDR_CH3_IO_RETON, RO ; DDR RETON/RETOFF state for channel 3.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 25, 1, DDRCTRL_CH3_C_SYSACTIVE, RO ; DDRC hardware low-power clock active for channel 3.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 24, 1, DDRCTRL_CH3_C_SYSACK, RO ; DDRC hardware low-power request acknowledge for channel 3.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 21, 1, DDR_CH2_IO_RSTIOV, RO ; DDR RST_IOV state for channel 2.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 20, 1, DDRCTRL_CH2_A_SYSACTIVE, RO ; DDRC AXI clock active for channel 2.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 19, 1, DDRCTRL_CH2_A_SYSACK, RO ; DDRC AXI hardware low-power request acknowledge for channel 2.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 18, 1, DDR_CH2_IO_RETON, RO ; DDR RETON/RETOFF state for channel 2.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 17, 1, DDRCTRL_CH2_C_SYSACTIVE, RO ; DDRC hardware low-power clock active for channel 2.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 16, 1, DDRCTRL_CH2_C_SYSACK, RO ; DDRC hardware low-power request acknowledge for channel 2.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 13, 1, DDR_CH1_IO_RSTIOV, RO ; DDR RST_IOV state for channel 1.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 12, 1, DDRCTRL_CH1_A_SYSACTIVE, RO ; DDRC AXI clock active for channel 1.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 11, 1, DDRCTRL_CH1_A_SYSACK, RO ; DDRC AXI hardware low-power request acknowledge for channel 1.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 10, 1, DDR_CH1_IO_RETON, RO ; DDR RETON/RETOFF state for channel 1.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 9, 1, DDRCTRL_CH1_C_SYSACTIVE, RO ; DDRC hardware low-power clock active for channel 1.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 8, 1, DDRCTRL_CH1_C_SYSACK, RO ; DDRC hardware low-power request acknowledge for channel 1.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 5, 1, DDR_CH0_IO_RSTIOV, RO ; DDR RST_IOV state for channel 0.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 4, 1, DDRCTRL_CH0_A_SYSACTIVE, RO ; DDRC AXI clock active for channel 0.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 3, 1, DDRCTRL_CH0_A_SYSACK, RO ; DDRC AXI hardware low-power request acknowledge for channel 0.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 2, 1, DDR_CH0_IO_RETON, RO ; DDR RETON/RETOFF state for channel 0.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 1, 1, DDRCTRL_CH0_C_SYSACTIVE, RO ; DDRC hardware low-power clock active for channel 0.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 0, 1, DDRCTRL_CH0_C_SYSACK, RO ; DDRC hardware low-power request acknowledge for channel 0.
+= 0, INACTIVE
+= 1, ACTIVE
+
+CRU_PWR_CON = 0x0050 ; Clock and reset hardware power control register
+> 10, 1, POWER_OFF_IO_ENA ; Enable VCCIO enter low power mode by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 9, 1, PD_BUS_CLK_SRC_GATE_ENA ; Gating BIU_BUS's clock source during clock low power mode.
+= 0, DISABLE
+= 1, ENABLE
+
+> 8, 1, PWM_SWITCH_IOUT ; PWM output.
+= 0, DISABLE
+= 1, ENABLE ; It is set 0 for RK3588.
+
+> 7, 1, PWM_GPIO_IOE_ENA ; PWM output enable.
+= 0, DISABLE
+= 1, ENABLE ;` It is set 0 for RK3588.
+
+> 6, 1, PWM_SWITCH_ENA ; PWM switch enable.
+= 0, DISABLE
+= 1, ENABLE ;` It is set 0 for RK3588.
+
+> 5, 1, POWER_OFF_ENA ; Enable chip power off by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 1, ALIVE_OSC_ENA ; Enable clk_pmu/hclk_pmu/pclk_pmu switch to oscillator by hardware. When alive_32k_ena is asserted, this bit is ignored.
+= 0, DISABLE
+= 1, ENABLE
+
+> 3, 1, INPUT_CLAMP_ENA ; Enable VD_PMU input clamped by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, WAKEUP_RST_ENA ; Enable wake up reset by hardware. If asserted, all registers without reset hold will be reset after chip wake up.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, OSC_DIS_ENA ; Disable oscillator by hardware.
+= 0, ENABLE
+= 1, DISABLE
+
+> 0, 1, ALIVE_32K_ENA ; Enable pclk_pmu and clk_pmu switch to 32KHz clock by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+CRU_PWR_SFTCON = 0x0054 ; Clock and reset software power control register
+> 6, 1, POWER_OFF_IO_SFTENA ; Enable VCCIO enter low power mode by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, POWER_OFF_SFTENA ; Enable chip power off by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 1, ALIVE_OSC_SFTENA ; Enable clk_pmu/hclk_pmu/pclk_pmu switch to oscillator by software. When alive_32k_ena is asserted, this bit is ignored.
+= 0, DISABLE
+= 1, ENABLE
+
+> 3, 1, INPUT_CLAMP_SFTENA ; Enable VD_PMU input clamp by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, WAKEUP_RST_SFTENA ; Enable wake up reset by software. If asserted, all digital except IP with reset hold will be reset.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, OSC_DIS_SFTENA ; Disable oscillator by software.
+= 0, ENABLE
+= 1, DISABLE
+
+> 0, 1, ALIVE_32K_SFTENA ; Enable pclk_pmu and clk_pmu switch to 32KHz clock by software.
+= 0, DISABLE
+= 1, ENABLE
+
+CRU_POWER_STS = 0x0058 ; Clock and reset power state register
+> 0, 4, CRU_POWER_STATE, RO ; Clock and reset power state.
+= 0, NORMAL ; Normal state
+= 1, CLK_LOW_FREQ ; Clock low frequency state
+= 2, PLL_PWR_DN ; PLL power down state
+= 3, INPUT_CLAMP ; Input clamp state
+= 4, OSC_DISABLE ; Oscillator disable state
+= 5, SLEEP ; Sleep state
+= 6, WAKE_UP ; Wake up state
+= 7, INPUT_CLAMP_RELEASE ; Input clamp release state
+= 8, OSC_ENABLE ; Oscillator enable state
+= 9, CLK_HIGH_FREQ ; Clock high frequency state
+= 10, WAKE_UP_RESET_CLEAR ; Wake up reset clear state
+= 12, PLL_PWR_UP ; PLL power up state
+
+PLLPD_CON0 = 0x0060 ; PLL hardware power control register 0
+> 15, 1, NPLL_PD_ENA ; Enable power down NPLL by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 14, 1, CPLL_PD_ENA ; Enable power down CPLL by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 13, 1, GPLL_PD_ENA ; Enable power down GPLL by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 12, 1, AUPLL_PD_ENA ; Enable power down AUPLL by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 11, 1, V0PLL_PD_ENA ; Enable power down V0PLL by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 10, 1, D3BPLL_PD_ENA ; Enable power down D3BPLL by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 9, 1, D3APLL_PD_ENA ; Enable power down D3APLL by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 8, 1, D2BPLL_PD_ENA ; Enable power down D2BPLL by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 7, 1, D2APLL_PD_ENA ; Enable power down D2APLL by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 6, 1, D1BPLL_PD_ENA ; Enable power down D1BPLL by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, D1APLL_PD_ENA ; Enable power down D1APLL by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 1, D0BPLL_PD_ENA ; Enable power down D0BPLL by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 3, 1, D0APLL_PD_ENA ; Enable power down D0APLL by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, LPLL_PD_ENA ; Enable power down LPLL by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, B1PLL_PD_ENA ; Enable power down B1PLL by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, B0PLL_PD_ENA ; Enable power down B0PLL by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+PLLPD_CON1 = 0x0064 ; PLL hardware power control register 1
+> 1, 1, SPLL_PD_ENA ; Enable power down SPLL by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, PPLL_PD_ENA ; Enable power down PPLL by hardware.
+= 0, DISABLE
+= 1, ENABLE
+
+PLLPD_SFTCON0 = 0x0068 ; PLL software power control register 0
+> 15, 1, NPLL_PD_SFTENA ; Enable power down NPLL by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 14, 1, CPLL_PD_SFTENA ; Enable power down CPLL by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 13, 1, GPLL_PD_SFTENA ; Enable power down GPLL by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 12, 1, AUPLL_PD_SFTENA ; Enable power down AUPLL by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 11, 1, V0PLL_PD_SFTENA ; Enable power down V0PLL by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 10, 1, D3BPLL_PD_SFTENA ; Enable power down D3BPLL by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 9, 1, D3APLL_PD_SFTENA ; Enable power down D3APLL by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 8, 1, D2BPLL_PD_SFTENA ; Enable power down D2BPLL by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 7, 1, D2APLL_PD_SFTENA ; Enable power down D2APLL by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 6, 1, D1BPLL_PD_SFTENA ; Enable power down D1BPLL by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, D1APLL_PD_SFTENA ; Enable power down D1APLL by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 1, D0BPLL_PD_SFTENA ; Enable power down D0BPLL by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 3, 1, D0APLL_PD_SFTENA ; Enable power down D0APLL by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, LPLL_PD_SFTENA ; Enable power down LPLL by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, B1PLL_PD_SFTENA ; Enable power down B1PLL by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, B0PLL_PD_SFTENA ; Enable power down B0PLL by software.
+= 0, DISABLE
+= 1, ENABLE
+
+PLLPD_SFTCON1 = 0x006C ; PLL software power control register 1
+> 1, 1, SPLL_PD_SFTENA ; Enable power down SPLL by software.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, PPLL_PD_SFTENA ; Enable power down PPLL by software.
+= 0, DISABLE
+= 1, ENABLE
+
+PMIC_STABLE_CNT = 0x0080 ; PMIC stable count register
+> 0, 20, PMIC_STABLE_CNT ; PMIC stable count for mode 1 procedure. Number of clk_pmu used by counter logic.
+
+OSC_STABLE_CNT = 0x0084 ; Oscillator stable count register
+> 0, 20, OSC_STABLE_CNT ; Oscillator stable count for mode 1 procedure. Number of clk_pmu used by counter logic.
+
+WAKEUP_RST_CLR_CNT = 0x0088 ; Wake up reset clear count register
+> 0, 20, WAKEUP_RST_CLR_CNT ; Wake up reset clear count for mode 1 procedure. Number of clk_pmu used by counter logic.
+
+PLL_LOCK_CNT = 0x008C ; PLL lock count register
+> 0, 20, PLL_LOCK_CNT ; Count for PLL from power up to lock. Number of clk_pmu used by counter logic.
+
+WAKEUP_TIMEOUT_CNT = 0x0094 ; PMU wake up timeout count register
+> 0, 20, WAKEUP_TIMEOUT_CNT ; Wake up timeout count. Number of clk_pmu used by counter logic.
+
+PWM_SWITCH_CNT = 0x0098 ; PWM switch stable count register
+> 0, 20, PWM_SWITCH_CNT ; PWM switch count. Number of clk_pmu used by counter logic.
+
+SYS_REG0 = 0x0100 ; PMU system register 0. It cannot be reset by software.
+SYS_REG1 = 0x0104 ; PMU system register 1. It cannot be reset by software.
+SYS_REG2 = 0x0108 ; PMU system register 2. It cannot be reset by software.
+SYS_REG3 = 0x010C ; PMU system register 3. It cannot be reset by software.
+SYS_REG4 = 0x0110 ; PMU system register 4. It cannot be reset by software.
+SYS_REG5 = 0x0114 ; PMU system register 5. It cannot be reset by software.
+SYS_REG6 = 0x0118 ; PMU system register 6. It cannot be reset by software.
+SYS_REG7 = 0x011C ; PMU system register 7. It cannot be reset by software.
+

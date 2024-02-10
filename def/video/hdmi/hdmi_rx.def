@@ -1,0 +1,3 @@
+[HDMI_RX, video/hdmi]
+@ = 0x0FDEE0000, 0x00010000
+

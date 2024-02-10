@@ -1,4 +1,4 @@
-[IOC_VCCIO3_5, GRF]
+[IOC_VCCIO3_5, grf]
 @ = 0x0FD5FA000, 0x00001000
 
 GPIO2A_DS_H = 0x0044 ; GPIO2A Driver Strength Control High bits

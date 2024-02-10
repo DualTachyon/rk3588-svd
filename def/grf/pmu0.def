@@ -1,4 +1,4 @@
-[GRF_PMU0, GRF]
+[GRF_PMU0, grf]
 @ = 0x0FD588000, 0x00002000
 
 SOC_CON0 = 0x0000 ; System control register 0

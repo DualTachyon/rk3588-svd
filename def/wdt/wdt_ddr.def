@@ -1,4 +1,4 @@
-[WDT_DDR, WDT]
+[WDT_DDR, wdt]
 @ = 0x0FE110000, 0x00008000
 
 + = WDT

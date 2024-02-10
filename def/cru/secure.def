@@ -1,4 +1,4 @@
-[CRU_SECURE, CRU]
+[CRU_SECURE, cru]
 @ = 0x0FD7D0000, 0x00008000
 
 CLKSEL_CON00 = 0x0300 ; Internal clock select and division register 0

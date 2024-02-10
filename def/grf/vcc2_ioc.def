@@ -1,4 +1,4 @@
-[IOC_VCCIO2, GRF]
+[IOC_VCCIO2, grf]
 @ = 0x0FD5FB000, 0x00001000
 
 GPIO4D_DS_L = 0x0098 ; GPIO4D Driver Strength Control Low bits

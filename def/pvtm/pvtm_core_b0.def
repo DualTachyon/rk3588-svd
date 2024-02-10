@@ -1,3 +1,128 @@
-[PVTM_CORE_B0]
+[PVTM_CORE_B0, pvtm]
 @ = 0x0FDA40000, 0x00008000
+
++ = PVTM
+
+VERSION = 0x0000, RO ; PVTM version register
+> 0, 16, VERSION ; PVTM version
+
+CON0 = 0x0004 ; PVTM control register0
+> 5, 1, PVTM_RND_SEED_EN ; Set high to enable the round seed in PVTM.
+= 1, ENABLE
+= 0, DISABLE
+
+> 2, 3, PVTM_OSC_SEL ; Oscillation ring selection
+= 0, RING_0 ; oscillation ring 0
+= 1, RING_1 ; oscillation ring 1
+= 2, RING_2 ; oscillation ring 2
+= 4, RING_4 ; oscillation ring 4
+= 5, RING_5 ; oscillation ring 5
+= 6, RING_6 ; oscillation ring 6
+
+> 1, 1, PVTM_OSC_EN ; Set high to enable the oscillation ring in the PVTM.
+= 1, ENABLE
+= 0, DISABLE
+
+> 0, 1, PVTM_START ; Set high to start PVTM.
+= 1, START
+
+CON1 = 0x0008 ; PVTM control register 1
+> 0, 32, PVTM_CAL_CNT ; PVTM calculation counter
+
+CON2 = 0x000C ; PVTM control register 2
+> 8, 16, PVTM_OSC_RING_AUTOSEL_EN ; PVTM oscillation ring auto select enable control. It will take turns the oscillation ring (enabled by pvtm_osc_ring_autosel_en[7:0]) in order and then loop back. When none of them is enabled, use the oscillation ring selected by pvtm_osc_sel_auto. For example, when set pvtm_osc_ring_autosel_en[7:0]=8’b00000111, it will take turns oscillation ring 0, oscillation ring 1 and oscillation ring 2 in order to test and then loopback, other rings will not be tested.
+
+> 7, 1, PVTM_AVR_CAL_MODE ; PVTM average value calculate mode
+= 0, MODE0 ; The average value = (summary_value-max_value- min_value) /(measurement_number-2)
+= 1, MODE1 ; The average value = summary_value /measurement_number
+
+> 6, 1, PVTM_AVR_UPDATE_MODE ; PVTM average value update mode
+= 0, EQUALS_PERIOD ; Only when the number of measurements arrive pvtm_avr_period, the average value is updated.
+= 1, 3_OR_MORE ; When the number of measurements is equal to or greater than 3, the average value is updated gradually.
+
+> 5, 1, PVTM_START_AUTO_MODE ; PVTM start mode
+= 0, STOP_CLEAR ; When the number of measurements arrive pvtm_cal_period, calculate stop and pvtm_start_auto is cleared.
+= 1, NO_STOP_CLEAR ; When the number of measurements arrive pvtm_cal_period, calculate don't stop and pvtm_start_auto is not cleared.
+
+> 2, 3, PVTM_OSC_SEL_AUTO ; Oscillation ring selection for auto mode
+= 0, RING_0 ; oscillation ring 0
+= 1, RING_1 ; oscillation ring 1
+= 2, RING_2 ; oscillation ring 2
+= 4, RING_4 ; oscillation ring 4
+= 5, RING_5 ; oscillation ring 5
+= 6, RING_6 ; oscillation ring 6
+
+> 1, 1, PVTM_OSC_EN_AUTO ; Set high to enable the oscillation ring in the PVTM for auto mode.
+= 1, ENABLE
+= 0, DISABLE
+
+> 0, 1, PVTM_START_AUTO ; Set high to start PVTM for auto mode.
+= 1, START
+
+CON3 = 0x0010 ; PVTM control register 3
+> 0, 32, PVTM_CAL_CNT_AUTO ; PVTM calculation counter for auto mode
+
+CON4 = 0x0014 ; PVTM control register 4
+> 16, 16, PVTM_AVR_PERIOD ; PVTM average calculation period
+
+> 0, 16, PVTM_CAL_PERIOD ; PVTM calculation period
+
+CON5 = 0x0018 ; PVTM control register 5
+> 0, 32, PVTM_MIN_THRESHOLD ; PVTM minimum value threshold
+
+CON6 = 0x001C ; PVTM control register 6
+> 0, 32, PVTM_AVR_THRESHOLD ; PVTM average value threshold
+
+INT_EN = 0x0070 ; PVTM Interrupt Enable Register
+> 2, 1, CAL_DONE_INT_EN
+= 0, DISABLED ; Calculation done Interrupt disabled
+= 1, ENABLED ; Calculation done Interrupt enabled
+
+> 1, 1, AVR_VALUE_INT_EN
+= 0, DISABLED ; Average value Interrupt disabled
+= 1, ENABLED ; Average value Interrupt enabled
+
+> 0, 1, MIN_VALUE_INT_EN
+= 0, DISABLED ; Minimum value Interrupt disabled
+= 1, ENABLED ; Minimum value Interrupt enabled
+
+INTSTS = 0x0074 ; PVTM Interrupt Status Register
+> 2, 1, CAL_DONE_INTSTS, W1C
+= 0, NOT_GENERATED ; Calculation done Interrupt not generated
+= 1, GENERATED ; Calculation done Interrupt generated
+
+> 1, 1, AVR_VALUE_INTSTS, W1C
+= 0, NOT_GENERATED ; Average value Interrupt not generated
+= 1, GENERATED ; Average value Interrupt generated
+
+> 0, 1, MIN_VALUE_INTSTS, W1C
+= 0, NOT_GENERATED ; Minimum value Interrupt not generated
+= 1, GENERATED ; Minimum value Interrupt generated
+
+STATUS0 = 0x0080, RO ; PVTM status register0
+> 0, 1, PVTM_FREQ_DONE ; Indicates PVTM frequency count done.
+= 1, DONE
+= 0, NOT_DONE
+
+STATUS1 = 0x0084, RO ; PVTM status register1
+> 0, 32, PVTM_FREQ_CNT ; Indicates the cycle counts of the OSC_RING clock.
+
+STATUS2 = 0x0088, RO ; PVTM status register2
+> 0, 32, PVTM_RND_SEED_LOW_BITS ; Indicates low 32bits of the cycle count of round seed.
+
+STATUS3 = 0x008C, RO ; PVTM status register3
+> 0, 32, PVTM_RND_SEED_HIGH_BITS ; Indicates high 32bits of the cycle count of round seed.
+
+STATUS4 = 0x0090, RO ; PVTM status register4
+> 0, 32, PVTM_MIN_VALUE ; PVTM minimum value
+
+STATUS5 = 0x0094, RO ; PVTM status register5
+> 0, 32, PVTM_AVR_VALUE ; PVTM average value
+
+STATUS6 = 0x0098, RO ; PVTM status register6
+> 0, 32, PVTM_MAX_VALUE ; PVTM maximum value
+
+STATUS7 = 0x009C, RO ; PVTM status register7
+> 16, 16, PVTM_AVR_CNT ; PVTM average calculation current count
+> 0, 16, PVTM_CAL_CNT ; PVTM calculation current counter
 

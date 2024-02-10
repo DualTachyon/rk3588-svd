@@ -1,3 +1,3 @@
-[UART3, UART]
+[UART3, uart]
 @ = 0x0FEB60000, 0x00010000, UART0
 

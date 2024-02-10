@@ -1,0 +1,3 @@
+[CSI_HOST2, video/csi]
+@ = 0x0FDD30000, 0x00010000, CSI_HOST0
+

@@ -1,4 +1,4 @@
-[CRU, CRU]
+[CRU, cru]
 @ = 0x0FD7C0000, 0x00008000
 
 V0PLL_CON0 = 0x0160 ; V0PLL configuration register 0

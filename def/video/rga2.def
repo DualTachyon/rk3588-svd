@@ -1,0 +1,75 @@
+[RGA2, video]
+@ = 0x0FDB80000, 0x00010000
+
+SYS_CTRL = 0x0000 ; RGA system control register
+CMD_CTRL = 0x0004 ; RGA command control register
+CMD_BASE = 0x0008 ; RGA command codes base address register
+STATUS1 = 0x000C, RO ; RGA status register
+INT = 0x0010 ; RGA interrupt register
+MMU_CTRL0 = 0x0014 ; RGA MMU control 0 register
+MMU_CMD_BASE = 0x0018 ; MMU CMD channel base address
+STATUS2 = 0x001C, RO ; RGA status register
+WORK_CNT = 0x0020, RO ; RGA work counter
+# This is probably RO?
+VERSION_INFO = 0x0028 ; RTL version and FPGA version information
+PERF_LATENCY_CTRL0 = 0x0040 ; Only exist when this IP has axi_performance monitor feature
+PERF_LATENCY_CTRL1 = 0x0044 ; Only exist when this IP has axi_performance monitor feature
+PERF_RD_MAX_LATENCY_NUM = 0x0048, RO ; Only exist when this IP has axi_performance monitor feature
+PERF_RD_LATENCY_SAMP_NUM = 0x004C, RO ; Only exist when this IP has axi_performance monitor feature
+PERF_RD_LATENCY_ACC_SUM = 0x0050, RO ; Only exist when this IP has axi_performance monitor feature
+PERF_RD_AXI_TOTAL_BYTE = 0x0054, RO ; Only exist when this IP has axi_performance monitor feature
+PERF_WR_AXI_TOTAL_BYTE = 0x0058, RO ; Only exist when this IP has axi_performance monitor feature
+PERF_WORKING_CNT = 0x005C, RO ; Only exist when this IP has axi_performance monitor feature
+DST_CSC_00 = 0x0060 ; sw_dst_csc_mode[2]=1'b1 used csc factor
+DST_CSC_01 = 0x0064 ; sw_dst_csc_mode[2]=1'b1 used csc factor
+DST_CSC_02 = 0x0068 ; sw_dst_csc_mode[2]=1'b1 used csc factor
+DST_CSC_OFF0 = 0x006C ; sw_dst_csc_mode[2]=1'b1 used csc factor
+DST_CSC_10 = 0x0070 ; sw_dst_csc_mode[2]=1'b1 used csc factor
+DST_CSC_11 = 0x0074 ; sw_dst_csc_mode[2]=1'b1 used csc factor
+DST_CSC_12 = 0x0078 ; sw_dst_csc_mode[2]=1'b1 used csc factor
+DST_CSC_OFF1 = 0x007C ; sw_dst_csc_mode[2]=1'b1 used csc factor
+DST_CSC_20 = 0x0080 ; sw_dst_csc_mode[2]=1'b1 used csc factor
+DST_CSC_21 = 0x0084 ; sw_dst_csc_mode[2]=1'b1 used csc factor
+DST_CSC_22 = 0x0088 ; sw_dst_csc_mode[2]=1'b1 used csc factor
+DST_CSC_OFF2 = 0x008C ; sw_dst_csc_mode[2]=1'b1 used csc factor
+MODE_CTRL = 0x0100 ; RGA mode control register
+SRC_INFO = 0x0104 ; RGA source information register
+SRC_BASE0 = 0x0108 ; RGA source image Y/RGB base address register
+SRC_BASE1 = 0x010C ; RGA source image Cb/Cbr base address register
+SRC_BASE2 = 0x0110 ; RGA source image Cr base address register
+SRC_BASE3 = 0x0114 ; RGA source image 1 base address register
+SRC_VIR_INFO = 0x0118 ; RGA source image virtual stride / RGA source image tile number register
+SRC_ACT_INFO = 0x011C ; RGA source image active width/height register
+SRC_X_FACTOR = 0x0120 ; RGA source image horizontal scaling factor
+SRC_Y_FACTOR = 0x0124 ; RGA source image vertical scaling factor
+SRC_BG_COLOR = 0x0128 ; RGA source image background color
+SRC_FG_COLOR = 0x012C ; RGA source image foreground color
+SRC_TR_COLOR0 = 0x0130 ; RGA source image transparency color min value
+CP_GR_A = 0x0130 ; RGA color gradient fill step register (color fill mode)
+SRC_TR_COLOR1 = 0x0134 ; RGA source image transparency color max value
+CP_GR_B = 0x0134 ; RGA color gradient fill step register (color fill mode)
+DST_INFO = 0x0138 ; RGA destination format register
+DST_BASE0 = 0x013C ; RGA destination image base address 0 register
+DST_BASE1 = 0x0140 ; RGA destination image base address 1 register
+DST_BASE2 = 0x0144 ; RGA destination image base address 2 register
+DST_VIR_INFO = 0x0148 ; RGA destination image virtual width/height register
+DST_ACT_INFO = 0x014C ; RGA destination image active width/height register
+ALPHA_CTRL0 = 0x0150 ; Alpha control register 0
+ALPHA_CTRL1 = 0x0154 ; Register0000 Description
+FADING_CTRL = 0x0158 ; Fading control register
+PAT_CON = 0x015C ; Pattern size/offset register
+ROP_CON0 = 0x0160 ; ROP code 0 control register
+CP_GR_G = 0x0160 ; RGA color gradient fill step register (color fill mode)
+DST_Y4MAP_LUT0 = 0x0160 ; Y4MAP LUT REGS from lut0 to lut7
+NN_QUANTIZE_SCALE = 0x0160 ; Quantize scale of RGB (2bit integer+8bit fraction, 0~3.99)
+NN_QUANTIZE_OFFSET = 0x0164 ; Quantize offset of RGB (1bit signed + 8bit integer)
+CP_GR_R = 0x0164 ; RGA color gradient fill step register (color fill mode)
+DST_Y4MAP_LUT1 = 0x0164 ; Y4MAP LUT REGS from lut8 to lut15
+ROP_CON1 = 0x0164 ; ROP code 1 control register
+MASK_BASE = 0x0168 ; RGA mask base address register
+MMU_CTRL1 = 0x016C ; RGA MMU control register 1
+MMU_SRC_BASE = 0x0170 ; RGA source MMU TLB base address
+MMU_SRC1_BASE = 0x0174 ; RGA source1 MMU TLB base address
+MMU_DST_BASE = 0x0178 ; RGA destination MMU TLB base address
+MMU_ELS_BASE = 0x017C ; RGA else channel MMU TLB base address
+

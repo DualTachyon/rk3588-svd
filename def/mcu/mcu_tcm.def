@@ -1,3 +1,3 @@
-[MCU_TCM, MCU]
+[MCU_TCM, mcu]
 @ = 0x0F6F00000, 0x00010000
 

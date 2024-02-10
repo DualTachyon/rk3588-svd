@@ -1,0 +1,5 @@
+[EDP0, video/dp]
+@ = 0x0FDEC0000, 0x00010000
+
++ = EDP
+

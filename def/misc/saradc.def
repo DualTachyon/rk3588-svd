@@ -1,4 +1,4 @@
-[SARADC]
+[SARADC, misc]
 @ = 0x0FEC10000, 0x00010000
 
 CONV_CON = 0x0000 ; Conversion control
@@ -89,7 +89,7 @@ HT_INT_EN = 0x0098 ; High threshold int enable
 
 > 0, 1, HT_INT_EN0 ; High threshold interrupt for channel0.
 = 1, ENABLE
-= 0,
+= 0, DISABLE
 
 LT_INT_EN = 0x009C ; Low threshold int enable
 > 15, 1, LT_INT_EN15 ; Not used in this application.

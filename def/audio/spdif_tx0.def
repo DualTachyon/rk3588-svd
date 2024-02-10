@@ -1,0 +1,205 @@
+[SPDIF_TX0, audio]
+@ = 0x0FE4E0000, 0x00010000
+
++ = SPDIF_TX
+
+CFGR = 0x0000 ; Transfer Configuration Register
+> 16, 8, MCD ; Mclk divider Mclk is the operation clock. This parameter can be calculated by (frequency of mclk)/(Fs*128). Fs=sample frequency
+
+> 8, 1, PCMTYPE
+= 0, LINEAR_PCM
+= 1, NON_LINEAR_PCM
+
+> 7, 1, CLR, W1C ; Write 1'b1 to clear MCLK domain logic. Read return zero.
+= 1, CLEAR
+
+> 6, 1, CSE ; Channel status enable. The bit should be set to 1'b1 when the channel conveys non- linear PCM.
+= 0, DISABLE
+= 1, ENABLE
+
+> 5, 1, UDE ; User data enable.
+= 0, DISABLE ; User data bit field is 1'b0.
+= 1, ENABLE ; User data bit field is defined by SPDIF_VLDFRn.
+
+> 4, 1, VFE ; Validity data enable.
+= 0, DISABLE ; Validity data bit field is 1'b0.
+= 1, ENABLE ; For linear PCM mode, validity data bit field is defined by SPDIF_VLDFRn. For non-linear PCM mode, validity data bit field is 1'b1.
+
+> 3, 1, ADJ ; If right justified, audio data bit23~0(VDW=2'b10)/bit19~0(VDW=2'b01)/bit15~0(VDW=2'b0 0) will be the valid bit to be transmitted. If left justified, audio data bit31~8(VDW=2'b10)/bit31~12(VDW=2'b01)/bit31~16(VDW=2' b00) will be the valid bit to be transmitted.
+= 0, RIGHT_JUSTIFIED
+= 1, LEFT_JUSTIFIED
+
+> 2, 1, HWT ; It is valid only when the valid data width is 16bit.
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 2, VDW ; The valid data width is 16bit only for non-linear PCM.
+= 0, 16BIT
+= 1, 20BIT
+= 2, 24BIT
+= 3, RESERVED
+
+SDBLR = 0x0004 ; Sample Date Buffer Level Register
+> 0, 6, SDBLR ; Contains the number of valid data entries in the sample data buffer.
+
+DMACR = 0x0008 ; DMA Control Register
+> 5, 1, TDE
+= 0, DISABLED ; Transmit DMA disabled.
+= 1, ENABLED ; Transmit DMA enabled.
+
+> 0, 5, TDL ; This bit field controls the level at which a DMA request is made by the transmit logic. It is equal to the watermark level. That is, the dma_tx_req signal is generated when the number of valid data entries in the Sample Date Buffer is equal to or below this field value.
+
+INTCR = 0x000C ; Interrupt Control Register
+> 17, 1, UDTIC, W1C ; Write 1'b1 to clear the user data interrupt.
+= 1, CLEAR
+
+> 16, 1, BTTIC, W1C ; Write 1'b1 to clear the block transfer finish interrupt.
+= 1, CLEAR
+
+> 5, 5, SDBT ; Sample date buffer threshold for empty interrupt.
+
+> 4, 1, SDBEIE ; Sample data buffer empty interrupt enable. Sample data buffer empty interrupt will generate if interrupt is enabled and the number of entries is lower than threshold of empty interrupt.
+= 0, DISABLE
+= 1, ENABLE
+
+> 3, 1, BTTIE ; Block transfer finish interrupt enable. When enabled, an interrupt will assert when the block transfer is finished if the channel conveys linear PCM or when the repetition period is reached if the channel conveys non-linear PCM.
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, UDTIE ; User data interrupt enable. If enabled, an interrupt will assert when the content of the user data register is fed into the corresponding shadow register.
+= 0, DISABLE
+= 1, ENABLE
+
+INTSR = 0x0010, RO ; Interrupt Status Register
+> 4, 1, SDBEIS ; Sample data buffer empty interrupt status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 3, 1, BTTIS ; Block transfer finish interrupt status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 2, 1, UDTIS ; User data interrupt status.
+= 0, INACTIVE
+= 1, ACTIVE
+
+XFER = 0x0018 ; Transfer Start Register
+> 0, 1, XFER ; Transfer start.
+= 1, START
+
+SMPDR = 0x0020, WO ; Sample Data Register
+> 0, 32, SMPDR ; Sample data written to this register will be pushed into internal transfer buffer.
+
+VLDFR$ = 0x0060, @12 ; Validity Flag Register $
+> 16, 16, VLDFR_SUB_1 ; Validity flag for subframe 1
+> 0, 16, VLDFR_SUB_0 ; Validity flag for subframe 0
+
+USRDR$ = 0x0090, @12 ; User Data Register $
+> 16, 16, USR_SUB_1 ; User data bit for subframe 1
+> 0, 16, USR_SUB_0 ; User data bit for subframe 0
+
+CHNSR$ = 0x00C0, @12 ; Channel Status Register $
+> 16, 16, CHNSR_SUB_1 ; Channel status bit for subframe 1
+> 0, 16, CHNSR_SUB_0 ; Channel status bit for subframe 0
+
+BURTSINFO = 0x0100 ; Channel Burst Info Register
+> 16, 16, PD ; Preamble Pd for non-linear PCM, indicating the length of burst payload in unit of bytes or bits.
+
+> 13, 3, BSNUM ; This field indicates the bitstream number. Usually the bitstream number is 0.
+
+> 8, 5, DATAINFO ; This field gives the data-type-dependent info.
+
+> 7, 1, ERRFLAG
+= 0, NO_ERROR ; Indicates a valid burst-payload.
+= 1, ERROR ; Indicates that the burst-payload may contain errors.
+
+> 0, 7, DATATYPE
+= 0x00, NULL
+= 0x01, AC_3
+= 0x03, PAUSE
+= 0x04, MPEG_1_LAYER_1
+= 0x05, MPEG_1_LAYER_2_OR_3_OR_MPEG_2_WITHOUT_EXTENSION
+= 0x06, MPEG_2_WITH_EXTENSION
+= 0x07, MPEG_2_AAC
+= 0x08, MPEG_2_LAYER_1_LOW_SAMPLING_FREQUENCY
+= 0x09, MPEG_2_LAYER_2_LOW_SAMPLING_FREQUENCY
+= 0x0A, MPEG_2_LAYER_3_LOW_SAMPLING_FREQUENCY
+= 0x0B, DTS_TYPE_I
+= 0x0C, DTS_TYPE_II
+= 0x0D, DTS_TYPE_III
+= 0x0E, ATRAC
+= 0x0F, ATRAC_2_3
+= 0x10, ATRAC_X
+= 0x11, DTS_TYPE_IV
+= 0x12, WMA_PROFESSIONAL_TYPE_I
+= 0x32, WMA_PROFESSIONAL_TYPE_II
+= 0x52, WMA_PROFESSIONAL_TYPE_III
+= 0x72, WMA_PROFESSIONAL_TYPE_IV
+= 0x13, MPEG_2_AAC_LOW_SAMPLING_FREQUENCY_0x13
+= 0x33, MPEG_2_AAC_LOW_SAMPLING_FREQUENCY_0x33
+= 0x53, MPEG_2_AAC_LOW_SAMPLING_FREQUENCY_0x53
+= 0x73, MPEG_2_AAC_LOW_SAMPLING_FREQUENCY_0x73
+= 0x14, MPEG_4_AAC_0x14
+= 0x34, MPEG_4_AAC_0x34
+= 0x54, MPEG_4_AAC_0x54
+= 0x74, MPEG_4_AAC_0x74
+= 0x15, ENHANCED_AC_3
+= 0x16, MAT
+
+REPETTION = 0x0104 ; Channel Repetition Register
+> 0, 16, REPETTION ; This defines the repetition period when the channel conveys non- linear PCM.
+
+BURTSINFO_SHD = 0x0108, RO ; Shadow Channel Burst Info Register
+> 16, 16, PD ; Preamble Pd for non-linear PCM, indicating the length of burst payload in unit of bytes or bits.
+
+> 13, 3, BSNUM ; This field indicates the bitstream number. Usually the bitstream number is 0.
+
+> 8, 5, DATAINFO ; This field gives the data-type-dependent info.
+
+> 7, 1, ERRFLAG
+= 0, NO_ERROR ; Indicates a valid burst-payload.
+= 1, ERROR ; Indicates that the burst-payload may contain errors.
+
+> 0, 7, DATATYPE
+= 0x00, NULL
+= 0x01, AC_3
+= 0x03, PAUSE
+= 0x04, MPEG_1_LAYER_1
+= 0x05, MPEG_1_LAYER_2_OR_3_OR_MPEG_2_WITHOUT_EXTENSION
+= 0x06, MPEG_2_WITH_EXTENSION
+= 0x07, MPEG_2_AAC
+= 0x08, MPEG_2_LAYER_1_LOW_SAMPLING_FREQUENCY
+= 0x09, MPEG_2_LAYER_2_LOW_SAMPLING_FREQUENCY
+= 0x0A, MPEG_2_LAYER_3_LOW_SAMPLING_FREQUENCY
+= 0x0B, DTS_TYPE_I
+= 0x0C, DTS_TYPE_II
+= 0x0D, DTS_TYPE_III
+= 0x0E, ATRAC
+= 0x0F, ATRAC_2_3
+= 0x10, ATRAC_X
+= 0x11, DTS_TYPE_IV
+= 0x12, WMA_PROFESSIONAL_TYPE_I
+= 0x32, WMA_PROFESSIONAL_TYPE_II
+= 0x52, WMA_PROFESSIONAL_TYPE_III
+= 0x72, WMA_PROFESSIONAL_TYPE_IV
+= 0x13, MPEG_2_AAC_LOW_SAMPLING_FREQUENCY_0x13
+= 0x33, MPEG_2_AAC_LOW_SAMPLING_FREQUENCY_0x33
+= 0x53, MPEG_2_AAC_LOW_SAMPLING_FREQUENCY_0x53
+= 0x73, MPEG_2_AAC_LOW_SAMPLING_FREQUENCY_0x73
+= 0x14, MPEG_4_AAC_0x14
+= 0x34, MPEG_4_AAC_0x34
+= 0x54, MPEG_4_AAC_0x54
+= 0x74, MPEG_4_AAC_0x74
+= 0x15, ENHANCED_AC_3
+= 0x16, MAT
+
+REPETTION_SHD = 0x010C ; Shadow Channel Repetition Register
+> 0, 16, REPETTION ; This register provides the repetition of the bitstream when channel conveys non-linear PCM. It defines the length between Pa of the two consecutive data-burst. For the same audio format, the definition is different. Please convert the actual repetition in order to comply with the design.
+
+USRDR_SHD$ = 0x0190, RO, @12 ; Shadow User Data Register $
+> 16, 16, USR_SUB_1 ; User data bit for subframe 1
+> 0, 16, USR_SUB_0 ; User data bit for subframe 0
+
+VERSION = 0x01C0, RO ; Version Register
+> 0, 32, VER ; Version of SPDIF
+

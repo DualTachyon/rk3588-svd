@@ -1,4 +1,4 @@
-[PWM0, PWM]
+[PWM0, pwm]
 @ = 0x0FD8B0000, 0x00010000
 
 + = PWM

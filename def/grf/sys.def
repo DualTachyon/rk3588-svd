@@ -1,4 +1,4 @@
-[GRF_SYS, GRF]
+[GRF_SYS, grf]
 @ = 0x0FD58C000, 0x00004000
 
 WDT_CON0 = 0x0000 ; WDT Control Register

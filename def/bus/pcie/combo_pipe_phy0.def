@@ -1,0 +1,5 @@
+[COMBO_PIPE_PHY0, bus/pcie]
+@ = 0x0FEE00000, 0x00010000
+
++ = COMBO_PIPE_PHY
+

@@ -1,0 +1,34 @@
+[SGRF_PMU0, security/grf]
+@ = 0x0FD580000, 0x00002000
+
+# Present but unknown
+SOC_CON0 = 0x0000
+
+# Present but unknown
+SOC_CON1 = 0x0004
+
+SOC_CON2 = 0x0008
+> 15, 1, LOCK_REMAP
+= 1, LOCKED
+= 0, UNLOCKED
+
+> 14, 1, BIT14
+> 13, 1, BIT13
+> 12, 1, BIT12
+> 11, 1, BIT11
+> 10, 1, BIT10
+> 9, 1, BIT9
+> 8, 1, BIT8
+> 7, 1, BIT7
+> 6, 1, BIT6
+> 5, 1, BIT5
+> 4, 1, BIT4
+> 3, 1, BIT3
+> 2, 1, BIT2
+
+> 0, 2, REMAP
+= 0, ROM
+= 1, PMU_SRAM
+= 2, SYSTEM_SRAM
+= 3, UNMAPPED
+

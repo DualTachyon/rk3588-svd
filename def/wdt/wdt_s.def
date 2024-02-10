@@ -1,3 +1,3 @@
-[WDT_S, WDT]
+[WDT_S, wdt]
 @ = 0x0FE3E0000, 0x00010000, WDT_DDR
 

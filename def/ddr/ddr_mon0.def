@@ -1,3 +1,5 @@
-[DDR_MON0, DDR]
+[DDR_MON0, ddr]
 @ = 0x0FE060000, 0x00004000
+
++ = DDR_MON
 

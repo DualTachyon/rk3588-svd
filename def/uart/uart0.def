@@ -1,4 +1,4 @@
-[UART0, UART]
+[UART0, uart]
 @ = 0x0FD890000, 0x00010000
 
 + = UART

@@ -1,0 +1,3 @@
+[HDCP_KEY_1, video/hdcp]
+@ = 0x0FDEF8000, 0x00010000, HDCP_KEY_0
+
