@@ -10,6 +10,48 @@ PC_INTERRUPT_MASK = 0x0020 ; Interrupt Mask
 PC_INTERRUPT_CLEAR = 0x0024 ; Interrupt clear s
 PC_INTERRUPT_STATUS = 0x0028 ; Interrupt status
 PC_INTERRUPT_RAW_STATUS = 0x002C ; Interrupt raw status
+> 13, 1, DMA_WRITE_ERROR
+= 1, SET
+
+> 12, 1, DMA_READ_ERROR
+= 1, SET
+
+> 11, 1, PPU_GROUP_1
+= 1, SET
+
+> 10, 1, PPU_GROUP_0
+= 1, SET
+
+> 9, 1, DPU_GROUP_1
+= 1, SET
+
+> 8, 1, DPU_GROUP_0
+= 1, SET
+
+> 7, 1, CORE_GROUP_1
+= 1, SET
+
+> 6, 1, CORE_GROUP_0
+= 1, SET
+
+> 5, 1, CNA_CSC_GROUP_1
+= 1, SET
+
+> 4, 1, CNA_CSC_GROUP_0
+= 1, SET
+
+> 3, 1, CNA_WEIGHT_GROUP_1
+= 1, SET
+
+> 2, 1, CNA_WEIGHT_GROUP_0
+= 1, SET
+
+> 1, 1, CNA_FEATURE_GROUP_1
+= 1, SET
+
+> 0, 1, CNA_FEATURE_GROUP_0
+= 1, SET
+
 PC_TASK_CON = 0x0030 ; Task control register
 PC_TASK_DMA_BASE_ADDR = 0x0034 ; Task Base address
 PC_TASK_STATUS = 0x003C ; Task status register

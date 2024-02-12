@@ -19,12 +19,26 @@ CTRL = 0x0000 ; DCF Control Register
 
 STATUS = 0x0004, RO ; Internal Status Register
 > 7, 1, DMA_DONE_ST
+= 1, SET
+
 > 6, 1, INSTR_DONE_ST
+= 1, SET
+
 > 5, 1, DMA_ERROR_ST
+= 1, SET
+
 > 4, 1, INSTR_ERROR_ST
+= 1, SET
+
 > 3, 1, DCF_TIMEOUT_ST
+= 1, SET
+
 > 2, 1, DCF_EDGE_TRIGGER_ST
+= 1, SET
+
 > 1, 1, DCF_LEVEL_TRIGGER_ST
+= 1, SET
+
 
 > 0, 1, DCF_IDLE_ST
 = 1, IDLE

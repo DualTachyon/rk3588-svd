@@ -1116,8 +1116,10 @@ MMU_ZAP_ONE_LINE = 0x0F10, WO ; MMU address to be invalidated from the page tabl
 
 MMU_INT_RAWSTAT = 0x0F14 ; MMU interrupt raw
 > 1, 1, READ_BUS_ERROR, RO ; Read bus error
+= 1, SET
 
 > 0, 1, PAGE_FAULT ; Page fault
+= 1, SET
 
 MMU_INT_CLEAR = 0x0F18, WO ; MMU interrupt clear
 > 1, 1, READ_BUS_ERROR ; Read bus error
