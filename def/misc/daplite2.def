@@ -1,3 +1,18 @@
 [DAPLITE2, misc]
 @ = 0x0FD100000, 0x00080000
 
+ROMENTRY$ = 0x0000, @32, RO ; ROM table entry $
+
+PID4 = 0x0FD0, RO ; Peripheral ID4
+PID5 = 0x0FD4, RO ; Peripheral ID5
+PID6 = 0x0FD8, RO ; Peripheral ID6
+PID7 = 0x0FDC, RO ; Peripheral ID7
+PID0 = 0x0FE0, RO ; Peripheral ID0
+PID1 = 0x0FE4, RO ; Peripheral ID1
+PID2 = 0x0FE8, RO ; Peripheral ID2
+PID3 = 0x0FEC, RO ; Peripheral ID3
+CID0 = 0x0FF0, RO ; Component ID0
+CID1 = 0x0FF4, RO ; Component ID1
+CID2 = 0x0FF8, RO ; Component ID2
+CID3 = 0x0FFC, RO ; Component ID3
+
