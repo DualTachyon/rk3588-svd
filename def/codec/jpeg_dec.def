@@ -118,7 +118,7 @@ SYS = 0x0008 ; Rk jpeg decoder system ctrl
 = 0, 24CYCLES ; TIMEOUT_CYCLES is 24 1'b1
 = 1, 18CYCLES ; TIMEOUT_CYCLES is 18 1'b1
 
-> 12, 1, SW_SCALEDOWN_MODE ; Jpeg decoder scaledown mode
+> 12, 2, SW_SCALEDOWN_MODE ; Jpeg decoder scaledown mode
 = 0, NOT
 = 1, 1_2
 = 2, 1_4
@@ -177,7 +177,7 @@ PIC_FORMAT = 0x0010 ; Jpeg picture format configurate
 = 0, DISABLE ; Restart interval marker disable
 = 1, ENABLE ; Restart interval marker enable
 
-> 12, 1, SW_HTABLES_SEL ; Amount of Huffman tables in external memory
+> 12, 2, SW_HTABLES_SEL ; Amount of Huffman tables in external memory
 = 0, 0 ; No Huffman tables.
 = 1, 1 ; One Huffman table. Used when picture is single type
 = 2, 2 ; Two Huffman tables. One for luminance and one for chominances
