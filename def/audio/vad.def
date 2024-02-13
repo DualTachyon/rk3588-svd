@@ -1,3 +1,234 @@
 [VAD, audio]
 @ = 0x0FE4D0000, 0x00010000
 
+CONTROL = 0x0000 ; Control register
+> 29, 3, VAD_DET_CHANNEL ; Index of the channal for voice detect, from channel 0 to channel 7
+
+> 28, 1, VOICE_24BIT_SAT ; The mode of voice 24bit data change to 16bit
+= 0, HIGH16 ; Get the high 16bit data(divided by 256)
+= 1, SAT16 ; Saturation from 24bit to 16bit
+
+> 27, 1, VOICE_24BIT_ALIGN_MODE ; Align mode of channel 24bit width
+= 0, TOP ; 8~31bits is valid
+= 1, BOTTOM ; 0~23bits is valid
+
+> 26, 1, VOICE_CHANNEL_BITWIDTH
+= 0, 16BITS
+= 1, 24BITS
+
+> 23, 3, VOICE_CHANNEL_NUM ; Voice channel number, the value N means N+1 channel
+
+> 20, 2, VAD_MODE
+= 0, DETECT ; Begin to store the data after voice detect
+= 1, IMMEDIATE ; Begin to store the data after VAD is enable
+= 2, DONT ; Don't store the data
+= 3, RESERVED
+
+> 14, 1, SOURCE_FIXADDR_EN ; Direction of source address
+= 0, INCREMENT
+= 1, FIXED
+
+> 10, 4, INCR_LENGTH ; INCR burst length, 0~15 is valid. It is valid when source_burst is set to 3'h1.
+
+> 7, 3, SOURCE_BURST_NUM ; Source burst number per dma_req, the value N means N+1 burst
+
+> 4, 3, SOURCE_BURST
+= 0, SINGLE
+= 1, INCR
+= 3, INCR4
+= 5, INCR8
+= 7, INCR16
+
+> 1, 3, SOURCE_SELECT ; Voice source select
+= 0, I2S0
+= 1, I2S1
+= 2, PDM
+
+> 0, 1, VAD_EN ; VAD enable
+= 0, DISABLE
+= 1, ENABLE
+
+VS_ADDR = 0x0004 ; Voice source address register
+
+TIMEOUT = 0x004C ; Timeout register
+> 31, 1, WORK_TIMEOUT_EN ; Work timeout enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 30, 1, IDLE_TIMEOUT_EN ; Idle timeout enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 20, 10, WORK_TIMEOUT_THD ; work timeout threshold, the unit is one cycle of hclk
+
+> 0, 20, IDLE_TIMEOUT_THD ; Idle timeout threshold, the unit is one cycle of hclk
+
+RAM_START_ADDR = 0x0050 ; RAM start address register, the address must be double word alignment
+RAM_END_ADDR = 0x0054 ; RAM end address register. the address must be double word alignment
+RAM_CUR_ADDR = 0x0058 ; RAM current address register, The last valid double word data is at address ram_cur_addr-0x8. When the ram_loop_flag is valid, the valid voice data will be ram_cur_addr ~ ram_end_addr ~ loop to ram_begin_addr ~ ram_cur_addr-0x8. When the ramp_loop_flag is not valid, the valid voice data will be ram_begin_addr ~ ram_cur_addr-0x8
+
+DET_CON0 = 0x005C ; Detect control register0
+> 28, 2, VAD_THD_MODE ; Threshold mode for vad_con_thd
+= 0, NORMAL ; Normal mode
+= 1, EXCEPTION ; Allow an exception mode
+= 2, ACCUMULATING ; Accumulating mode
+= 3, RESERVED
+
+> 24, 4, DIS_VAD_CON_THD ; In the determining of continuous sample number exceed threshold, allow some number of sample as an exception. It's valid only when vad_thd_mode=1. When this value is lower, the voice detect condition is more strict
+
+> 16, 8, VAD_CON_THD ; When continuous sample number(>=vad_con_thd) exceed threshold, then assert the vad_det interrupt, the value N means N+1. When this value is higher, the voice detect condition is more strict
+
+> 12, 3, NOISE_LEVEL ; Noise level, valid value is 0x1~0x6 when this value is higher, the voice detect condition is more strict
+
+> 0, 12, GAIN ; The gain control of voice data amplifier, the value of gain is unsigned and is valid from 0 to 4095. voice_amplitude_amplified=gain*voice_amplitude_original/8.
+
+DET_CON1 = 0x0060 ; Detect control register1
+> 30, 1, MIN_NOISE_FIND_MODE ; Minimal noise value find mode
+= 0, NOISE_FRM_NUM ; Always find the value at the range of noise_frm_num
+= 1, RANGE_N ; When receive N frame: if N is less than noise_frm_num, find the value at the range of N; if N is more than noise_frm_num, find the value at the range of noise_frm_num
+
+> 29, 1, CLEAN_NOISE_AT_BEGIN
+= 0, ONCE ; The noise will be clean only at the begin of the first time VAD is enable after reset
+= 1, ALWAYS ; The noise will be clean every time at the begin of VAD is enable
+
+> 28, 1, FORCE_NOISE_CLK_EN ; Force noise calculate clk enable
+= 0, AUTO_GATE ; The clock will be auto gating for low power
+= 1, ALWAYS_ON ; The clock will be always enable
+
+> 26, 1, CLEAN_IIR_EN ; Clean IIR filter when VAD is disable
+= 0, NOT_CLEAN
+= 1, CLEAN
+
+> 16, 10, NOISE_SAMPLE_NUM ; The number of sample in one frame to calculate the noise, the value N means N+1 sample. When this value is higher, the voice detect condition is more strict
+
+> 0, 16, SOUND_THD ; Initial sound threshold when this value is higher, the voice detect condition is more strict
+
+DET_CON2 = 0x0064 ; Detect control register2
+> 16, 16, IIR_ANUM_0 ; IIR numerator coefficient b0
+
+> 8, 8, NOISE_ALPHA ; The update smooth speed of noise When this value is lower, the voice detect condition is more strict
+
+> 0, 7, NOISE_FRM_NUM ; The number of frame to calculate the noise, the value N means N+1 frame. When this value is lower, the voice detect condition is more strict
+
+DET_CON3 = 0x0068 ; Detect control register3
+> 16, 16, IIR_ANUM_2 ; IIR numerator coefficient b2
+
+> 0, 16, IIR_ANUM_1 ; IIR numerator coefficient b1
+
+DET_CON4 = 0x006C ; Detect control register4
+> 16, 16, IIR_ADEN_2 ; IIR demoninator coefficient a2
+
+> 0, 16, IIR_ADEN_1 ; IIR demoninator coefficient a1
+
+DET_CON5 = 0x0070 ; Detect control register5
+> 16, 16, IIR_RESULT, RO ; Voice real time data after IIR filter
+
+> 0, 16, NOISE_ABS ; Noise abs value
+
+INT = 0x0074 ; VAD Interrupt register
+> 12, 1, RAMP_LOOP_FLAG_BUS, RO ;  RAM adress loop flag for AHB bus interface write mode. Only valid when bus_write_addr_mode=1'b1.
+= 0, NOT_LOOP
+= 1, LOOP
+
+> 11, 1, VAD_DATA_TRANS_INT, W1C ; VAD data transfer interrupt
+= 0, NOT_GENERATED ; Interrupt not generated
+= 1, GENERATED ; Interrupt generated
+
+> 10, 1, VAD_DATA_TRANS_INT_EN ; VAD data transfer interrupt enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 9, 1, VAD_IDLE ; VAD idle flag
+= 0, NOT_IDLE
+= 1, IDLE
+
+> 8, 1, RAMP_LOOP_FLAG, RO ;  RAM address loop flag
+= 0, NOT_LOOP
+= 1, LOOP
+
+> 7, 1, WORK_TIMEOUT_INT, W1C ; Work timeout interrupt
+= 0, NOT_GENERATED ; Interrupt not generated
+= 1, GENERATED ; Interrupt generated
+
+> 6, 1, IDLE_TIMEOUT_INT, W1C ; Idle timeout interrupt
+= 0, NOT_GENERATED ; Interrupt not generated
+= 1, GENERATED ; Interrupt generated
+
+> 5, 1, ERROR_INT ; Error interrupt
+= 0, NOT_GENERATED ; Interrupt not generated
+= 1, GENERATED ; Interrupt generated
+
+> 4, 1, VAD_DET_INT, W1C ; VAD detect interrupt
+= 0, NOT_GENERATED ; Interrupt not generated
+= 1, GENERATED ; Interrupt generated
+
+> 3, 1, WORK_TIMEOUT_INT_EN ; Wrok timeout interrupt enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 2, 1, IDLE_TIMEOUT_INT_EN ; Idle timeout interrupt enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, ERROR_INT_EN ; Error interrupt enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, VAD_DET_INT_EN ; VAD detect interrupt enable
+= 0, DISABLE
+= 1, ENABLE
+
+AUX_CON0 = 0x0078 ; Auxiliary control register0
+> 29, 1, SAMPLE_CNT_EN ; Sample counter enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 28, 1, INT_TRIG_CTRL_EN ; The VAD detection interrupt trigger control enable.
+= 0, DISABLE ; the VAD detection interrupt is always trigger
+= 1, ENABLE ; the VAD detection interrupt trigger is controlled by int_trig_valid_thd
+
+> 16, 12, INT_TRIG_VALID_THD ; VAD detection interrupt trigger valid threshold. The VAD detection interrupt will be triggered valid after sample_cnt exceed int_trig_valid_thd. The value N means N+1,The unit is one voice sample point.
+
+
+> 14, 1, RAM_WRITE_REWORK_ADDR_MODE ; The rework address for RAM interface write mode.
+= 0, CURRENT ; Store the data from the current address
+= 1, START ; Store the data from the start address
+
+> 13, 1, BUS_WRITE_REWORK_ADDR_MODE ; The rework address for bus write mode.
+= 0, CURRENT ; Store the data from the current address
+= 1, START ; Store the data from the start address
+
+> 12, 1, BUS_WRITE_ADDR_MODE ; The address selection when use AHB bus interface write mode.
+= 0, DIRECT ; Use RAM_START_ADDR, RAM_END_ADDR, RAM_CUR_ADDR(same with RAM interface write mode). The internal address will continuous when dynamic change between bus write mode and RAM interface write mode.
+= 1, AHB ; Use RAM_START_ADDR_BUS, RAM_END_ADDR_BUS and RAM_CUR_ADDR_BUS.
+
+> 4, 8, DATA_TRANS_KBYTE_THD ; Data transfer number threshold, the unit is KByte. The value N means N+1 KByte. The interrupt is generated per data_trans_kbyte_thd+1 KBytes.
+
+> 2, 1, DATA_TRANS_TRIG_INT_EN ; Trigger an interrupt for data transfer, It's valid only when bus_write_en=1'b1.
+= 0, DISABLE
+= 1, ENABLE
+
+> 1, 1, DIS_RAM_ITF ; Disable write voice data to Internal SRAM through RAM interface
+= 0, ENABLE ; Enable ram interface
+= 1, DISABLE ; Disable ram interface
+
+> 0, 1, BUS_WRITE_EN ; Enable write voice data to Internal SRAM through AHB bus interface
+= 0, DISABLE
+= 1, ENABLE
+
+SAMPLE_CNT = 0x007C, RO ; Sample counter register
+
+RAM_START_ADDR_BUS = 0x0080 ; RAM start address register for bus write mode, the address must be double word alignment. Only used for bus write mode and when bus_write_addr_mode=1'b1.
+RAM_END_ADDR_BUS = 0x0084 ; RAM end address register for bus write mode, the address must be double word alignment. Only used for bus write mode and when bus_write_addr_mode=1'b1.
+RAM_CUR_ADDR_BUS = 0x0088 ; RAM current address register for bus write mode. Only used for bus write mode and when bus_write_addr_mode=1'b1. The last valid double word data is at address ram_cur_addr_bus-0x8. When the ram_loop_flag_bus is valid, the valid voice data will be ram_cur_addr_bus ~ ram_end_addr_bus ~ loop to ram_begin_addr_bus ~ ram_cur_addr_bus-0x8. When the ramp_loop_flag is not valid, the valid voice data will be ram_begin_addr_bus ~ ram_cur_addr_bus-0x8
+
+AUX_CON1 = 0x008C ; Auxiliary control register1
+> 16, 1, DATA_TRANS_INT_MODE_SEL ; Data transfer number threshold selection for interrupt trigger
+= 0, KBYTE ; Data_trans_kbyte_thd
+= 1, WORD ; Data_trans_word_thd
+
+> 0, 16, DATA_TRANS_WORD_THD ; Data transfer number threshold, the unit is word. The value N means N+1 words. The interrupt is generated per trans_word_thd+1 words.
+
+NOISE_DATA$ = 0x0100, @128 ; Noise data register
+> 0, 16, DATA ; Noise data
+
