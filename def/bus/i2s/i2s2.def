@@ -1,0 +1,208 @@
+[I2S2, bus/i2s]
+@ = 0x0FE490000, 0x00010000
+
++ = I2S_2CH
+
+TXCR = 0x0000 ; Transmit Operation Control Register
+> 17, 6, RCNT ; Right justified counter. Can be written only when XFER[0] bit is 0. Only valid in I2S right justified format and slave TX mode is selected. Start to transmit data RCNT sclk cycles after left channel valid.
+
+> 15, 2, CSR ; Channel select
+= 0, 2CH
+
+> 14, 1, HWT ; Halfword word transform. Can be written only when XFER[0] bit is 0. Only valid when VDW select 16bit data.
+= 0, 32BIT ; 32 bit data valid from AHB/APB bus. Low 16 bit for left channel and high 16 bit for right channel.
+= 1, 16BIT ; Low 16bit data valid from AHB/APB bus, high 16 bit data invalid.
+
+> 12, 1, SJM ; Store justified mode. Can be written only when XFER[0] bit is 0. 16bit~31bit DATA stored in 32 bits width FIFO. If VDW select 16bit data, this bit is valid only when HWT select 0.Because if HWT is 1'b1, every FIFO unit contain two 16bit data and 32 bit space is full, it is impossible to choose justified mode.
+= 0, RIGHT ; Right justified
+= 1, LEFT ; Left justified
+
+> 11, 1, FBM ; First bit mode. Can be written only when XFER[0] bit is 0.
+= 0, MSB
+= 1, LSB
+
+> 9, 2, IBM ; I2S bus mode. Can be written only when XFER[0] bit is 0.
+= 0, NORMAL ; I2S normal
+= 1, LEFT ; I2S left justified
+= 2, RIGHT ; I2S right justified
+= 3, RESERVED
+
+> 7, 2, PBM ; PCM bus mode. Can be written only when XFER[0] bit is 0.
+= 0, NONE ; PCM no delay mode
+= 1, 1 ; PCM delay 1 mode
+= 2, 2 ; PCM delay 2 mode
+= 3, 3 ; PCM delay 3 mode
+
+> 5, 1, TFS ; Transfer format select. Can be written only when XFER[0] bit is 0.
+= 0, I2S
+= 1, PCM
+
+> 0, 5, VDW ; Valid data width. Can be written only when XFER[0] bit is 0.
+= 15, 16BIT
+= 16, 17BIT
+= 17, 18BIT
+= 18, 19BIT
+= 19, 20BIT
+= 20, 21BIT
+= 21, 22BIT
+= 22, 23BIT
+= 23, 24BIT
+= 24, 25BIT
+= 25, 26BIT
+= 26, 27BIT
+= 27, 28BIT
+= 28, 29BIT
+= 29, 30BIT
+= 30, 31BIT
+= 31, 32BIT
+
+RXCR = 0x0004 ; Receive Operation Control Register
+> 14, 1, HWT ; Halfword word transform. Can be written only when XFER[1] bit is 0. Only valid when VDW select 16bit data.
+= 0, 32BIT ; 32 bit data valid to AHB/APB bus. Low 16 bit for left channel and high 16 bit for right channel.
+= 1, 16BIT ; Low 16bit data valid to AHB/APB bus, high 16 bit data invalid.
+
+> 12, 1, SJM ; Store justified mode. Can be written only when XFER[1] bit is 0. 16bit~31bit DATA stored in 32 bits width FIFO. If VDW select 16bit data, this bit is valid only when HWT select 0.Because if HWT is 1'b1, every FIFO unit contain two 16bit data and 32 bit space is full, it is impossible to choose justified mode.
+= 0, RIGHT ; Right justified
+= 1, LEFT ; Left justified
+
+> 11, 1, FBM ; First bit mode. Can be written only when XFER[1] bit is 0.
+= 0, MSB
+= 1, LSB
+
+> 9, 2, IBM ; I2S bus mode. Can be written only when XFER[1] bit is 0.
+= 0, NORMAL ; I2S normal
+= 1, LEFT ; I2S left justified
+= 2, RIGHT ; I2S right justified
+= 3, RESERVED
+
+> 7, 2, PBM ; PCM bus mode. Can be written only when XFER[1] bit is 0.
+= 0, NONE ; PCM no delay mode
+= 1, 1 ; PCM delay 1 mode
+= 2, 2 ; PCM delay 2 mode
+= 3, 3 ; PCM delay 3 mode
+
+> 5, 1, TFS ; Transfer format select. Can be written only when XFER[1] bit is 0.
+= 0, I2S
+= 1, PCM
+
+> 0, 5, VDW ; Valid data width. Can be written only when XFER[1] bit is 0.
+= 15, 16BIT
+= 16, 17BIT
+= 17, 18BIT
+= 18, 19BIT
+= 19, 20BIT
+= 20, 21BIT
+= 21, 22BIT
+= 22, 23BIT
+= 23, 24BIT
+= 24, 25BIT
+= 25, 26BIT
+= 26, 27BIT
+= 27, 28BIT
+= 28, 29BIT
+= 29, 30BIT
+= 30, 31BIT
+= 31, 32BIT
+
+CKR = 0x0008 ; Clock Generation Register
+> 28, 2, TRCM ; LRCK Control. If only TX works, please set TRCM to 2'b00. If TX and RX work at the same time or only RX works, please set TRCM to 2'b01. Note: When set to 2'b01, if user wants to use both transmitting and receiving in master mode, user should configure as following. a. The value of TSD and RSD should be same. b. User should start TX transfer and RX transfer at the same time.
+= 0, TX_ONLY ; Generates LRCK for TX only.
+= 1, TX_RX_OR_RX ; Generates LRCK for TX/RX or RX.
+
+> 27, 1, MSS ; Master/slave mode select. Can be written only when XFER[1] or XFER[0] bit is 0.
+= 0, MASTER ; sclk output
+= 1, SLAVE ; sclk input
+
+> 26, 1, CKP ; Sclk polarity. Can be written only when XFER[1] or XFER[0] bit is 0.
+= 0, POSEDGE_NEGEDGE ; Sample data at posedge sclk and drive data at negedge sclk.
+= 1, NEGEDGE_POSEDGE ; Sample data at negedge sclk and drive data at posedge sclk.
+
+> 24, 1, LRCKP ; Lrck polarity. Can be written only when XFER[1] or XFER[0] bit is 0.
+= 0, NORMAL ; I2S normal: Low for left channel, high for right channel I2S left/right just: High for left channel, low for right channel PCM start signal: High valid
+= 1, OPPOSITE ; I2S normal: High for left channel, low for right channel I2S left/right just: Low for left channel, high for right channel PCM start signal: Low valid
+
+> 16, 8, MDIV ; Mclk divider. Can be written only when XFER[1] or XFER[0] bit is 0. mclk divider = (mclk/sclk)-1. For example, if mclk divider is 5, then the frequency of sclk is mclk/6 15:8 RW 0x1f RSD Receive Sclk Divider. Can be written only when XFER[1] or XFER[0] bit is 0. Frequency of sclk = ((RSD>>1)+1)*2*frequency of lrck for I2S format. Frequency of sclk = (RSD+1)*frequency of lrck for PCM format.
+
+> 0, 8, TSD ; Transmit sclk divider. Can be written only when XFER[1] or XFER[0] bit is 0. Frequency of sclk = ((TSD>>1)+1)*2*frequency of lrck for I2S format. Frequency of sclk = (TSD+1)*frequency of lrck for PCM format.
+
+TXFIFOLR = 0x000C, RO ; TX FIFO Level Register
+> 0, 6, TFL ; Transmit FIFO level Contains the number of valid data entries in the transmit FIFO.
+
+DMACR = 0x0010 ; DMA Control Register
+> 24, 1, RDE ; Receive DMA enable
+= 0, DISABLED
+= 1, ENABLED
+
+> 16, 5, RDL ; Receive data level This bit field controls the level at which a DMA request is made by the receive logic. The watermark level = DMARDL+1. That is, dma_rx_req is generated when the number of valid data entries in the receive FIFO is equal to or above this field value + 1.
+
+> 8, 1, TDE ; Transmit DMA enable
+= 0, DISABLED
+= 1, ENABLED
+
+> 0, 5, TDL ; Transmit data level This bit field controls the level at which a DMA request is made by the transmit logic. It is equal to the watermark level; that is, the dma_tx_req signal is generated when the number of valid data entries in the TXFIFO is equal to or below this field value.
+
+INTCR = 0x0014 ; Interrupt Control Register
+> 20, 5, RFT ; Receive FIFO threshold When the number of receive FIFO entries is more than or equal to this threshold plus 1, the receive FIFO full interrupt is triggered.
+
+> 18, 1, RXOIC, WO ; RX overrun interrupt clear Write 1'b1 to clear RX overrun interrupt.
+
+> 17, 1, RXOIE ; RX overrun interrupt enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 16, 1, RXFIE ; RX full interrupt enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 4, 5, TFT ; Transmit FIFO threshold When the number of transmit FIFO entries is less than or equal to this threshold, the transmit FIFO empty interrupt is triggered.
+
+> 2, 1, TXUIC, WO ; TX underrun interrupt clear Write 1'b1 to clear TX underrun interrupt.
+
+> 1, 1, TXUIE ; TX underrun interrupt enable
+= 0, DISABLE
+= 1, ENABLE
+
+> 0, 1, TXEIE ; TX empty interrupt enable
+= 0, DISABLE
+= 1, ENABLE
+
+INTSR = 0x0018, RO ; Interrupt Status Register
+> 17, 1, RXOI ; RX overrun interrupt
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 16, 1, RXFI ; RX full interrupt
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 1, 1, TXUI ; TX underrun interrupt
+= 0, INACTIVE
+= 1, ACTIVE
+
+> 0, 1, TXEI ; TX empty interrupt
+= 0, INACTIVE
+= 1, ACTIVE
+
+XFER = 0x001C ; Transfer Start Register
+> 1, 1, RXS ; RX transfer start bit
+= 0, STOP
+= 1, START
+
+> 0, 1, TXS ; TX transfer start bit
+= 0, STOP
+= 1, START
+
+CLR = 0x0020 ; SCLK Domain Logic Clear Register
+> 1, 1, RXC ; RX logic clear. This is a self-cleared bit. Write 1'b1 to clear all receive logic.
+
+> 0, 1, TXC ; TX logic clear. This is a self-cleared bit. Write 1'b1 to clear all transmit logic.
+
+TXDR = 0x0024, WO ; Transmit FIFO Data Register
+
+RXDR = 0x0028, RO ; Receive FIFO Data Register
+
+RXFIFOLR = 0x002C, RO ; RX FIFO Level Register
+> 0, 6, RFL ; Receive FIFO level Contains the number of valid data entries in the receive FIFO.
+
+VERSION = 0x0030 ; Version Register
+
