@@ -39,7 +39,6 @@ STATUS = 0x0004, RO ; Internal Status Register
 > 1, 1, DCF_LEVEL_TRIGGER_ST
 = 1, SET
 
-
 > 0, 1, DCF_IDLE_ST
 = 1, IDLE
 = 0, BUSY

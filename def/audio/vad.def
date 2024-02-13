@@ -189,7 +189,6 @@ AUX_CON0 = 0x0078 ; Auxiliary control register0
 
 > 16, 12, INT_TRIG_VALID_THD ; VAD detection interrupt trigger valid threshold. The VAD detection interrupt will be triggered valid after sample_cnt exceed int_trig_valid_thd. The value N means N+1,The unit is one voice sample point.
 
-
 > 14, 1, RAM_WRITE_REWORK_ADDR_MODE ; The rework address for RAM interface write mode.
 = 0, CURRENT ; Store the data from the current address
 = 1, START ; Store the data from the start address

@@ -1,7 +1,6 @@
 [IOC_VCCIO6, grf]
 @ = 0x0FD5FC000, 0x00001000
 
-
 GPIO4A_DS_L = 0x0080 ; GPIO4A Driver Strength Control Low bits
 > 12, 3, GPIO4A3_DS ; GPIO4A3 DS control Driver Strength Selection
 = 0, 100OHM

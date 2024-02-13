@@ -136,7 +136,6 @@ STATUS0 = 0x0040 ; DSU Status Register 0
 > 0, 1, DSU_GRF_ST_CORE0INSTRRUN, RO ; Core 0 running status
 = 1, RUNNING
 
-
 STATUS1 = 0x0044 ; DSU Status Register 1
 > 7, 1, DSU_PROBE3_MAINSTATALARM ; Interconnect probe3 alarm
 > 6, 1, DSU_PROBE2_MAINSTATALARM ; Interconnect probe2 alarm

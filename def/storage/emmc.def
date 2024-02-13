@@ -1771,7 +1771,6 @@ CQRMEM = 0x01D0 ; Command Queuing Command Response Mode Error Mask Register. Not
 = 0, IGNORED ; When a R1/R1b response is received, bit i in the device status is ignored.
 = 1, IRQ ; When a R1/R1b response is received, with a bit i in the device status set, a RED interrupt is generated.
 
-
 CQTERRI = 0x01D4, RO ; Command Queuing Task Error Information Register
 > 31, 1, TRANS_ERR_FIELDS_VALID ; Data Transfer Error Field Valid. This bit is updated when an error is detected while a data transfer transaction was in progress.
 = 0, IGNORE

@@ -389,7 +389,6 @@ CLK_GATE = 0x0040 ; Rk jpeg decoder clk gate enable
 = 0, DISABLE ; Clock gate is not enable
 = 1, ENABLE ; Clock gate is enable when busifd block is not working
 
-
 PERF_LATENCY_CTRL0 = 0x0078 ; Rk jpeg decoder axi performance ctrl0 Description
 > 8, 12, SW_RD_LATENCY_THR ; Rd channel latency threshold
 

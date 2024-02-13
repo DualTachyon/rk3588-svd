@@ -234,7 +234,6 @@ TSIZEL = 0x0034, RO ; Decompressed Data Total Size Lower 32bit
 TSIZEH = 0x0038, RO ; Decompressed Data Total Size Upper 32bit
 > 0, 32, TSIZEH, RO ; The total size of the data after decompression.
 
-
 MGNUM = 0x003C, RO ; LZ4 File Magic Number
 > 0, 32, MGNUM ; Magic number of LZ4 is 0x184D2204. If the MGNUM is not 0x184D2204, a magic number error(mn_err) will be generated. And DECOM will stop decompressing.
 
