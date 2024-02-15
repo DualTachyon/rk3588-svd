@@ -1,6 +1,8 @@
 [GRF_PIPE_PHY0, grf]
 @ = 0x0FD5BC000, 0x00004000
 
++ = GRF_PIPE_PHY
+
 PIPE_CON0 = 0x0000 ; PIPE Combo PHY Configuration Register 0
 > 14, 1, PIPE_RXSTANDBY ; SATA mode Controls whether the PHY RX is active when the PHY is in any power state with PCLK on. RX_STANDBY is ignored when the PHY is in any power state where the high-speed receiver is always off. PCIe mode Controls whether the PHY RX is active when the PHY is in P0 or P0s. RX_STANDBY is ignored when the PHY is in P1 or P2. Only used in SATA and PCIe mode. USB3.0 mode should be tied to 1'b0. The value when override enable is selected.
 = 0, ACTIVE
