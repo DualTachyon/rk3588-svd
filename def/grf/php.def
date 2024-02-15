@@ -1,3 +1,846 @@
 [GRF_PHP, grf]
 @ = 0x0FD5B0000, 0x00004000
 
+PHP_CON0 = 0x0000 ; PHP GRF control register0
+> 13, 1, PCIE2_PCLKREQ_N ; Combo PHY2 CLKREQ control. Only when PCIe mode be set to comb PHY, this bit can be selected, otherwise this bit will not take effect. This will be selected with PCIe1l1 controller.
+
+> 12, 1, PCIE1_PCLKREQ_N ; Combo PHY1 CLKREQ control. Only when PCIe mode be set to comb PHY, this bit can be selected, otherwise this bit will not take effect. This will be selected with PCIe1l0 controller.
+
+> 11, 1, SATA1_PHY_RX_ERR ; SATA1 phy_rx_err input control, before using set this bit to 1'b0.
+
+> 9, 2, SATA1_PHY_SPDMODE ; SATA1 phy_spdmode input control. This should be set before using SATA.
+= 0, 1_5GBS
+= 1, 3_0GBS
+= 2, 6_0GBS
+= 3, RESERVED
+
+> 7, 1, SATA0_PHY_RX_ERR ; SATA0 phy_rx_err input control, before using set this bit to 1'b0.
+
+> 5, 2, SATA0_PHY_SPDMODE ; SATA0 phy_spdmode input control. This should be set before using SATA.
+= 0, 1_5GBS
+= 1, 3_0GBS
+= 2, 6_0GBS
+= 3, RESERVED
+
+> 4, 1, PCIE1L2_LINK_RST_GRT ; PCIe 1lane2 link reset grant control.
+
+> 3, 1, PCIE1L1_LINK_RST_GRT ; PCIe 1lane1 link reset grant control.
+
+> 2, 1, PCIE1L0_LINK_RST_GRT ; PCIe 1lane0 link reset grant control.
+
+> 1, 1, PCIE2L_LINK_RST_GRT ; PCIe 2lane link reset grant control.
+
+> 0, 1, PIE4L_LINK_RST_GRT ; PCIe 4lane link reset grant control.
+
+PHP_CON1 = 0x0004 ; PHP GRF control register1
+> 2, 1, SATA2_PHY_RX_ERR ; SATA1 phy_rx_err input control, before using set this bit to 1'b0.
+
+> 0, 2, SATA2_PHY_SPDMODE ; SATA2 phy_spdmode input control. This should be set before using SATA.
+= 0, 1_5GBS
+= 1, 3_0GBS
+= 2, 6_0GBS
+= 3, RESERVED
+
+GMAC_CON0 = 0x0008 ; PHP GMAC GRF control register0
+> 9, 3, GMAC1_PHY_INTF_SEL ; PHY Interface Select.
+= 0, GMII_MII
+= 1, RGMII
+= 4, RMII
+
+> 8, 1, GMAC1_PTP_AUX_TS_TRIG ; Auxiliary Time Stamp Trigger. This signal is asserted to take an auxiliary snapshot of the time and store it in the auxiliary time stamp FIFO. A rising edge on this port is used to trigger the auxiliary snapshot.
+
+> 6, 2, GMAC1_SBD_FLOWCTRL ; Sideband Flow Control. When set high, instructs the MAC to transmit Pause frames in Full-duplex mode. In half-duplex mode, the MAC enables the Back-pressure function until this signal is made low again.
+
+> 3, 3, GMAC0_PHY_INTF_SEL ; PHY Interface Select.
+= 0, GMII_MII
+= 1, RGMII
+= 4, RMII
+
+> 2, 1, GMAC0_PTP_AUX_TS_TRIG ; Auxiliary Time Stamp Trigger. This signal is asserted to take an auxiliary snapshot of the time and store it in the auxiliary time stamp FIFO. A rising edge on this port is used to trigger the auxiliary snapshot.
+
+> 0, 2, GMAC0_SBD_FLOWCTRL ; Sideband Flow Control. When set high, instructs the MAC to transmit Pause frames in Full-duplex mode. In half-duplex mode, the MAC enables the Back-pressure function until this signal is made low again.
+
+SATA_CON0 = 0x0010 ; PHP SATA GRF PIPE interface control register1
+> 15, 1, SATA0_TXCOMMONMODE_DISABLE ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. TX common mode disable
+
+> 14, 1, SATA0_EXELECIDLE_DISABLE ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. TX output to electrical idle disable.
+
+> 11, 3, SATA0_TXMARGIN ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. TX_SWING and TX_MARGIN[2:0] are combined together to control TX output amplitude.
+
+> 9, 2, SATA0_TXDEEMPH ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. Transmitter de-emphasis level configuration.
+
+> 8, 1, SATA0_TXSWING ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. PHY TX_SWING control When TX_SWING =1, transmitter is in low swing mode, the output amplitude can achieve 500mV,600mV,700mv,800mV,900mV,1000mV,1100mV and 1200mV, the 800mV to 1200mV output has no difference with the cases when TX_SWING =0.
+
+> 7, 1, SATA0_TXONESZEROS ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. This signal is used in USB3.0 mode for transmitting compliance pattern CP7 and CP8. When set to high, it causes the transmitter to transmit an alternating sequence of 0s and 1s, regardless the states of TX_DATA. In PCIE and SATA mode, this signal should be tied to low.
+
+> 6, 1, SATA0_COMPLIANCE ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. This signal is used in PCIE mode only; in other application it should be tied to low. TX_COMPLIANCE become high will set the running disparity to negative. The lowest byte of 16bits transmitted data will be the byte that running disparity set to negative. When TX_COMPLIANCE and TX_ELECIDLE are both set to low, PHY IP is power down completely.
+
+> 5, 1, SATA0_RXTERMINATION ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. Connect/Remove of receiver termination resistor. This signal is used in USB3.0 mode only, in other application it should be tied to high.
+= 0, REMOVED ; RX termination removed
+= 1, CONNECTED ; RX termination connected
+
+> 4, 1, SATA0_RXPOLARITY ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. PHY RX polarity inversion control. When this signal set to high, it instructs a polarity inversion in RX_DATA. RX_POLAR applies to USB3.0 and PCIE mode only, in SATA mode it should be tied to low.
+
+> 3, 1, SATA0_RXEQTRAIN ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. RX EQ training mode enable signal: This signal is used to instruct the receiver to bypass normal operation and perform equalization training. This signal is used in USB3.0 mode only, should be set to low in any other application.
+
+> 1, 1, SATA0_ENCODEDECODEBYPASS ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. Controls whether the PHY performs 8b/10b encode and decode.
+= 0, NORMAL ; 8b/10b encode/decode performed normally by the PHY.
+= 1, BYPASS ; 8b/10b encode/decode bypassed, 20bit 8b/10b encode/decode bypass mode works only when BUS_WIDTH=2b01.
+
+> 0, 1, SATA0_ELASBUFFERMODE ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section.
+= 0, HALF_FULL ; Nominal half-full buffer mode
+= 1, EMPTY ; Nominal empty buffer mode
+
+SATA_CON1 = 0x0014 ; PHP SATA GRF PIPE interface control register1
+> 15, 1, SATA1_TXCOMMONMODE_DISABLE ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. TX common mode disable
+
+> 14, 1, SATA1_EXELECIDLE_DISABLE ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. TX output to electrical idle disable.
+
+> 11, 3, SATA1_TXMARGIN ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. TX_SWING and TX_MARGIN[2:0] are combined together to control TX output amplitude.
+
+> 9, 2, SATA1_TXDEEMPH ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. Transmitter de-emphasis level configuration.
+
+> 8, 1, SATA1_TXSWING ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. PHY TX_SWING control When TX_SWING =1, transmitter is in low swing mode, the output amplitude can achieve 500mV,600mV,700mv,800mV,900mV,1000mV,1100mV and 1200mV, the 800mV to 1200mV output has no difference with the cases when TX_SWING =0.
+
+> 7, 1, SATA1_TXONESZEROS ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. This signal is used in USB3.0 mode for transmitting compliance pattern CP7 and CP8. When set to high, it causes the transmitter to transmit an alternating sequence of 0s and 1s, regardless the states of TX_DATA. In PCIE and SATA mode, this signal should be tied to low.
+
+> 6, 1, SATA1_COMPLIANCE ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. This signal is used in PCIE mode only; in other application it should be tied to low. TX_COMPLIANCE become high will set the running disparity to negative. The lowest byte of 16bits transmitted data will be the byte that running disparity set to negative. When TX_COMPLIANCE and TX_ELECIDLE are both set to low, PHY IP is power down completely.
+
+> 5, 1, SATA1_RXTERMINATION ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. Connect/Remove of receiver termination resistor. This signal is used in USB3.0 mode only, in other application it should be tied to high.
+= 0, REMOVED ; RX termination removed
+= 1, CONNECTED ; RX termination connected
+
+> 4, 1, SATA1_RXPOLARITY ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. PHY RX polarity inversion control. When this signal set to high, it instructs a polarity inversion in RX_DATA. RX_POLAR applies to USB3.0 and PCIE mode only, in SATA mode it should be tied to low.
+
+> 3, 1, SATA1_RXEQTRAIN ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. RX EQ training mode enable signal: This signal is used to instruct the receiver to bypass normal operation and perform equalization training. This signal is used in USB3.0 mode only, should be set to low in any other application.
+
+> 1, 1, SATA1_ENCODEDECODEBYPASS ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. Controls whether the PHY performs 8b/10b encode and decode.
+= 0, NORMAL ; 8b/10b encode/decode performed normally by the PHY.
+= 1, BYPASS ; 8b/10b encode/decode bypassed, 20bit 8b/10b encode/decode bypass mode works only when BUS_WIDTH=2b01.
+
+> 0, 1, SATA1_ELASBUFFERMODE ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section.
+= 0, HALF_FULL ; Nominal half-full buffer mode
+= 1, EMPTY ; Nominal empty buffer mode
+
+SATA_CON2 = 0x0018 ; PHP SATA GRF PIPE interface control register2
+> 15, 1, SATA2_TXCOMMONMODE_DISABLE ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. TX common mode disable.
+
+> 14, 1, SATA2_EXELECIDLE_DISABLE ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. TX output to electrical idle disable.
+
+> 11, 3, SATA2_TXMARGIN ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. TX_SWING and TX_MARGIN[2:0] are combined together to control TX output amplitude.
+
+> 9, 2, SATA2_TXDEEMPH ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. Transmitter de-emphasis level configuration.
+
+> 8, 1, SATA2_TXSWING ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. PHY TX_SWING control When TX_SWING =1, transmitter is in low swing mode, the output amplitude can achieve 500mV,600mV,700mv,800mV,900mV,1000mV,1100mV and 1200mV, the 800mV to 1200mV output has no difference with the cases when TX_SWING =0.
+
+> 7, 1, SATA2_TXONESZEROS ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. This signal is used in USB3.0 mode for transmitting compliance pattern CP7 and CP8. When set to high, it causes the transmitter to transmit an alternating sequence of 0s and 1s, regardless the states of TX_DATA. In PCIE and SATA mode, this signal should be tied to low.
+
+> 6, 1, SATA2_COMPLIANCE ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. This signal is used in PCIE mode only; in other application it should be tied to low. TX_COMPLIANCE become high will set the running disparity to negative. The lowest byte of 16bits transmitted data will be the byte that running disparity set to negative. When TX_COMPLIANCE and TX_ELECIDLE are both set to low, PHY IP is power down completely.
+
+> 5, 1, SATA2_RXTERMINATION ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. Connect/Remove of receiver termination resistor. This signal is used in USB3.0 mode only, in other application it should be tied to high.
+= 0, REMOVED ; RX termination removed
+= 1, CONNECTED ; RX termination connected
+
+> 4, 1, SATA2_RXPOLARITY ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. PHY RX polarity inversion control. When this signal set to high, it instructs a polarity inversion in RX_DATA. RX_POLAR applies to USB3.0 and PCIE mode only, in SATA mode it should be tied to low.
+
+> 3, 1, SATA2_RXEQTRAIN ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. RX EQ training mode enable signal: This signal is used to instruct the receiver to bypass normal operation and perform equalization training. This signal is used in USB3.0 mode only, should be set to low in any other application.
+
+> 1, 1, SATA2_ENCODEDECODEBYPASS ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section. Controls whether the PHY performs 8b/10b encode and decode.
+= 0, NORMAL ; 8b/10b encode/decode performed normally by the PHY.
+= 1, BYPASS ; 8b/10b encode/decode bypassed, 20bit 8b/10b encode/decode bypass mode works only when BUS_WIDTH=2b01.
+
+> 0, 1, SATA2_ELASBUFFERMODE ; This is redundancy design used to control PHY pipe interface as supplement for controller. From PHY interface, this is form controller. More setting please refer to PHY GRF section.
+= 0, HALF_FULL ; Nominal half-full buffer mode
+= 1, EMPTY ; Nominal empty buffer mode
+
+PHP_MMU_CON0 = 0x001C ; PHP MMU control register0
+> 10, 1, PHP_MMU600_TCU_PMUSNAPSHOT_REQ ; PMU snapshot request. The PMU snapshot occurs on the rising edge of pmusnapshot_req.
+
+> 6, 4, PHP_MMU600_TCU_ECOREVNUM ; Tie this signal to 0 for normal use.
+
+> 3, 3, PHP_MMU600_TCU_SUP_OAS ; Output address size supported. You must not use other encodings, including 3'b110,defines to indicate 52-bit addresses. They are treated as 3'b101.
+= 0, 32BITS
+= 1, 36BITS
+= 2, 40BITS
+= 3, 42BITS
+= 4, 44BITS
+= 5, 48BITS
+
+> 2, 1, PHP_MMU600_TCU_SUP_SEV ; This signal indicates whether the Send Event mechanism is supported. Tie HIGH when evento is connected.
+
+> 1, 1, PHP_MMU600_TCU_SUP_BTM ; This signal indicates whether the Broadcast TLB Maintenance is supported. Tie HIGH when the TCU is connected to an interconnect that supports DVM.
+
+PHP_MMU_CON1 = 0x0020 ; PHP MMU control register1
+> 7, 4, PHP_MMU600_TBU_0_ECOREVNUM ; Tie this signal to 0 for normal use.
+
+> 6, 1, PHP_MMU600_TBU_0_UTLB_ROUNDROBIN ; Defines the Micro TLB entry replacement policy. When LOW, the Micro TLB uses a Pseudo Least Recently Used (PLRU) replacement policy. This policy typically provides the best average performance. However, when multiple translations are prefetched using a StashTranslation transaction, they might evict each other. When HIGH, the Micro TLB uses a round-robin replacement policy. With this policy, you can prefetch multiple translations using a StashTranslation transaction without evictions occurring, as long as the Micro TLB size is not exceeded. Tie this signal HIGH if a real-time upstream master prefetches translations and you want to avoid transactions evicting each other. Otherwise, tie this signal LOW.
+
+> 2, 4, PHP_MMU600_TBU_0_MAX_TOK_TRANS ; Indicates the number of DTI translation tokens to request when connecting to the TCU, minus 1.
+
+> 1, 1, PHP_MMU600_TBU_0_CMO_DISABLE ; Tie this signal HIGH to disable cache maintenance operations. When this signal is HIGH, the following transactions are always aborted with an SLVERR response: CleanInvalid. CleanShared. CleanSharedPersist. MakeInvalid. Cache maintenance operations can sometimes break the requirements of limited sideband channel communication, such as when a master component accesses protected content. You can disable cache maintenance operations in such cases. Cache maintenance operations are always disabled for ACE interfaces. This signal is therefore not present when the connected interface is configured as an ACE interface.
+
+> 0, 1, PHP_MMU600_TBU_0_PMUSNAPSHOT_REQ ; PMU snapshot request. The PMU snapshot occurs on the rising edge of pmusnapshot_req.
+
+PHP_MMU_CON2 = 0x0024 ; PHP MMU control register2
+> 8, 8, PHP_MMU600_TBU_0_S_SID_HIGH ; Provides the high-order StreamID bits for all transactions with a Secure StreamID that pass through the TBU.
+
+> 0, 8, PHP_MMU600_TBU_0_NS_SID_HIGH ; Provides the high-order StreamID bits for all transactions with a Non-secure StreamID that pass through the TBU.
+
+ITS_TADDR0 = 0x0028 ; PHP MMU GRF ITS target address0
+> 0, 19, GRF_ITS_TARGER_ADDRESS0 ; Modifies the address map to ensure only writes to the correct location trigger MSI requests. Only present when the bypass switch is configured. Specifies the 64K page address that includes the GITS_TRANSLATER register address, and is matched against axaddr[ADDR_WIDTH-1:16].
+
+ITS_TADDR1 = 0x002C ; PHP MMU GRF ITS target address1
+> 0, 19, GRF_ITS_TARGER_ADDRESS1 ; Modifies the address map to ensure only writes to the correct location trigger MSI requests. Only present when the bypass switch is configured. Specifies the 64K page address that includes the GITS_TRANSLATER register address, and is matched against axaddr[ADDR_WIDTH-1:16].
+
+PCIE_MMU_PCIEMODE = 0x0030 ; PCIe MMU PCIe mode control
+> 1, 1, PCIE_MMU_TBU1_PCIE_MODE ; You must tie this signal HIGH when the TBU is connected to a PCIe interface. When this signal is HIGH, the TBU behaves as if the PCIe 'No Snoop' property is applied to transactions downstream of the SMMU, as long as the PCIe interface outputs transactions with the following AXI memory types: 1. Normal Non-Cacheable Bufferable, when 'No Snoop' is set for the transaction. 2. Write-Back, when 'No Snoop' is not set for the transaction. This TBU behaviour is a requirement of the Arm Server Base System Architecture. If this signal is HIGH, the attributes of TBS interface transactions are always combined with the translation attributes, even if stage 1 translation is enabled. That is, the transaction attributes are always calculated as if the DTI_TBU_TRANS_RESP.STRW field is EL1- S2, regardless of the actual STRW value. If this signal is HIGH, the input attribute and shareability override information in the ATTR_OVR field of the DTI_TBU_TRANS_RESP message is ignored. For SMMUv3, PCIe masters do not support this feature.
+
+> 0, 1, PCIE_MMU_TBU0_PCIE_MODE ; You must tie this signal HIGH when the TBU is connected to a PCIe interface. When this signal is HIGH, the TBU behaves as if the PCIe 'No Snoop' property is applied to transactions downstream of the SMMU, as long as the PCIe interface outputs transactions with the following AXI memory types: 1. Normal Non-Cacheable Bufferable, when 'No Snoop' is set for the transaction. 2. Write-Back, when 'No Snoop' is not set for the transaction. This TBU behaviour is a requirement of the Arm Server Base System Architecture. If this signal is HIGH, the attributes of TBS interface transactions are always combined with the translation attributes, even if stage 1 translation is enabled. That is, the transaction attributes are always calculated as if the DTI_TBU_TRANS_RESP.STRW field is EL1- S2, regardless of the actual STRW value. If this signal is HIGH, the input attribute and shareability override information in the ATTR_OVR field of the DTI_TBU_TRANS_RESP message is ignored. For SMMUv3, PCIe masters do not support this feature.
+
+PCIE_MMU_CON0 = 0x0034 ; PCIe MMU control register0
+> 10, 1, PCIE_MMU600_TCU_PMUSNAPSHOT_REQ ; PMU snapshot request. The PMU snapshot occurs on the rising edge of pmusnapshot_req.
+
+> 6, 4, PCIE_MMU600_TCU_ECOREVNUM ; Tie this signal to 0 unless directed otherwise by Arm.
+
+> 3, 3, PCIE_MMU600_TCU_SUP_OAS ; Output address size supported. You must not use other encodings, including 3'b110, that SMMUv3.1 defines to indicate 52-bit addresses. They are treated as 3'b101.
+= 0, 32BITS
+= 1, 36BITS
+= 2, 40BITS
+= 3, 42BITS
+= 4, 44BITS
+= 5, 48BITS
+
+> 2, 1, PCIE_MMU600_TCU_SUP_SEV ; This signal indicates whether the Send Event mechanism is supported. Tie HIGH when evento is connected.
+
+> 1, 1, PCIE_MMU600_TCU_SUP_BTM ; This signal indicates whether the Broadcast TLB Maintenance is supported. Tie HIGH when the TCU is connected to an interconnect that supports DVM
+
+> 0, 1, PCIE_MMU600_TCU_SUP_COHACC ; This signal indicates whether the QTW interface is I/O-coherent. Tie HIGH when the TCU is connected to a coherent interconnect.
+
+PCIE_MMU_CON1 = 0x0038 ; PCIe MMU control register1
+> 7, 4, PCIE_MMU600_TBU_0_ECOREVNUM ; Tie this signal to for normal use.
+
+> 6, 1, PCIE_MMU600_TBU_0_UTLB_ROUNDROBIN ; Defines the Micro TLB entry replacement policy. When LOW, the Micro TLB uses a Pseudo Least Recently Used (PLRU) replacement policy. This policy typically provides the best average performance. However, when multiple translations are prefetched using a StashTranslation transaction, they might evict each other. When HIGH, the Micro TLB uses a round-robin replacement policy. With this policy, you can prefetch multiple translations using a StashTranslation transaction without evictions occurring, as long as the Micro TLB size is not exceeded. Tie this signal HIGH if a real-time upstream master prefetches translations and you want to avoid transactions evicting each other. Otherwise, tie this signal LOW.
+
+> 2, 4, PCIE_MMU600_TBU_0_MAX_TOK_TRANS ; Indicates the number of DTI translation tokens to request when connecting to the TCU, minus 1.
+
+> 1, 1, PCIE_MMU600_TBU_0_CMO_DISABLE ; Tie this signal HIGH to disable cache maintenance operations. When this signal is HIGH, the following transactions are always aborted with an SLVERR response: CleanInvalid. CleanShared. CleanSharedPersist. MakeInvalid. Cache maintenance operations can sometimes break the requirements of limited sideband channel communication, such as when a master component accesses protected content. You can disable cache maintenance operations in such cases. Cache maintenance operations are always disabled for ACE interfaces. This signal is therefore not present when the connected interface is configured as an ACE interface.
+
+> 0, 1, PCIE_MMU600_TBU_0_PMUSNAPSHOT_REQ ; PMU snapshot request. The PMU snapshot occurs on the rising edge of pmusnapshot_req
+
+PCIE_MMU_CON2 = 0x003C ; PCIe MMU control register2
+> 7, 4, PCIE_MMU600_TBU_1_ECOREVNUM ; Tie this signal to 0 unless directed otherwise by Arm.
+
+> 6, 1, PCIE_MMU600_TBU_1_UTLB_ROUNDROBIN ; Defines the Micro TLB entry replacement policy. When LOW, the Micro TLB uses a Pseudo Least Recently Used (PLRU) replacement policy. This policy typically provides the best average performance. However, when multiple translations are prefetched using a StashTranslation transaction, they might evict each other. When HIGH, the Micro TLB uses a round-robin replacement policy. With this policy, you can prefetch multiple translations using a StashTranslation transaction without evictions occurring, as long as the Micro TLB size is not exceeded. Tie this signal HIGH if a real-time upstream master prefetches translations and you want to avoid transactions evicting each other. Otherwise, tie this signal LOW.
+
+> 2, 4, PCIE_MMU600_TBU_1_MAX_TOK_TRANS ; Indicates the number of DTI translation tokens to request when connecting to the TCU, minus 1.
+
+> 1, 1, PCIE_MMU600_TBU_1_CMO_DISABLE ; Tie this signal HIGH to disable cache maintenance operations. When this signal is HIGH, the following transactions are always aborted with an SLVERR response: CleanInvalid. CleanShared. CleanSharedPersist. MakeInvalid. Cache maintenance operations can sometimes break the requirements of limited sideband channel communication, such as when a master component accesses protected content. You can disable cache maintenance operations in such cases. Cache maintenance operations are always disabled for ACE interfaces. This signal is therefore not present when the connected interface is configured as an ACE interface.
+
+> 0, 1, PCIE_MMU600_TBU_1_PMUSNAPSHOT_REQ ; PMU snapshot request. The PMU snapshot occurs on the rising edge of pmusnapshot_req
+
+PHP_MEM_CON0 = 0x0040 ; PHP memory configuration signal for hsdprf
+> 0, 24, MEM_CFG_HSDPRF ; bit 0: TEST1A bit 1: TEST_RNMA bit 5~2: RMA bit 6: WMDA bit 8: LS bit 14~13: RA bit 17: TEST1B bit 21~18: RMB
+
+PHP_ST0 = 0x0044, RO ; PHP status register0
+> 4, 1, GMAC0_MCGR_DMA_REQ_INTR ; MCGR DMA Read Request Used to Request a Target Presentation time value for one of the comparator modules when the instance is running in recovery mode. In Media Clock generation mode, this I/O signal is held high indicating a valid Presentation time is captured and updated in MAC_PPS(i)_Target_Time_Seconds register. One or more DMA read requests can simultaneously active, it is up to the DMA logic to maintain priority. Bits have a 1-1 correspondence to the comparator instances (i.e. Bit-0 belongs to comparator 0, bit-1 belongs to comparator-1 and so on). Once set, will hold high and will be reset the cycle after receiving the mcgr_dma_ack for that comparator. Width of this IO changes with the configured number of PPS instances.
+
+> 2, 2, GMAC0_SPEED ; Mac Speed indication/status.
+= 0, 1000MBPS ; (GMII)
+= 1, 2500MBPS ; (GMII)
+= 2, 10MBPS ; (MII)
+= 3, 100MBPS ; (MII)
+
+> 1, 1, GMAC0_PTP_PPS ; Pulse Per Second. This signal is high based on the PPS mode selected in the MAC_PPS_Control register. When PPS is programmed in Media Clock recovery Mode, this port indicates the recovered clock.
+
+> 0, 1, GMAC0_SDB_TX_CLK_GATING_CTRL ; LPI Tx Clock Gating Control. This signal is high after the MAC enters the Tx LPI (low power idle) mode. You can use this signal to control the Tx clock gating.
+
+PHP_ST1 = 0x0048, RO ; PHP status register1
+> 0, 32, GMAC0_PTP_TIMESTAMP0 ; GMAC0 ptp timestamp[31:0] Reference Time Output. This bus provides the System Time output when it is generated internally.
+
+PHP_ST2 = 0x004C, RO ; PHP status register2
+> 0, 32, GMAC0_PTP_TIMESTAMP1 ; GMAC0 ptp timestamp[63:32] Reference Time Output. This bus provides the System Time output when it is generated internally.
+
+PHP_ST3 = 0x0050, RO ; PHP status register3
+> 0, 32, GMAC1_PTP_TIMESTAMP0 ; GMAC1 ptp timestamp[31:0] Reference Time Output. This bus provides the System Time output when it is generated internally.
+
+PHP_ST4 = 0x0054, RO ; PHP status register4
+> 0, 32, GMAC1_PTP_TIMESTAMP1 ; GMAC1 ptp timestamp[63:32] Reference Time Output. This bus provides the System Time output when it is generated internally.
+
+MMU_PMU_ACK = 0x0058, RO ; MMU PMU acknowledge status
+> 4, 1, PCIE_MMU_TBU1_PMUSNAPSHOT_ACK ; PMU snapshot acknowledge. The TBU uses this signal to acknowledge that the PMU snapshot has occurred. This signal is LOW after reset.
+
+> 3, 1, PCIE_MMU_TBU0_PMUSNAPSHOT_ACK ; PMU snapshot acknowledge. The TBU uses this signal to acknowledge that the PMU snapshot has occurred. This signal is LOW after reset.
+
+> 2, 1, PCIE_MMU_TCU_PMUSNAPSHOT_ACK ; PMU snapshot acknowledge. The TCU uses this signal to acknowledge that the PMU snapshot has occurred. This signal is LOW after reset.
+
+> 1, 1, PHP_MMU_TBU_PMUSNAPSHOT_ACK ; PMU snapshot acknowledge. The TBU uses this signal to acknowledge that the PMU snapshot has occurred. This signal is LOW after reset.
+
+> 0, 1, PHP_MMU_TCU_PMUSNAPSHOT_ACK ; PMU snapshot acknowledge. The TCU uses this signal to acknowledge that the PMU snapshot has occurred. This signal is LOW after reset.
+
+PCIE_MMU_CON6 = 0x005C ; PCIe MMU control register6
+> 8, 8, PCIE_MMU_TBU0_S_SID ; Provides the high-order StreamID bits for all transactions with a Secure StreamID that pass through the TBU.
+
+> 0, 8, PCIE_MMU_TBU0_NS_SID ; Provides the high-order StreamID bits for all transactions with a Non-secure StreamID that pass through the TBU
+
+PCIE_MMU_CON7 = 0x0060 ; PCIe MMU control register7
+> 8, 8, PCIE_MMU_TBU1_S_SID ; Provides the high-order StreamID bits for all transactions with a Secure StreamID that pass through the TBU.
+
+> 0, 8, PCIE_MMU_TBU1_NS_SID ; Provides the high-order StreamID bits for all transactions with a Non-secure StreamID that pass through the TBU.
+
+MEM_CON5 = 0x0064 ; PHP memory configuration signal for uhdpdprf
+> 0, 17, MEM_CFG_UHDDPRF ; bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMDA bit 7: LS bit 16: TESTRWM
+
+MEM_CON10 = 0x0068 ; PHP memory configuration signal for hdsprf
+> 0, 16, MEM_CFG_HDSPRF ; bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMD bit 7: LS bit 11~10: WPULSE bit 13~12: RA
+
+CLK_CON1 = 0x0070 ; GMAC clk control register
+> 9, 1, IO_CLKSEL_GMAC1 ; GMAC1 tx clock select control.
+= 1, CRU ; Select clock form cru.
+= 0, IO ; Select clock form io.
+
+> 7, 2, MII_TX_CLK_SEL_GMAC1 ; GMAC1 controller clock tx division select.
+= 0, RMII_25Mhz
+= 1, RMII_2_5Mhz
+= 2, RGMII_2_5Mhz
+= 3, RGMII_25Mhz
+
+> 6, 1, RMII_GATE_EN_GMAC1 ; Clock gate enable for RMII clock. This bit will gate RMII clk no matter if RMII mode set.
+= 1, ENABLE ; Gate RMII clk.
+= 0, DISABLE ; Not gate RMII clk.
+
+> 5, 1, RMII_MODE_GMAC1 ; GMAC1 RMII/RGMII mode control.
+= 1, RMII
+= 0, RGMII
+
+> 4, 1, IO_CLKSEL_GMAC0 ; GMAC0 tx clock select control.
+= 1, CRU ; Select clock form cru.
+= 0, IO ; Select clock form io.
+
+> 2, 2, MII_TX_CLK_SEL_GMAC0 ; GMAC0 controller clock tx division select. In RMII mode:
+= 0, RMII_25Mhz
+= 1, RMII_2_5Mhz
+= 2, RGMII_2_5Mhz
+= 3, RGMII_25Mhz
+
+> 1, 1, RMII_GATE_EN_GMAC0 ; Clock gate enable for RMII clock. This bit will gate RMII clk no matter if RMII mode set.
+= 1, ENABLE ; Gate RMII clk.
+= 0, DISABLE ; Not gate RMII clk.
+
+> 0, 1, RMII_MODE_GMAC0 ; GMAC0 RMII/RGMII mode control.
+= 1, RMII
+= 0, RGMII
+
+GMAC0_SID_AW = 0x0074 ; GMAC0 SID control for AW channel
+> 17, 1, GMAC0_AW_ATST ; GMAC0 aw atst for MMU. This is used for PHP MMU.
+
+> 16, 1, GMAC0_AW_SSDIV ; GMAC0 aw ssdiv for MMU. This is used for PHP MMU.
+
+> 0, 16, GMAC0_AW_SID ; GMAC0 aw sid for MMU. This is used for PHP MMU.
+
+GMAC0_SSID_AW = 0x0078 ; GMAC1 SSID control for AW channel
+> 0, 20, GMAC0_AW_SSID ; GMAC0 aw ssid for MMU. This is used for PHP MMU.
+
+GMAC1_SID_AW = 0x007C ; GMAC1 SID control for AW channel
+> 17, 1, GMAC1_AW_ATST ; GMAC1 aw atst for MMU. This is used for PHP MMU.
+
+> 16, 1, GMAC1_AW_SSDIV ; GMAC1 aw ssdiv for MMU. This is used for PHP MMU.
+
+GMAC1_SSID_AW = 0x0080 ; GMAC1 SSID control for AW channel
+> 0, 20, GMAC1_AW_SSID ; GMAC1 aw ssid for MMU. This is used for PHP MMU.
+
+SATA0_SID_AW = 0x0084 ; SATA0 SID control for AW channel
+> 17, 1, SATA0_AW_ATST ; SATA0 aw atst for MMU. This is used for PHP MMU.
+
+> 16, 1, SATA0_AW_SSDIV ; SATA0 aw ssdiv for MMU. This is used for PHP MMU.
+
+> 0, 16, SATA0_AW_SID ; SATA0 aw sid for MMU. This is used for PHP MMU.
+
+SATA0_SSID_AW = 0x0088 ; SATA0 SSID control for AW channel
+> 0, 20, SATA0_AW_SSID ; SATA0 aw ssid for MMU. This is used for PHP MMU.
+
+SATA1_SID_AW = 0x008C ; SATA1 SID control for AW channel
+> 17, 1, SATA1_AW_ATST ; SATA1 aw atst for MMU. This is used for PHP MMU.
+
+> 16, 1, SATA1_AW_SSDIV ; SATA1 aw ssdiv for MMU. This is used for PHP MMU.
+
+> 0, 16, SATA1_AW_SID ; SATA0 aw sid for MMU. This is used for PHP MMU.
+
+SATA1_SSID_AW = 0x0090 ; SATA1 SSID control for AW channel
+> 0, 20, SATA1_AW_SSID ; SATA1 aw ssid for MMU. This is used for PHP MMU.
+
+SATA2_SID_AW = 0x0094 ; SATA2 SID control for AW channel
+> 17, 1, SATA2_AW_ATST ; SATA2 aw atst for MMU. This is used for PHP MMU.
+
+> 16, 1, SATA2_AW_SSDIV ; SATA2 aw ssdiv for MMU. This is used for PHP MMU.
+
+> 0, 16, SATA2_AW_SID ; SATA2 aw sid for MMU. This is used for PHP MMU.
+
+SATA2_SSID_AW = 0x0098 ; SATA2 SSID control for AW channel
+> 0, 20, SATA2_AW_SSID ; SATA2 aw ssid for MMU. This is used for PHP MMU.
+
+GMAC0_SID_AR = 0x009C ; GMAC0 SID control for AR channel
+> 17, 1, GMAC0_AR_ATST ; GMAC0 ar atst for MMU. This is used for PHP MMU.
+
+> 0, 16, GMAC0_AR_SID ; GMAC0 ar sid for MMU. This is used for PHP MMU.
+
+GMAC0_SSID_AR = 0x00A0 ; GMAC0 SSID control for AR channel
+> 0, 20, GMAC0_AR_SSID ; GMAC0 ar ssid for MMU. This is used for PHP MMU.
+
+GMAC1_SID_AR = 0x00A4 ; GMAC1 SID control for AR channel
+> 17, 1, GMAC1_AR_ATST ; GMAC1 ar atst for MMU. This is used for PHP MMU.
+
+> 16, 1, GMAC1_AR_SSDIV ; GMAC1 ar ssdiv for MMU. This is used for PHP MMU.
+
+> 0, 16, GMAC1_AR_SID ; GMAC1 ar sid for MMU. This is used for PHP MMU.
+
+GMAC1_SSID_AR = 0x00A8 ; GMAC1 SSID control for AR channel
+> 0, 20, GMAC1_AR_SSID ; GMAC1 ar ssid for MMU. This is used for PHP MMU.
+
+SATA0_SID_AR = 0x00AC ; SATA0 SID control for AR channel
+> 17, 1, SATA0_AR_ATST ; SATA0 ar atst for MMU. This is used for PHP MMU.
+
+> 16, 1, SATA0_AR_SSDIV ; SATA0 ar ssdiv for MMU. This is used for PHP MMU.
+
+> 0, 16, SATA0_AR_SID ; SATA0 ar sid for MMU. This is used for PHP MMU.
+
+SATA0_SSID_AR = 0x00B0 ; SATA0 SSID control for AR channel
+> 0, 20, SATA0_AR_SSID ; SATA0 ar ssid for MMU. This is used for PHP MMU.
+
+SATA1_SID_AR = 0x00B4 ; SATA1 SID control for AR channel
+> 17, 1, SATA1_AR_ATST ; SATA1 ar atst for MMU. This is used for PHP MMU.
+
+> 16, 1, SATA1_AR_SSDIV ; SATA1 ar ssdiv for MMU. This is used for PHP MMU.
+
+> 0, 16, SATA1_AR_SID ; SATA1 ar sid for MMU. This is used for PHP MMU.
+
+SATA1_SSID_AR = 0x00B8 ; SATA1 SSID control for AR channel
+> 0, 20, SATA1_AR_SSID ; SATA1 ar ssid for MMU. This is used for PHP MMU.
+
+SATA2_SID_AR = 0x00BC ; SATA2 SID control for AR channel
+> 17, 1, SATA2_AR_ATST ; SATA2 ar atst for MMU. This is used for PHP MMU.
+
+> 0, 16, SATA2_AR_SID ; SATA2 ar sid for MMU. This is used for PHP MMU.
+
+SATA2_SSID_AR = 0x00C0 ; SATA2 SSID control for AR channel
+> 0, 20, SATA2_AR_SSID ; SATA2 ar ssid for MMU. This is used for PHP MMU.
+
+USB3OTG_2_SID_AR = 0x00C4 ; USB3OTG_2 SID control for AR channel
+> 17, 1, USB3OTG_2_AR_ATST ; USB3OTG_2 ar atst for MMU. This is used for PHP MMU.
+
+> 16, 1, USB3OTG_2_AR_SSDIV ; USB3OTG_2 ar ssdiv for MMU. This is used for PHP MMU.
+
+> 0, 16, USB3OTG_2_AR_SID ; USB3OTG_2 ar sid for MMU. This is used for PHP MMU.
+
+USB3OTG_2_SSID_AR = 0x00C8 ; USB3OTG_2 SID control for AR channel
+> 0, 20, USB3OTG_2_AR_SSID ; USB3OTG_2 ar ssid for MMU. This is used for PHP MMU.
+
+USB3OTG_2_SID_AW = 0x00CC ; USB3OTG_2 SID control for AW channel
+> 17, 1, USB3OTG_2_AW_ATST ; USB3OTG_2 aw atst for MMU. This is used for PHP MMU.
+
+> 16, 1, USB3OTG_2_AW_SSDIV ; USB3OTG_2 aw ssdiv for MMU. This is used for PHP MMU.
+
+> 0, 16, USB3OTG_2_AW_SID ; USB3OTG_2 aw sid for MMU. This is used for PHP MMU.
+
+USB3OTG_2_SSID_AW = 0x00D0 ; USB3OTG_2 SSID control for AW channel
+> 0, 20, USB3OTG_2_AW_SSID ; USB3OTG_2 aw ssid for MMU. This is used for PHP MMU.
+
+GMAC_CON_PST = 0x00D4 ; GMAC media clock generation control
+> 3, 1, MCG_PST_TRIG_SEL_GMAC1 ; Select mcg_pst_trig from IO or GRF (mcg_pst_trig_gmac1).
+= 1, IO
+= 0, GRF
+
+> 2, 1, MCG_PST_TRIG_GMAC1 ; Grf control GMAC1 media clock generation tigger input.
+
+> 1, 1, MCG_PST_TRIG_SEL_GMAC0 ; Select mcg_pst_trig from IO or GRF (mcg_pst_trig_gmac0).
+= 1, IO
+= 0, GRF
+
+> 0, 1, MCG_PST_TRIG_GMAC0 ; Grf control GMAC0 media clock generation tigger input.
+
+GMAC0_CMD = 0x00D8 ; GMAC0 command
+> 0, 1, GMAC0_MCGR_DMA_ACK_CMD ; If write this be written to 1, a pulse will be set to GMAC0.
+
+GMAC1_CMD = 0x00DC ; GMAC0 command
+> 0, 1, GMAC1_MCGR_DMA_ACK_CMD ; If write this be written to 1, a pulse will be set to GMAC1.
+
+MEM_CON11 = 0x00E0 ; PHP memory configuration signal for hdspra
+> 0, 16, MEM_CFG_HDSPRA ; bit 0: TEST1 bit 1: TEST_RNM bit 4~2: RM bit 5: WMD bit 7: LS bit 11~10: WPULSE bit 13~12: RA
+
+USB3OTG_2_CON0 = 0x00E4 ; USB3OTG_0 control0
+> 15, 1, USB3OTG_HOST_U2_PORT_DISABLE ; USB2.0 Port Disable control. When 1, this signal stops reporting connect/disconnect events the port and keeps the port in disabled state
+= 0, ENABLED
+= 1, DISABLED
+
+> 14, 1, USB3OTG_HOST_PORT_POWER_CONTROL_PRESENT ; This indicates whether the host controller implementation includes port power control.
+= 0, NO ; Indicates that the port does not have port power switches
+= 1, YES ; Indicates that the port has port power switches
+
+> 8, 6, USB3OTG_FLADJ_30MHZ_REG ; HS Jitter Adjustment. Indicates the correction required to accommodate mac3 clock and utmi clock jitter to measure 125 's duration. With fladj_30mhz_reg tied to zero, the high speed 125us micro- frame is counted for 123933ns. You must program the value in terms of high speed bit times in a 30 MHz cycle. The default value that must be driven is 32 (assuming 30 MHz perfect clock). Fladj_30mhz_reg connects to the FLADJ register defined in the xHCI spec in the PCI configuration space. Each count is equal to 16 high speed bit times. By default, when this register is set to 32, it gives a 125us interval. Now, based the clock accuracy you can decrement the count or increment the count to get the 125 us uSOF window. For non-PCI systems, it is recommended that this strap is connected to a register that can be controlled by software. This strap is used in device mode also. If device only mode is implemented, it is recommended to tie this input to 'd32.
+
+> 7, 1, USB3OTG_HUB_PORT_PERM_ATTACH_USB3SS ; Indicates if the device attached to a downstream port is permanently attached or not.
+= 0, NO ; Not permanently attached
+= 1, YES ; Permanently attached
+
+> 6, 1, USB3OTG_HUB_PORT_PERM_ATTACH_USB2 ; Indicates if the device attached to a downstream port is permanently attached or not.
+= 0, NO ; Not permanently attached
+= 1, YES ; Permanently attached
+
+> 5, 1, USB3OTG_HUB_PORT_OVERCURRENT_USB3SS ; This is the per port Overcurrent indication of the root-hub ports:
+= 0, NO ; No Overcurrent
+= 1, YES ; Overcurrent
+
+> 4, 1, USB3OTG_HUB_PORT_OVERCURRENT_USB2 ; This is the per port Overcurrent indication of the root-hub ports:
+= 0, NO ; No Overcurrent
+= 1, YES ; Overcurrent
+
+> 3, 1, USB3OTG_BUS_FILTER_BYPASS3 ; Bypass the filter for utmiotg_iddig. It is expected that this signal is set or reset at power-on reset and is not changed during the normal operation of the core.
+= 0, ENABLED ; Bus filter(s) enabled
+= 1, DISABLED ; Bus filter(s) disabled (bypassed)
+
+> 2, 1, USB3OTG_BUS_FILTER_BYPASS2 ; Bypass the filters for utmisrp_bvalid and utmisrp_sessend. It is expected that this signal is set or reset at power-on reset and is not changed during the normal operation of the core.
+= 0, ENABLED ; Bus filter(s) enabled
+= 1, DISABLED ; Bus filter(s) disabled (bypassed)
+
+> 1, 1, USB3OTG_BUS_FILTER_BYPASS1 ; Bypass the filter for pipe3_PowerPresent all U3 ports. It is expected that this signal is set or reset at power-on reset and is not changed during the normal operation of the core.
+= 0, ENABLED ; Bus filter(s) enabled
+= 1, DISABLED ; Bus filter(s) disabled (bypassed)
+
+> 0, 1, USB3OTG_BUS_FILTER_BYPASS0 ; Bypass the filter for utmiotg_vbusvalid all U2 ports In non-OTG Host-only mode, internal bus filters are not needed. It is expected that this signal is set or reset at power-on reset and is not changed during the normal operation of the core.
+= 0, ENABLED ; Bus filter(s) enabled
+= 1, DISABLED ; Bus filter(s) disabled (bypassed)
+
+USB3OTG_2_CON1 = 0x00E8 ; USB3OTG_0 control1
+> 12, 1, USB3OTG1_HOST_NUM_U3_PORT ; xHCI usb3 port number, default as 1
+
+> 8, 4, USB3OTG1_HOST_NUM_U2_PORT ; xHCI host USB2 Port number, default as 1
+
+> 7, 1, USB3OTG1_PIPE_CLK_SEL ; usb3otg1_pipe3_rx_pclk/tx_pclk input source clk select
+= 0, CLK_USB3OTG0_PIPE ; Select clk_usb3otg0_pipe for source clk
+= 1, CLK_USB3OTG0_UTMI ; Select clk_usb3otg0_utmi for source clk
+
+> 5, 1, USB3OTG1_HOST_LEGACY_SMI_BAR ; Use this register to support SMI on BAR defined in xHCI spec. SW must set this register, then clear this register to indicate Base Address Register written
+
+> 4, 1, USB3OTG1_HOST_LEGACY_SMI_PCI_CMD ; Use this register to support SMI on PCI Command defined in xHCI spec. SW must set this register, then clear this register to indicate PCI command register written.
+
+> 2, 2, USB3OTG1_PIPE_RATE ; Not used.
+
+> 1, 1, USB3OTG1_PME_EN ; Enable signal for the pme_generation. Enable the core to assert pme_generation.
+
+> 0, 1, USB3OTG1_HOST_U3_PORT_DISABLE ; USB 3.0 SS Port Disable control.
+= 0, ENABLED ; Port Enabled
+= 1, DISABLED ; Port Disabled
+
+USB3OTG_2_INTCON = 0x00EC ; USB3OTG_2 int control
+> 1, 1, USB3_PME_GEN_INTEN
+= 0, DISABLE ; IRQ disable
+= 1, ENABLE ; IRQ enable
+
+> 0, 1, USB_HOST_SYS_ERR_EN
+= 0, DISABLE ; IRQ disable
+= 1, ENABLE ; IRQ enable
+
+USB3OTG_2_ST_LAT0 = 0x00F0, RO ; USB3OTG_2 logic analyzer Trace low
+> 0, 32, USB3OTG_LOGIC_ANALYZER_TRACE0 ; Usb3otg_logic_analyzer_trace[31:0] bit status. Logic Analyzer Trace. These are internal design signals that you can use for debug purposes. Some of the signals are interface signals like PIPE, UTMI, ULPI, AXI, and AHB, and others are internal state machines and status information signals. During chip bring-up, to debug functional issues, you can probe the interface signals for additional visibility.
+
+USB3OTG_2_ST_LAT1 = 0x00F4, RO ; USB3OTG_2 logic analyzer Trace high
+> 0, 32, USB3OTG_LOGIC_ANALYZER_TRACE0 ; Usb3otg_logic_analyzer_trace[63:32] bit status. Logic Analyzer Trace. These are internal design signals that you can use for debug purposes. Some of the signals are interface signals like PIPE, UTMI, ULPI, AXI, and AHB, and others are internal state machines and status information signals. During chip bring-up, to debug functional issues, you can probe the interface signals for additional visibility.
+
+USB3OTG_2_ST_CB = 0x00F8, RO ; USB3OTG_2 current BELT value
+> 0, 12, USB3OTG_HOST_CURRENT_BELT ; Usb3otg_host_current_belt[11:0] bit status Current BELT Value. This signal indicates the minimum value of all received BELT values and the BELT that is set by the Set LTV command. This signal is valid only in Host mode.
+
+USB3OTG_2_ST = 0x00FC, RO ; USB3OTG_2 status
+> 1, 1, USB3OTG_PME_GENERATION ; PME Generation. This signal is used to generate a PME (Power Management Event). When the Run/Stop bit of the USB Command Register is cleared during USB suspend mode, the core cannot generate an event and cannot assert a regular interrupt. In this case, the core asserts a pme_generation signal to report any wakeup condition if pme_en is high. If the system does not support PCI-like PME interface, then it must not clear the Run/Stop bit during USB suspend mode. In this case, the core generates an event and asserts an interrupt when there is any wakeup event.
+
+> 0, 1, USB3OTG_HOST_SYS_ERR ; Host System Error. This signal indicates that a Host System Error has occurred as reflected in the USBSTS.HSE field. This signal is asserted only if the USBCMD.HSEE field is set to '1'. It can occur when the host controller encounters an 'Error' response in the AHB, the AXI, or the Native Master Bus. When the USBSTS.HSE field is cleared by software, this signal is de-asserted unless the master continues to assert its bus error output. The typical software response to an HSE is to reset the core. For more details, refer to section 4.10.2.6 of the xHCI 1.0 specification.
+
+PCIESEL_CON = 0x0100 ; PCIe PHY interface select
+> 1, 1, PCIE1L1_SEL ; Select the signal form PHY to PCIe1l1
+= 0, COMB ; Select comb PHY
+= 1, PCIE3 ; Select PCIE3 PHY
+
+> 0, 1, PCIE1L0_SEL ; Select the signal form PHY to PCIe1l0
+= 0, COMB ; Select comb PHY
+= 1, PCIE3 ; Select PCIE3 PHY
+
+UTMI_CON = 0x0104 ; GRF control UTMI interface for USB3 only mode
+> 9, 1, UTMI_BVALID ; GRF control utmi bvalid.
+
+> 8, 1, UTMI_VBUSVALID ; GRF control utmi vbus valid.
+
+> 7, 1, UTMI_TXREADY ; GRF control utmi txready.
+
+> 6, 1, UTMI_RXVALIDH ; GRF control utmi rxvalidh.
+
+> 5, 1, UTMI_RXVALID ; GRF control utmi rxvalid.
+
+> 4, 1, UTMI_RXERROR ; GRF control utmi rxerror.
+
+> 3, 1, UTMI_RXACTIVE ; GRF control rxactive.
+
+> 1, 2, UTMI_LINESTATE ; GRF control utmi linestate.
+
+> 0, 1, UTMI_HOSTDISCONNECT ; GRF control utmi hostdisconnect for usb3otg.
+
+PCIE4L_SID_AW = 0x010C ; GRF controller PCIe4L SID for AW channel
+> 0, 16, GRF_PCIE4L_SID_AW ; GRF control PCIe sid for aw channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+PCIE4L_SID_AR = 0x0110 ; GRF controller PCIe4L SID for AR channel
+> 0, 16, GRF_PCIE4L_SID_AR ; GRF control PCIe sid for ar channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+PCIE2L_SID_AW = 0x0114 ; GRF controller PCIe2L SID for AW channel
+> 0, 16, GRF_PCIE2L_SID_AW ; GRF control PCIe sid for aw channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+PCIE2L_SID_AR = 0x0118 ; GRF controller PCIe2L SID for AR channel
+> 0, 16, GRF_PCIE2L_SID_AR ; GRF control PCIe sid for ar channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+PCIE1L0_SID_AW = 0x011C ; GRF controller PCIe1L0 SID for AW channel
+> 0, 16, GRF_PCIE1L0_SID_AW ; GRF control PCIe sid for aw channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+PCIE1L0_SID_AR = 0x0120 ; GRF controller PCIe1L0 SID for AR channel
+> 0, 16, GRF_PCIE1L0_SID_AR ; GRF control PCIe sid for ar channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+PCIE1L1_SID_AW = 0x0124 ; GRF controller PCIe1L1 SID for AW channel
+> 0, 16, GRF_PCIE1L1_SID_AW ; GRF control PCIe sid for aw channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+PCIE1L1_SID_AR = 0x0128 ; GRF controller PCIe1L1 SID for AR channel
+> 0, 16, GRF_PCIE1L1_SID_AR ; GRF control PCIe sid for ar channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+PCIE1L2_SID_AW = 0x012C ; GRF controller PCIe1L2 SID for AW channel
+> 0, 16, GRF_PCIE1L2_SID_AW ; GRF control PCIe sid for aw channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+PCIE1L2_SID_AR = 0x0130 ; GRF controller PCIe1L2 SID for AR channel
+> 0, 16, GRF_PCIE1L2_SID_AR ; GRF control PCIe sid for ar channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+PCIE_ATS = 0x0138 ; GRF control PCIe ATS
+> 9, 1, GRF_PCIE1L2_AR_ATS ; GRF controller PCIe ats for ar channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+> 8, 1, GRF_PCIE1L1_AR_ATS ; GRF controller PCIe ats for ar channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+> 7, 1, GRF_PCIE1L0_AR_ATS ; GRF controller PCIe ats for ar channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+> 6, 1, GRF_PCIE2L_AR_ATS ; GRF controller PCIe ats for ar channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+> 5, 1, GRF_PCIE4L_AR_ATS ; GRF controller PCIe ats for ar channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+> 4, 1, GRF_PCIE1L2_AW_ATS ; GRF controller PCIe ats for aw channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+> 3, 1, GRF_PCIE1L1_AW_ATS ; GRF controller PCIe ats for aw channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+> 2, 1, GRF_PCIE1L0_AW_ATS ; GRF controller PCIe ats for aw channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+> 1, 1, GRF_PCIE2L_AW_ATS ; GRF controller PCIe ats for aw channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+> 0, 1, GRF_PCIE4L_AW_ATS ; GRF controller PCIe ats for aw channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+ST_UTMI = 0x013C, RO ; USB3OTG_2 UTMI interface status for usb3 only mode
+> 6, 1, GRF_UTMI_L1_SUSPEND_COM_N ; Status for utmi_l1_suspend_com_n.
+
+> 5, 1, GRF_UTMI_L1_SUSPEND_N ; Status for utmi_l1_suspend_n.
+
+> 4, 1, GRF_UTMI_SLEEP_N ; Status for utmi_sleep_n.
+
+> 3, 1, GRF_UTMI_SUSPEND_COM_N ; Status for utmi suspend_com_n.
+
+> 2, 1, GRF_UTMI_SUSPEND_N ; Status for utmi suspend_n.
+
+> 1, 1, GRF_UTMI_DMPULLDOWM ; Status for utmi dmpulldown.
+
+> 0, 1, GRF_UTMI_DPPULLDOWN ; Status for utmi dppulldown.
+
+PCIE4L_SSID_AW = 0x0144 ; GRF controller PCIe4L SID for AW channel
+> 0, 20, GRF_PCEI4L_SSID_AW ; GRF controller PCIe ssid for aw channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+PCIE4L_SSID_AR = 0x0148 ; GRF controller PCIe4L SID for AR channel
+> 0, 20, GRF_PCEI4L_SSID_AR ; GRF controller PCIe ssid for ar channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+PCIE2L_SSID_AW = 0x014C ; GRF controller PCIe2L SID for AW channel
+> 0, 20, GRF_PCEI2L_SSID_AW ; GRF controller PCIe ssid for aw channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+PCIE2L_SSID_AR = 0x0150 ; GRF controller PCIe2L SID for AR channel
+> 0, 20, GRF_PCEI2L_SSID_AR ; GRF controller PCIe ssid for ar channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+PCIE1L0_SSID_AW = 0x0154 ; GRF controller PCIe1L0 SID for AW channel
+> 0, 20, GRF_PCEI1L0_SSID_AW ; GRF controller PCIe ssid for aw channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+PCIE1L0_SSID_AR = 0x0158 ; GRF controller PCIe1L1 SID for AW channel
+> 0, 20, GRF_PCEI1L0_SSID_AR ; GRF controller PCIe ssid for ar channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+PCIE1L1_SSID_AW = 0x015C ; GRF controller PCIe1L1 SID for AW channel
+> 0, 20, GRF_PCEI1L1_SSID_AW ; GRF controller PCIe ssid for aw channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+PCIE1L1_SSID_AR = 0x0160 ; GRF controller PCIe1L1 SID for AR channel
+> 0, 20, GRF_PCEI1L1_SSID_AR ; GRF controller PCIe ssid for ar channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+PCIE1L2_SSID_AW = 0x0164 ; GRF controller PCIe1L2 SID for AW channel
+> 0, 20, GRF_PCEI1L2_SSID_AW ; GRF controller PCIe ssid for aw channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+PCIE1L2_SSID_AR = 0x0168 ; GRF controller PCIe1L2 SID for AR channel
+> 0, 20, GRF_PCEI1L2_SSID_AW ; GRF controller PCIe ssid for ar channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+PCIE_SSID_V = 0x016C ; GRF controller PCIe SSID_V
+> 9, 1, GRF_PCIE1L2_ARSSID_V ; GRF control PCIe ssid valid for ar channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+> 8, 1, GRF_PCIE1L1_ARSSID_V ; GRF control PCIe ssid valid for ar channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+> 7, 1, GRF_PCIE1L0_ARSSID_V ; GRF control PCIe ssid valid for ar channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+> 6, 1, GRF_PCIE2L_ARSSID_V ; GRF control PCIe ssid valid for ar channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+> 5, 1, GRF_PCIE4L_ARSSID_V ; GRF control PCIe ssid valid for ar channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+> 4, 1, GRF_PCIE1L2_AWSSID_V ; GRF control PCIe ssid valid for aw channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+> 3, 1, GRF_PCIE1L1_AWSSID_V ; GRF control PCIe ssid valid for aw channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+> 2, 1, GRF_PCIE1L0_AWSSID_V ; GRF control PCIe ssid valid for aw channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+> 1, 1, GRF_PCIE2L_AWSSID_V ; GRF control PCIe ssid valid for aw channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+> 0, 1, GRF_PCIE4L_AWSSID_V ; GRF control PCIe ssid valid for aw channel. This will be select with PCIe controller output, please refer to SGRF and PCIe section.
+
+SATA_PD_SEL = 0x0174 ; SATA pipe interface power down sel
+> 5, 1, SATA2_PD_SEL1 ; Select SATA2 powerdown to PHY when powerdown is 4'd1.
+= 1, 4D1 ; Powerdown to PHY is 4'd1.
+= 0, 4D3 ; Powerdown to PHY is 4'd3.
+
+> 4, 1, SATA2_PD_SEL0 ; Select SATA2 powerdown to PHY when powerdown is 4'd1.
+= 1, 4D1 ; Powerdown to PHY is 4'd1.
+= 0, 4D3 ; Powerdown to PHY is 4'd3.
+
+> 3, 1, SATA1_PD_SEL1 ; Select SATA1 powerdown to PHY when powerdown is 4'd2.
+= 1, 4D5 ; Powerdown to PHY is 4'd5.
+= 0, 4D7 ; Powerdown to PHY is 4'd7.
+
+> 2, 1, SATA1_PD_SEL0 ; Select SATA1 powerdown to PHY when powerdown is 4'd1.
+= 1, 4D1 ; Powerdown to PHY is 4'd1.
+= 0, 4D3 ; Powerdown to PHY is 4'd3.
+
+> 1, 1, SATA0_PD_SEL1 ; Select SATA0 powerdown to PHY when powerdown is 4'd2.
+= 1, 4D5 ; Powerdown to PHY is 4'd5.
+= 0, 4D7 ; Powerdown to PHY is 4'd7.
+
+> 0, 1, SATA0_PD_SEL0 ; Select SATA0 powerdown to PHY when powerdown is 4'd1.
+= 1, 4D1 ; Powerdown to PHY is 4'd1.
+= 0, 4D3 ; Powerdown to PHY is 4'd3.
+
+PHP_PCIE_MMU_IRQ_CLR = 0x0178, W1C ; PCIe MMU interrupt clear
+> 13, 1, CLR_IRQ_PCIE_MMU600_R2_TBU0_PMU_IRPT ; Clear irq_pcie_mmu600_r2_tbu0_pmu_irpt.
+
+> 12, 1, CLR_IRQ_PCIE_MMU600_R2_TBU0_RAS_IRPT ; Clear irq_pcie_mmu600_r2_tbu0_ras_irpt.
+
+> 11, 1, CLR_IRQ_PCIE_MMU600_R2_TBU1_PMU_IRPT ; Clear irq_pcie_mmu600_r2_tbu1_pmu_irpt.
+
+> 10, 1, CLR_IRQ_PCIE_MMU600_R2_TBU1_RAS_IRPT ; Clear irq_pcie_mmu600_r2_tbu1_ras_irpt.
+
+> 9, 1, CLR_IRQ_PCIE_MMU600_R2_TCU_CMD_SYNC_IRPT_NS ; Clear irq_pcie_mmu600_r2_tcu_cmd_sync_irpt_ns.
+
+> 8, 1, CLR_IRQ_PCIE_MMU600_R2_TCU_CMD_SYNC_IRPT_S ; Clear irq_pcie_mmu600_r2_tcu_cmd_sync_irpt_s.
+
+> 7, 1, CLR_IRQ_PCIE_MMU600_R2_TCU_EVENT_Q_IRPT_NS ; Clear irq_pcie_mmu600_r2_tcu_event_q_irpt_ns.
+
+> 6, 1, CLR_IRQ_PCIE_MMU600_R2_TCU_EVENT_Q_IRPT_S ; Clear irq_pcie_mmu600_r2_tcu_event_q_irpt_s.
+
+> 5, 1, CLR_IRQ_PCIE_MMU600_R2_TCU_PCIE_EVENTO ; Clear irq_pcie_mmu600_r2_tcu_pcie_evento.
+
+> 4, 1, CLR_IRQ_PCIE_MMU600_R2_TCU_GLOBAL_IRPT_NS ; Clear irq_pcie_mmu600_r2_tcu_global_irpt_ns.
+
+> 3, 1, CLR_IRQ_PCIE_MMU600_R2_TCU_GLOBAL_IRPT_S ; Clear irq_pcie_mmu600_r2_tcu_global_irpt_s.
+
+> 2, 1, CLR_IRQ_PCIE_MMU600_R2_TCU_PMU_PCIE_IRP ; Clear irq_pcie_mmu600_r2_tcu_pmu_php_irp.
+
+> 1, 1, CLR_IRQ_PCIE_MMU600_R2_TCU_PRI_Q_IRPT_NS ; Clear irq_pcie_mmu600_r2_tcu_pri_q_irpt_ns.
+
+> 0, 1, CLR_IRQ_PCIE_MMU600_R2_TCU_RAS_IRP ; Clear irq_pcie_mmu600_r2_tcu_ras_irp.
+
+PHP_PHP_MMU_IRQ_CLR = 0x017C, W1C ; PHP MMU interrupt clear
+> 13, 1, CLR_IRQ_PCIE_MMU600_R2_TBU1_PMU_IRPT ; Clear irq_pcie_mmu600_r2_tbu0_pmu_irpt.
+
+> 12, 1, CLR_IRQ_PCIE_MMU600_R2_TBU0_RAS_IRPT ; Clear irq_pcie_mmu600_r2_tbu0_ras_irpt.
+
+> 9, 1, CLR_IRQ_PCIE_MMU600_R2_TCU_CMD_SYNC_IRPT_NS ; Clear irq_pcie_mmu600_r2_tcu_cmd_sync_irpt_ns.
+
+> 8, 1, CLR_IRQ_PCIE_MMU600_R2_TCU_CMD_SYNC_IRPT_S ; Clear irq_pcie_mmu600_r2_tcu_cmd_sync_irpt_s.
+
+> 7, 1, CLR_IRQ_PCIE_MMU600_R2_TCU_EVENT_Q_IRPT_NS ; Clear irq_pcie_mmu600_r2_tcu_event_q_irpt_ns.
+
+> 6, 1, CLR_IRQ_PCIE_MMU600_R2_TCU_EVENT_Q_IRPT_S ; Clear irq_pcie_mmu600_r2_tcu_event_q_irpt_s.
+
+> 5, 1, CLR_IRQ_PCIE_MMU600_R2_TCU_PHP_EVENTO ; Clear irq_pcie_mmu600_r2_tcu_php_evento.
+
+> 4, 1, CLR_IRQ_PCIE_MMU600_R2_TCU_GLOBAL_IRPT_NS ; Clear irq_pcie_mmu600_r2_tcu_global_irpt_ns.
+
+> 3, 1, CLR_IRQ_PCIE_MMU600_R2_TCU_GLOBAL_IRPT_S ; Clear irq_pcie_mmu600_r2_tcu_global_irpt_s.
+
+> 2, 1, CLR_IRQ_PCIE_MMU600_R2_TCU_PMU_PHP_IRP ; Clear irq_pcie_mmu600_r2_tcu_pmu_php_irp.
+
+> 1, 1, CLR_IRQ_PCIE_MMU600_R2_TCU_PRI_Q_IRPT_NS ; Clear irq_pcie_mmu600_r2_tcu_pri_q_irpt_ns.
+
+> 0, 1, CLR_IRQ_PCIE_MMU600_R2_TCU_RAS_IRP ; Clear irq_pcie_mmu600_r2_tcu_ras_irp.
+
+PHP_PCIE_MMU_ST = 0x0180, RO ; PCIe MMU interrupt state
+> 13, 1, ST_PCIE_MMU600_R2_TBU0_PMU_IRPT ; PMU interrupt.
+
+> 12, 1, ST_PCIE_MMU600_R2_TBU0_RAS_IRPT ; RAS interrupt.
+
+> 11, 1, ST_PCIE_MMU600_R2_TBU1_PMU_IRPT ; PMU interrupt.
+
+> 10, 1, ST_PCIE_MMU600_R2_TBU1_RAS_IRPT ; RAS interrupt.
+
+> 9, 1, ST_PCIE_MMU600_R2_TCU_CMD_SYNC_IRPT_NS ; SYNC complete, Non-secure interrupt. Asserts a Non-secure interrupt to indicate that the CMD_SYNC command is complete.
+
+> 8, 1, ST_PCIE_MMU600_R2_TCU_CMD_SYNC_IRPT_S ; SYNC complete, Secure interrupt. Asserts a Secure interrupt to indicate that the CMD_SYNC command is complete.
+
+> 7, 1, ST_PCIE_MMU600_R2_TCU_EVENT_Q_IRPT_NS ; Event queue, Non-secure interrupt. Asserts a Non-secure interrupt to indicate that the Event queue is not empty or has overflowed.
+
+> 6, 1, ST_PCIE_MMU600_R2_TCU_EVENT_Q_IRPT_S ; Event queue, Secure interrupt. Asserts a Secure interrupt to indicate that the Event queue is not empty or has overflowed.
+
+> 5, 1, ST_PCIE_MMU600_R2_TCU_PCIE_EVENTO ; Event output for connection to processors. This signal is asserted for one cycle to indicate an event that enables processors to wake up from WFE low-power state.
+
+> 4, 1, ST_PCIE_MMU600_R2_TCU_GLOBAL_IRPT_NS ; Asserts a global Non-secure interrupt.
+
+> 3, 1, ST_PCIE_MMU600_R2_TCU_GLOBAL_IRPT_S ; Asserts a global Secure interrupt.
+
+> 2, 1, ST_PCIE_MMU600_R2_TCU_PMU_PCIE_IRP ; Asserts a PMU interrupt.
+
+> 1, 1, ST_PCIE_MMU600_R2_TCU_PRI_Q_IRPT_NS ; Asserts a Page Request Interface (PRI) queue interrupt.
+
+> 0, 1, ST_PCIE_MMU600_R2_TCU_RAS_IRP ; Asserts a Reliability, Availability, and Serviceability (RAS) interrupt.
+
+PHP_PHP_MMU_ST = 0x0184, RO ; PHP MMU interrupt state
+> 13, 1, ST_PCIE_MMU600_R2_TBU0_PMU_IRPT ; PMU interrupt.
+
+> 12, 1, ST_PCIE_MMU600_R2_TBU0_RAS_IRPT ; RAS interrupt.
+
+> 9, 1, ST_PCIE_MMU600_R2_TCU_CMD_SYNC_IRPT_NS ; SYNC complete, Non-secure interrupt. Asserts a Non-secure interrupt to indicate that the CMD_SYNC command is complete.
+
+> 8, 1, ST_PCIE_MMU600_R2_TCU_CMD_SYNC_IRPT_S ; SYNC complete, Secure interrupt. Asserts a Secure interrupt to indicate that the CMD_SYNC command is complete.
+
+> 7, 1, ST_PCIE_MMU600_R2_TCU_EVENT_Q_IRPT_NS ; Event queue, Non-secure interrupt. Asserts a Non-secure interrupt to indicate that the Event queue is not empty or has overflowed.
+
+> 6, 1, ST_PCIE_MMU600_R2_TCU_EVENT_Q_IRPT_S ; Event queue, Secure interrupt. Asserts a Secure interrupt to indicate that the Event queue is not empty or has overflowed.
+
+> 5, 1, ST_PCIE_MMU600_R2_TCU_PHP_EVENTO ; Event output for connection to processors. This signal is asserted for one cycle to indicate an event that enables processors to wake up from WFE low-power state.
+
+> 4, 1, ST_PCIE_MMU600_R2_TCU_GLOBAL_IRPT_NS ; Asserts a global Non-secure interrupt.
+
+> 3, 1, ST_PCIE_MMU600_R2_TCU_GLOBAL_IRPT_S ; Asserts a global Secure interrupt.
+
+> 2, 1, ST_PCIE_MMU600_R2_TCU_PMU_PHP_IRP ; Asserts a PMU interrupt.
+
+> 1, 1, ST_PCIE_MMU600_R2_TCU_PRI_Q_IRPT_NS ; Asserts a Page Request Interface (PRI) queue interrupt.
+
+> 0, 1, ST_PCIE_MMU600_R2_TCU_RAS_IRP ; Asserts a Reliability, Availability, and Serviceability (RAS) interrupt.
+
+PHP_PHP_ST0B = 0x018C, RO ; PHP status register0b
+> 4, 1, GMAC1_MCGR_DMA_REQ_INTR ; MCGR DMA Read Request Used to Request a Target Presentation time value for one of the comparator modules when the instance is running in recovery mode. In Media Clock generation mode, this I/O signal is held high indicating a valid Presentation time is captured and updated in MAC_PPS(i)_Target_Time_Seconds register. One or more DMA read requests can simultaneously active, it is up to the DMA logic to maintain priority. Bits have a 1-1 correspondence to the comparator instances (i.e. Bit-0 belongs to comparator 0, bit-1 belongs to comparator-1 and so on). Once set, will hold high and will be reset the cycle after receiving the mcgr_dma_ack for that comparator. Width of this IO changes with the configured number of PPS instances.
+
+> 2, 2, GMAC1_SPEED ; Mac Speed indication/status.
+= 0, 1000MBPS ; (GMII)
+= 1, 2500MBPS ; (GMII)
+= 2, 10MBPS ; (MII)
+= 3, 100MBPS ; (MII)
+
+> 1, 1, GMAC1_PTP_PPS ; Pulse Per Second. This signal is high based on the PPS mode selected in the MAC_PPS_Control register. When PPS is programmed in Media Clock recovery Mode, this port indicates the recovered clock.
+
+> 0, 1, GMAC1_SDB_TX_CLK_GATING_CTRL ; LPI Tx Clock Gating Control. This signal is high after the MAC enters the Tx LPI (low power idle) mode. You can use this signal to control the Tx clock gating.
+
