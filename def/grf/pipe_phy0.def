@@ -1,3 +1,244 @@
 [GRF_PIPE_PHY0, grf]
 @ = 0x0FD5BC000, 0x00004000
 
+PIPE_CON0 = 0x0000 ; PIPE Combo PHY Configuration Register 0
+> 14, 1, PIPE_RXSTANDBY ; SATA mode Controls whether the PHY RX is active when the PHY is in any power state with PCLK on. RX_STANDBY is ignored when the PHY is in any power state where the high-speed receiver is always off. PCIe mode Controls whether the PHY RX is active when the PHY is in P0 or P0s. RX_STANDBY is ignored when the PHY is in P1 or P2. Only used in SATA and PCIe mode. USB3.0 mode should be tied to 1'b0. The value when override enable is selected.
+= 0, ACTIVE
+= 1, STANDBY
+
+> 13, 1, PIPE_RXELECIDLE_DISABLE ; RX electrical idle detect disable. The value when override enable is selected.
+= 0, ENABLE ; Idle detect enable
+= 1, DISABLE ; Idle detect disable
+
+> 12, 1, PIPE_RXTERM ; Control presence of receiver terminations. The value when override enable is selected. Only used in USB3.0 mode, PCIe and SATA mode should be tied to 1'b1.
+= 0, REMOVED ; Termination removed
+= 1, PRESENT ; Termination present
+
+> 11, 1, PIPE_BYPASS_CODEC ; PCIe mode, USB mode, and SATA mode. The value when override enable is selected. Controls whether the PHY performs 8b/10b encode and decode.
+= 0, NORMAL ; 8b/10b encode/decode performed normally by the PHY
+= 1, BYPASS ; 8b/10b encode/decode bypassed, 20bit 8b/10b encode/decode bypass mode works only when BUS_WIDTH=2'b01 It should be tie to 1'b1 in SATA low latency and SERDES mode.
+
+> 10, 1, PIPE_EBUFFMODE ; RX Elasticity Buffer operating mode selection. The value when override enable is selected.
+= 0, HALF_FULL ; Nominal half-full buffer mode
+= 1, NORMAL ; Nominal empty buffer mode In SATA and USB3.0 mode, when RX elastic buffer is operating at nominal empty buffer mode, RX_DATA_VALID is de-asserted which means elastic buffer is empty and no data is available. In PCIe mode, only nominal half-full Elasticity Buffer mode is supported.
+
+> 9, 1, PIPE_L1SUB_ENTREQ ; In PCIe mode L1 sub-state entry request signal in PCIe mode. When set to high, it instructs PHY to do power transition to L1 sub-state. In SATA Mode When set to high, it will be power down PLL. This signal could be connected to the L1 sub-state enable/request signal from controller Only used in PCIe and SATA mode, USB mode should be tied to 1'b0. The value when override enable is selected. Reserved for current chip.
+
+> 8, 1, PIPE_MAC_PCLKREQ_N ; PCIe common clock request signal in PCIe mode. The signal shall be low and CKREF_SRC[1:0] is set to 2'b10 when CKREFP/N and PCI_100M_CLK output from PHY is used for PCIe system with common clock Note: Details refer to CKREFP/N and PCI_100M_CLK. Only used in PCIe mode, USB and SATA mode should be tied to 1'b1. This bit is a override bit for input CLKREQ for PHY when override selection enable.
+
+> 6, 2, PIPE_POWERDOWN ; Power up or power down status control of Transceiver. If PIPE PHY support PIPE4.3, the powerdown is 4-bit, PIPE4.2 or below 2-bit. This filed is powerdown [1:0], powerdown[3:2] is controlled by pipe_powerdown_4p3. The value when override enable is selected.
+
+> 4, 2, PIPE_RATE ; Combo PHY link signaling rate. The value when override enable is selected.
+
+> 2, 2, PIPE_PHYMODE ; Combo PHY mode. In RK3588 Combo PHY PIPE4.3. The PHY and controller usage list below when each PHY mode is set to PCIe: 1L0 connects to Combo PHY1, when pcie1l0_sel is set to 1'b1. 1L1 connects to Combo PHY2, when pcie1l1_sel is set to 1'b1. 1L2 connects to Combo PHY0.
+= 0, PCIE
+= 1, USB3
+= 2, SATA
+= 3, SERDES
+
+> 0, 2, PIPE_DATABUSWIDTH ; Combo PHY PIPE data bus width. The value when override enable is selected.
+= 0, 32BIT ; PCIe and USB3 only support 32-bit
+= 1, 16BIT ; SATA only support 16-bit
+
+PIPE_CON1 = 0x0004 ; PIPE Combo PHY Configuration Register 1
+> 13, 2, PHY_CLK_SEL ; Combo Phy PIPE reference clock frequency selection.
+= 0, 24M
+= 1, 25M
+= 2, 100M
+= 3, RESERVED
+
+> 11, 2, PIPE_TXPATTERN_SATA ; Controls which pattern the PHY sends at the Gen 1 rate when sending OOB or initialization signaling. The PHY transmits this pattern at the Gen 1 rate regardless of what rate the PHY is configured at. Used in SATA mode only. The value when override enable is selected.
+= 0, C_ALIGN
+= 1, C_D24_3
+= 2, C_D10_2
+= 3, C_RESERVED
+
+> 8, 3, PIPE_TXMARGIN ; Transmit margin control, combined with txswing to control TX output amplitude. The value when override enable is selected.
+
+> 6, 2, PIPE_TXDEEMPH ; Transmitter de-emphasis level configuration. The value when override enable is selected.
+= 0, MINUS_6DB
+= 1, MINUS_3_5DB
+= 2, NO_DEEMPHASIS
+= 3, RESERVED
+
+> 5, 1, PIPE_TXSWING ; Control transmitter voltage swing level. The value when override enable is selected.
+= 0, FULL_SWING
+= 1, LOW_SWING
+
+> 4, 1, PIPE_TXCOMPLIANCE ; Set the running disparity to negative. Only used in PCIe mode, USB and SATA mode should be tied to 1'b0. The value when override enable is selected.
+
+> 3, 1, PIPE_TXCOMMONMODE_DISABLE ; TX Common mode Control. The value when override enable is selected.
+= 0, ENABLE
+= 1, DISABLE
+
+> 2, 1, PIPE_TXONESZEROS ; This signal is used in USB3.0 mode for transmitting compliance pattern CP7 and CP8. When set to high, it causes the transmitter to transmit an alternating sequence of 0s and 1s, regardless the states of TX_DATA. Only used in USB mode, PCIE and SATA mode should be tied to 1'b0. The value when override enable is selected.
+
+> 1, 1, PIPE_TXELECIDLE ; Forces TX output to electrical idle when asserted except in loopback, refer to PIPE spec for details on control signal usage. When asserted with TX_COMPLIANCE high, the PHY is fully powered off. Shall be kept high when SATA mode that is not in P0. The value when override enable is selected.
+
+> 0, 1, PIPE_TXDECTRX_LOOPBACK ; Used to tell the PHY to begin a receiver detection operation or to begin loopback. Refer to s PIPE spec for detail description. This signal shall be set to low when SATA mode that is not in P0. The value when override enable is selected.
+
+PIPE_CON2 = 0x0008 ; PIPE Combo PHY Configuration Register 2
+> 15, 1, SEL_PIPE_TXCOMPLIANCE ; pipe_txcompliance selection. Override value is selected for PIPE PHY interface.
+= 0, CONTROLLER ; From controller side (Controller/Constant/PD GRF)
+= 1, PHY_GRF
+
+> 14, 1, SEL_PIPE_TXCOMMONMODE_DISABLE ; pipe_txcommonmode_disable selection. Override value is selected for PIPE PHY interface.
+= 0, CONTROLLER ; From controller side (Controller/Constant/PD GRF)
+= 1, PHY_GRF
+
+> 13, 1, SEL_PIPE_TXONESZEROS ; pipe_txoneszeros selection. Override value is selected for PIPE PHY interface.
+= 0, CONTROLLER ; From controller side (Controller/Constant/PD GRF)
+= 1, PHY_GRF
+
+> 12, 1, SEL_PIPE_TXELECIDLE ; pipe_txelecidle selection. Override value is selected for PIPE PHY interface.
+= 0, CONTROLLER ; From controller side (Controller/Constant/PD GRF)
+= 1, PHY_GRF
+
+> 11, 1, SEL_PIPE_TXDECTRX_LOOPBACK ; pipe_txdectrx_loopback selection. Override value is selected for PIPE PHY interface.
+= 0, CONTROLLER ; From controller side (Controller/Constant/PD GRF)
+= 1, PHY_GRF
+
+> 10, 1, SEL_PIPE_RXSTANDBY ; sel_pipe_rxstandby selection. Override value is selected for PIPE PHY interface.
+= 0, CONTROLLER ; From controller side (Controller/Constant/PD GRF)
+= 1, PHY_GRF
+
+> 9, 1, SEL_PIPE_RXELECIDLE_DISABLE ; pipe_rxelecidle_disable selection. Override value is selected for PIPE PHY interface.
+= 0, CONTROLLER ; From controller side (Controller/Constant/PD GRF)
+= 1, PHY_GRF
+
+> 8, 1, SEL_PIPE_RXTERM ; pipe_rxterm selection. Override value is selected for PIPE PHY interface.
+= 0, CONTROLLER ; From controller side (Controller/Constant/PD GRF)
+= 1, PHY_GRF
+
+> 7, 1, SEL_PIPE_BYPASS_CODEC ; pipe_bypass_codec selection. Override value is selected for PIPE PHY interface.
+= 0, CONTROLLER ; From controller side (Controller/Constant/PD GRF)
+= 1, PHY_GRF
+
+> 6, 1, SEL_PIPE_EBUFFMODE ; pipe_ebuffmode selection. Override value is selected for PIPE PHY interface.
+= 0, CONTROLLER ; From controller side (Controller/Constant/PD GRF)
+= 1, PHY_GRF
+
+> 5, 1, SEL_PIPE_L1SUB_ENTREQ ; pipe_l1sub_entreq selection. Override value is selected for PIPE PHY interface.
+= 0, CONTROLLER ; From controller side (Controller/Constant/PD GRF)
+= 1, PHY_GRF
+
+> 4, 1, SEL_PIPE_POWERDOWN ; pipe_powerdown selection. Override value is selected for PIPE PHY interface.
+= 0, CONTROLLER ; From controller side (Controller/Constant/PD GRF)
+= 1, PHY_GRF
+
+> 3, 1, SEL_PIPE_MAC_PCLKREQ_N ; pipe_mac_pclkreq_n selection. Override value is selected for PIPE PHY interface.
+= 0, CONTROLLER ; From controller side (Controller/Constant/PD GRF)
+= 1, PHY_GRF
+
+> 2, 1, SEL_PIPE_RATE ; pipe_rate selection. Override value is selected for PIPE PHY interface.
+= 0, CONTROLLER ; From controller side (Controller/Constant/PD GRF)
+= 1, PHY_GRF
+
+> 1, 1, SEL_PIPE_PHYMODE ; pipe_phymode selection. Override value is selected for PIPE PHY interface. Reserved for RK3588.
+= 0, CONTROLLER ; From controller side (Controller/Constant/PD GRF)
+= 1, PHY_GRF
+
+> 0, 1, SEL_PIPE_DATABUSWIDTH ; pipe_databuswidth selection. Override value is selected for PIPE PHY interface.
+= 0, CONTROLLER ; From controller side (Controller/Constant/PD GRF)
+= 1, PHY_GRF
+
+PIPE_CON3 = 0x000C ; PIPE Combo PHY Configuration Register 3
+> 15, 1, QSGM_MODE ; QSGMII mode enable. Reserved in RK3588
+= 0, OTHER
+= 1, QSGMII_SGMII
+
+> 13, 2, PIPE_SEL ; Control the PD PIPE interface source selection. Reserved in RK3588.
+= 0, PCIE2_0
+= 1, USB3
+= 2, SATA
+= 3, QSGMII
+
+> 11, 1, SEL_CLKREQ ; CLKREQ for PIPE PHY source selection. Override value is selected for PIPE PHY interface. Because the CLKREQ is valid when high, so the pipe_mac_pclkreq_n should set to "0" when sel_pipe_mac_pclkreq_n is set to "1".
+= 0, CONTROLLER ; From controller side(Controller/Constant/PD GRF/PHY GRF)
+= 1, GPIO_MUX ; From GPIO mux for CLKREQ_N
+
+> 10, 1, SEL_RXELECIDLE ; Rxelecidle to controller source selection. Override value is selected for PIPE PHY interface.
+= 0, PIPE_PHY
+= 1, RXELECIDLE_DISABLE ; When rxelecidle_disable is high, rxelecidle return "1" to controller
+
+> 8, 2, PHY_CLK_REF_SRC ; Combo PHY PIPE reference clock source selection.
+= 0, PLL_CKREF_INNER ; Use PLL_CKREF_INNER as reference clock source, CKREFP/N is not active, the PAD can be floating
+= 1, CKREFP_N ; Use CKREFP/N as input reference clock source
+= 2, PLL_CKREF_INNER_CKREFP_N ; Use PLL_CKREF_INNER (From SoC CRU) as reference clock source, Use CKREFP/N as output clock to provide a differential 100M reference clock in PCIe mode while PIPE PHY CLKREQ is high.
+= 3, NOT_ALLOWED
+
+> 3, 1, SEL_PIPE_TXPATTERN_SATA ; pipe_txpattern_sata selection. Override value is selected for PIPE PHY interface.
+= 0, CONTROLLER ; From controller side (Controller/Constant/PD GRF)
+= 1, PHY_GRF
+
+> 2, 1, SEL_PIPE_TXMARGIN ; pipe_txmargin selection. Override value is selected for PIPE PHY interface.
+= 0, CONTROLLER ; From controller side (Controller/Constant/PD GRF)
+= 1, PHY_GRF
+
+> 1, 1, SEL_PIPE_TXDEEMPH ; pipe_txdeemph selection. Override value is selected for PIPE PHY interface.
+= 0, CONTROLLER ; From controller side (Controller/Constant/PD GRF)
+= 1, PHY_GRF
+
+> 0, 1, SEL_PIPE_TXSWING ; pipe_txswing selection. Override value is selected select for PIPE PHY interface.
+= 0, CONTROLLER ; From controller side (Controller/Constant/PD GRF)
+= 1, PHY_GRF
+
+PIPE_CON4 = 0x0010 ; PIPE Combo PHY Configuration Register 4
+> 8, 1, PIPE_TXDEEMPH_EXT ; Extra direct control the txdeemph bit3.
+
+> 4, 4, BIST_MODE ; BIST mode test in normal operation.
+= 0, NORMAL ; PHY Normal operation, default value of BIST_MODE
+= 8, EXT_BIST ; PHY external BIST from TXP/TXN to RXP/RXN
+= 9, INT_BIST ; PHY internal BIST
+= 10, TXP0_TXN1 ; PHY send 1'b0 on TXP and 1'b1 on TXN (only for VOL test)
+= 12, TXP1_TXN0 ; PHY send 1'b1 on TXP and 1'b0 on TXN (only for VOH test)
+= 14, D10_2 ; PHY send D10.2 (only for Eye-Diagram test)
+
+> 2, 2, SERDES_ARCH ; This signal indicates whether Serdes architecture and SATA low latency is enabled.
+= 0, NORMAL ; PCIe/USB/SATA normal working
+= 1, SATA_SAPIS ; Used for SATA SAPIS compliant controller, that bypass PHY elastic buffer to reduce latency, RX_DATA is the result of comma align.
+= 2, RX_CDR ; General serdes mode and RX_DATA is the result of CDR in PMA
+= 3, RX_COMMA ; General serdes mode and RX_DATA is the result of comma align
+
+> 0, 2, PIPE_POWERDOWN_4P3 ; For PIPE4.3 interface, the powerdown are 4 bit, the field is for powerdown[3:2]. Override value when override enable is selected.
+
+PIPE_STATUS1 = 0x0034, RO ; PIPE Combo PHY Status Register1
+> 9, 1, PIPE_CLKREQ_N ; Indicates that the PHY is in corresponding state to L1-sub-state in PCIE mode, during which PHY reference clock could be turned off. This signal could connect to corresponding signal in controller IP, if applicable.
+
+> 8, 1, PIPE_POWER_PRESETN ; Reserved
+
+> 7, 1, PIPE_RXELECIDLE_O ; Indicates receiver detection of an electrical idle. When de- asserted with the PHY in P2 (PCIE Mode), indicates a detection of beacon, while indicate exit from electrical idle in other power states in PCIe mode. In USB3.0 mode, it indicates the detection of LFPS. In SATA mode, it indicates if there is no data/OOB received.
+
+> 6, 1, PIPE_PHYSTATUS_O ; Used to communicate completion of several PHY functions including power management state transitions, rate change and receiver detection.
+
+> 3, 3, PIPE_RXSTATUS_O ; PIPE PHY receiver status. Encode receiver status and error codes for the received data stream when receiving data.
+= 0, OK ; Received data OK
+= 1, SKP_ADDED ; PCIe mode, 1 SKP added; USB mode: 1 SKP added; SATA mode: 1 ALIGN added Asseted width first byte of Align that was added
+= 2, SKP_REMOVED ; PCIe mode: 1 SKP Ordered set removed; 1 SKP Ordered Set removed; SATA mode: 1 or more ALIGNs
+= 3, RECEIVER_DETECTED ; PCIe and USB mode: Receiver detected
+= 4, DECODE_ERROR ; 8B/10B decode error
+= 5, ELASTIC_OVERFLOW ; Elastic buffer overflow
+= 6, ELASTIC_UNDERFLOW ; Elastic buffer under flow, this error code is not used if the elastic buffer is operating in the nominal buffer empty mode
+= 7, DISPARITY_ERROR ; Receive disparity error, overwritten by decode error
+
+LFPS_DET_CON = 0x0080 ; PIPE Combo PHY LFPS Detect Control Register
+> 0, 8, LFPS_DETECT_CON ; LFPS Detect Count Filter Control. This counter determines whether a rxelecidle (high pulse) is valid or not. The counter is based on Combo PIPE PHY APB PCLK.
+
+PHY_INT_EN = 0x00A0 ; PIPE Combo PHY Interrupt Signal Enable
+> 2, 1, RXELECIDLE_L1_FALL_IRQ_EN ; rxelecidle_l1_fall irq enable. Reserved for current PHY.
+= 0, DISABLE ; IRQ disable
+= 1, ENABLE ; IRQ enable
+
+> 0, 2, RXELECIDLE_L0_FALL_IRQ_EN ; rxelecidle_l0_fall irq enable.
+= 0, DISABLE ; IRQ disable
+= 1, ENABLE ; IRQ enable
+
+PHY_INT_STATUS = 0x00A4, W1C ; PIPE Combo PHY Interrupt Status
+> 1, 1, RXELECIDLE_L1_FALL_IRQ_ST ; rxelecidle_l1_fall irq status. Reserved for current PHY.
+= 0, INACTIVE ; Interrupt inactive
+= 1, ACTIVE ; Interrupt active
+
+> 0, 1, RXELECIDLE_L0_FALL_IRQ_ST ; rxelecidle_l0_fall irq status.
+= 0, INACTIVE ; Interrupt inactive
+= 1, ACTIVE ; Interrupt active
+
