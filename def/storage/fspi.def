@@ -488,7 +488,7 @@ XMMCSR = 0x0094 ; Memory Mapped Status Register
 = 0, NORMAL_STATE
 = 1, ADDRESS_SLOP_OVER
 
-CMD = 0x0100, WO ; Indirect Command Register
+CMD = 0x0100 ; Indirect Command Register
 > 30, 2, CS ; Device Chip Select.
 = 0, CHIP_SELECT_0
 = 1, CHIP_SELECT_1
