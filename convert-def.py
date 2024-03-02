@@ -699,8 +699,8 @@ def generate_access_macros(f, struct, name, indent):
     f.write("// Same as %s_ENUM_BITS_VALUE but applies the corresponding RockChip write mask.\n" % name)
     f.write(insert_indent('#define %s_ENUM_BITS_VALUE_WM(r, b, v)' % name,    '(%s(v) | (%s_##r##_##b##_MASK << 16))\n' % (set_macro, struct), indent))
 
-    f.write("// Reads register 'r' and returns the value of bitfield 'b'.\n")
-    f.write(insert_indent('#define %s_ENUM_GET(r, b)' % name,                 '(%s(%s->r))\n' % (get_macro, name), indent))
+    f.write("// Returns the value of bitfield 'b' of register 'r' from value 'v'.\n")
+    f.write(insert_indent('#define %s_ENUM_GET(v, r, b)' % name,              '(%s(v))\n' % get_macro, indent))
 
     f.write("// Returns the integer value of the enum 'e' for bitfield 'b' of register 'r'.\n")
     f.write(insert_indent('#define %s_ENUM_VALUE(r, b, e)' % name,            '(%s_##r##_##b##_VALUE_##e)\n'% struct, indent))
