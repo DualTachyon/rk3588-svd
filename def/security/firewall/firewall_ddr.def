@@ -5359,67 +5359,67 @@ MST41 = 0x00E4
 = 1, DENY
 = 0, ACCEPT
 
-> 15, 1, RGN15_CPU
+> 15, 1, RGN15_VOP
 = 1, DENY
 = 0, ACCEPT
 
-> 14, 1, RGN14_CPU
+> 14, 1, RGN14_VOP
 = 1, DENY
 = 0, ACCEPT
 
-> 13, 1, RGN13_CPU
+> 13, 1, RGN13_VOP
 = 1, DENY
 = 0, ACCEPT
 
-> 12, 1, RGN12_CPU
+> 12, 1, RGN12_VOP
 = 1, DENY
 = 0, ACCEPT
 
-> 11, 1, RGN11_CPU
+> 11, 1, RGN11_VOP
 = 1, DENY
 = 0, ACCEPT
 
-> 10, 1, RGN10_CPU
+> 10, 1, RGN10_VOP
 = 1, DENY
 = 0, ACCEPT
 
-> 9, 1, RGN9_CPU
+> 9, 1, RGN9_VOP
 = 1, DENY
 = 0, ACCEPT
 
-> 8, 1, RGN8_CPU
+> 8, 1, RGN8_VOP
 = 1, DENY
 = 0, ACCEPT
 
-> 7, 1, RGN7_CPU
+> 7, 1, RGN7_VOP
 = 1, DENY
 = 0, ACCEPT
 
-> 6, 1, RGN6_CPU
+> 6, 1, RGN6_VOP
 = 1, DENY
 = 0, ACCEPT
 
-> 5, 1, RGN5_CPU
+> 5, 1, RGN5_VOP
 = 1, DENY
 = 0, ACCEPT
 
-> 4, 1, RGN4_CPU
+> 4, 1, RGN4_VOP
 = 1, DENY
 = 0, ACCEPT
 
-> 3, 1, RGN3_CPU
+> 3, 1, RGN3_VOP
 = 1, DENY
 = 0, ACCEPT
 
-> 2, 1, RGN2_CPU
+> 2, 1, RGN2_VOP
 = 1, DENY
 = 0, ACCEPT
 
-> 1, 1, RGN1_CPU
+> 1, 1, RGN1_VOP
 = 1, DENY
 = 0, ACCEPT
 
-> 0, 1, RGN0_CPU
+> 0, 1, RGN0_VOP
 = 1, DENY
 = 0, ACCEPT
 
