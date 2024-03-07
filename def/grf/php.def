@@ -337,7 +337,7 @@ GMAC0_SID_AW = 0x0074 ; GMAC0 SID control for AW channel
 
 > 0, 16, GMAC0_AW_SID ; GMAC0 aw sid for MMU. This is used for PHP MMU.
 
-GMAC0_SSID_AW = 0x0078 ; GMAC1 SSID control for AW channel
+GMAC0_SSID_AW = 0x0078 ; GMAC0 SSID control for AW channel
 > 0, 20, GMAC0_AW_SSID ; GMAC0 aw ssid for MMU. This is used for PHP MMU.
 
 GMAC1_SID_AW = 0x007C ; GMAC1 SID control for AW channel
@@ -460,7 +460,7 @@ GMAC_CON_PST = 0x00D4 ; GMAC media clock generation control
 GMAC0_CMD = 0x00D8 ; GMAC0 command
 > 0, 1, GMAC0_MCGR_DMA_ACK_CMD ; If write this be written to 1, a pulse will be set to GMAC0.
 
-GMAC1_CMD = 0x00DC ; GMAC0 command
+GMAC1_CMD = 0x00DC ; GMAC1 command
 > 0, 1, GMAC1_MCGR_DMA_ACK_CMD ; If write this be written to 1, a pulse will be set to GMAC1.
 
 MEM_CON11 = 0x00E0 ; PHP memory configuration signal for hdspra
