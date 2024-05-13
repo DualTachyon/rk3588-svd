@@ -11,7 +11,6 @@ all: $(TARGET)
 
 $(TARGET): $(DEFS)
 	./convert-def.py --headers -o include -i $^
-	rsync --delete -r include pi-nas:/home/www/html/files/RockChip/include
 	./convert-def.py --svd $(FLAGS) -o $@ -i $^
 	xmllint --schema CMSIS-SVD.xsd --noout $@
 
