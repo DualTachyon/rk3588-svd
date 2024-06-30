@@ -48,3 +48,5 @@ ISTAT = 0x0014
 
 RAND$ = 0x0020, @8
 
+AUTO_RQSTS = 0x0060
+
