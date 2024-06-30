@@ -2,14 +2,10 @@
 @ = 0x0FE398000, 0x00008000
 
 CTRL = 0x0000
-> 2, 1, SEED
-= 1, SET
-
-> 1, 1, RAND
-= 1, SET
-
-> 0, 1, NOP
-= 1, SET
+> 0, 2, CMD
+= 2, SEED
+= 1, RAND
+= 0, NOP
 
 STAT = 0x0004
 > 31, 1, RESEEDING
