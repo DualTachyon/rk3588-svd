@@ -1,3 +1,50 @@
 [TRNG_S, security/crypto]
 @ = 0x0FE398000, 0x00008000
 
+CTRL = 0x0000
+> 2, 1, SEED
+= 1, SET
+
+> 1, 1, RAND
+= 1, SET
+
+> 0, 1, NOP
+= 1, SET
+
+STAT = 0x0004
+> 31, 1, RESEEDING
+= 1, SET
+
+> 30, 1, GENERATING
+= 1, SET
+
+> 9, 1, SEEDED
+= 1, SET
+
+MODE = 0x0008
+> 3, 1, LEN
+= 1, 256BIT
+= 0, 128BIT
+
+IE = 0x0010
+> 31, 1, GLBL_EN
+= 1, ENABLE
+
+> 1, 1, SEED_DONE_EN
+= 1, ENABLE
+
+> 0, 1, RAND_RDY_EN
+= 1, ENABLE
+
+ISTAT = 0x0014
+> 31, 1, GLBL
+= 1, SET
+
+> 1, 1, SEED_DONE
+= 1, SET
+
+> 0, 1, RAND_RDY
+= 1, SET
+
+RAND$ = 0x0020, @8
+
