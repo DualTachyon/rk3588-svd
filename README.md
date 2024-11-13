@@ -49,11 +49,11 @@ Check existing .def files for examples.
 
 # Requirements
 
-Python 3 is required to run the def2svd script.
+Python 3 is required to run the convert-def.py script.
 
 # License
 
-Copyright 2023 Dual Tachyon
+Copyright 2024 Dual Tachyon
 https://github.com/DualTachyon
 
 Licensed under the Apache License, Version 2.0 (the "License");
