@@ -676,7 +676,7 @@ def generate_base(f, struct, peripheral, indent):
     suffix = 'LL' if peripheral.size >= 0x100000000 else ''
     f.write(insert_indent('#define %s_SIZE' % peripheral.name, '0x%09XU%s\n' % (peripheral.size, suffix), indent))
     if len(peripheral.registers) > 0:
-        f.write(insert_indent('#define %s' % peripheral.name, '((volatile %s_t *)%s_BASE)\n' % (struct, peripheral.name), indent))
+        f.write(insert_indent('#define %s' % peripheral.name, '((%s_t *)%s_BASE)\n' % (struct, peripheral.name), indent))
     f.write('\n')
 
 def generate_access_macros(f, struct, name, indent):
@@ -762,7 +762,7 @@ def generate_structure(f, peripheral):
     f.write('#pragma pack(1)\n')
     f.write('\n')
 
-    f.write('typedef struct {\n')
+    f.write('typedef volatile struct {\n')
     for offset, registers in sorted(offsets.items()):
         if base < offset:
             if offset - base == 1:
