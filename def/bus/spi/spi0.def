@@ -98,6 +98,8 @@ CTRLR1 = 0x0004 ; Control Register 1
 
 ENR = 0x0008 ; SPI Enable Register
 > 0, 1, ENR ; Enables and disables all SPI operations. Transmit and receive FIFO buffers are cleared when the device is disabled.
+= 0, DISABLE
+= 1, ENABLE
 
 SER = 0x000C ; Slave Enable Register
 > 0, 2, SER ; Slave enable register. The register enable the individual slave select output lines, 2 slave-select output pins are available. This register is valid only when SPI is configured as a master device.
